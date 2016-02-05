@@ -12,10 +12,10 @@ Run command:
 $ npm install screeps-typescript-declarations --save
 ```
 
-Include a link like this:
+Include declaration file in your typescript compiler (usually tsconfig.json), "files" attribute.
 
-```typescript
-/// <reference path="screeps.d.ts" />
+```json
+"files": ["./your_sources_folder/**/*.ts", ""./node_modules/screeps-typescript-declarations/dist/screeps.d.ts"],
 ```
 
 # Contribute
@@ -32,7 +32,7 @@ npm run compile
 
 # Changelog
 
-### v1.1.0 2016-02-05
+### v1.1.1 2016-02-05
 
 - Updated all declarations. Everything should be quite close to Screep's API (with minor exceptions if I missed something accidentally)
 
