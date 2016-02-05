@@ -2,7 +2,7 @@
 
 > The repository for *Screep's* TypeScript type definitions. https://screeps.com/
 
-Also see Screep's Typescript skeleton project (to get Screep development up and running fast: [GitHUB link](https://github.com/MarkoSulamagi/Screeps-typescript-skeleton)
+Also see Screep's Typescript skeleton project to get Screep development up and running fast: [GitHUB link](https://github.com/MarkoSulamagi/Screeps-typescript-skeleton)
 
 # Usage 
 
