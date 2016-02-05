@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es5",
+    "sourceMap": false,
+    "declaration": true,
+    "outFile": "./dist/screeps.ts"
+  },
+  "exclude": ["node_modules", "dist"],
+  "filesGlob": [
+    "./src/**/*.ts"
+  ]
+}
