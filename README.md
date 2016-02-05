@@ -15,7 +15,7 @@ $ npm install screeps-typescript-declarations --save
 Include declaration file in your typescript compiler (usually tsconfig.json), "files" attribute.
 
 ```json
-"files": ["./your_sources_folder/**/*.ts", ""./node_modules/screeps-typescript-declarations/dist/screeps.d.ts"],
+"files": ["./your_sources_folder/**/*.ts", "./node_modules/screeps-typescript-declarations/dist/screeps.d.ts"],
 ```
 
 # Contribute
