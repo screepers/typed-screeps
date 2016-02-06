@@ -34,6 +34,9 @@ npm run compile
 
 # Changelog
 
+### v1.1.2 2016-02-05
+- Fixed createScreep() method return type
+
 ### v1.1.1 2016-02-05
 
 - Updated all declarations. Everything should be quite close to Screep's API (with minor exceptions if I missed something accidentally)
