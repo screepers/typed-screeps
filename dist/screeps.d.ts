@@ -1106,7 +1106,7 @@ interface Spawn {
      * @param name The name of a new creep. It should be unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key). If not defined, a random name will be generated.
      * @param memory The memory of a new creep. If provided, it will be immediately stored into Memory.creeps[name].
      */
-    createCreep(body: string[], name?: string, memory?: any): string | number;
+    createCreep(body: string[], name?: string, memory?: any): number;
     /**
      * Destroy this spawn immediately.
      */
