@@ -313,7 +313,7 @@ interface Creep {
     /**
      * A shorthand to Memory.creeps[creep.name]. You can use it for quick access the creep’s specific memory data object.
      */
-    memory: CreepMemory;
+    memory: any;
     /**
      * Whether it is your creep or foe.
      */
@@ -496,7 +496,7 @@ interface Flag {
     /**
      * A shorthand to Memory.flags[flag.name]. You can use it for quick access the flag's specific memory data object.
      */
-    memory: FlagMemory;
+    memory: any;
     /**
      * Flag’s name. You can choose the name while creating a new flag, and it cannot be changed later. This name is a hash key to access the spawn via the Game.flags object.
      */
@@ -750,25 +750,17 @@ interface Map {
 }
 interface Memory {
     creeps: {
-        [name: string]: CreepMemory;
+        [name: string]: any;
     };
     flags: {
-        [name: string]: FlagMemory;
+        [name: string]: any;
     };
     rooms: {
-        [name: string]: RoomMemory;
+        [name: string]: any;
     };
     spawns: {
-        [name: string]: SpawnMemory;
+        [name: string]: any;
     };
-}
-interface CreepMemory {
-}
-interface FlagMemory {
-}
-interface RoomMemory {
-}
-interface SpawnMemory {
 }
 /**
  * RawMemory object allows to implement your own memory stringifier instead of built-in serializer based on JSON.stringify.
@@ -861,7 +853,7 @@ interface Room {
     /**
      * A shorthand to Memory.rooms[room.name]. You can use it for quick access the room’s specific memory data object.
      */
-    memory: RoomMemory;
+    memory: any;
     /**
      * One of the following constants:
      * MODE_SIMULATION, MODE_SURVIVAL, MODE_WORLD, MODE_ARENA
@@ -1058,7 +1050,7 @@ interface Spawn {
     /**
      * A shorthand to Memory.spawns[spawn.name]. You can use it for quick access the spawn’s specific memory data object.
      */
-    memory: SpawnMemory;
+    memory: any;
     /**
      * Whether it is your spawn or foe.
      */

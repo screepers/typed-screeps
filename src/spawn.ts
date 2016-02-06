@@ -30,7 +30,7 @@ interface Spawn {
     /**
      * A shorthand to Memory.spawns[spawn.name]. You can use it for quick access the spawn’s specific memory data object.
      */
-    memory: SpawnMemory;
+    memory: any;
     /**
      * Whether it is your spawn or foe.
      */

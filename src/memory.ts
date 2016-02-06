@@ -1,11 +1,7 @@
 // Updated 2016-02-05
 interface Memory {
-    creeps: {[name: string]: CreepMemory};
-    flags: {[name: string]: FlagMemory};
-    rooms: {[name: string]: RoomMemory};
-    spawns: {[name: string]: SpawnMemory};
+    creeps: {[name: string]: any};
+    flags: {[name: string]: any};
+    rooms: {[name: string]: any};
+    spawns: {[name: string]: any};
 }
-interface CreepMemory { }
-interface FlagMemory { }
-interface RoomMemory { }
-interface SpawnMemory { }
