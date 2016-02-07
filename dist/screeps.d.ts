@@ -555,11 +555,11 @@ interface Game {
     /**
      * A hash containing all your creeps with creep names as hash keys.
      */
-    creeps: HashTable<Creep>;
+    creeps: any;
     /**
      * A hash containing all your flags with flag names as hash keys.
      */
-    flags: HashTable<Flag>;
+    flags: any;
     /**
      * Your Global Control Level, an object with the following properties :
      */
@@ -571,15 +571,15 @@ interface Game {
     /**
      * A hash containing all the rooms available to you with room names as hash keys.
      */
-    rooms: HashTable<Room>;
+    rooms: any;
     /**
      * A hash containing all your spawns with spawn names as hash keys.
      */
-    spawns: HashTable<Spawn>;
+    spawns: any;
     /**
      * A hash containing all your structures with structure id as hash keys.
      */
-    structures: HashTable<Structure>;
+    structures: any;
     /**
      * System game tick counter. It is automatically incremented on every tick.
      */
@@ -630,9 +630,6 @@ interface ReservationDefinition {
 interface StoreDefinition {
     energy: number;
     power?: number;
-}
-interface HashTable<T> {
-    [key: string]: T;
 }
 /**
  * A dropped piece of energy. It will decay after a while if not picked up.

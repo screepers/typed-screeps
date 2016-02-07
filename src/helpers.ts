@@ -31,10 +31,6 @@ interface StoreDefinition {
     power?: number
 }
 
-interface HashTable<T> {
-    [key: string]: T
-}
-
 /**
  * A dropped piece of energy. It will decay after a while if not picked up.
  */
