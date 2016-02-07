@@ -34,6 +34,10 @@ npm run compile
 
 # Changelog
 
+### v1.1.4 2016-02-07
+- Updated RoomPosition declarations [#1](https://github.com/MarkoSulamagi/Screeps-Typescript-Declarations/issues/1)
+- Removed HashMap from Game interface. It caused migration issues from JS to TS. [#2](https://github.com/MarkoSulamagi/Screeps-Typescript-Declarations/issues/2)
+
 ### v1.1.3 2016-02-06
 - Removed empty memory interfaces
 - Fixed createScreep() method return type
