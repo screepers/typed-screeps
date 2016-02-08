@@ -34,6 +34,11 @@ npm run compile
 
 # Changelog
 
+### v1.2.1 2016-02-08 [ChangeLog](http://support.screeps.com/hc/en-us/articles/206897739-Changelog-2016-02-08)
+- New body part (CLAIM)
+- Documentation updates to support claim
+- Added Creep.dismantle()
+
 ### v1.1.7 2016-02-08
 - Change room.controller and room.storage to correct type
 

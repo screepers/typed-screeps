@@ -146,6 +146,7 @@ declare var ATTACK: string;
 declare var RANGED_ATTACK: string;
 declare var TOUGH: string;
 declare var HEAL: string;
+declare var CLAIM: string;
 
 declare var CONSTRUCTION_COST: {
     spawn: number,

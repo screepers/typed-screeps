@@ -1,6 +1,6 @@
 {
   "name": "screeps-typescript-declarations",
-  "version": "1.1.7",
+  "version": "1.2.1",
   "description": "Typescript declarations for Screeps API. To enable autocomplete and help with compilation",
   "scripts": {
     "compile": "node_modules/.bin/tsc"
