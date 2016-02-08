@@ -34,10 +34,12 @@ npm run compile
 
 # Changelog
 
-### v1.2.1 2016-02-08 [ChangeLog](http://support.screeps.com/hc/en-us/articles/206897739-Changelog-2016-02-08)
+### v1.2.2 2016-02-08 [ChangeLog](http://support.screeps.com/hc/en-us/articles/206897739-Changelog-2016-02-08)
 - New body part (CLAIM)
 - Documentation updates to support claim
 - Added Creep.dismantle()
+
+- Fixed missing NOT_ENOUGH_ENERGY constant
 
 ### v1.1.7 2016-02-08
 - Change room.controller and room.storage to correct type

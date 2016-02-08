@@ -37,6 +37,7 @@ declare var ERR_NAME_EXISTS: number;
 declare var ERR_BUSY: number;
 declare var ERR_NOT_FOUND: number;
 declare var ERR_NOT_ENOUGH_RESOURCES: number;
+declare var ERR_NOT_ENOUGH_ENERGY: number;
 declare var ERR_INVALID_TARGET: number;
 declare var ERR_FULL: number;
 declare var ERR_NOT_IN_RANGE: number;
