@@ -34,7 +34,7 @@ npm run compile
 
 # Changelog
 
-### v1.1.6 2016-02-08
+### v1.1.7 2016-02-08
 - Change room.controller and room.storage to correct type
 
 ### v1.1.5 2016-02-07

@@ -957,7 +957,7 @@ interface Room {
     /**
      * The Controller structure of this room, if present, otherwise undefined.
      */
-    controller: Structure;
+    controller: Controller;
     /**
      * Total amount of energy available in all spawns and extensions in the room.
      */
@@ -982,7 +982,7 @@ interface Room {
     /**
      * The Storage structure of this room, if present, otherwise undefined.
      */
-    storage: Structure;
+    storage: Storage;
     /**
      * An object with survival game info if available
      */
