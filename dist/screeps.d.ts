@@ -797,7 +797,10 @@ interface PathFinder {
     search(origin: RoomPosition, goal: RoomPosition | {
         pos: RoomPosition;
         range: number;
-    }, opts?: PathFinderOps): RoomPosition[];
+    }, opts?: PathFinderOps): {
+        path: RoomPosition[];
+        ops: number;
+    };
     /**
      * Set new memory value.
      * @param isEnabled .

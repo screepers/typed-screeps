@@ -26,7 +26,7 @@ interface PathFinder {
     /**
      * Find an optimal path between origin and goal.
      */
-    search(origin: RoomPosition, goal:  RoomPosition|{pos: RoomPosition, range: number}, opts?:PathFinderOps): RoomPosition[];
+    search(origin: RoomPosition, goal:  RoomPosition|{pos: RoomPosition, range: number}, opts?:PathFinderOps): {path: RoomPosition[], ops:number};
     /**
      * Set new memory value.
      * @param isEnabled .
