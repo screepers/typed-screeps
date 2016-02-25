@@ -34,6 +34,16 @@ npm run compile
 
 # Changelog
 
+### v1.2.2 2016-02-08 [ChangeLog](http://support.screeps.com/hc/en-us/articles/206897739-Changelog-2016-02-08)
+- New body part (CLAIM)
+- Documentation updates to support claim
+- Added Creep.dismantle()
+
+- Fixed missing NOT_ENOUGH_ENERGY constant
+
+### v1.1.7 2016-02-08
+- Change room.controller and room.storage to correct type
+
 ### v1.1.5 2016-02-07
 - Updated RoomPosition declarations [#1](https://github.com/MarkoSulamagi/Screeps-Typescript-Declarations/issues/1)
 - Removed HashMap from Game interface. It caused migration issues from JS to TS. [#2](https://github.com/MarkoSulamagi/Screeps-Typescript-Declarations/issues/2)

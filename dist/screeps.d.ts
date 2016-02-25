@@ -37,6 +37,7 @@ declare var ERR_NAME_EXISTS: number;
 declare var ERR_BUSY: number;
 declare var ERR_NOT_FOUND: number;
 declare var ERR_NOT_ENOUGH_RESOURCES: number;
+declare var ERR_NOT_ENOUGH_ENERGY: number;
 declare var ERR_INVALID_TARGET: number;
 declare var ERR_FULL: number;
 declare var ERR_NOT_IN_RANGE: number;
@@ -120,6 +121,7 @@ declare var ATTACK: string;
 declare var RANGED_ATTACK: string;
 declare var TOUGH: string;
 declare var HEAL: string;
+declare var CLAIM: string;
 declare var CONSTRUCTION_COST: {
     spawn: number;
     extension: number;
@@ -361,11 +363,16 @@ interface Creep {
      */
     cancelOrder(methodName: string): number;
     /**
-     * Claim a neutral controller under your control. The target has to be at adjacent square to the creep.
+     * Requires the CLAIM body part. If applied to a neutral controller, claims it under your control. If applied to a hostile controller, decreases its downgrade or reservation timer depending on the CLAIM body parts count. The target has to be at adjacent square to the creep.
      * @param target The target controller object.
-     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_GCL_NOT_ENOUGH
+     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_FULL, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_GCL_NOT_ENOUGH
      */
     claimController(target: Structure): number;
+    /**
+     * Dismantles any (even hostile) structure returning 50% of the energy spent on its repair. Requires the WORK body part. If the creep has an empty CARRY body part, the energy is put into it; otherwise it is dropped on the ground. The target has to be at adjacent square to the creep.
+     * @param target The target structure.
+     */
+    dismantle(target: Spawn | Structure): number;
     /**
      * Drop this resource on the ground.
      * @param resourceType One of the RESOURCE_* constants.
@@ -380,7 +387,7 @@ interface Creep {
     dropEnergy(amount?: number): number;
     /**
      * Get the quantity of live body parts of the given type. Fully damaged parts do not count.
-     * @param type A body part type, one of the following body part constants: MOVE, WORK, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH
+     * @param type A body part type, one of the following body part constants: MOVE, WORK, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH, CLAIM
      */
     getActiveBodyparts(type: string): number;
     /**
@@ -448,8 +455,9 @@ interface Creep {
      */
     repair(target: Spawn | Structure): number;
     /**
-     * Temporarily block a neutral controller from claiming by other players. Each tick, this command spends 1 energy units and increases the counter of the period during which the controller is unavailable by 5 ticks. The maximum reservation period to maintain is 5,000 ticks. Reserving controllers raises your Global Control Level in parallel. Needs at least 40xWORK and 1xCARRY body parts. The target has to be at adjacent square to the creep.
+     * Temporarily block a neutral controller from claiming by other players. Each tick, this command increases the counter of the period during which the controller is unavailable by 1 tick per each CLAIM body part. The maximum reservation period to maintain is 5,000 ticks. The target has to be at adjacent square to the creep....
      * @param target The target controller object to be reserved.
+     * @return Result code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
      */
     reserveController(target: Controller): number;
     /**
@@ -1243,13 +1251,13 @@ interface Spawn {
     };
     /**
      * Check if a creep can be created.
-     * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of these constants: WORK, MOVE, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH
+     * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of these constants: WORK, MOVE, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH, CLAIM
      * @param name The name of a new creep. It should be unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key). If not defined, a random name will be generated.
      */
     canCreateCreep(body: string[], name?: string): number;
     /**
      * Start the creep spawning process.
-     * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of these constants: WORK, MOVE, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH
+     * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of these constants: WORK, MOVE, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH, CLAIM
      * @param name The name of a new creep. It should be unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key). If not defined, a random name will be generated.
      * @param memory The memory of a new creep. If provided, it will be immediately stored into Memory.creeps[name].
      */
