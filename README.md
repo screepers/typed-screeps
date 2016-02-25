@@ -60,7 +60,7 @@ Unfortunately other changes in that changelog are not added yet. We're working o
 
 ## Authors
 
-* **Marko Sulamägi** - *Converted Cameron's work to quickly installable TS skeleton app. Trying to keep API up to date* - [MarkoSulamagi](https://github.com/MarkoSulamagi)
+* **Marko Sulamägi** - *Converted Cameron's work to quickly installable TS skeleton app.* - [MarkoSulamagi](https://github.com/MarkoSulamagi)
 * **vanhouc** - *Screep project with TS functionality. His gulpfile and screep.d.ts was very useful.* - [vanhouc](https://github.com/vanhouc)
 * **Nhan Ho** - *Helpful contributor* - [NhanHo](https://github.com/NhanHo)
 
