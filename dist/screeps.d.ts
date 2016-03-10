@@ -272,6 +272,7 @@ declare var Source: Source;
 declare var Spawn: Spawn;
 declare var Structure: Structure;
 declare var ConstructionSite: any;
+declare var PathFinder: PathFinder;
 /**
  * Creeps are your units. Creeps can move, harvest energy, construct structures, attack another creeps, and perform other actions. Each creep consists of up to 50 body parts with the following possible types:
  */
@@ -523,6 +524,10 @@ interface Flag {
      */
     roomName: string;
     /**
+     * Flag secondary color. One of the COLOR_* constants.
+     */
+    secondaryColor: string;
+    /**
      * Remove the flag.
      * @returns Result Code: OK
      */
@@ -530,9 +535,10 @@ interface Flag {
     /**
      * Set new color of the flag.
      * @param color One of the following constants: COLOR_WHITE, COLOR_GREY, COLOR_RED, COLOR_PURPLE, COLOR_BLUE, COLOR_CYAN, COLOR_GREEN, COLOR_YELLOW, COLOR_ORANGE, COLOR_BROWN
+     * @parma secondaryColor Secondary color of the flag. One of the COLOR_* constants.
      * @returns Result Code: OK, ERR_INVALID_ARGS
      */
-    setColor(color: string): number;
+    setColor(color: string, secondaryColor?: string): number;
     /**
      * Set new position of the flag.
      * @param x The X position in the room.
@@ -752,6 +758,18 @@ interface Map {
      * Check if the room with the given name is protected by temporary "newbie" walls.
      * @param roomName The room name.
      */
+    /**
+     * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
+     * @param x X position in the room.
+     * @param y Y position in the room.
+     * @param roomName The room name.
+     */
+    getTerrainAt(x: number, y: number, roomName: string): string;
+    /**
+     * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
+     * @param pos The position object.
+     */
+    getTerrainAt(pos: RoomPosition): string;
     isRoomProtected(roomName: string): boolean;
 }
 interface Memory {
@@ -772,27 +790,17 @@ interface Memory {
  * Contains powerful methods for pathfinding in the game world. Support exists for custom navigation costs and paths which span multiple rooms.
  * Additionally PathFinder can search for paths through rooms you can't see, although you won't be able to detect any dynamic obstacles like creeps or buildings.
  */
-declare var PathFinder: PathFinder;
-interface PathFinderOps {
-    roomCallback(roomName: string): CostMatrix;
-    plainCost: number;
-    swampCost: number;
-    flee: boolean;
-    maxOps: number;
-    maxRooms: number;
-    heuristicWeight: number;
-}
-interface CostMatrix {
-    set(x: number, y: number, cost: number): any;
-    get(x: number, y: number): any;
-    clone(): CostMatrix;
-    serialize(): number[];
-    deserialize(val: number[]): CostMatrix;
-}
 interface PathFinder {
+    /**
+     * Container for custom navigation cost data.
+     */
     CostMatrix: CostMatrix;
     /**
      * Find an optimal path between origin and goal.
+     *
+     * @param origin The start position.
+     * @param goal A goal or an array of goals. If more than one goal is supplied then the cheapest path found out of all the goals will be returned.
+     * @param opts An object containing additional pathfinding flags.
      */
     search(origin: RoomPosition, goal: RoomPosition | {
         pos: RoomPosition;
@@ -802,13 +810,89 @@ interface PathFinder {
         ops: number;
     };
     /**
-     * Set new memory value.
-     * @param isEnabled .
      * Specify whether to use this new experimental pathfinder in game objects methods.
      * This method should be invoked every tick. It affects the following methods behavior:
      * Room.findPath, RoomPosition.findPathTo, RoomPosition.findClosestByPath, Creep.moveTo....
+     *
+     * @param isEnabled Whether to activate the new pathfinder or deactivate.
      */
     use(isEnabled: boolean): any;
+}
+/**
+ * An object containing additional pathfinding flags.
+ */
+interface PathFinderOps {
+    /**
+     * Cost for walking on plain positions. The default is 1.
+     */
+    plainCost: number;
+    /**
+     * Cost for walking on swamp positions. The default is 5.
+     */
+    swampCost: number;
+    /**
+     * Instead of searching for a path to the goals this will search for a path away from the goals.
+     * The cheapest path that is out of range of every goal will be returned. The default is false.
+     */
+    flee: boolean;
+    /**
+     * The maximum allowed pathfinding operations. You can limit CPU time used for the search based on ratio 1 op ~ 0.001 CPU. The default value is 2000.
+     */
+    maxOps: number;
+    /**
+     * The maximum allowed rooms to search. The default (and maximum) is 16.
+     */
+    maxRooms: number;
+    /**
+     * Weight to apply to the heuristic in the A* formula F = G + weight * H. Use this option only if you understand
+     * the underlying A* algorithm mechanics! The default value is 1.
+     */
+    heuristicWeight: number;
+    /**
+     * Request from the pathfinder to generate a CostMatrix for a certain room. The callback accepts one argument, roomName.
+     * This callback will only be called once per room per search. If you are running multiple pathfinding operations in a
+     * single room and in a single tick you may consider caching your CostMatrix to speed up your code. Please read the
+     * CostMatrix documentation below for more information on CostMatrix.
+     *
+     * @param roomName
+     */
+    roomCallback(roomName: string): CostMatrix;
+}
+/**
+ * Container for custom navigation cost data.
+ */
+interface CostMatrix {
+    /**
+     * Creates a new CostMatrix containing 0's for all positions.
+     * @constructor
+     */
+    CostMatrix(): void;
+    /**
+     * Set the cost of a position in this CostMatrix.
+     * @param x X position in the room.
+     * @param y Y position in the room.
+     * @param cost Cost of this position. Must be a whole number. A cost of 0 will use the terrain cost for that tile. A cost greater than or equal to 255 will be treated as unwalkable.
+     */
+    set(x: number, y: number, cost: number): any;
+    /**
+     * Get the cost of a position in this CostMatrix.
+     * @param x X position in the room.
+     * @param y Y position in the room.
+     */
+    get(x: number, y: number): any;
+    /**
+     * Copy this CostMatrix into a new CostMatrix with the same data.
+     */
+    clone(): CostMatrix;
+    /**
+     * Returns a compact representation of this CostMatrix which can be stored via JSON.stringify.
+     */
+    serialize(): number[];
+    /**
+     * Static method which deserializes a new CostMatrix using the return value of serialize.
+     * @param val Whatever serialize returned
+     */
+    deserialize(val: number[]): CostMatrix;
 }
 /**
  * RawMemory object allows to implement your own memory stringifier instead of built-in serializer based on JSON.stringify.
@@ -860,8 +944,9 @@ interface RoomPosition {
      * Create new Flag at the specified location.
      * @param name The name of a new flag. It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key). If not defined, a random name will be generated.
      * @param color The color of a new flag. Should be one of the COLOR_* constants
+     * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      */
-    createFlag(name?: string, color?: string): number;
+    createFlag(name?: string, color?: string, secondaryColor?: string): number;
     /**
      * Find an object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
      * @param type See Room.find
@@ -1059,16 +1144,20 @@ interface Room {
      * @param x The X position.
      * @param y The Y position.
      * @param name (optional) The name of a new flag. It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key). If not defined, a random name will be generated.
+     * @param color The color of a new flag. Should be one of the COLOR_* constants. The default value is COLOR_WHITE.
+     * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      */
-    createFlag(x: number, y: number, name: string, color: string): number;
+    createFlag(x: number, y: number, name: string, color: string, secondaryColor?: string): number;
     /**
      * Create new Flag at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
      * @param name (optional) The name of a new flag. It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key). If not defined, a random name will be generated.
+     * @param color The color of a new flag. Should be one of the COLOR_* constants. The default value is COLOR_WHITE.
+     * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      */
     createFlag(pos: RoomPosition | {
         pos: RoomPosition;
-    }, name: string, color: string): number;
+    }, name: string, color: string, secondaryColor?: string): number;
     /**
      * Find all objects of the specified type in the room.
      * @param type One of the following constants:FIND_CREEPS, FIND_MY_CREEPS, FIND_HOSTILE_CREEPS, FIND_MY_SPAWNS, FIND_HOSTILE_SPAWNS, FIND_SOURCES, FIND_SOURCES_ACTIVE, FIND_DROPPED_ENERGY, FIND_STRUCTURES, FIND_MY_STRUCTURES, FIND_HOSTILE_STRUCTURES, FIND_FLAGS, FIND_CONSTRUCTION_SITES, FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT, FIND_EXIT
@@ -1270,6 +1359,10 @@ interface Spawn {
      */
     destroy(): number;
     /**
+     * Check whether this structure can be used. If the room controller level is not enough, then this method will return false, and the structure will be highlighted with red in the game.
+     */
+    isActive(): boolean;
+    /**
      * Toggle auto notification when the spawn is under attack. The notification will be sent to your account email. Turned on by default.
      * @param enabled Whether to enable notification or disable.
      */
@@ -1330,6 +1423,10 @@ interface Structure {
      * Destroy this structure immediately.
      */
     destroy(): number;
+    /**
+     * Check whether this structure can be used. If the room controller level is not enough, then this method will return false, and the structure will be highlighted with red in the game.
+     */
+    isActive(): boolean;
     /**
      * Toggle auto notification when the structure is under attack. The notification will be sent to your account email. Turned on by default.
      * @param enabled Whether to enable notification or disable.

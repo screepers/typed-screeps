@@ -32,6 +32,10 @@ interface Flag {
      */
     roomName: string;
     /**
+     * Flag secondary color. One of the COLOR_* constants.
+     */
+    secondaryColor: string;
+    /**
      * Remove the flag.
      * @returns Result Code: OK
      */
@@ -39,9 +43,10 @@ interface Flag {
     /**
      * Set new color of the flag.
      * @param color One of the following constants: COLOR_WHITE, COLOR_GREY, COLOR_RED, COLOR_PURPLE, COLOR_BLUE, COLOR_CYAN, COLOR_GREEN, COLOR_YELLOW, COLOR_ORANGE, COLOR_BROWN
+     * @parma secondaryColor Secondary color of the flag. One of the COLOR_* constants.
      * @returns Result Code: OK, ERR_INVALID_ARGS
      */
-    setColor(color: string): number;
+    setColor(color: string, secondaryColor?: string): number;
     /**
      * Set new position of the flag.
      * @param x The X position in the room.

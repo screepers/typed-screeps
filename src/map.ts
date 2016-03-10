@@ -31,5 +31,18 @@ interface Map {
      * Check if the room with the given name is protected by temporary "newbie" walls.
      * @param roomName The room name.
      */
+    /**
+     * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
+     * @param x X position in the room.
+     * @param y Y position in the room.
+     * @param roomName The room name.
+     */
+    getTerrainAt(x: number, y: number, roomName: string): string;
+    /**
+     * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
+     * @param pos The position object.
+     */
+    getTerrainAt(pos: RoomPosition): string;
+
     isRoomProtected(roomName: string): boolean
 }
