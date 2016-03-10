@@ -35,7 +35,7 @@ npm run compile
 # Changelog
 
 ### v1.3.1 2016-02-25 [PathFinder](http://support.screeps.com/hc/en-us/articles/207023879-PathFinder)
-- NhanHo added new PathFinder interface [ChangeLog](http://support.screeps.com/hc/en-us/articles/207728995-Changelog-2016-02-19)
+- NhanHo added new PathFinder interface [ChangeLog](http://support.screeps.com/hc/en-us/articles/207728995-Changelog-2016-02-19). 
 Unfortunately other changes in that changelog are not added yet. We're working on it
 
 ### v1.2.2 2016-02-08 [ChangeLog](http://support.screeps.com/hc/en-us/articles/206897739-Changelog-2016-02-08)
