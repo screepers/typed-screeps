@@ -990,7 +990,7 @@ interface CostMatrix {
      * Creates a new CostMatrix containing 0's for all positions.
      * @constructor
      */
-    CostMatrix(): void;
+    new (): CostMatrix;
     /**
      * Set the cost of a position in this CostMatrix.
      * @param x X position in the room.
