@@ -34,6 +34,11 @@ npm run compile
 
 # Changelog
 
+### v1.4.1 2016-03-10 [ChangeLog](http://support.screeps.com/hc/en-us/articles/207929925)
+- Added Extractor, Lab, Terminal, Market, Mineral objects
+- New constants
+- Read more from docs
+
 ### v1.3.2 2016-03-10 [ChangeLog](http://support.screeps.com/hc/en-us/articles/207023879-PathFinder)
 - Updated all interfaces from 19.02 changelog and added docs to PathFinder [ChangeLog](http://support.screeps.com/hc/en-us/articles/207728995-Changelog-2016-02-19). 
 

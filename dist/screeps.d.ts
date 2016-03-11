@@ -22,6 +22,7 @@ declare var FIND_MY_CONSTRUCTION_SITES: number;
 declare var FIND_HOSTILE_CONSTRUCTION_SITES: number;
 declare var FIND_MY_SPAWNS: number;
 declare var FIND_HOSTILE_SPAWNS: number;
+declare var FIND_MINERALS: number;
 declare var TOP: number;
 declare var TOP_RIGHT: number;
 declare var RIGHT: number;
@@ -145,8 +146,52 @@ declare var STRUCTURE_TOWER: string;
 declare var STRUCTURE_OBSERVER: string;
 declare var STRUCTURE_POWER_BANK: string;
 declare var STRUCTURE_POWER_SPAWN: string;
+declare var STRUCTURE_EXTRACTOR: string;
+declare var STRUCTURE_LAB: string;
+declare var STRUCTURE_TERMINAL: string;
 declare var RESOURCE_ENERGY: string;
 declare var RESOURCE_POWER: string;
+declare var RESOURCE_UTRIUM: string;
+declare var RESOURCE_LEMERGIUM: string;
+declare var RESOURCE_KEANIUM: string;
+declare var RESOURCE_GHODIUM: string;
+declare var RESOURCE_ZYNTHIUM: string;
+declare var RESOURCE_OXYGEN: string;
+declare var RESOURCE_HYDROGEN: string;
+declare var RESOURCE_CATALYST: string;
+declare var RESOURCE_HYDROXIDE: string;
+declare var RESOURCE_ZYNTHIUM_KEANITE: string;
+declare var RESOURCE_UTRIUM_LEMERGITE: string;
+declare var RESOURCE_UTRIUM_HYDRIDE: string;
+declare var RESOURCE_UTRIUM_OXIDE: string;
+declare var RESOURCE_KEANIUM_HYDRIDE: string;
+declare var RESOURCE_KEANIUM_OXIDE: string;
+declare var RESOURCE_LEMERGIUM_HYDRIDE: string;
+declare var RESOURCE_LEMERGIUM_OXIDE: string;
+declare var RESOURCE_ZYNTHIUM_HYDRIDE: string;
+declare var RESOURCE_ZYNTHIUM_OXIDE: string;
+declare var RESOURCE_GHODIUM_HYDRIDE: string;
+declare var RESOURCE_GHODIUM_OXIDE: string;
+declare var RESOURCE_UTRIUM_ACID: string;
+declare var RESOURCE_UTRIUM_ALKALIDE: string;
+declare var RESOURCE_KEANIUM_ACID: string;
+declare var RESOURCE_KEANIUM_ALKALIDE: string;
+declare var RESOURCE_LEMERGIUM_ACID: string;
+declare var RESOURCE_LEMERGIUM_ALKALIDE: string;
+declare var RESOURCE_ZYNTHIUM_ACID: string;
+declare var RESOURCE_ZYNTHIUM_ALKALIDE: string;
+declare var RESOURCE_GHODIUM_ACID: string;
+declare var RESOURCE_GHODIUM_ALKALIDE: string;
+declare var RESOURCE_CATALYZED_UTRIUM_ACID: string;
+declare var RESOURCE_CATALYZED_UTRIUM_ALKALIDE: string;
+declare var RESOURCE_CATALYZED_KEANIUM_ACID: string;
+declare var RESOURCE_CATALYZED_KEANIUM_ALKALIDE: string;
+declare var RESOURCE_CATALYZED_LEMERGIUM_ACID: string;
+declare var RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE: string;
+declare var RESOURCE_CATALYZED_ZYNTHIUM_ACID: string;
+declare var RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: string;
+declare var RESOURCE_CATALYZED_GHODIUM_ACID: string;
+declare var RESOURCE_CATALYZED_GHODIUM_ALKALIDE: string;
 declare var RESOURCES_ALL: string[];
 declare var CONTROLLER_STRUCTURES: {
     spawn: {
@@ -584,6 +629,10 @@ interface Game {
      */
     map: Map;
     /**
+     * A global object representing the in-game market.
+     */
+    market: Market;
+    /**
      * A hash containing all the rooms available to you with room names as hash keys.
      */
     rooms: any;
@@ -631,8 +680,21 @@ interface CPU {
      */
     getUsed(): number;
 }
+/**
+ * An array describing the creep’s body. Each element contains the following properties:
+ */
 interface BodyPartDefinition {
+    /**
+     * If the body part is boosted, this property specifies the mineral type which is used for boosting. One of the RESOURCE_* constants.
+     */
+    boost: string;
+    /**
+     * One of the body part types constants.
+     */
     type: string;
+    /**
+     * The remaining amount of hit points of this body part.
+     */
     hits: number;
 }
 interface Owner {
@@ -772,6 +834,35 @@ interface Map {
     getTerrainAt(pos: RoomPosition): string;
     isRoomProtected(roomName: string): boolean;
 }
+/**
+ * A global object representing the in-game market. You can use this object to track resource transactions to/from your
+ * terminals, and your buy/sell orders (in development). The object is accessible via the singleton Game.market property.
+ */
+interface Market {
+    /**
+     * An array of the last 100 incoming transactions to your terminals
+     */
+    incomingTransactions: Transaction[];
+    /**
+     * An array of the last 100 outgoing transactions from your terminals
+     */
+    outgoingTransactions: Transaction[];
+}
+interface Transaction {
+    transactionId: string;
+    time: number;
+    sender: {
+        username: string;
+    };
+    recipient: {
+        username: string;
+    };
+    resourceType: string;
+    amount: number;
+    from: string;
+    to: string;
+    description: string;
+}
 interface Memory {
     creeps: {
         [name: string]: any;
@@ -785,6 +876,39 @@ interface Memory {
     spawns: {
         [name: string]: any;
     };
+}
+/**
+ * A mineral deposit object. Can be harvested by creeps with a WORK body part using the extractor structure.
+ */
+interface Mineral {
+    /**
+     * The prototype is stored in the Mineral.prototype global object. You can use it to extend game objects behaviour globally.
+     */
+    prototype: Mineral;
+    /**
+     * The remaining amount of resources.
+     */
+    mineralAmount: number;
+    /**
+     * The resource type, one of the RESOURCE_* constants.
+     */
+    mineralType: string;
+    /**
+     * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
+     */
+    id: string;
+    /**
+     * An object representing the position of this structure in the room.
+     */
+    pos: RoomPosition;
+    /**
+     * The link to the Room object of this structure.
+     */
+    room: Room;
+    /**
+     * The remaining time after which the deposit will be refilled.
+     */
+    ticksToRegeneration: number;
 }
 /**
  * Contains powerful methods for pathfinding in the game world. Support exists for custom navigation costs and paths which span multiple rooms.
@@ -1122,6 +1246,10 @@ interface Room {
      * An object with survival game info if available
      */
     survivalInfo: SurvivalGameInfo;
+    /**
+     * The Terminal structure of this room, if present, otherwise undefined.
+     */
+    terminal: Terminal;
     /**
      * Create new ConstructionSite at the specified location.
      * @param x The X position.
@@ -1659,4 +1787,81 @@ interface Wall extends Structure {
      * The amount of game ticks when the wall will disappear (only for automatically placed border walls at the start of the game).
      */
     ticksToLive: number;
+}
+/**
+ * Allows to harvest mineral deposits.
+ */
+interface Extractor extends Structure {
+}
+/**
+ * Produces mineral compounds from base minerals and boosts creeps.
+ */
+interface Lab extends Structure {
+    /**
+     * The amount of energy containing in the lab. Energy is used for boosting creeps.
+     */
+    energy: number;
+    /**
+     * The total amount of energy the lab can contain.
+     */
+    energyCapacity: number;
+    /**
+     * The amount of mineral resources containing in the lab.
+     */
+    mineralAmount: number;
+    /**
+     * The type of minerals containing in the lab. Labs can contain only one mineral type at the same time.
+     */
+    mineralType: number;
+    /**
+     * The total amount of minerals the lab can contain.
+     */
+    mineralCapacity: number;
+    /**
+     * Boosts creep body part using the containing mineral compound. The creep has to be at adjacent square to the lab. Boosting one body part consumes 30 mineral units and 20 energy units.
+     * @param creep The target creep.
+     * @param bodyPartsCount The number of body parts of the corresponding type to be boosted. Body parts are always counted left-to-right for TOUGH, and right-to-left for other types. If undefined, all the eligible body parts are boosted.
+     */
+    boostCreep(creep: Creep, bodyPartsCount?: number): number;
+    /**
+     * Produce mineral compounds using reagents from two another labs. Each lab has to be within 2 squares range. The same input labs can be used by many output labs
+     * @param lab1 The first source lab.
+     * @param lab2 The second source lab.
+     */
+    runReaction(lab1: Lab, lab2: Lab): number;
+    /**
+     * Transfer resource from this structure to a creep. The target has to be at adjacent square.
+     * @param target The target object.
+     * @param resourceType One of the RESOURCE_* constants.
+     * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
+     */
+    transfer(target: Creep, resourceType: string, amount?: number): number;
+}
+/**
+ * 	Sends any resources to a Terminal in another room.
+ */
+interface Terminal extends Structure {
+    /**
+     * An object with the storage contents. Each object key is one of the RESOURCE_* constants, values are resources amounts.
+     */
+    store: any;
+    /**
+     * The total amount of resources the storage can contain.
+     */
+    storeCapacity: number;
+    /**
+     * Sends resource to a Terminal in another room with the specified name.
+     * @param resourceType One of the RESOURCE_* constants.
+     * @param amount The amount of resources to be sent. The minimum amount is 100.
+     * @param destination The name of the target room. You don't have to gain visibility in this room.
+     * @param description The description of the transaction. It is visible to the recipient. The maximum length is 100 characters.
+     */
+    send(resourceType: string, amount: number, destination: string, description?: string): number;
+    /**
+     * Transfer resource from this terminal to a creep. The target has to be at adjacent square.
+     * @param target The target object.
+     * @param resourceType One of the RESOURCE_* constants.
+     * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
+     */
+    transfer(target: Creep, resourceType: String, amount?: number): number;
 }

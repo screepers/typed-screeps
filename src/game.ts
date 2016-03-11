@@ -27,6 +27,10 @@ interface Game {
      */
     map: Map;
     /**
+     * A global object representing the in-game market.
+     */
+    market: Market;
+    /**
      * A hash containing all the rooms available to you with room names as hash keys.
      */
     rooms: any;

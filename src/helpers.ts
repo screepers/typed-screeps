@@ -15,8 +15,21 @@ interface CPU {
     getUsed(): number;
 }
 
+/**
+ * An array describing the creep’s body. Each element contains the following properties:
+ */
 interface BodyPartDefinition {
+    /**
+     * If the body part is boosted, this property specifies the mineral type which is used for boosting. One of the RESOURCE_* constants.
+     */
+    boost: string;
+    /**
+     * One of the body part types constants.
+     */
     type: string;
+    /**
+     * The remaining amount of hit points of this body part.
+     */
     hits: number;
 }
 interface Owner {

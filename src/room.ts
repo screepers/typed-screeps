@@ -38,6 +38,10 @@ interface Room {
      */
     survivalInfo: SurvivalGameInfo;
     /**
+     * The Terminal structure of this room, if present, otherwise undefined.
+     */
+    terminal: Terminal;
+    /**
      * Create new ConstructionSite at the specified location.
      * @param x The X position.
      * @param y The Y position.

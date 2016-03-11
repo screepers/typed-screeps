@@ -286,7 +286,6 @@ interface Tower extends Structure {
      */
     transferEnergy(target: Creep, amount?: number): number;
 }
-// Updated 2016-02-05
 /**
  *
  */
@@ -295,4 +294,82 @@ interface Wall extends Structure {
      * The amount of game ticks when the wall will disappear (only for automatically placed border walls at the start of the game).
      */
     ticksToLive: number;
+}
+/**
+ * Allows to harvest mineral deposits.
+ */
+interface Extractor extends Structure {
+
+}
+/**
+ * Produces mineral compounds from base minerals and boosts creeps.
+ */
+interface Lab extends Structure {
+    /**
+     * The amount of energy containing in the lab. Energy is used for boosting creeps.
+     */
+    energy: number;
+    /**
+     * The total amount of energy the lab can contain.
+     */
+    energyCapacity: number;
+    /**
+     * The amount of mineral resources containing in the lab.
+     */
+    mineralAmount: number;
+    /**
+     * The type of minerals containing in the lab. Labs can contain only one mineral type at the same time.
+     */
+    mineralType: number;
+    /**
+     * The total amount of minerals the lab can contain.
+     */
+    mineralCapacity: number;
+    /**
+     * Boosts creep body part using the containing mineral compound. The creep has to be at adjacent square to the lab. Boosting one body part consumes 30 mineral units and 20 energy units.
+     * @param creep The target creep.
+     * @param bodyPartsCount The number of body parts of the corresponding type to be boosted. Body parts are always counted left-to-right for TOUGH, and right-to-left for other types. If undefined, all the eligible body parts are boosted.
+     */
+    boostCreep(creep: Creep, bodyPartsCount?: number): number;
+    /**
+     * Produce mineral compounds using reagents from two another labs. Each lab has to be within 2 squares range. The same input labs can be used by many output labs
+     * @param lab1 The first source lab.
+     * @param lab2 The second source lab.
+     */
+    runReaction(lab1: Lab, lab2: Lab): number;
+    /**
+     * Transfer resource from this structure to a creep. The target has to be at adjacent square.
+     * @param target The target object.
+     * @param resourceType One of the RESOURCE_* constants.
+     * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
+     */
+    transfer(target: Creep, resourceType: string, amount?: number): number;
+}
+/**
+ * 	Sends any resources to a Terminal in another room.
+ */
+interface Terminal extends Structure {
+    /**
+     * An object with the storage contents. Each object key is one of the RESOURCE_* constants, values are resources amounts.
+     */
+    store: any;
+    /**
+     * The total amount of resources the storage can contain.
+     */
+    storeCapacity: number;
+    /**
+     * Sends resource to a Terminal in another room with the specified name.
+     * @param resourceType One of the RESOURCE_* constants.
+     * @param amount The amount of resources to be sent. The minimum amount is 100.
+     * @param destination The name of the target room. You don't have to gain visibility in this room.
+     * @param description The description of the transaction. It is visible to the recipient. The maximum length is 100 characters.
+     */
+    send(resourceType: string, amount: number, destination: string, description?: string): number;
+    /**
+     * Transfer resource from this terminal to a creep. The target has to be at adjacent square.
+     * @param target The target object.
+     * @param resourceType One of the RESOURCE_* constants.
+     * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
+     */
+    transfer(target: Creep, resourceType: String, amount?: number): number;
 }
