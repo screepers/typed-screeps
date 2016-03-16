@@ -34,6 +34,9 @@ npm run compile
 
 # Changelog
 
+### v1.4.2 2016-03-10
+- Fix for CostMatrix 
+
 ### v1.4.1 2016-03-10 [ChangeLog](http://support.screeps.com/hc/en-us/articles/207929925)
 - Added Extractor, Lab, Terminal, Market, Mineral objects
 - New constants
