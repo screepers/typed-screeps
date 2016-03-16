@@ -34,29 +34,29 @@ interface PathFinderOps {
     /**
      * Cost for walking on plain positions. The default is 1.
      */
-    plainCost: number;
+    plainCost?: number;
     /**
      * Cost for walking on swamp positions. The default is 5.
      */
-    swampCost: number;
+    swampCost?: number;
     /**
      * Instead of searching for a path to the goals this will search for a path away from the goals.
      * The cheapest path that is out of range of every goal will be returned. The default is false.
      */
-    flee: boolean;
+    flee?: boolean;
     /**
      * The maximum allowed pathfinding operations. You can limit CPU time used for the search based on ratio 1 op ~ 0.001 CPU. The default value is 2000.
      */
-    maxOps: number;
+    maxOps?: number;
     /**
      * The maximum allowed rooms to search. The default (and maximum) is 16.
      */
-    maxRooms: number;
+    maxRooms?: number;
     /**
      * Weight to apply to the heuristic in the A* formula F = G + weight * H. Use this option only if you understand
      * the underlying A* algorithm mechanics! The default value is 1.
      */
-    heuristicWeight: number;
+    heuristicWeight?: number;
 
     /**
      * Request from the pathfinder to generate a CostMatrix for a certain room. The callback accepts one argument, roomName.
@@ -66,7 +66,7 @@ interface PathFinderOps {
      *
      * @param roomName
      */
-    roomCallback(roomName: string): CostMatrix;
+    roomCallback?(roomName: string): CostMatrix;
 }
 
 /**
