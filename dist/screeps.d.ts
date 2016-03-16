@@ -615,11 +615,11 @@ interface Game {
     /**
      * A hash containing all your creeps with creep names as hash keys.
      */
-    creeps: any;
+    creeps: Creep[];
     /**
      * A hash containing all your flags with flag names as hash keys.
      */
-    flags: any;
+    flags: Flag[];
     /**
      * Your Global Control Level, an object with the following properties :
      */
@@ -635,15 +635,15 @@ interface Game {
     /**
      * A hash containing all the rooms available to you with room names as hash keys.
      */
-    rooms: any;
+    rooms: Room[];
     /**
      * A hash containing all your spawns with spawn names as hash keys.
      */
-    spawns: any;
+    spawns: Spawn[];
     /**
      * A hash containing all your structures with structure id as hash keys.
      */
-    structures: any;
+    structures: Structure[];
     /**
      * System game tick counter. It is automatically incremented on every tick.
      */
@@ -1309,7 +1309,7 @@ interface Room {
      * @param opts (optional) An object containing additonal pathfinding flags
      * @returns An array with path steps
      */
-    findPath(fromPos: RoomPosition, toPos: RoomPosition, opts?: FindPathOpts): PathStep;
+    findPath(fromPos: RoomPosition, toPos: RoomPosition, opts?: FindPathOpts): PathStep[];
     /**
      * Creates a RoomPosition object at the specified location.
      * @param x The X position.
@@ -1368,6 +1368,18 @@ interface Room {
      * @returns An object with all the objects of the given type in the specified area
      */
     lookForAtArea(type: string, top: number, left: number, bottom: number, right: number): LookAtResultMatrix;
+    /**
+     * Serialize a path array into a short string representation, which is suitable to store in memory.
+     * @param path A path array retrieved from Room.findPath.
+     * @returns A serialized string form of the given path.
+     */
+    serializePath(path: PathStep[]): string;
+    /**
+     * Deserialize a short string path representation into an array form.
+     * @param path A serialized path string.
+     * @returns A path array.
+     */
+    deserializePath(path: string): PathStep[];
 }
 /**
  * An energy source object. Can be harvested by creeps with a WORK body part.
