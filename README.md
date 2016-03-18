@@ -20,6 +20,20 @@ Include declaration file in your typescript compiler (usually tsconfig.json), "f
 "files": ["./your_sources_folder/**/*.ts", "./node_modules/screeps-typescript-declarations/dist/screeps.d.ts"],
 ```
 
+# Usage
+
+Note: When using this API, you can't access creeps in manner suggested in Screeps' tutorial: 
+
+```
+Game.creeps.Worker1  // This is not allowed by TypeScript compiler
+```
+
+Instead, you have to use 
+
+```
+Game.creeps['Worker1']
+```
+
 # Contribute
 
 This library will stay up to date only with the help of you! If active players don't update it, it'll get lost.
@@ -33,6 +47,11 @@ npm run compile
 ```
 
 # Changelog
+
+### v1.4.3 2016-03-18 Commited by NhanHo
+- Added typings for various list of global objects in Game
+- Add serializePath and deserializePath to Room
+- Allow optional argument and properties in transferEnergy and PathFinderOps
 
 ### v1.4.2 2016-03-10
 - Fix for CostMatrix 
