@@ -3,6 +3,7 @@
  * An object representing the room in which your units and structures are in. It can be used to look around, find paths, etc. Every object in the room contains its linked Room instance in the room property.
  */
 interface Room {
+    
     prototype: Room;
     /**
      * The Controller structure of this room, if present, otherwise undefined.
@@ -94,7 +95,7 @@ interface Room {
      * @param opts (optional) An object containing additonal pathfinding flags
      * @returns An array with path steps
      */
-    findPath(fromPos: RoomPosition, toPos: RoomPosition, opts?: FindPathOpts) : PathStep;
+    findPath(fromPos: RoomPosition, toPos: RoomPosition, opts?: FindPathOpts) : PathStep[];
     /**
      * Creates a RoomPosition object at the specified location.
      * @param x The X position.
@@ -149,4 +150,18 @@ interface Room {
      * @returns An object with all the objects of the given type in the specified area
      */
     lookForAtArea(type: string, top: number, left: number, bottom: number, right: number): LookAtResultMatrix;
+
+    /**
+     * Serialize a path array into a short string representation, which is suitable to store in memory.
+     * @param path A path array retrieved from Room.findPath.
+     * @returns A serialized string form of the given path.
+     */
+    serializePath(path: PathStep[]): string;
+
+    /**
+     * Deserialize a short string path representation into an array form.
+     * @param path A serialized path string.
+     * @returns A path array.
+     */
+    deserializePath(path: string): PathStep[];
 }
