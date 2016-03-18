@@ -149,6 +149,7 @@ declare var STRUCTURE_POWER_SPAWN: string;
 declare var STRUCTURE_EXTRACTOR: string;
 declare var STRUCTURE_LAB: string;
 declare var STRUCTURE_TERMINAL: string;
+declare var STRUCTURE_CONTAINER: string;
 declare var RESOURCE_ENERGY: string;
 declare var RESOURCE_POWER: string;
 declare var RESOURCE_UTRIUM: string;
@@ -816,6 +817,13 @@ interface Map {
         exit: string;
         room: string;
     }] | number;
+    /**
+     * Get the linear distance (in rooms) between two rooms. You can use this function to estimate the energy cost of
+     * sending resources through terminals, or using observers and nukes.
+     * @param roomName1 The name of the first room.
+     * @param roomName2 The name of the second room.
+     */
+    getRoomLinearDistance(roomName1: string, roomName2: string): number;
     /**
      * Check if the room with the given name is protected by temporary "newbie" walls.
      * @param roomName The room name.
@@ -1876,4 +1884,25 @@ interface Terminal extends Structure {
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
     transfer(target: Creep, resourceType: String, amount?: number): number;
+}
+/**
+ * 	Contains up to 2,000 resource units. Can be constructed in neutral rooms. Decays for 5,000 hits per 100 ticks.
+ */
+interface Container extends Structure {
+    /**
+     * An object with the structure contents. Each object key is one of the RESOURCE_* constants, values are resources
+     * amounts. Use _.sum(structure.store) to get the total amount of contents
+     */
+    store: any;
+    /**
+     * The total amount of resources the structure can contain.
+     */
+    storeCapacity: number;
+    /**
+     * Transfer resource from this structure to a creep. The target has to be at adjacent square.
+     * @param target The target object.
+     * @param resourceType One of the RESOURCE_* constants.
+     * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
+     */
+    transfer(target: Creep, resourceType: string, amount?: number): number;
 }

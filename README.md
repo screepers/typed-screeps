@@ -48,6 +48,11 @@ npm run compile
 
 # Changelog
 
+### v1.5.1 2016-03-18 [ChangeLog](http://support.screeps.com/hc/en-us/articles/208013255)
+- Added new STRUCTURE_CONTAINER constant
+- New structure: Container
+- Added Game.map.getRoomLinearDistance method.
+
 ### v1.4.3 2016-03-18 Commited by NhanHo
 - Added typings for various list of global objects in Game
 - Add serializePath and deserializePath to Room

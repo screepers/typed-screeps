@@ -28,6 +28,13 @@ interface Map {
      */
     findRoute(fromRoom: string|Room, toRoom: string|Room): [{exit: string, room: string}]|number;
     /**
+     * Get the linear distance (in rooms) between two rooms. You can use this function to estimate the energy cost of
+     * sending resources through terminals, or using observers and nukes.
+     * @param roomName1 The name of the first room.
+     * @param roomName2 The name of the second room.
+     */
+    getRoomLinearDistance(roomName1: string, roomName2: string): number;
+    /**
      * Check if the room with the given name is protected by temporary "newbie" walls.
      * @param roomName The room name.
      */
