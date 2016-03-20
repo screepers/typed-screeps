@@ -48,6 +48,9 @@ npm run compile
 
 # Changelog
 
+### v1.5.2 2016-03-19 [Bug](https://github.com/MarkoSulamagi/Screeps-Typescript-Declarations/issues/10)
+- RoomPosition opts fix. Filter and algorithm are optional.
+
 ### v1.5.1 2016-03-18 [ChangeLog](http://support.screeps.com/hc/en-us/articles/208013255)
 - Added new STRUCTURE_CONTAINER constant
 - New structure: Container
