@@ -13,11 +13,11 @@ interface Game {
     /**
      * A hash containing all your creeps with creep names as hash keys.
      */
-    creeps: Creep[];
+    creeps: {[creepName: string]: Creep};
     /**
      * A hash containing all your flags with flag names as hash keys.
      */
-    flags: Flag[];
+    flags: {[flagName: string]: Flag};
     /**
      * Your Global Control Level, an object with the following properties :
      */
@@ -33,15 +33,15 @@ interface Game {
     /**
      * A hash containing all the rooms available to you with room names as hash keys.
      */
-    rooms: Room[];
+    rooms: {[roomName: string]: Room};
     /**
      * A hash containing all your spawns with spawn names as hash keys.
      */
-    spawns: Spawn[];
+    spawns: {[spawnName: string]: Spawn};
     /**
      * A hash containing all your structures with structure id as hash keys.
      */
-    structures: Structure[];
+    structures: {[structureId: string]: Structure};
     /**
      * System game tick counter. It is automatically incremented on every tick.
      */

@@ -48,6 +48,9 @@ npm run compile
 
 # Changelog
 
+### v1.5.3 2016-03-31 [Bug](https://github.com/MarkoSulamagi/Screeps-Typescript-Declarations/issues/11)
+- Problem with the Game arrays.
+
 ### v1.5.2 2016-03-19 [Bug](https://github.com/MarkoSulamagi/Screeps-Typescript-Declarations/issues/10)
 - RoomPosition opts fix. Filter and algorithm are optional.
 
