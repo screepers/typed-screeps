@@ -48,6 +48,11 @@ npm run compile
 
 # Changelog
 
+### v1.5.4 2016-04-04 [Bug](https://github.com/MarkoSulamagi/Screeps-Typescript-Declarations/issues/12)
+- Missing constants
+
+Thanks [Strategic-Link-Consulting](https://github.com/Strategic-Link-Consulting)
+
 ### v1.5.3 2016-03-31 [Bug](https://github.com/MarkoSulamagi/Screeps-Typescript-Declarations/issues/11)
 - Problem with the Game arrays.
 

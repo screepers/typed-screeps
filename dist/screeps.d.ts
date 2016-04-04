@@ -105,6 +105,7 @@ declare var BODYPART_COST: {
     heal: number;
     ranged_attack: number;
     tough: number;
+    claim: number;
 };
 declare var CARRY_CAPACITY: number;
 declare var HARVEST_POWER: number;
@@ -131,6 +132,13 @@ declare var CONSTRUCTION_COST: {
     rampart: number;
     link: number;
     storage: number;
+    tower: number;
+    observer: number;
+    powerSpawn: number;
+    extractor: number;
+    lab: number;
+    terminal: number;
+    container: number;
 };
 declare var CONSTRUCTION_COST_ROAD_SWAMP_RATIO: number;
 declare var STRUCTURE_EXTENSION: string;
@@ -246,6 +254,76 @@ declare var CONTROLLER_STRUCTURES: {
         8: number;
     };
     storage: {
+        1: number;
+        2: number;
+        3: number;
+        4: number;
+        5: number;
+        6: number;
+        7: number;
+        8: number;
+    };
+    tower: {
+        1: number;
+        2: number;
+        3: number;
+        4: number;
+        5: number;
+        6: number;
+        7: number;
+        8: number;
+    };
+    observer: {
+        1: number;
+        2: number;
+        3: number;
+        4: number;
+        5: number;
+        6: number;
+        7: number;
+        8: number;
+    };
+    powerSpawn: {
+        1: number;
+        2: number;
+        3: number;
+        4: number;
+        5: number;
+        6: number;
+        7: number;
+        8: number;
+    };
+    extractor: {
+        1: number;
+        2: number;
+        3: number;
+        4: number;
+        5: number;
+        6: number;
+        7: number;
+        8: number;
+    };
+    terminal: {
+        1: number;
+        2: number;
+        3: number;
+        4: number;
+        5: number;
+        6: number;
+        7: number;
+        8: number;
+    };
+    lab: {
+        1: number;
+        2: number;
+        3: number;
+        4: number;
+        5: number;
+        6: number;
+        7: number;
+        8: number;
+    };
+    container: {
         1: number;
         2: number;
         3: number;
