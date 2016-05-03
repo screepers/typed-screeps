@@ -54,11 +54,6 @@ interface Game {
      */
     getObjectById<T>(id: string): T;
     /**
-     * Get amount of CPU time used from the beginning of the current game tick. Note: In the Simulation mode it depends on your local machine performance and cannot be used to estimate server-side scripts execution.
-     * @returns currently used CPU time as a float number.
-     */
-    getUsedCpu(): number;
-    /**
      * Send a custom message at your profile email. This way, you can set up notifications to yourself on any occasion within the game. You can schedule up to 20 notifications during one game tick. Not available in the Simulation Room.
      * @param message Custom text which will be sent in the message. Maximum length is 1000 characters.
      * @param groupInterval If set to 0 (default), the notification will be scheduled immediately. Otherwise, it will be grouped with other notifications and mailed out later using the specified time in minutes.

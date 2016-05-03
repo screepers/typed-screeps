@@ -105,12 +105,6 @@ interface Creep {
      */
     drop(resourceType: string, amount?: number): number
     /**
-     * An alias for creep.drop(RESOURCE_ENERGY, amount). This method is deprecated.
-     * @param amount The amount of resource units to be dropped. If omitted, all the available carried amount is used.
-     * @deprecated
-     */
-    dropEnergy(amount?: number): number
-    /**
      * Get the quantity of live body parts of the given type. Fully damaged parts do not count.
      * @param type A body part type, one of the following body part constants: MOVE, WORK, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH, CLAIM
      */
@@ -199,13 +193,6 @@ interface Creep {
      * @param amount The amount of resources to be transferred. If omitted, all the available carried amount is used.
      */
     transfer(target: Creep|Spawn|Structure, resourceType: string, amount?: number): number;
-    /**
-     * An alias for creep.transfer(target, RESOURCE_ENERGY, amount). This method is deprecated.
-     * @param target The target object.
-     * @param amount The amount of resources to be transferred. If omitted, all the available carried amount is used.
-     * @deprecated use transfer() method instead.
-     */
-    transferEnergy(target: Creep|Spawn|Structure, amount?: number): number;
     /**
      * Upgrade your controller to the next level using carried energy. Upgrading controllers raises your Global Control Level in parallel. Needs WORK and CARRY body parts. The target has to be at adjacent square to the creep. A fully upgraded level 8 controller can't be upgraded with the power over 15 energy units per tick regardless of creeps power. The cumulative effect of all the creeps performing upgradeController in the current tick is taken into account.
      * @param target The target controller object to be upgraded.
