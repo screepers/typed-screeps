@@ -9,3 +9,4 @@ declare var Spawn: Spawn;
 declare var Structure: Structure;
 declare var ConstructionSite;
 declare var PathFinder: PathFinder;
+declare var Flag: any;

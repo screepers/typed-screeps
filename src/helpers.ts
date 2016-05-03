@@ -52,7 +52,7 @@ interface Energy {
     /**
      * The amount of energy containing.
      */
-    energy: number;
+    amount: number;
     /**
      * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
