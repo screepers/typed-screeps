@@ -344,7 +344,7 @@ declare var TERRAIN_MASK_LAVA: number;
 /**
  * A site of a structure which is currently under construction.
  */
-interface ConstructionSite {
+interface ConstructionSite extends RoomObject {
     /**
      * The prototype is stored in the ConstructionSite.prototype global object. You can use it to extend game objects behaviour globally:
      */
@@ -362,10 +362,6 @@ interface ConstructionSite {
      */
     owner: Owner;
     /**
-     * An object representing the position of this structure in the room.
-     */
-    pos: RoomPosition;
-    /**
      * The current construction progress.
      */
     progress: number;
@@ -373,10 +369,6 @@ interface ConstructionSite {
      * The total construction progress needed for the structure to be built.
      */
     progressTotal: number;
-    /**
-     * The link to the Room object of this structure.
-     */
-    room: Room;
     /**
      * One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
      */
@@ -398,10 +390,20 @@ declare var Structure: Structure;
 declare var ConstructionSite: any;
 declare var PathFinder: PathFinder;
 declare var Flag: any;
+declare type Controller = StructureController;
+declare type Extension = StructureExtension;
+declare type KeeperLair = StructureKeeperLair;
+declare type Lab = StructureLab;
+declare type Link = StructureLink;
+declare type Observer = StructureObserver;
+declare type PowerBank = StructurePowerBank;
+declare type PowerSpawn = StructurePowerSpawn;
+declare type Rampart = StructureRampart;
+declare type Terminal = StructureTerminal;
 /**
  * Creeps are your units. Creeps can move, harvest energy, construct structures, attack another creeps, and perform other actions. Each creep consists of up to 50 body parts with the following possible types:
  */
-interface Creep {
+interface Creep extends RoomObject {
     prototype: Creep;
     /**
      * An array describing the creep’s body. Each element contains the following properties:
@@ -456,14 +458,6 @@ interface Creep {
      */
     owner: Owner;
     /**
-     * An object representing the position of this creep in a room.
-     */
-    pos: RoomPosition;
-    /**
-     * The link to the Room object of this creep.
-     */
-    room: Room;
-    /**
      * Whether this creep is still being spawned.
      */
     spawning: boolean;
@@ -505,12 +499,6 @@ interface Creep {
      * @param amount The amount of resource units to be dropped. If omitted, all the available carried amount is used.
      */
     drop(resourceType: string, amount?: number): number;
-    /**
-     * An alias for creep.drop(RESOURCE_ENERGY, amount). This method is deprecated.
-     * @param amount The amount of resource units to be dropped. If omitted, all the available carried amount is used.
-     * @deprecated
-     */
-    dropEnergy(amount?: number): number;
     /**
      * Get the quantity of live body parts of the given type. Fully damaged parts do not count.
      * @param type A body part type, one of the following body part constants: MOVE, WORK, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH, CLAIM
@@ -611,7 +599,7 @@ interface Creep {
 /**
  * A flag. Flags can be used to mark particular spots in a room. Flags are visible to their owners only.
  */
-interface Flag {
+interface Flag extends RoomObject {
     prototype: Energy;
     /**
      * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
@@ -629,14 +617,6 @@ interface Flag {
      * Flag’s name. You can choose the name while creating a new flag, and it cannot be changed later. This name is a hash key to access the spawn via the Game.flags object.
      */
     name: string;
-    /**
-     * An object representing the position of this structure in the room.
-     */
-    pos: RoomPosition;
-    /**
-     * The link to the Room object. May not be available in case a flag is placed in a room which you do not have access to.
-     */
-    room: Room;
     /**
      * The name of the room in which this flag is in. This property is deprecated and will be removed soon. Use pos.roomName instead.
      */
@@ -737,11 +717,6 @@ interface Game {
      * @returns an object instance or null if it cannot be found.
      */
     getObjectById<T>(id: string): T;
-    /**
-     * Get amount of CPU time used from the beginning of the current game tick. Note: In the Simulation mode it depends on your local machine performance and cannot be used to estimate server-side scripts execution.
-     * @returns currently used CPU time as a float number.
-     */
-    getUsedCpu(): number;
     /**
      * Send a custom message at your profile email. This way, you can set up notifications to yourself on any occasion within the game. You can schedule up to 20 notifications during one game tick. Not available in the Simulation Room.
      * @param message Custom text which will be sent in the message. Maximum length is 1000 characters.
@@ -970,7 +945,7 @@ interface Memory {
 /**
  * A mineral deposit object. Can be harvested by creeps with a WORK body part using the extractor structure.
  */
-interface Mineral {
+interface Mineral extends RoomObject {
     /**
      * The prototype is stored in the Mineral.prototype global object. You can use it to extend game objects behaviour globally.
      */
@@ -987,14 +962,6 @@ interface Mineral {
      * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
     id: string;
-    /**
-     * An object representing the position of this structure in the room.
-     */
-    pos: RoomPosition;
-    /**
-     * The link to the Room object of this structure.
-     */
-    room: Room;
     /**
      * The remaining time after which the deposit will be refilled.
      */
@@ -1121,6 +1088,15 @@ interface RawMemory {
      * @param value New memory value as a string.
      */
     set(value: string): any;
+}
+/**
+ * Any object with a position in a room. Almost all game objects prototypes
+ * are derived from RoomObject.
+ */
+interface RoomObject {
+    prototype: RoomObject;
+    pos: RoomPosition;
+    room: Room;
 }
 /**
  * An object representing the specified position in the room. Every object in the room contains RoomPosition as the pos property. The position object of a custom location can be obtained using the Room.getPositionAt() method or using the constructor.
@@ -1331,7 +1307,7 @@ interface Room {
     /**
      * The Storage structure of this room, if present, otherwise undefined.
      */
-    storage: Storage;
+    storage: StructureStorage;
     /**
      * An object with survival game info if available
      */
@@ -1612,7 +1588,7 @@ interface Spawn {
 /**
  * Parent object for structure classes
  */
-interface Structure {
+interface Structure extends RoomObject {
     /**
      * The prototype is stored in the Structure.prototype global object. You can use it to extend game objects behaviour globally:
      */
@@ -1629,22 +1605,6 @@ interface Structure {
      * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
     id: string;
-    /**
-     * Whether this is your own structure. Walls and roads don't have this property as they are considered neutral structures.
-     */
-    my: boolean;
-    /**
-     * An object with the structure’s owner info (if present) containing the following properties: username
-     */
-    owner: Owner;
-    /**
-     * An object representing the position of this structure in the room.
-     */
-    pos: RoomPosition;
-    /**
-     * The link to the Room object. May not be available in case a flag is placed in a room which you do not have access to.
-     */
-    room: Room;
     /**
      * One of the STRUCTURE_* constants.
      */
@@ -1663,10 +1623,21 @@ interface Structure {
      */
     notifyWhenAttacked(enabled: boolean): number;
 }
+interface OwnedStructure extends Structure {
+    prototype: OwnedStructure;
+    /**
+     * Whether this is your own structure. Walls and roads don't have this property as they are considered neutral structures.
+     */
+    my: boolean;
+    /**
+     * An object with the structure’s owner info (if present) containing the following properties: username
+     */
+    owner: Owner;
+}
 /**
  *
  */
-interface Controller extends Structure {
+interface StructureController extends OwnedStructure {
     /**
      * Current controller level, from 0 to 8.
      */
@@ -1695,7 +1666,7 @@ interface Controller extends Structure {
 /**
  *
  */
-interface Extension extends Structure {
+interface StructureExtension extends OwnedStructure {
     /**
      * The amount of energy containing in the extension.
      */
@@ -1714,7 +1685,7 @@ interface Extension extends Structure {
 /**
  *
  */
-interface Link extends Structure {
+interface StructureLink extends OwnedStructure {
     /**
      * The amount of game ticks the link has to wait until the next transfer is possible.
      */
@@ -1732,12 +1703,12 @@ interface Link extends Structure {
      * @param target The target object.
      * @param amount The amount of energy to be transferred. If omitted, all the available energy is used.
      */
-    transferEnergy(target: Creep | Link, amount?: number): number;
+    transferEnergy(target: Creep | StructureLink, amount?: number): number;
 }
 /**
  *
  */
-interface KeeperLair extends Structure {
+interface StructureKeeperLair extends OwnedStructure {
     /**
      * Time to spawning of the next Source Keeper.
      */
@@ -1746,7 +1717,7 @@ interface KeeperLair extends Structure {
 /**
  *
  */
-interface Observer extends Structure {
+interface StructureObserver extends OwnedStructure {
     /**
      * Provide visibility into a distant room from your script. The target room object will be available on the next tick. The maximum range is 5 rooms.
      * @param roomName
@@ -1756,7 +1727,7 @@ interface Observer extends Structure {
 /**
  *
  */
-interface PowerBank extends Structure {
+interface StructurePowerBank extends OwnedStructure {
     /**
      * The amount of power containing.
      */
@@ -1769,7 +1740,7 @@ interface PowerBank extends Structure {
 /**
  *
  */
-interface PowerSpawn extends Structure {
+interface StructurePowerSpawn extends OwnedStructure {
     /**
      * The amount of energy containing in this structure.
      */
@@ -1805,7 +1776,7 @@ interface PowerSpawn extends Structure {
 /**
  *
  */
-interface Rampart extends Structure {
+interface StructureRampart extends OwnedStructure {
     /**
      * The amount of game ticks when this rampart will lose some hit points.
      */
@@ -1814,7 +1785,7 @@ interface Rampart extends Structure {
 /**
  *
  */
-interface Road extends Structure {
+interface StructureRoad extends Structure {
     /**
      * The amount of game ticks when this road will lose some hit points.
      */
@@ -1823,7 +1794,7 @@ interface Road extends Structure {
 /**
  *
  */
-interface Storage extends Structure {
+interface StructureStorage extends OwnedStructure {
     /**
      * An object with the storage contents.
      */
@@ -1850,7 +1821,7 @@ interface Storage extends Structure {
 /**
  *
  */
-interface Tower extends Structure {
+interface StructureTower extends OwnedStructure {
     /**
      * The amount of energy containing in this structure.
      */
@@ -1884,7 +1855,7 @@ interface Tower extends Structure {
 /**
  *
  */
-interface Wall extends Structure {
+interface StructureWall extends Structure {
     /**
      * The amount of game ticks when the wall will disappear (only for automatically placed border walls at the start of the game).
      */
@@ -1893,12 +1864,12 @@ interface Wall extends Structure {
 /**
  * Allows to harvest mineral deposits.
  */
-interface Extractor extends Structure {
+interface StructureExtractor extends OwnedStructure {
 }
 /**
  * Produces mineral compounds from base minerals and boosts creeps.
  */
-interface Lab extends Structure {
+interface StructureLab extends OwnedStructure {
     /**
      * The amount of energy containing in the lab. Energy is used for boosting creeps.
      */
@@ -1930,7 +1901,7 @@ interface Lab extends Structure {
      * @param lab1 The first source lab.
      * @param lab2 The second source lab.
      */
-    runReaction(lab1: Lab, lab2: Lab): number;
+    runReaction(lab1: StructureLab, lab2: StructureLab): number;
     /**
      * Transfer resource from this structure to a creep. The target has to be at adjacent square.
      * @param target The target object.
@@ -1942,7 +1913,7 @@ interface Lab extends Structure {
 /**
  * 	Sends any resources to a Terminal in another room.
  */
-interface Terminal extends Structure {
+interface StructureTerminal extends OwnedStructure {
     /**
      * An object with the storage contents. Each object key is one of the RESOURCE_* constants, values are resources amounts.
      */
@@ -1970,7 +1941,7 @@ interface Terminal extends Structure {
 /**
  * 	Contains up to 2,000 resource units. Can be constructed in neutral rooms. Decays for 5,000 hits per 100 ticks.
  */
-interface Container extends Structure {
+interface StructureContainer {
     /**
      * An object with the structure contents. Each object key is one of the RESOURCE_* constants, values are resources
      * amounts. Use _.sum(structure.store) to get the total amount of contents

@@ -1,7 +1,7 @@
 /**
  * A flag. Flags can be used to mark particular spots in a room. Flags are visible to their owners only.
  */
-interface Flag {
+interface Flag extends RoomObject{
     prototype: Energy;
     /**
      * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
@@ -19,14 +19,6 @@ interface Flag {
      * Flag’s name. You can choose the name while creating a new flag, and it cannot be changed later. This name is a hash key to access the spawn via the Game.flags object.
      */
     name: string;
-    /**
-     * An object representing the position of this structure in the room.
-     */
-    pos: RoomPosition;
-    /**
-     * The link to the Room object. May not be available in case a flag is placed in a room which you do not have access to.
-     */
-    room: Room;
     /**
      * The name of the room in which this flag is in. This property is deprecated and will be removed soon. Use pos.roomName instead.
      */

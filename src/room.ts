@@ -33,7 +33,7 @@ interface Room {
     /**
      * The Storage structure of this room, if present, otherwise undefined.
      */
-    storage: Storage;
+    storage: StructureStorage;
     /**
      * An object with survival game info if available
      */

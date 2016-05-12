@@ -1,6 +1,6 @@
 {
   "name": "screeps-typescript-declarations",
-  "version": "1.5.5",
+  "version": "2.0.0",
   "description": "Typescript declarations for Screeps API. To enable autocomplete and help with compilation",
   "scripts": {
     "compile": "node_modules/.bin/tsc"
@@ -14,7 +14,6 @@
   "author": "Marko Sulamagi <marko.sulamagi@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "tsc": "~1.20150623.0",
-    "typescript": "~1.7.5"
+    "typescript": "~1.8.10"
   }
 }
