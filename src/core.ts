@@ -1,16 +1,6 @@
-declare var Game: Game;
 declare var Memory: Memory;
-
-declare var Creep: Creep;
-declare var Room: Room;
-declare var RoomPosition: RoomPosition;
-declare var Source: Source;
-declare var Spawn: Spawn;
-declare var Structure: Structure;
-declare var ConstructionSite;
+declare var Game:Game;
 declare var PathFinder: PathFinder;
-declare var Flag: any;
-
 type Controller= StructureController;
 type Extension = StructureExtension;
 type KeeperLair = StructureKeeperLair;
@@ -21,4 +11,8 @@ type PowerBank = StructurePowerBank;
 type PowerSpawn = StructurePowerSpawn;
 type Rampart = StructureRampart;
 type Terminal = StructureTerminal;
+type Container = StructureContainer;
+type Tower = StructureTower;
 
+interface Storage extends StructureStorage {
+}
