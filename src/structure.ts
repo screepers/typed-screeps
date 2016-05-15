@@ -3,11 +3,8 @@
 /**
  * Parent object for structure classes
  */
-interface Structure extends RoomObject{
-    /**
-     * The prototype is stored in the Structure.prototype global object. You can use it to extend game objects behaviour globally:
-     */
-    prototype: Structure;
+
+declare class Structure extends RoomObject{
     /**
      * The current amount of hit points of the structure.
      */
@@ -39,8 +36,7 @@ interface Structure extends RoomObject{
     notifyWhenAttacked(enabled: boolean): number;
 }
 
-interface OwnedStructure extends Structure {
-    prototype: OwnedStructure;
+declare class OwnedStructure extends Structure {
     /**
      * Whether this is your own structure. Walls and roads don't have this property as they are considered neutral structures.
      */
@@ -55,7 +51,7 @@ interface OwnedStructure extends Structure {
 /**
  *
  */
-interface StructureController extends OwnedStructure {
+declare class StructureController extends OwnedStructure {
     /**
      * Current controller level, from 0 to 8.
      */
@@ -85,7 +81,7 @@ interface StructureController extends OwnedStructure {
 /**
  *
  */
-interface StructureExtension extends OwnedStructure {
+declare class StructureExtension extends OwnedStructure {
     /**
      * The amount of energy containing in the extension.
      */
@@ -129,7 +125,7 @@ interface StructureLink extends OwnedStructure {
 /**
  *
  */
-interface StructureKeeperLair extends OwnedStructure {
+declare class StructureKeeperLair extends OwnedStructure {
     /**
      * Time to spawning of the next Source Keeper.
      */
@@ -139,7 +135,7 @@ interface StructureKeeperLair extends OwnedStructure {
 /**
  *
  */
-interface StructureObserver extends OwnedStructure {
+declare class StructureObserver extends OwnedStructure {
     /**
      * Provide visibility into a distant room from your script. The target room object will be available on the next tick. The maximum range is 5 rooms.
      * @param roomName
@@ -150,7 +146,7 @@ interface StructureObserver extends OwnedStructure {
 /**
  *
  */
-interface StructurePowerBank extends OwnedStructure {
+declare class StructurePowerBank extends OwnedStructure {
     /**
      * The amount of power containing.
      */
@@ -164,7 +160,7 @@ interface StructurePowerBank extends OwnedStructure {
 /**
  *
  */
-interface StructurePowerSpawn extends OwnedStructure {
+declare class StructurePowerSpawn extends OwnedStructure {
     /**
      * The amount of energy containing in this structure.
      */
@@ -203,7 +199,7 @@ interface StructurePowerSpawn extends OwnedStructure {
 /**
  *
  */
-interface StructureRampart extends OwnedStructure {
+declare class StructureRampart extends OwnedStructure {
     /**
      * The amount of game ticks when this rampart will lose some hit points.
      */
@@ -213,7 +209,7 @@ interface StructureRampart extends OwnedStructure {
 /**
  *
  */
-interface StructureRoad extends Structure {
+declare class StructureRoad extends Structure {
     /**
      * The amount of game ticks when this road will lose some hit points.
      */
@@ -223,11 +219,12 @@ interface StructureRoad extends Structure {
 /**
  *
  */
-interface StructureStorage extends OwnedStructure {
+declare class StructureStorage extends OwnedStructure {
+    
     /**
      * An object with the storage contents.
      */
-    store: StoreDefinition,
+    store: StoreDefinition;
     /**
      * The total amount of resources the storage can contain.
      */
@@ -239,7 +236,7 @@ interface StructureStorage extends OwnedStructure {
      * @param resourceType One of the RESOURCE_* constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    transfer(target: Creep, resourceType: number, amount?: number): number;
+    transfer(target: Creep, resourceType: string, amount?: number): number;
     /**
      * An alias for storage.transfer(target, RESOURCE_ENERGY, amount). This method is deprecated.
      * @param target The target object.
@@ -252,7 +249,7 @@ interface StructureStorage extends OwnedStructure {
 /**
  *
  */
-interface StructureTower extends OwnedStructure {
+declare class StructureTower extends OwnedStructure {
     /**
      * The amount of energy containing in this structure.
      */
@@ -287,7 +284,7 @@ interface StructureTower extends OwnedStructure {
 /**
  *
  */
-interface StructureWall extends Structure {
+declare class StructureWall extends Structure {
     /**
      * The amount of game ticks when the wall will disappear (only for automatically placed border walls at the start of the game).
      */
@@ -296,13 +293,13 @@ interface StructureWall extends Structure {
 /**
  * Allows to harvest mineral deposits.
  */
-interface StructureExtractor extends OwnedStructure {
+declare class StructureExtractor extends OwnedStructure {
 
 }
 /**
  * Produces mineral compounds from base minerals and boosts creeps.
  */
-interface StructureLab extends OwnedStructure {
+declare class StructureLab extends OwnedStructure {
     /**
      * The amount of energy containing in the lab. Energy is used for boosting creeps.
      */
@@ -318,7 +315,7 @@ interface StructureLab extends OwnedStructure {
     /**
      * The type of minerals containing in the lab. Labs can contain only one mineral type at the same time.
      */
-    mineralType: number;
+    mineralType: string;
     /**
      * The total amount of minerals the lab can contain.
      */
@@ -346,7 +343,7 @@ interface StructureLab extends OwnedStructure {
 /**
  * 	Sends any resources to a Terminal in another room.
  */
-interface StructureTerminal extends OwnedStructure {
+declare class StructureTerminal extends OwnedStructure {
     /**
      * An object with the storage contents. Each object key is one of the RESOURCE_* constants, values are resources amounts.
      */
@@ -374,7 +371,7 @@ interface StructureTerminal extends OwnedStructure {
 /**
  * 	Contains up to 2,000 resource units. Can be constructed in neutral rooms. Decays for 5,000 hits per 100 ticks.
  */
-interface StructureContainer {
+declare class StructureContainer {
     /**
      * An object with the structure contents. Each object key is one of the RESOURCE_* constants, values are resources
      * amounts. Use _.sum(structure.store) to get the total amount of contents
