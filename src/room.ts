@@ -2,8 +2,9 @@
 /**
  * An object representing the room in which your units and structures are in. It can be used to look around, find paths, etc. Every object in the room contains its linked Room instance in the room property.
  */
-declare class Room {
+interface Room {
     
+    prototype: Room;
     /**
      * The Controller structure of this room, if present, otherwise undefined.
      */
@@ -162,5 +163,5 @@ declare class Room {
      * @param path A serialized path string.
      * @returns A path array.
      */
-    static deserializePath(path: string): PathStep[];
+    deserializePath(path: string): PathStep[];
 }

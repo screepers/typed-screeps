@@ -1,16 +1,18 @@
 /**
  * An object representing the specified position in the room. Every object in the room contains RoomPosition as the pos property. The position object of a custom location can be obtained using the Room.getPositionAt() method or using the constructor.
  */
-declare class RoomPosition {
+interface RoomPosition {
+    /**
+     * The prototype is stored in the RoomPosition.prototype global object. You can use it to extend game objects behaviour globally:
+     */
+    prototype: RoomPosition;
     /**
      * You can create new RoomPosition object using its constructor.
      * @param x X position in the room.
      * @param y Y position in the room.
      * @param roomName The room name.
      */
-    //new(x: number, y: number, roomName: string): RoomPosition;
-    constructor (x: number, y: number, roomName: string);
-    
+    new(x: number, y: number, roomName: string): RoomPosition;
     /**
      * The name of the room.
      */

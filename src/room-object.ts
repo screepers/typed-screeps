@@ -3,7 +3,7 @@
  * are derived from RoomObject.
  */
 
-declare class RoomObject {
+interface RoomObject {
     prototype: RoomObject;
     pos: RoomPosition;
     room: Room;

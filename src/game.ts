@@ -3,6 +3,10 @@
  */
 interface Game {
     /**
+     * Game prototype. You can use this to extend functionality of game class
+     */
+    prototype: Game;
+    /**
      * An object containing information about your CPU usage with the following properties:
      */
     cpu: CPU

@@ -1,7 +1,11 @@
 /**
  * A site of a structure which is currently under construction.
  */
-declare class ConstructionSite extends RoomObject{
+interface ConstructionSite extends RoomObject{
+    /**
+     * The prototype is stored in the ConstructionSite.prototype global object. You can use it to extend game objects behaviour globally:
+     */
+    prototype: ConstructionSite;
     /**
      * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
      */

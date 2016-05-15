@@ -2,7 +2,11 @@
 /**
  * Spawns are your colony centers. You can transfer energy into it and create new creeps using createCreep() method.
  */
-declare class Spawn {
+interface Spawn {
+    /**
+     * The prototype is stored in the Spawn.prototype global object. You can use it to extend game objects behaviour globally:
+     */
+    prototype: Spawn;
     /**
      * The amount of energy containing in the spawn.
      */

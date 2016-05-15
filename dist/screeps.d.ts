@@ -341,142 +341,14 @@ declare var MODE_WORLD: string;
 declare var TERRAIN_MASK_WALL: number;
 declare var TERRAIN_MASK_SWAMP: number;
 declare var TERRAIN_MASK_LAVA: number;
-declare var REACTIONS: {
-    H: {
-        O: 'OH';
-        L: 'LH';
-        K: 'KH';
-        U: 'UH';
-        Z: 'ZH';
-        G: 'GH';
-    };
-    O: {
-        H: 'OH';
-        L: 'LO';
-        K: 'KO';
-        U: 'UO';
-        Z: 'ZO';
-        G: 'GO';
-    };
-    Z: {
-        K: 'ZK';
-        H: 'ZH';
-        O: 'ZO';
-    };
-    L: {
-        U: 'UL';
-        H: 'LH';
-        O: 'LO';
-    };
-    K: {
-        Z: 'ZK';
-        H: 'KH';
-        O: 'KO';
-    };
-    G: {
-        H: 'GH';
-        O: 'GO';
-    };
-    U: {
-        L: 'UL';
-        H: 'UH';
-        O: 'UO';
-    };
-    OH: {
-        UH: 'UH2O';
-        UO: 'UHO2';
-        ZH: 'ZH2O';
-        ZO: 'ZHO2';
-        KH: 'KH2O';
-        KO: 'KHO2';
-        LH: 'LH2O';
-        LO: 'LHO2';
-        GH: 'GH2O';
-        GO: 'GHO2';
-    };
-    X: {
-        UH2O: 'XUH2O';
-        UHO2: 'XUHO2';
-        LH2O: 'XLH2O';
-        LHO2: 'XLHO2';
-        KH2O: 'XKH2O';
-        KHO2: 'XKHO2';
-        ZH2O: 'XZH2O';
-        ZHO2: 'XZHO2';
-        GH2O: 'XGH2O';
-        GHO2: 'XGHO2';
-    };
-    ZK: {
-        UL: 'G';
-    };
-    UL: {
-        ZK: 'G';
-    };
-    LH: {
-        OH: 'LH2O';
-    };
-    ZH: {
-        OH: 'ZH2O';
-    };
-    GH: {
-        OH: 'GH2O';
-    };
-    KH: {
-        OH: 'KH2O';
-    };
-    UH: {
-        OH: 'UH2O';
-    };
-    LO: {
-        OH: 'LHO2';
-    };
-    ZO: {
-        OH: 'ZHO2';
-    };
-    KO: {
-        OH: 'KHO2';
-    };
-    UO: {
-        OH: 'UHO2';
-    };
-    GO: {
-        OH: 'GHO2';
-    };
-    LH2O: {
-        X: 'XLH2O';
-    };
-    KH2O: {
-        X: 'XKH2O';
-    };
-    ZH2O: {
-        X: 'XZH2O';
-    };
-    UH2O: {
-        X: 'XUH2O';
-    };
-    GH2O: {
-        X: 'XGH2O';
-    };
-    LHO2: {
-        X: 'XLHO2';
-    };
-    UHO2: {
-        X: 'XUHO2';
-    };
-    KHO2: {
-        X: 'XKHO2';
-    };
-    ZHO2: {
-        X: 'XZHO2';
-    };
-    GHO2: {
-        X: 'XGHO2';
-    };
-};
 /**
  * A site of a structure which is currently under construction.
  */
-declare class ConstructionSite extends RoomObject {
+interface ConstructionSite extends RoomObject {
+    /**
+     * The prototype is stored in the ConstructionSite.prototype global object. You can use it to extend game objects behaviour globally:
+     */
+    prototype: ConstructionSite;
     /**
      * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
@@ -507,9 +379,17 @@ declare class ConstructionSite extends RoomObject {
      */
     remove(): number;
 }
-declare var Memory: Memory;
 declare var Game: Game;
+declare var Memory: Memory;
+declare var Creep: Creep;
+declare var Room: Room;
+declare var RoomPosition: RoomPosition;
+declare var Source: Source;
+declare var Spawn: Spawn;
+declare var Structure: Structure;
+declare var ConstructionSite: any;
 declare var PathFinder: PathFinder;
+declare var Flag: any;
 declare type Controller = StructureController;
 declare type Extension = StructureExtension;
 declare type KeeperLair = StructureKeeperLair;
@@ -520,14 +400,11 @@ declare type PowerBank = StructurePowerBank;
 declare type PowerSpawn = StructurePowerSpawn;
 declare type Rampart = StructureRampart;
 declare type Terminal = StructureTerminal;
-declare type Container = StructureContainer;
-declare type Tower = StructureTower;
-interface Storage extends StructureStorage {
-}
 /**
  * Creeps are your units. Creeps can move, harvest energy, construct structures, attack another creeps, and perform other actions. Each creep consists of up to 50 body parts with the following possible types:
  */
-declare class Creep extends RoomObject {
+interface Creep extends RoomObject {
+    prototype: Creep;
     /**
      * An array describing the creep’s body. Each element contains the following properties:
      * type: string
@@ -722,7 +599,12 @@ declare class Creep extends RoomObject {
 /**
  * A flag. Flags can be used to mark particular spots in a room. Flags are visible to their owners only.
  */
-declare class Flag extends RoomObject {
+interface Flag extends RoomObject {
+    prototype: Energy;
+    /**
+     * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
+     */
+    id: string;
     /**
      * Flag color. One of the following constants: COLOR_WHITE, COLOR_GREY, COLOR_RED, COLOR_PURPLE, COLOR_BLUE, COLOR_CYAN, COLOR_GREEN, COLOR_YELLOW, COLOR_ORANGE, COLOR_BROWN
      */
@@ -775,6 +657,10 @@ declare class Flag extends RoomObject {
  * The main global game object containing all the gameplay information.
  */
 interface Game {
+    /**
+     * Game prototype. You can use this to extend functionality of game class
+     */
+    prototype: Game;
     /**
      * An object containing information about your CPU usage with the following properties:
      */
@@ -955,7 +841,8 @@ interface SurvivalGameInfo {
 /**
  * A global object representing world map. Use it to navigate between rooms. The object is accessible via Game.map property.
  */
-declare class Map {
+interface Map {
+    prototype: Map;
     /**
      * List all exits available from the room with the given name.
      * @param roomName The room name.
@@ -1016,7 +903,7 @@ declare class Map {
  * A global object representing the in-game market. You can use this object to track resource transactions to/from your
  * terminals, and your buy/sell orders (in development). The object is accessible via the singleton Game.market property.
  */
-declare class Market {
+interface Market {
     /**
      * An array of the last 100 incoming transactions to your terminals
      */
@@ -1206,7 +1093,7 @@ interface RawMemory {
  * Any object with a position in a room. Almost all game objects prototypes
  * are derived from RoomObject.
  */
-declare class RoomObject {
+interface RoomObject {
     prototype: RoomObject;
     pos: RoomPosition;
     room: Room;
@@ -1214,14 +1101,18 @@ declare class RoomObject {
 /**
  * An object representing the specified position in the room. Every object in the room contains RoomPosition as the pos property. The position object of a custom location can be obtained using the Room.getPositionAt() method or using the constructor.
  */
-declare class RoomPosition {
+interface RoomPosition {
+    /**
+     * The prototype is stored in the RoomPosition.prototype global object. You can use it to extend game objects behaviour globally:
+     */
+    prototype: RoomPosition;
     /**
      * You can create new RoomPosition object using its constructor.
      * @param x X position in the room.
      * @param y Y position in the room.
      * @param roomName The room name.
      */
-    constructor(x: number, y: number, roomName: string);
+    new (x: number, y: number, roomName: string): RoomPosition;
     /**
      * The name of the room.
      */
@@ -1386,7 +1277,8 @@ declare class RoomPosition {
 /**
  * An object representing the room in which your units and structures are in. It can be used to look around, find paths, etc. Every object in the room contains its linked Room instance in the room property.
  */
-declare class Room {
+interface Room {
+    prototype: Room;
     /**
      * The Controller structure of this room, if present, otherwise undefined.
      */
@@ -1553,7 +1445,7 @@ declare class Room {
      * @param path A serialized path string.
      * @returns A path array.
      */
-    static deserializePath(path: string): PathStep[];
+    deserializePath(path: string): PathStep[];
 }
 /**
  * An energy source object. Can be harvested by creeps with a WORK body part.
@@ -1591,7 +1483,11 @@ interface Source {
 /**
  * Spawns are your colony centers. You can transfer energy into it and create new creeps using createCreep() method.
  */
-declare class Spawn {
+interface Spawn {
+    /**
+     * The prototype is stored in the Spawn.prototype global object. You can use it to extend game objects behaviour globally:
+     */
+    prototype: Spawn;
     /**
      * The amount of energy containing in the spawn.
      */
@@ -1692,7 +1588,11 @@ declare class Spawn {
 /**
  * Parent object for structure classes
  */
-declare class Structure extends RoomObject {
+interface Structure extends RoomObject {
+    /**
+     * The prototype is stored in the Structure.prototype global object. You can use it to extend game objects behaviour globally:
+     */
+    prototype: Structure;
     /**
      * The current amount of hit points of the structure.
      */
@@ -1723,7 +1623,8 @@ declare class Structure extends RoomObject {
      */
     notifyWhenAttacked(enabled: boolean): number;
 }
-declare class OwnedStructure extends Structure {
+interface OwnedStructure extends Structure {
+    prototype: OwnedStructure;
     /**
      * Whether this is your own structure. Walls and roads don't have this property as they are considered neutral structures.
      */
@@ -1736,7 +1637,7 @@ declare class OwnedStructure extends Structure {
 /**
  *
  */
-declare class StructureController extends OwnedStructure {
+interface StructureController extends OwnedStructure {
     /**
      * Current controller level, from 0 to 8.
      */
@@ -1765,7 +1666,7 @@ declare class StructureController extends OwnedStructure {
 /**
  *
  */
-declare class StructureExtension extends OwnedStructure {
+interface StructureExtension extends OwnedStructure {
     /**
      * The amount of energy containing in the extension.
      */
@@ -1807,7 +1708,7 @@ interface StructureLink extends OwnedStructure {
 /**
  *
  */
-declare class StructureKeeperLair extends OwnedStructure {
+interface StructureKeeperLair extends OwnedStructure {
     /**
      * Time to spawning of the next Source Keeper.
      */
@@ -1816,7 +1717,7 @@ declare class StructureKeeperLair extends OwnedStructure {
 /**
  *
  */
-declare class StructureObserver extends OwnedStructure {
+interface StructureObserver extends OwnedStructure {
     /**
      * Provide visibility into a distant room from your script. The target room object will be available on the next tick. The maximum range is 5 rooms.
      * @param roomName
@@ -1826,7 +1727,7 @@ declare class StructureObserver extends OwnedStructure {
 /**
  *
  */
-declare class StructurePowerBank extends OwnedStructure {
+interface StructurePowerBank extends OwnedStructure {
     /**
      * The amount of power containing.
      */
@@ -1839,7 +1740,7 @@ declare class StructurePowerBank extends OwnedStructure {
 /**
  *
  */
-declare class StructurePowerSpawn extends OwnedStructure {
+interface StructurePowerSpawn extends OwnedStructure {
     /**
      * The amount of energy containing in this structure.
      */
@@ -1875,7 +1776,7 @@ declare class StructurePowerSpawn extends OwnedStructure {
 /**
  *
  */
-declare class StructureRampart extends OwnedStructure {
+interface StructureRampart extends OwnedStructure {
     /**
      * The amount of game ticks when this rampart will lose some hit points.
      */
@@ -1884,7 +1785,7 @@ declare class StructureRampart extends OwnedStructure {
 /**
  *
  */
-declare class StructureRoad extends Structure {
+interface StructureRoad extends Structure {
     /**
      * The amount of game ticks when this road will lose some hit points.
      */
@@ -1893,7 +1794,7 @@ declare class StructureRoad extends Structure {
 /**
  *
  */
-declare class StructureStorage extends OwnedStructure {
+interface StructureStorage extends OwnedStructure {
     /**
      * An object with the storage contents.
      */
@@ -1908,7 +1809,7 @@ declare class StructureStorage extends OwnedStructure {
      * @param resourceType One of the RESOURCE_* constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    transfer(target: Creep, resourceType: string, amount?: number): number;
+    transfer(target: Creep, resourceType: number, amount?: number): number;
     /**
      * An alias for storage.transfer(target, RESOURCE_ENERGY, amount). This method is deprecated.
      * @param target The target object.
@@ -1920,7 +1821,7 @@ declare class StructureStorage extends OwnedStructure {
 /**
  *
  */
-declare class StructureTower extends OwnedStructure {
+interface StructureTower extends OwnedStructure {
     /**
      * The amount of energy containing in this structure.
      */
@@ -1954,7 +1855,7 @@ declare class StructureTower extends OwnedStructure {
 /**
  *
  */
-declare class StructureWall extends Structure {
+interface StructureWall extends Structure {
     /**
      * The amount of game ticks when the wall will disappear (only for automatically placed border walls at the start of the game).
      */
@@ -1963,12 +1864,12 @@ declare class StructureWall extends Structure {
 /**
  * Allows to harvest mineral deposits.
  */
-declare class StructureExtractor extends OwnedStructure {
+interface StructureExtractor extends OwnedStructure {
 }
 /**
  * Produces mineral compounds from base minerals and boosts creeps.
  */
-declare class StructureLab extends OwnedStructure {
+interface StructureLab extends OwnedStructure {
     /**
      * The amount of energy containing in the lab. Energy is used for boosting creeps.
      */
@@ -1984,7 +1885,7 @@ declare class StructureLab extends OwnedStructure {
     /**
      * The type of minerals containing in the lab. Labs can contain only one mineral type at the same time.
      */
-    mineralType: string;
+    mineralType: number;
     /**
      * The total amount of minerals the lab can contain.
      */
@@ -2012,7 +1913,7 @@ declare class StructureLab extends OwnedStructure {
 /**
  * 	Sends any resources to a Terminal in another room.
  */
-declare class StructureTerminal extends OwnedStructure {
+interface StructureTerminal extends OwnedStructure {
     /**
      * An object with the storage contents. Each object key is one of the RESOURCE_* constants, values are resources amounts.
      */
@@ -2040,7 +1941,7 @@ declare class StructureTerminal extends OwnedStructure {
 /**
  * 	Contains up to 2,000 resource units. Can be constructed in neutral rooms. Decays for 5,000 hits per 100 ticks.
  */
-declare class StructureContainer {
+interface StructureContainer {
     /**
      * An object with the structure contents. Each object key is one of the RESOURCE_* constants, values are resources
      * amounts. Use _.sum(structure.store) to get the total amount of contents

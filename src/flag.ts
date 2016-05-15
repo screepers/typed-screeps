@@ -1,7 +1,12 @@
 /**
  * A flag. Flags can be used to mark particular spots in a room. Flags are visible to their owners only.
  */
-declare class Flag extends RoomObject{
+interface Flag extends RoomObject{
+    prototype: Energy;
+    /**
+     * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
+     */
+    id: string;
     /**
      * Flag color. One of the following constants: COLOR_WHITE, COLOR_GREY, COLOR_RED, COLOR_PURPLE, COLOR_BLUE, COLOR_CYAN, COLOR_GREEN, COLOR_YELLOW, COLOR_ORANGE, COLOR_BROWN
      */

@@ -2,7 +2,7 @@
  * A global object representing the in-game market. You can use this object to track resource transactions to/from your
  * terminals, and your buy/sell orders (in development). The object is accessible via the singleton Game.market property.
  */
-declare class Market {
+interface Market {
 
     /**
      * An array of the last 100 incoming transactions to your terminals
