@@ -48,6 +48,13 @@ npm run compile
 
 # Changelog
 
+### v2.1.0 2016-06-23 [ChangeLog] (http://support.screeps.com/hc/en-us/articles/209164605-Changelog-2016-06-17)
+- Added new method StructureRampart.setPublic.
+- Added new property StructureRamprt.isPublic.
+- Added new global property Game.constructionSites.
+- Added new argument asArray to methods Room.lookAtArea and Room.lookForAtArea
+- Method Creep.moveByPath now accepts paths returned from PathFinder.search.
+
 ### v1.5.4 2016-04-04 [Bug](https://github.com/MarkoSulamagi/Screeps-Typescript-Declarations/issues/12)
 - Missing constants
 
