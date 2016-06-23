@@ -2,8 +2,7 @@
 /**
  * A global object representing world map. Use it to navigate between rooms. The object is accessible via Game.map property.
  */
-interface Map {
-    prototype: Map;
+declare class Map {
     /**
      * List all exits available from the room with the given name.
      * @param roomName The room name.

@@ -3,10 +3,6 @@
  */
 interface Game {
     /**
-     * Game prototype. You can use this to extend functionality of game class
-     */
-    prototype: Game;
-    /**
      * An object containing information about your CPU usage with the following properties:
      */
     cpu: CPU
@@ -42,6 +38,11 @@ interface Game {
      * A hash containing all your structures with structure id as hash keys.
      */
     structures: {[structureId: string]: Structure};
+
+    /**
+     * A hash containing all your construction sites with their id as hash keys.
+     */
+    constructionSites: {[constructionSiteId: string]: ConstructionSite}
     /**
      * System game tick counter. It is automatically incremented on every tick.
      */
