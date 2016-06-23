@@ -473,6 +473,16 @@ declare var REACTIONS: {
         X: 'XGHO2';
     };
 };
+declare var LOOK_CREEPS: "creep";
+declare var LOOK_ENERGY: "energy";
+declare var LOOK_RESOURCES: "resource";
+declare var LOOK_SOURCES: "source";
+declare var LOOK_MINERALS: "mineral";
+declare var LOOK_STRUCTURES: "structure";
+declare var LOOK_FLAGS: "flag";
+declare var LOOK_CONSTRUCTION_SITES: "constructionSite";
+declare var LOOK_NUKES: "nuke";
+declare var LOOK_TERRAIN: "terrain";
 /**
  * A site of a structure which is currently under construction.
  */
@@ -646,7 +656,10 @@ declare class Creep extends RoomObject {
      * Move the creep using the specified predefined path. Needs the MOVE body part.
      * @param path A path value as returned from Room.findPath or RoomPosition.findPathTo methods. Both array form and serialized string form are accepted.
      */
-    moveByPath(path: PathStep[]): number;
+    moveByPath(path: PathStep[] | {
+        path: RoomPosition[];
+        ops: number;
+    }): number;
     /**
      * Find the optimal path to the target within the same room and move to it. A shorthand to consequent calls of pos.findPathTo() and move() methods. If the target is in another room, then the corresponding exit will be used as a target. Needs the MOVE body part.
      * @param x X position of the target in the room.
@@ -822,6 +835,12 @@ interface Game {
         [structureId: string]: Structure;
     };
     /**
+     * A hash containing all your construction sites with their id as hash keys.
+     */
+    constructionSites: {
+        [constructionSiteId: string]: ConstructionSite;
+    };
+    /**
      * System game tick counter. It is automatically incremented on every tick.
      */
     time: number;
@@ -901,6 +920,14 @@ interface Energy {
      * The link to the Room object of this structure.
      */
     room: Room;
+}
+interface LookAtResultWithPos {
+    x: number;
+    y: number;
+    type: string;
+    creep?: Creep;
+    terrain?: string;
+    structure?: Structure;
 }
 interface LookAtResult {
     type: string;
@@ -1514,7 +1541,7 @@ declare class Room {
      * @param right The right X boundary of the area.
      * @returns An object with all the objects in the specified area
      */
-    lookAtArea(top: number, left: number, bottom: number, right: number): LookAtResultMatrix;
+    lookAtArea(top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix | LookAtResultWithPos[];
     /**
      * Get an object with the given type at the specified room position.
      * @param type One of the following string constants: constructionSite, creep, energy, exit, flag, source, structure, terrain
@@ -1541,7 +1568,7 @@ declare class Room {
      * @param right The right X boundary of the area.
      * @returns An object with all the objects of the given type in the specified area
      */
-    lookForAtArea(type: string, top: number, left: number, bottom: number, right: number): LookAtResultMatrix;
+    lookForAtArea(type: string, top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix | LookAtResultWithPos[];
     /**
      * Serialize a path array into a short string representation, which is suitable to store in memory.
      * @param path A path array retrieved from Room.findPath.
@@ -1880,6 +1907,15 @@ declare class StructureRampart extends OwnedStructure {
      * The amount of game ticks when this rampart will lose some hit points.
      */
     ticksToDecay: number;
+    /**
+     * If false (default), only your creeps can step on the same square. If true, any hostile creeps can pass through.
+     */
+    isPublic: boolean;
+    /**
+     *  Make this rampart public to allow other players' creeps to pass through.
+     * @param isPublic Whether this rampart should be public or non-public
+     */
+    setPublic(isPublic: boolean): any;
 }
 /**
  *

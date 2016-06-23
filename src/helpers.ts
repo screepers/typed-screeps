@@ -67,6 +67,14 @@ interface Energy {
     room: Room;
 }
 
+interface LookAtResultWithPos {
+    x: number;
+    y: number;
+    type: string;
+    creep?: Creep;
+    terrain?: string;
+    structure?: Structure;
+}
 interface LookAtResult {
     type: string;
     constructionSite?: ConstructionSite;
@@ -78,6 +86,7 @@ interface LookAtResult {
     structure?: Structure;
     terrain?: string;
 }
+
 
 interface LookAtResultMatrix {
     [coord: number]: LookAtResultMatrix|LookAtResult[]

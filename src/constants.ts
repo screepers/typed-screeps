@@ -511,3 +511,13 @@ declare var REACTIONS: {
     }
 }
 
+declare var LOOK_CREEPS: "creep";
+declare var LOOK_ENERGY: "energy";
+declare var LOOK_RESOURCES: "resource";
+declare var LOOK_SOURCES: "source";
+declare var LOOK_MINERALS: "mineral";
+declare var LOOK_STRUCTURES: "structure";
+declare var LOOK_FLAGS: "flag";
+declare var LOOK_CONSTRUCTION_SITES: "constructionSite";
+declare var LOOK_NUKES: "nuke";
+declare var LOOK_TERRAIN: "terrain";

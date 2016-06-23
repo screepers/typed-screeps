@@ -38,6 +38,11 @@ interface Game {
      * A hash containing all your structures with structure id as hash keys.
      */
     structures: {[structureId: string]: Structure};
+
+    /**
+     * A hash containing all your construction sites with their id as hash keys.
+     */
+    constructionSites: {[constructionSiteId: string]: ConstructionSite}
     /**
      * System game tick counter. It is automatically incremented on every tick.
      */

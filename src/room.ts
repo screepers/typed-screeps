@@ -123,7 +123,7 @@ declare class Room {
      * @param right The right X boundary of the area.
      * @returns An object with all the objects in the specified area
      */
-    lookAtArea(top: number, left: number, bottom: number, right: number): LookAtResultMatrix;
+    lookAtArea(top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix | LookAtResultWithPos[];
     /**
      * Get an object with the given type at the specified room position.
      * @param type One of the following string constants: constructionSite, creep, energy, exit, flag, source, structure, terrain
@@ -148,7 +148,7 @@ declare class Room {
      * @param right The right X boundary of the area.
      * @returns An object with all the objects of the given type in the specified area
      */
-    lookForAtArea(type: string, top: number, left: number, bottom: number, right: number): LookAtResultMatrix;
+    lookForAtArea(type: string, top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix | LookAtResultWithPos[];
 
     /**
      * Serialize a path array into a short string representation, which is suitable to store in memory.
