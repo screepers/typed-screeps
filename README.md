@@ -48,6 +48,9 @@ npm run compile
 
 # Changelog
 
+### v3.0.0 Change all usage of interface to class.
+Please raise an issue if this break your code! 
+
 ### v2.1.0 2016-06-23 [ChangeLog] (http://support.screeps.com/hc/en-us/articles/209164605-Changelog-2016-06-17)
 - Added new method StructureRampart.setPublic.
 - Added new property StructureRamprt.isPublic.
