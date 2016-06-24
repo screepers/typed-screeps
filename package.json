@@ -2,6 +2,7 @@
   "name": "screeps-typescript-declarations",
   "version": "2.0.0",
   "description": "Typescript declarations for Screeps API. To enable autocomplete and help with compilation",
+  "typings": "./dist/screeps.d.ts",
   "scripts": {
     "compile": "node_modules/.bin/tsc"
   },
