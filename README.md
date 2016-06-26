@@ -48,6 +48,14 @@ npm run compile
 
 # Changelog
 
+### v4.0.0 
+- Change `Map` to `GameMap` to avoid conflict with new ES6 Map type
+- Remove Energy Interface and replace it with Resource. This could potentially break your code. Please change all reference of Energy to Resource and it should fix the issue.
+- Spawn will now extends OwnStructure, and StructureContainer will extends Structure.
+- Fix createCreep return type to `number | string`.
+- Update new options for findPath
+- Add string as an acceptable params to moveByPath.
+
 ### v3.0.0 Change all usage of interface to class.
 Please raise an issue if this break your code! 
 
