@@ -44,29 +44,6 @@ interface StoreDefinition {
     power?: number
 }
 
-/**
- * A dropped piece of energy. It will decay after a while if not picked up.
- */
-interface Energy {
-    prototype: Energy;
-    /**
-     * The amount of energy containing.
-     */
-    amount: number;
-    /**
-     * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
-     */
-    id: string;
-    /**
-     * An object representing the position in the room.
-     */
-    pos: RoomPosition;
-    /**
-     * The link to the Room object of this structure.
-     */
-    room: Room;
-}
-
 interface LookAtResultWithPos {
     x: number;
     y: number;
@@ -79,7 +56,7 @@ interface LookAtResult {
     type: string;
     constructionSite?: ConstructionSite;
     creep?: Creep;
-    energy?: Energy;
+    energy?: Resource;
     exit?: any;
     flag?: Flag;
     source?: Source;
