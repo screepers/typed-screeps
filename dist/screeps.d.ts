@@ -659,7 +659,7 @@ declare class Creep extends RoomObject {
     moveByPath(path: PathStep[] | {
         path: RoomPosition[];
         ops: number;
-    }): number;
+    } | string): number;
     /**
      * Find the optimal path to the target within the same room and move to it. A shorthand to consequent calls of pos.findPathTo() and move() methods. If the target is in another room, then the corresponding exit will be used as a target. Needs the MOVE body part.
      * @param x X position of the target in the room.
@@ -684,7 +684,7 @@ declare class Creep extends RoomObject {
      * Pick up an item (a dropped piece of energy). Needs the CARRY body part. The target has to be at adjacent square to the creep or at the same square.
      * @param target The target object to be picked up.
      */
-    pickup(target: Energy): number;
+    pickup(target: Resource): number;
     /**
      * A ranged attack against another creep or structure. Needs the RANGED_ATTACK body part. If the target is inside a rampart, the rampart is attacked instead. The target has to be within 3 squares range of the creep.
      * @param target The target object to be attacked.
@@ -899,28 +899,6 @@ interface StoreDefinition {
     energy: number;
     power?: number;
 }
-/**
- * A dropped piece of energy. It will decay after a while if not picked up.
- */
-interface Energy {
-    prototype: Energy;
-    /**
-     * The amount of energy containing.
-     */
-    amount: number;
-    /**
-     * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
-     */
-    id: string;
-    /**
-     * An object representing the position in the room.
-     */
-    pos: RoomPosition;
-    /**
-     * The link to the Room object of this structure.
-     */
-    room: Room;
-}
 interface LookAtResultWithPos {
     x: number;
     y: number;
@@ -933,7 +911,7 @@ interface LookAtResult {
     type: string;
     constructionSite?: ConstructionSite;
     creep?: Creep;
-    energy?: Energy;
+    energy?: Resource;
     exit?: any;
     flag?: Flag;
     source?: Source;
@@ -946,10 +924,13 @@ interface LookAtResultMatrix {
 interface FindPathOpts {
     ignoreCreeps?: boolean;
     ignoreDestructibleStructures?: boolean;
+    ignoreRoads?: boolean;
     ignore?: [any | RoomPosition];
     avoid?: any[] | RoomPosition[];
     maxOps?: number;
     heuristicWeight?: number;
+    serialize?: boolean;
+    maxRooms?: number;
 }
 interface MoveToOpts {
     reusePath?: number;
@@ -1228,6 +1209,14 @@ interface RawMemory {
      * @param value New memory value as a string.
      */
     set(value: string): any;
+}
+/**
+ * A dropped piece of resource. It will decay after a while if not picked up. Dropped resource pile decays for ceil(amount/1000) units per tick.
+ */
+declare class Resource extends RoomObject {
+    amount: number;
+    id: string;
+    resourceType: string;
 }
 /**
  * Any object with a position in a room. Almost all game objects prototypes
@@ -1686,11 +1675,18 @@ declare class Spawn extends OwnedStructure {
     canCreateCreep(body: string[], name?: string): number;
     /**
      * Start the creep spawning process.
+     * The name of a new creep or one of these error codes
+     * ERR_NOT_OWNER	-1	You are not the owner of this spawn.
+     * ERR_NAME_EXISTS	-3	There is a creep with the same name already.
+     * ERR_BUSY	-4	The spawn is already in process of spawning another creep.
+     * ERR_NOT_ENOUGH_ENERGY	-6	The spawn and its extensions contain not enough energy to create a creep with the given body.
+     * ERR_INVALID_ARGS	-10	Body is not properly described.
+     * ERR_RCL_NOT_ENOUGH	-14	Your Room Controller level is not enough to use this spawn.
      * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of these constants: WORK, MOVE, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH, CLAIM
      * @param name The name of a new creep. It should be unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key). If not defined, a random name will be generated.
      * @param memory The memory of a new creep. If provided, it will be immediately stored into Memory.creeps[name].
      */
-    createCreep(body: string[], name?: string, memory?: any): number;
+    createCreep(body: string[], name?: string, memory?: any): number | string;
     /**
      * Destroy this spawn immediately.
      */
