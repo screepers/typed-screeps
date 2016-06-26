@@ -119,7 +119,7 @@ declare class Creep extends RoomObject{
      * Move the creep using the specified predefined path. Needs the MOVE body part.
      * @param path A path value as returned from Room.findPath or RoomPosition.findPathTo methods. Both array form and serialized string form are accepted.
      */
-    moveByPath(path: PathStep[] |  {path: RoomPosition[], ops:number}): number;
+    moveByPath(path: PathStep[] |  {path: RoomPosition[], ops:number} | string): number;
     /**
      * Find the optimal path to the target within the same room and move to it. A shorthand to consequent calls of pos.findPathTo() and move() methods. If the target is in another room, then the corresponding exit will be used as a target. Needs the MOVE body part.
      * @param x X position of the target in the room.
@@ -142,7 +142,7 @@ declare class Creep extends RoomObject{
      * Pick up an item (a dropped piece of energy). Needs the CARRY body part. The target has to be at adjacent square to the creep or at the same square.
      * @param target The target object to be picked up.
      */
-    pickup(target: Energy): number;
+    pickup(target: Resource): number;
     /**
      * A ranged attack against another creep or structure. Needs the RANGED_ATTACK body part. If the target is inside a rampart, the rampart is attacked instead. The target has to be within 3 squares range of the creep.
      * @param target The target object to be attacked.

@@ -231,7 +231,7 @@ declare class StructureRoad extends Structure {
  *
  */
 declare class StructureStorage extends OwnedStructure {
-    
+
     /**
      * An object with the storage contents.
      */
