@@ -382,7 +382,7 @@ declare class StructureTerminal extends OwnedStructure {
 /**
  * 	Contains up to 2,000 resource units. Can be constructed in neutral rooms. Decays for 5,000 hits per 100 ticks.
  */
-declare class StructureContainer {
+declare class StructureContainer extends Structure{
     /**
      * An object with the structure contents. Each object key is one of the RESOURCE_* constants, values are resources
      * amounts. Use _.sum(structure.store) to get the total amount of contents

@@ -1618,7 +1618,7 @@ interface Source {
 /**
  * Spawns are your colony centers. You can transfer energy into it and create new creeps using createCreep() method.
  */
-declare class Spawn {
+declare class Spawn extends OwnedStructure {
     /**
      * The amount of energy containing in the spawn.
      */
@@ -2076,7 +2076,7 @@ declare class StructureTerminal extends OwnedStructure {
 /**
  * 	Contains up to 2,000 resource units. Can be constructed in neutral rooms. Decays for 5,000 hits per 100 ticks.
  */
-declare class StructureContainer {
+declare class StructureContainer extends Structure {
     /**
      * An object with the structure contents. Each object key is one of the RESOURCE_* constants, values are resources
      * amounts. Use _.sum(structure.store) to get the total amount of contents
