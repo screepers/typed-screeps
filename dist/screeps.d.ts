@@ -811,7 +811,7 @@ interface Game {
     /**
      * A global object representing world GameMap.
      */
-    map: Map;
+    map: GameMap;
     /**
      * A global object representing the in-game market.
      */
@@ -963,7 +963,7 @@ interface SurvivalGameInfo {
 /**
  * A global object representing world map. Use it to navigate between rooms. The object is accessible via Game.map property.
  */
-declare class Map {
+declare class GameMap {
     /**
      * List all exits available from the room with the given name.
      * @param roomName The room name.

@@ -21,7 +21,7 @@ interface Game {
     /**
      * A global object representing world GameMap.
      */
-    map: Map;
+    map: GameMap;
     /**
      * A global object representing the in-game market.
      */
