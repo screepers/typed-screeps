@@ -126,7 +126,7 @@ Unfortunately other changes in that changelog are not added yet. We're working o
 * **vanhouc** - *Screep project with TS functionality. His gulpfile and screep.d.ts was very useful.* - [vanhouc](https://github.com/vanhouc)
 * **Nhan Ho** - *Helpful contributor* - [NhanHo](https://github.com/NhanHo)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/screepers/Screeps-Typescript-Declarations/contributors) who participated in this project.
 
 ## License
 
