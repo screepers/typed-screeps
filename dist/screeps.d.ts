@@ -620,7 +620,7 @@ declare class Creep extends RoomObject {
      * @param target The target controller object.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_FULL, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_GCL_NOT_ENOUGH
      */
-    claimController(target: Structure): number;
+    claimController(target: Controller): number;
     /**
      * Dismantles any (even hostile) structure returning 50% of the energy spent on its repair. Requires the WORK body part. If the creep has an empty CARRY body part, the energy is put into it; otherwise it is dropped on the ground. The target has to be at adjacent square to the creep.
      * @param target The target structure.
@@ -730,7 +730,7 @@ declare class Creep extends RoomObject {
      * Upgrade your controller to the next level using carried energy. Upgrading controllers raises your Global Control Level in parallel. Needs WORK and CARRY body parts. The target has to be at adjacent square to the creep. A fully upgraded level 8 controller can't be upgraded with the power over 15 energy units per tick regardless of creeps power. The cumulative effect of all the creeps performing upgradeController in the current tick is taken into account.
      * @param target The target controller object to be upgraded.
      */
-    upgradeController(target: Structure): number;
+    upgradeController(target: Controller): number;
 }
 /**
  * A flag. Flags can be used to mark particular spots in a room. Flags are visible to their owners only.

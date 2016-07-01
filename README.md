@@ -2,8 +2,6 @@
 
 > The repository for *Screep's* TypeScript type definitions. https://screeps.com/
 
-Also see Screep's Typescript skeleton project to get Screep development up and running fast: [GitHUB link](https://github.com/MarkoSulamagi/Screeps-typescript-skeleton)
-
 Discussion in [screep's community forum](http://support.screeps.com/hc/en-us/community/posts/207116485-Writing-Screep-bots-with-Typescript?page=1#)
 
 # Usage 
@@ -131,7 +129,7 @@ Unfortunately other changes in that changelog are not added yet. We're working o
 * **vanhouc** - *Screep project with TS functionality. His gulpfile and screep.d.ts was very useful.* - [vanhouc](https://github.com/vanhouc)
 * **Nhan Ho** - *Helpful contributor* - [NhanHo](https://github.com/NhanHo)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/screepers/Screeps-Typescript-Declarations/contributors) who participated in this project.
 
 ## License
 
