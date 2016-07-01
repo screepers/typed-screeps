@@ -380,144 +380,144 @@ declare var TERRAIN_MASK_LAVA: number;
 
 declare var REACTIONS: {
     H: {
-        O: 'OH',
-        L: 'LH',
-        K: 'KH',
-        U: 'UH',
-        Z: 'ZH',
-        G: 'GH'
+        O: string,
+        L: string,
+        K: string,
+        U: string,
+        Z: string,
+        G: string
     },
     O: {
-        H: 'OH',
-        L: 'LO',
-        K: 'KO',
-        U: 'UO',
-        Z: 'ZO',
-        G: 'GO'
+        H: string,
+        L: string,
+        K: string,
+        U: string,
+        Z: string,
+        G: string
     },
     Z: {
-        K: 'ZK',
-        H: 'ZH',
-        O: 'ZO'
+        K: string,
+        H: string,
+        O: string
     },
     L: {
-        U: 'UL',
-        H: 'LH',
-        O: 'LO'
+        U: string,
+        H: string,
+        O: string
     },
     K: {
-        Z: 'ZK',
-        H: 'KH',
-        O: 'KO'
+        Z: string,
+        H: string,
+        O: string
     },
     G: {
-        H: 'GH',
-        O: 'GO'
+        H: string,
+        O: string
     },
     U: {
-        L: 'UL',
-        H: 'UH',
-        O: 'UO'
+        L: string,
+        H: string,
+        O: string
     },
     OH: {
-        UH: 'UH2O',
-        UO: 'UHO2',
-        ZH: 'ZH2O',
-        ZO: 'ZHO2',
-        KH: 'KH2O',
-        KO: 'KHO2',
-        LH: 'LH2O',
-        LO: 'LHO2',
-        GH: 'GH2O',
-        GO: 'GHO2'
+        UH: string,
+        UO: string,
+        ZH: string,
+        ZO: string,
+        KH: string,
+        KO: string,
+        LH: string,
+        LO: string,
+        GH: string,
+        GO: string
     },
     X: {
-        UH2O: 'XUH2O',
-        UHO2: 'XUHO2',
-        LH2O: 'XLH2O',
-        LHO2: 'XLHO2',
-        KH2O: 'XKH2O',
-        KHO2: 'XKHO2',
-        ZH2O: 'XZH2O',
-        ZHO2: 'XZHO2',
-        GH2O: 'XGH2O',
-        GHO2: 'XGHO2'
+        UH2O: string,
+        UHO2: string,
+        LH2O: string,
+        LHO2: string,
+        KH2O: string,
+        KHO2: string,
+        ZH2O: string,
+        ZHO2: string,
+        GH2O: string,
+        GHO2: string
     },
     ZK: {
-        UL: 'G'
+        UL: string
     },
     UL: {
-        ZK: 'G'
+        ZK: string
     },
     LH: {
-        OH: 'LH2O'
+        OH: string
     },
     ZH: {
-        OH: 'ZH2O'
+        OH: string
     },
     GH: {
-        OH: 'GH2O'
+        OH: string
     },
     KH: {
-        OH: 'KH2O'
+        OH: string
     },
     UH: {
-        OH: 'UH2O'
+        OH: string
     },
     LO: {
-        OH: 'LHO2'
+        OH: string
     },
     ZO: {
-        OH: 'ZHO2'
+        OH: string
     },
     KO: {
-        OH: 'KHO2'
+        OH: string
     },
     UO: {
-        OH: 'UHO2'
+        OH: string
     },
     GO: {
-        OH: 'GHO2'
+        OH: string
     },
     LH2O: {
-        X: 'XLH2O'
+        X: string
     },
     KH2O: {
-        X: 'XKH2O'
+        X: string
     },
     ZH2O: {
-        X: 'XZH2O'
+        X: string
     },
     UH2O: {
-        X: 'XUH2O'
+        X: string
     },
     GH2O: {
-        X: 'XGH2O'
+        X: string
     },
     LHO2: {
-        X: 'XLHO2'
+        X: string
     },
     UHO2: {
-        X: 'XUHO2'
+        X: string
     },
     KHO2: {
-        X: 'XKHO2'
+        X: string
     },
     ZHO2: {
-        X: 'XZHO2'
+        X: string
     },
     GHO2: {
-        X: 'XGHO2'
+        X: string
     }
 }
 
-declare var LOOK_CREEPS: "creep";
-declare var LOOK_ENERGY: "energy";
-declare var LOOK_RESOURCES: "resource";
-declare var LOOK_SOURCES: "source";
-declare var LOOK_MINERALS: "mineral";
-declare var LOOK_STRUCTURES: "structure";
-declare var LOOK_FLAGS: "flag";
-declare var LOOK_CONSTRUCTION_SITES: "constructionSite";
-declare var LOOK_NUKES: "nuke";
-declare var LOOK_TERRAIN: "terrain";
+declare var LOOK_CREEPS: string;
+declare var LOOK_ENERGY: string;
+declare var LOOK_RESOURCES: string;
+declare var LOOK_SOURCES: string;
+declare var LOOK_MINERALS: string;
+declare var LOOK_STRUCTURES: string;
+declare var LOOK_FLAGS: string;
+declare var LOOK_CONSTRUCTION_SITES: string;
+declare var LOOK_NUKES: string;
+declare var LOOK_TERRAIN: string;
