@@ -48,6 +48,9 @@ npm run compile
 
 # Changelog
 
+### v4.0.1
+- Fix issues with REACTIONS and LOOK_* constants
+
 ### v4.0.0 
 - Change `Map` to `GameMap` to avoid conflict with new ES6 Map type
 - Remove Energy Interface and replace it with Resource. This could potentially break your code. Please change all reference of Energy to Resource and it should fix the issue.
