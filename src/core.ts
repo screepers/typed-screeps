@@ -13,6 +13,6 @@ type Rampart = StructureRampart;
 type Terminal = StructureTerminal;
 type Container = StructureContainer;
 type Tower = StructureTower;
-
+type StructureSpawn = Spawn;
 interface Storage extends StructureStorage {
 }

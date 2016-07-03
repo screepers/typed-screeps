@@ -532,6 +532,7 @@ declare type Rampart = StructureRampart;
 declare type Terminal = StructureTerminal;
 declare type Container = StructureContainer;
 declare type Tower = StructureTower;
+declare type StructureSpawn = Spawn;
 interface Storage extends StructureStorage {
 }
 /**
