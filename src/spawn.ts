@@ -98,6 +98,11 @@ declare class Spawn extends OwnedStructure{
      */
     renewCreep(target: Creep): number;
     /**
+     * Kill the creep and drop up to 100% of resources spent on its spawning and boosting depending on remaining life time. The target should be at adjacent square.
+     * @param target The target creep object.
+     */
+    recycleCreep(target: Creep): number;
+    /**
      * Transfer the energy from the spawn to a creep.
      * @param target The creep object which energy should be transferred to.
      * @param amount The amount of energy to be transferred. If omitted, all the remaining amount of energy will be used.
