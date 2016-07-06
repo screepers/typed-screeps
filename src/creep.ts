@@ -16,7 +16,7 @@ declare class Creep extends RoomObject{
      * energy: number
      * The current amount of energy the creep is carrying.
      */
-    carry: { energy: number };
+    carry: { [resource: string]: number };
     /**
      * The total amount of resources the creep can carry.
      */
@@ -66,6 +66,11 @@ declare class Creep extends RoomObject{
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
      */
     attack(target: Creep|Spawn|Structure): number;
+    /**
+     * Decreases the controller's downgrade or reservation timer for 1 tick per every 5 CLAIM body parts (so the creep must have at least 5xCLAIM). The controller under attack cannot be upgraded for the next 1,000 ticks. The target has to be at adjacent square to the creep.
+     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
+     */
+    attackController(target: Structure): number;
     /**
      * Build a structure at the target construction site using carried energy. Needs WORK and CARRY body parts. The target has to be within 3 squares range of the creep.
      * @param target The target object to be attacked.
