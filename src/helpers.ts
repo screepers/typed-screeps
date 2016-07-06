@@ -73,7 +73,7 @@ interface FindPathOpts {
     ignoreCreeps?: boolean;
     ignoreDestructibleStructures?: boolean;
     ignoreRoads?: boolean;
-    ignore?: [any|RoomPosition];
+    ignore?: any[]|RoomPosition[];
     avoid?: any[]|RoomPosition[];
     maxOps?: number;
     heuristicWeight?: number;
