@@ -56,16 +56,17 @@ declare var ERR_RCL_NOT_ENOUGH: number;
 declare var ERR_GCL_NOT_ENOUGH: number;
 
 // Last update 2016-02-05
-declare var COLOR_RED: string;
-declare var COLOR_PURPLE: string;
-declare var COLOR_BLUE: string;
-declare var COLOR_CYAN: string;
-declare var COLOR_GREEN: string;
-declare var COLOR_YELLOW: string;
-declare var COLOR_ORANGE: string;
-declare var COLOR_BROWN: string;
-declare var COLOR_GREY: string;
-declare var COLOR_WHITE: string;
+declare var COLOR_RED: number;
+declare var COLOR_PURPLE: number;
+declare var COLOR_BLUE: number;
+declare var COLOR_CYAN: number;
+declare var COLOR_GREEN: number;
+declare var COLOR_YELLOW: number;
+declare var COLOR_ORANGE: number;
+declare var COLOR_BROWN: number;
+declare var COLOR_GREY: number;
+declare var COLOR_WHITE: number;
+declare var COLORS_ALL: number[];
 
 declare var CREEP_SPAWN_TIME: number;
 declare var CREEP_LIFE_TIME: number;
@@ -372,7 +373,9 @@ declare var GCL_MULTIPLY: number;
 
 // Updated 2016-02-05
 declare var MODE_SIMULATION: string;
+declare var MODE_SURVIVAL: string;
 declare var MODE_WORLD: string;
+declare var MODE_ARENA: string;
 
 declare var TERRAIN_MASK_WALL: number;
 declare var TERRAIN_MASK_SWAMP: number;
