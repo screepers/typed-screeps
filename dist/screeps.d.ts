@@ -555,9 +555,7 @@ declare class Creep extends RoomObject {
      * energy: number
      * The current amount of energy the creep is carrying.
      */
-    carry: {
-        [resource: string]: number;
-    };
+    carry: StoreDefinition;
     /**
      * The total amount of resources the creep can carry.
      */
@@ -906,7 +904,8 @@ interface ReservationDefinition {
 }
 interface StoreDefinition {
     [resource: string]: number;
-    energy: number;
+    energy?: number;
+    power?: number;
 }
 interface LookAtResultWithPos {
     x: number;
