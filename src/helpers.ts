@@ -40,8 +40,8 @@ interface ReservationDefinition {
     ticksToEnd: number
 }
 interface StoreDefinition {
-    energy: number,
-    power?: number
+    [resource: string]: number;
+    energy: number;
 }
 
 interface LookAtResultWithPos {

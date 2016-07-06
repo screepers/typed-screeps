@@ -897,8 +897,8 @@ interface ReservationDefinition {
     ticksToEnd: number;
 }
 interface StoreDefinition {
+    [resource: string]: number;
     energy: number;
-    power?: number;
 }
 interface LookAtResultWithPos {
     x: number;
