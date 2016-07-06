@@ -48,16 +48,17 @@ declare var ERR_NO_BODYPART: number;
 declare var ERR_NOT_ENOUGH_EXTENSIONS: number;
 declare var ERR_RCL_NOT_ENOUGH: number;
 declare var ERR_GCL_NOT_ENOUGH: number;
-declare var COLOR_RED: string;
-declare var COLOR_PURPLE: string;
-declare var COLOR_BLUE: string;
-declare var COLOR_CYAN: string;
-declare var COLOR_GREEN: string;
-declare var COLOR_YELLOW: string;
-declare var COLOR_ORANGE: string;
-declare var COLOR_BROWN: string;
-declare var COLOR_GREY: string;
-declare var COLOR_WHITE: string;
+declare var COLOR_RED: number;
+declare var COLOR_PURPLE: number;
+declare var COLOR_BLUE: number;
+declare var COLOR_CYAN: number;
+declare var COLOR_GREEN: number;
+declare var COLOR_YELLOW: number;
+declare var COLOR_ORANGE: number;
+declare var COLOR_BROWN: number;
+declare var COLOR_GREY: number;
+declare var COLOR_WHITE: number;
+declare var COLORS_ALL: number[];
 declare var CREEP_SPAWN_TIME: number;
 declare var CREEP_LIFE_TIME: number;
 declare var OBSTACLE_OBJECT_TYPES: string[];
@@ -337,7 +338,9 @@ declare var CONTROLLER_STRUCTURES: {
 declare var GCL_POW: number;
 declare var GCL_MULTIPLY: number;
 declare var MODE_SIMULATION: string;
+declare var MODE_SURVIVAL: string;
 declare var MODE_WORLD: string;
+declare var MODE_ARENA: string;
 declare var TERRAIN_MASK_WALL: number;
 declare var TERRAIN_MASK_SWAMP: number;
 declare var TERRAIN_MASK_LAVA: number;
@@ -552,9 +555,7 @@ declare class Creep extends RoomObject {
      * energy: number
      * The current amount of energy the creep is carrying.
      */
-    carry: {
-        energy: number;
-    };
+    carry: StoreDefinition;
     /**
      * The total amount of resources the creep can carry.
      */
@@ -604,6 +605,11 @@ declare class Creep extends RoomObject {
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
      */
     attack(target: Creep | Spawn | Structure): number;
+    /**
+     * Decreases the controller's downgrade or reservation timer for 1 tick per every 5 CLAIM body parts (so the creep must have at least 5xCLAIM). The controller under attack cannot be upgraded for the next 1,000 ticks. The target has to be at adjacent square to the creep.
+     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
+     */
+    attackController(target: Structure): number;
     /**
      * Build a structure at the target construction site using carried energy. Needs WORK and CARRY body parts. The target has to be within 3 squares range of the creep.
      * @param target The target object to be attacked.
@@ -897,7 +903,8 @@ interface ReservationDefinition {
     ticksToEnd: number;
 }
 interface StoreDefinition {
-    energy: number;
+    [resource: string]: number;
+    energy?: number;
     power?: number;
 }
 interface LookAtResultWithPos {
@@ -926,7 +933,7 @@ interface FindPathOpts {
     ignoreCreeps?: boolean;
     ignoreDestructibleStructures?: boolean;
     ignoreRoads?: boolean;
-    ignore?: [any | RoomPosition];
+    ignore?: any[] | RoomPosition[];
     avoid?: any[] | RoomPosition[];
     maxOps?: number;
     heuristicWeight?: number;
@@ -992,10 +999,10 @@ declare class GameMap {
      * @param toRoom Finish room name or room object.
      * @returns the route array or ERR_NO_PATH code
      */
-    findRoute(fromRoom: string | Room, toRoom: string | Room): [{
+    findRoute(fromRoom: string | Room, toRoom: string | Room): {
         exit: string;
         room: string;
-    }] | number;
+    }[] | number;
     /**
      * Get the linear distance (in rooms) between two rooms. You can use this function to estimate the energy cost of
      * sending resources through terminals, or using observers and nukes.
@@ -1277,7 +1284,7 @@ declare class RoomPosition {
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByPath<T>(objects: [T | RoomPosition], opts?: {
+    findClosestByPath<T>(objects: T[] | RoomPosition[], opts?: {
         filter?: any | string;
         algorithm?: string;
     }): T;
@@ -1294,7 +1301,7 @@ declare class RoomPosition {
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
      * @param opts An object containing one of the following options: filter
      */
-    findClosestByRange<T>(objects: [T | RoomPosition], opts?: {
+    findClosestByRange<T>(objects: T[] | RoomPosition[], opts?: {
         filter: any | string;
     }): T;
     /**
@@ -1313,7 +1320,7 @@ declare class RoomPosition {
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<T>(objects: [T | RoomPosition], range: number, opts?: {
+    findInRange<T>(objects: T[] | RoomPosition[], range: number, opts?: {
         filter?: any | string;
         algorithm?: string;
     }): T[];
@@ -1706,6 +1713,11 @@ declare class Spawn extends OwnedStructure {
      * @param target The target creep object.
      */
     renewCreep(target: Creep): number;
+    /**
+     * Kill the creep and drop up to 100% of resources spent on its spawning and boosting depending on remaining life time. The target should be at adjacent square.
+     * @param target The target creep object.
+     */
+    recycleCreep(target: Creep): number;
     /**
      * Transfer the energy from the spawn to a creep.
      * @param target The creep object which energy should be transferred to.

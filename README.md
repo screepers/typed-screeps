@@ -4,9 +4,9 @@
 
 Discussion in [screep's community forum](http://support.screeps.com/hc/en-us/community/posts/207116485-Writing-Screep-bots-with-Typescript?page=1#)
 
-# Usage 
+# Installation
 
-Run command: 
+Run command:
 
 ```
 $ npm install screeps-typescript-declarations --save
@@ -18,15 +18,24 @@ Include declaration file in your typescript compiler (usually tsconfig.json), "f
 "files": ["./your_sources_folder/**/*.ts", "./node_modules/screeps-typescript-declarations/dist/screeps.d.ts"],
 ```
 
+Or if you use [typings](https://github.com/typings/typings), add this to your typings.json:
+```json
+{
+  "globalDependencies": {
+    "screeps": "github:screepers/Screeps-Typescript-Declarations/dist/screeps.d.ts#master"
+  }
+}
+```
+
 # Usage
 
-Note: When using this API, you can't access creeps in manner suggested in Screeps' tutorial: 
+Note: When using this API, you can't access creeps in manner suggested in Screeps' tutorial:
 
 ```
 Game.creeps.Worker1  // This is not allowed by TypeScript compiler
 ```
 
-Instead, you have to use 
+Instead, you have to use
 
 ```
 Game.creeps['Worker1']
@@ -36,7 +45,7 @@ Game.creeps['Worker1']
 
 This library will stay up to date only with the help of you! If active players don't update it, it'll get lost.
 
-To update the declarations, edit the files in ./src folder. 
+To update the declarations, edit the files in ./src folder.
 
 To compile the declarations, run:
 
@@ -49,7 +58,7 @@ npm run compile
 ### v4.0.1
 - Fix issues with REACTIONS and LOOK_* constants
 
-### v4.0.0 
+### v4.0.0
 - Change `Map` to `GameMap` to avoid conflict with new ES6 Map type
 - Remove Energy Interface and replace it with Resource. This could potentially break your code. Please change all reference of Energy to Resource and it should fix the issue.
 - Spawn will now extends OwnStructure, and StructureContainer will extends Structure.
@@ -58,7 +67,7 @@ npm run compile
 - Add string as an acceptable params to moveByPath.
 
 ### v3.0.0 Change all usage of interface to class.
-Please raise an issue if this break your code! 
+Please raise an issue if this break your code!
 
 ### v2.1.0 2016-06-23 [ChangeLog] (http://support.screeps.com/hc/en-us/articles/209164605-Changelog-2016-06-17)
 - Added new method StructureRampart.setPublic.
@@ -89,7 +98,7 @@ Thanks [Strategic-Link-Consulting](https://github.com/Strategic-Link-Consulting)
 - Allow optional argument and properties in transferEnergy and PathFinderOps
 
 ### v1.4.2 2016-03-10
-- Fix for CostMatrix 
+- Fix for CostMatrix
 
 ### v1.4.1 2016-03-10 [ChangeLog](http://support.screeps.com/hc/en-us/articles/207929925)
 - Added Extractor, Lab, Terminal, Market, Mineral objects
@@ -97,10 +106,10 @@ Thanks [Strategic-Link-Consulting](https://github.com/Strategic-Link-Consulting)
 - Read more from docs
 
 ### v1.3.2 2016-03-10 [ChangeLog](http://support.screeps.com/hc/en-us/articles/207023879-PathFinder)
-- Updated all interfaces from 19.02 changelog and added docs to PathFinder [ChangeLog](http://support.screeps.com/hc/en-us/articles/207728995-Changelog-2016-02-19). 
+- Updated all interfaces from 19.02 changelog and added docs to PathFinder [ChangeLog](http://support.screeps.com/hc/en-us/articles/207728995-Changelog-2016-02-19).
 
 ### v1.3.1 2016-02-25 [PathFinder](http://support.screeps.com/hc/en-us/articles/207023879-PathFinder)
-- NhanHo added new PathFinder interface [ChangeLog](http://support.screeps.com/hc/en-us/articles/207728995-Changelog-2016-02-19). 
+- NhanHo added new PathFinder interface [ChangeLog](http://support.screeps.com/hc/en-us/articles/207728995-Changelog-2016-02-19).
 Unfortunately other changes in that changelog are not added yet. We're working on it
 
 ### v1.2.2 2016-02-08 [ChangeLog](http://support.screeps.com/hc/en-us/articles/206897739-Changelog-2016-02-08)

@@ -40,8 +40,9 @@ interface ReservationDefinition {
     ticksToEnd: number
 }
 interface StoreDefinition {
-    energy: number,
-    power?: number
+    [resource: string]: number;
+    energy?: number;
+    power?: number;
 }
 
 interface LookAtResultWithPos {
@@ -73,7 +74,7 @@ interface FindPathOpts {
     ignoreCreeps?: boolean;
     ignoreDestructibleStructures?: boolean;
     ignoreRoads?: boolean;
-    ignore?: [any|RoomPosition];
+    ignore?: any[]|RoomPosition[];
     avoid?: any[]|RoomPosition[];
     maxOps?: number;
     heuristicWeight?: number;

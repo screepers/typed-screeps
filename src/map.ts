@@ -25,7 +25,7 @@ declare class GameMap {
      * @param toRoom Finish room name or room object.
      * @returns the route array or ERR_NO_PATH code
      */
-    findRoute(fromRoom: string|Room, toRoom: string|Room): [{exit: string, room: string}]|number;
+    findRoute(fromRoom: string|Room, toRoom: string|Room): {exit: string, room: string}[]|number;
     /**
      * Get the linear distance (in rooms) between two rooms. You can use this function to estimate the energy cost of
      * sending resources through terminals, or using observers and nukes.
