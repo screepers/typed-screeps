@@ -926,7 +926,7 @@ interface FindPathOpts {
     ignoreCreeps?: boolean;
     ignoreDestructibleStructures?: boolean;
     ignoreRoads?: boolean;
-    ignore?: [any | RoomPosition];
+    ignore?: any[] | RoomPosition[];
     avoid?: any[] | RoomPosition[];
     maxOps?: number;
     heuristicWeight?: number;
@@ -992,10 +992,10 @@ declare class GameMap {
      * @param toRoom Finish room name or room object.
      * @returns the route array or ERR_NO_PATH code
      */
-    findRoute(fromRoom: string | Room, toRoom: string | Room): [{
+    findRoute(fromRoom: string | Room, toRoom: string | Room): {
         exit: string;
         room: string;
-    }] | number;
+    }[] | number;
     /**
      * Get the linear distance (in rooms) between two rooms. You can use this function to estimate the energy cost of
      * sending resources through terminals, or using observers and nukes.
@@ -1277,7 +1277,7 @@ declare class RoomPosition {
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByPath<T>(objects: [T | RoomPosition], opts?: {
+    findClosestByPath<T>(objects: T[] | RoomPosition[], opts?: {
         filter?: any | string;
         algorithm?: string;
     }): T;
@@ -1294,7 +1294,7 @@ declare class RoomPosition {
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
      * @param opts An object containing one of the following options: filter
      */
-    findClosestByRange<T>(objects: [T | RoomPosition], opts?: {
+    findClosestByRange<T>(objects: T[] | RoomPosition[], opts?: {
         filter: any | string;
     }): T;
     /**
@@ -1313,7 +1313,7 @@ declare class RoomPosition {
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<T>(objects: [T | RoomPosition], range: number, opts?: {
+    findInRange<T>(objects: T[] | RoomPosition[], range: number, opts?: {
         filter?: any | string;
         algorithm?: string;
     }): T[];
