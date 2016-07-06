@@ -41,7 +41,8 @@ interface ReservationDefinition {
 }
 interface StoreDefinition {
     [resource: string]: number;
-    energy: number;
+    energy?: number;
+    power?: number;
 }
 
 interface LookAtResultWithPos {
