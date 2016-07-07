@@ -13,10 +13,17 @@ interface PathFinder {
      * Find an optimal path between origin and goal.
      *
      * @param origin The start position.
-     * @param goal A goal or an array of goals. If more than one goal is supplied then the cheapest path found out of all the goals will be returned.
+     * @param goal goal A RoomPosition or an object containing a RoomPosition and range
      * @param opts An object containing additional pathfinding flags.
      */
     search(origin: RoomPosition, goal:  RoomPosition|{pos: RoomPosition, range: number}, opts?: PathFinderOps): {path: RoomPosition[], ops:number};
+    /**
+     * Find an optimal path between origin and goal.
+     *
+     * @param origin The start position.
+     * @param goal an array of goals, the cheapest path found out of all the goals will be returned.
+     * @param opts An object containing additional pathfinding flags.
+     */
     search(origin: RoomPosition, goal:  RoomPosition[]|{pos: RoomPosition, range: number}[], opts?: PathFinderOps): {path: RoomPosition[], ops:number};
     /**
      * Specify whether to use this new experimental pathfinder in game objects methods.
