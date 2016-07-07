@@ -746,7 +746,7 @@ declare class Flag extends RoomObject {
     /**
      * Flag color. One of the following constants: COLOR_WHITE, COLOR_GREY, COLOR_RED, COLOR_PURPLE, COLOR_BLUE, COLOR_CYAN, COLOR_GREEN, COLOR_YELLOW, COLOR_ORANGE, COLOR_BROWN
      */
-    color: string;
+    color: number;
     /**
      * A shorthand to Memory.flags[flag.name]. You can use it for quick access the flag's specific memory data object.
      */
@@ -762,7 +762,7 @@ declare class Flag extends RoomObject {
     /**
      * Flag secondary color. One of the COLOR_* constants.
      */
-    secondaryColor: string;
+    secondaryColor: number;
     /**
      * Remove the flag.
      * @returns Result Code: OK
@@ -1269,7 +1269,7 @@ declare class RoomPosition {
      * @param color The color of a new flag. Should be one of the COLOR_* constants
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      */
-    createFlag(name?: string, color?: string, secondaryColor?: string): number;
+    createFlag(name?: string, color?: number, secondaryColor?: number): number;
     /**
      * Find an object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
      * @param type See Room.find
