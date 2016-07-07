@@ -1,6 +1,6 @@
 {
   "name": "screeps-typescript-declarations",
-  "version": "4.0.2",
+  "version": "4.1.0",
   "description": "Typescript declarations for Screeps API. To enable autocomplete and help with compilation",
   "typings": "./dist/screeps.d.ts",
   "scripts": {
