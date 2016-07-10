@@ -3,7 +3,6 @@
  * This might need some updates when Screeps publishes new features or changes it's existing API
  */
 
-// Last update 2016-02-05
 declare var FIND_EXIT_TOP: number;
 declare var FIND_EXIT_RIGHT: number;
 declare var FIND_EXIT_BOTTOM: number;
@@ -15,6 +14,7 @@ declare var FIND_HOSTILE_CREEPS: number;
 declare var FIND_SOURCES_ACTIVE: number;
 declare var FIND_SOURCES: number;
 declare var FIND_DROPPED_RESOURCES: number;
+declare var FIND_DROPPED_ENERGY: number;
 declare var FIND_STRUCTURES: number;
 declare var FIND_MY_STRUCTURES: number;
 declare var FIND_HOSTILE_STRUCTURES: number;
@@ -26,7 +26,6 @@ declare var FIND_MY_SPAWNS: number;
 declare var FIND_HOSTILE_SPAWNS: number;
 declare var FIND_MINERALS: number;
 
-// Last update 2016-02-05
 declare var TOP: number;
 declare var TOP_RIGHT: number;
 declare var RIGHT: number;
@@ -36,7 +35,6 @@ declare var BOTTOM_LEFT: number;
 declare var LEFT: number;
 declare var TOP_LEFT: number;
 
-// Last update 2016-02-05
 declare var OK: number;
 declare var ERR_NOT_OWNER: number;
 declare var ERR_NO_PATH: number;
@@ -55,7 +53,6 @@ declare var ERR_NOT_ENOUGH_EXTENSIONS: number;
 declare var ERR_RCL_NOT_ENOUGH: number;
 declare var ERR_GCL_NOT_ENOUGH: number;
 
-// Last update 2016-02-05
 declare var COLOR_RED: number;
 declare var COLOR_PURPLE: number;
 declare var COLOR_BLUE: number;
@@ -150,7 +147,6 @@ declare var HEAL_POWER: number;
 declare var RANGED_HEAL_POWER: number;
 declare var DISMANTLE_COST: number;
 
-// Last update 2016-02-05
 declare var MOVE: string;
 declare var WORK: string;
 declare var CARRY: string;
@@ -179,7 +175,6 @@ declare var CONSTRUCTION_COST: {
 
 declare var CONSTRUCTION_COST_ROAD_SWAMP_RATIO: number;
 
-// Last update 2016-02-05
 declare var STRUCTURE_EXTENSION: string;
 declare var STRUCTURE_RAMPART: string;
 declare var STRUCTURE_ROAD: string;
@@ -421,7 +416,6 @@ declare var GCL_POW: number;
 declare var GCL_MULTIPLY: number;
 declare var GCL_NOVICE: number;
 
-// Updated 2016-02-05
 declare var MODE_SIMULATION: string;
 declare var MODE_SURVIVAL: string;
 declare var MODE_WORLD: string;
@@ -601,8 +595,6 @@ declare var REACTIONS: {
         X: string
     }
 }
-
-
 
 declare var LOOK_CREEPS: string;
 declare var LOOK_ENERGY: string;
