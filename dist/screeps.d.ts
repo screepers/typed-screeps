@@ -61,14 +61,16 @@ declare var COLOR_WHITE: number;
 declare var COLORS_ALL: number[];
 declare var CREEP_SPAWN_TIME: number;
 declare var CREEP_LIFE_TIME: number;
+declare var CREEP_CLAIM_LIFE_TIME: number;
+declare var CREEP_CORPSE_RATE: number;
 declare var OBSTACLE_OBJECT_TYPES: string[];
 declare var ENERGY_REGEN_TIME: number;
-declare var ENERGY_REGEN_AMOUNT: number;
 declare var ENERGY_DECAY: number;
 declare var CREEP_CORPSE_RATE: number;
 declare var REPAIR_COST: number;
 declare var RAMPART_DECAY_AMOUNT: number;
 declare var RAMPART_DECAY_TIME: number;
+declare var RAMPART_HITS: number;
 declare var RAMPART_HITS_MAX: {
     2: number;
     3: number;
@@ -82,11 +84,13 @@ declare var SPAWN_HITS: number;
 declare var SPAWN_ENERGY_START: number;
 declare var SPAWN_ENERGY_CAPACITY: number;
 declare var SOURCE_ENERGY_CAPACITY: number;
-declare var ROAD_HITS: number;
+declare var SOURCE_ENERGY_NEUTRAL_CAPACITY: number;
+declare var SOURCE_ENERGY_KEEPER_CAPACITY: number;
 declare var WALL_HITS: number;
 declare var WALL_HITS_MAX: number;
 declare var EXTENSION_HITS: number;
 declare var EXTENSION_ENERGY_CAPACITY: number;
+declare var ROAD_HITS: number;
 declare var ROAD_WEAROUT: number;
 declare var ROAD_DECAY_AMOUNT: number;
 declare var ROAD_DECAY_TIME: number;
@@ -108,15 +112,19 @@ declare var BODYPART_COST: {
     tough: number;
     claim: number;
 };
+declare var BODYPARTS_ALL: string[];
 declare var CARRY_CAPACITY: number;
 declare var HARVEST_POWER: number;
+declare var HARVEST_MINERAL_POWER: number;
 declare var REPAIR_POWER: number;
+declare var DISMANTLE_POWER: number;
 declare var BUILD_POWER: number;
 declare var ATTACK_POWER: number;
 declare var UPGRADE_CONTROLLER_POWER: number;
 declare var RANGED_ATTACK_POWER: number;
 declare var HEAL_POWER: number;
 declare var RANGED_HEAL_POWER: number;
+declare var DISMANTLE_COST: number;
 declare var MOVE: string;
 declare var WORK: string;
 declare var CARRY: string;
@@ -203,6 +211,9 @@ declare var RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: string;
 declare var RESOURCE_CATALYZED_GHODIUM_ACID: string;
 declare var RESOURCE_CATALYZED_GHODIUM_ALKALIDE: string;
 declare var RESOURCES_ALL: string[];
+declare var CONTROLLER_LEVELS: {
+    [level: number]: number;
+};
 declare var CONTROLLER_STRUCTURES: {
     spawn: {
         1: number;
@@ -335,8 +346,45 @@ declare var CONTROLLER_STRUCTURES: {
         8: number;
     };
 };
+declare var CONTROLLER_DOWNGRADE: {
+    [level: number]: number;
+};
+declare var CONTROLLER_CLAIM_DOWNGRADE: number;
+declare var CONTROLLER_RESERVE: number;
+declare var CONTROLLER_RESERVE_MAX: number;
+declare var CONTROLLER_MAX_UPGRADE_PER_TICK: number;
+declare var CONTROLLER_ATTACK_BLOCKED_UPGRADE: number;
+declare var TOWER_HITS: number;
+declare var TOWER_CAPACITY: number;
+declare var TOWER_ENERGY_COST: number;
+declare var TOWER_POWER_ATTACK: number;
+declare var TOWER_POWER_HEAL: number;
+declare var TOWER_POWER_REPAIR: number;
+declare var TOWER_OPTIMAL_RANGE: number;
+declare var TOWER_FALLOFF_RANGE: number;
+declare var TOWER_FALLOFF: number;
+declare var OBSERVER_HITS: number;
+declare var OBSERVER_RANGE: number;
+declare var POWER_BANK_HITS: number;
+declare var POWER_BANK_CAPACITY_MAX: number;
+declare var POWER_BANK_CAPACITY_MIN: number;
+declare var POWER_BANK_CAPACITY_CRIT: number;
+declare var POWER_BANK_DECAY: number;
+declare var POWER_BANK_HIT_BACK: number;
+declare var POWER_SPAWN_HITS: number;
+declare var POWER_SPAWN_ENERGY_CAPACITY: number;
+declare var POWER_SPAWN_POWER_CAPACITY: number;
+declare var POWER_SPAWN_ENERGY_RATIO: number;
+declare var EXTRACTOR_HITS: number;
+declare var LAB_HITS: number;
+declare var LAB_MINERAL_CAPACITY: number;
+declare var LAB_ENERGY_CAPACITY: number;
+declare var LAB_BOOST_ENERGY: number;
+declare var LAB_BOOST_MINERAL: number;
+declare var LAB_COOLDOWN: number;
 declare var GCL_POW: number;
 declare var GCL_MULTIPLY: number;
+declare var GCL_NOVICE: number;
 declare var MODE_SIMULATION: string;
 declare var MODE_SURVIVAL: string;
 declare var MODE_WORLD: string;
@@ -344,6 +392,39 @@ declare var MODE_ARENA: string;
 declare var TERRAIN_MASK_WALL: number;
 declare var TERRAIN_MASK_SWAMP: number;
 declare var TERRAIN_MASK_LAVA: number;
+declare var MAX_CONSTRUCTION_SITES: number;
+declare var MAX_CREEP_SIZE: number;
+declare var MINERAL_REGEN_TIME: number;
+declare var MINERAL_MIN_AMOUNT: {
+    H: number;
+    O: number;
+    L: number;
+    K: number;
+    Z: number;
+    U: number;
+    X: number;
+};
+declare var MINERAL_RANDOM_FACTOR: number;
+declare var TERMINAL_CAPACITY: number;
+declare var TERMINAL_HITS: number;
+declare var TERMINAL_SEND_COST: number;
+declare var TERMINAL_MIN_SEND: number;
+declare var CONTAINER_HITS: number;
+declare var CONTAINER_CAPACITY: number;
+declare var CONTAINER_DECAY: number;
+declare var CONTAINER_DECAY_TIME: number;
+declare var CONTAINER_DECAY_TIME_OWNED: number;
+declare var NUKER_HITS: number;
+declare var NUKER_COOLDOWN: number;
+declare var NUKER_ENERGY_CAPACITY: number;
+declare var NUKER_GHODIUM_CAPACITY: number;
+declare var NUKE_LAND_TIME: number;
+declare var NUKE_RANGE: number;
+declare var NUKE_DAMAGE: {
+    0: number;
+    1: number;
+    4: number;
+};
 declare var REACTIONS: {
     H: {
         O: string;
@@ -746,7 +827,7 @@ declare class Flag extends RoomObject {
     /**
      * Flag color. One of the following constants: COLOR_WHITE, COLOR_GREY, COLOR_RED, COLOR_PURPLE, COLOR_BLUE, COLOR_CYAN, COLOR_GREEN, COLOR_YELLOW, COLOR_ORANGE, COLOR_BROWN
      */
-    color: string;
+    color: number;
     /**
      * A shorthand to Memory.flags[flag.name]. You can use it for quick access the flag's specific memory data object.
      */
@@ -762,7 +843,7 @@ declare class Flag extends RoomObject {
     /**
      * Flag secondary color. One of the COLOR_* constants.
      */
-    secondaryColor: string;
+    secondaryColor: number;
     /**
      * Remove the flag.
      * @returns Result Code: OK
@@ -1109,13 +1190,27 @@ interface PathFinder {
      * Find an optimal path between origin and goal.
      *
      * @param origin The start position.
-     * @param goal A goal or an array of goals. If more than one goal is supplied then the cheapest path found out of all the goals will be returned.
+     * @param goal goal A RoomPosition or an object containing a RoomPosition and range
      * @param opts An object containing additional pathfinding flags.
      */
     search(origin: RoomPosition, goal: RoomPosition | {
         pos: RoomPosition;
         range: number;
     }, opts?: PathFinderOps): {
+        path: RoomPosition[];
+        ops: number;
+    };
+    /**
+     * Find an optimal path between origin and goal.
+     *
+     * @param origin The start position.
+     * @param goal an array of goals, the cheapest path found out of all the goals will be returned.
+     * @param opts An object containing additional pathfinding flags.
+     */
+    search(origin: RoomPosition, goal: RoomPosition[] | {
+        pos: RoomPosition;
+        range: number;
+    }[], opts?: PathFinderOps): {
         path: RoomPosition[];
         ops: number;
     };
@@ -1269,7 +1364,7 @@ declare class RoomPosition {
      * @param color The color of a new flag. Should be one of the COLOR_* constants
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      */
-    createFlag(name?: string, color?: string, secondaryColor?: string): number;
+    createFlag(name?: string, color?: number, secondaryColor?: number): number;
     /**
      * Find an object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
      * @param type See Room.find
