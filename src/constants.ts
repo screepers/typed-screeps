@@ -70,11 +70,12 @@ declare var COLORS_ALL: number[];
 
 declare var CREEP_SPAWN_TIME: number;
 declare var CREEP_LIFE_TIME: number;
+declare var CREEP_CLAIM_LIFE_TIME: number;
+declare var CREEP_CORPSE_RATE: number;
 
 declare var OBSTACLE_OBJECT_TYPES: string[];
 
 declare var ENERGY_REGEN_TIME: number;
-declare var ENERGY_REGEN_AMOUNT: number;
 declare var ENERGY_DECAY: number;
 
 declare var CREEP_CORPSE_RATE: number;
@@ -83,6 +84,7 @@ declare var REPAIR_COST: number;
 
 declare var RAMPART_DECAY_AMOUNT: number;
 declare var RAMPART_DECAY_TIME: number;
+declare var RAMPART_HITS: number;
 declare var RAMPART_HITS_MAX: {
     2: number,
     3: number,
@@ -98,8 +100,8 @@ declare var SPAWN_ENERGY_START: number;
 declare var SPAWN_ENERGY_CAPACITY: number;
 
 declare var SOURCE_ENERGY_CAPACITY: number;
-
-declare var ROAD_HITS: number;
+declare var SOURCE_ENERGY_NEUTRAL_CAPACITY: number;
+declare var SOURCE_ENERGY_KEEPER_CAPACITY: number;
 
 declare var WALL_HITS: number;
 declare var WALL_HITS_MAX: number;
@@ -107,6 +109,7 @@ declare var WALL_HITS_MAX: number;
 declare var EXTENSION_HITS: number;
 declare var EXTENSION_ENERGY_CAPACITY: number;
 
+declare var ROAD_HITS: number;
 declare var ROAD_WEAROUT: number;
 declare var ROAD_DECAY_AMOUNT: number;
 declare var ROAD_DECAY_TIME: number;
@@ -131,16 +134,21 @@ declare var BODYPART_COST: {
     tough: number;
     claim: number;
 };
+declare var BODYPARTS_ALL: string[];
+
 
 declare var CARRY_CAPACITY: number;
 declare var HARVEST_POWER: number;
+declare var HARVEST_MINERAL_POWER: number;
 declare var REPAIR_POWER: number;
+declare var DISMANTLE_POWER: number;
 declare var BUILD_POWER: number;
 declare var ATTACK_POWER: number;
 declare var UPGRADE_CONTROLLER_POWER: number;
 declare var RANGED_ATTACK_POWER: number;
 declare var HEAL_POWER: number;
 declare var RANGED_HEAL_POWER: number;
+declare var DISMANTLE_COST: number;
 
 // Last update 2016-02-05
 declare var MOVE: string;
@@ -235,6 +243,7 @@ declare var RESOURCE_CATALYZED_GHODIUM_ACID: string;
 declare var RESOURCE_CATALYZED_GHODIUM_ALKALIDE: string;
 declare var RESOURCES_ALL: string[];
 
+declare var CONTROLLER_LEVELS: {[level: number]: number};
 declare var CONTROLLER_STRUCTURES: {
     spawn: {
         1: number;
@@ -367,9 +376,50 @@ declare var CONTROLLER_STRUCTURES: {
         8: number;
     };
 };
+declare var CONTROLLER_DOWNGRADE: {[level: number]: number};
+declare var CONTROLLER_CLAIM_DOWNGRADE: number;
+declare var CONTROLLER_RESERVE: number;
+declare var CONTROLLER_RESERVE_MAX: number;
+declare var CONTROLLER_MAX_UPGRADE_PER_TICK: number;
+declare var CONTROLLER_ATTACK_BLOCKED_UPGRADE: number;
+
+declare var TOWER_HITS: number;
+declare var TOWER_CAPACITY: number;
+declare var TOWER_ENERGY_COST: number;
+declare var TOWER_POWER_ATTACK: number;
+declare var TOWER_POWER_HEAL: number;
+declare var TOWER_POWER_REPAIR: number;
+declare var TOWER_OPTIMAL_RANGE: number;
+declare var TOWER_FALLOFF_RANGE: number;
+declare var TOWER_FALLOFF: number;
+
+declare var OBSERVER_HITS: number;
+declare var OBSERVER_RANGE: number;
+
+declare var POWER_BANK_HITS: number;
+declare var POWER_BANK_CAPACITY_MAX: number;
+declare var POWER_BANK_CAPACITY_MIN: number;
+declare var POWER_BANK_CAPACITY_CRIT: number;
+declare var POWER_BANK_DECAY: number;
+declare var POWER_BANK_HIT_BACK: number;
+
+declare var POWER_SPAWN_HITS: number;
+declare var POWER_SPAWN_ENERGY_CAPACITY: number;
+declare var POWER_SPAWN_POWER_CAPACITY: number;
+declare var POWER_SPAWN_ENERGY_RATIO: number;
+
+declare var EXTRACTOR_HITS: number;
+
+declare var LAB_HITS: number;
+declare var LAB_MINERAL_CAPACITY: number;
+declare var LAB_ENERGY_CAPACITY: number;
+declare var LAB_BOOST_ENERGY: number;
+declare var LAB_BOOST_MINERAL: number;
+declare var LAB_COOLDOWN: number;
 
 declare var GCL_POW: number;
 declare var GCL_MULTIPLY: number;
+declare var GCL_NOVICE: number;
 
 // Updated 2016-02-05
 declare var MODE_SIMULATION: string;
@@ -380,6 +430,44 @@ declare var MODE_ARENA: string;
 declare var TERRAIN_MASK_WALL: number;
 declare var TERRAIN_MASK_SWAMP: number;
 declare var TERRAIN_MASK_LAVA: number;
+
+declare var MAX_CONSTRUCTION_SITES: number;
+declare var MAX_CREEP_SIZE: number;
+
+declare var MINERAL_REGEN_TIME: number;
+declare var MINERAL_MIN_AMOUNT: {
+    H: number,
+    O: number,
+    L: number,
+    K: number,
+    Z: number,
+    U: number,
+    X: number
+}
+declare var MINERAL_RANDOM_FACTOR: number;
+
+declare var TERMINAL_CAPACITY: number;
+declare var TERMINAL_HITS: number;
+declare var TERMINAL_SEND_COST: number;
+declare var TERMINAL_MIN_SEND: number;
+
+declare var CONTAINER_HITS: number;
+declare var CONTAINER_CAPACITY: number;
+declare var CONTAINER_DECAY: number;
+declare var CONTAINER_DECAY_TIME: number;
+declare var CONTAINER_DECAY_TIME_OWNED: number;
+
+declare var NUKER_HITS: number;
+declare var NUKER_COOLDOWN: number;
+declare var NUKER_ENERGY_CAPACITY: number;
+declare var NUKER_GHODIUM_CAPACITY: number;
+declare var NUKE_LAND_TIME: number;
+declare var NUKE_RANGE: number;
+declare var NUKE_DAMAGE: {
+    0: number,
+    1: number,
+    4: number
+}
 
 declare var REACTIONS: {
     H: {
@@ -513,6 +601,8 @@ declare var REACTIONS: {
         X: string
     }
 }
+
+
 
 declare var LOOK_CREEPS: string;
 declare var LOOK_ENERGY: string;
