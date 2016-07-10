@@ -15,10 +15,6 @@ declare class Flag extends RoomObject{
      */
     name: string;
     /**
-     * The name of the room in which this flag is in. This property is deprecated and will be removed soon. Use pos.roomName instead.
-     */
-    roomName: string;
-    /**
      * Flag secondary color. One of the COLOR_* constants.
      */
     secondaryColor: number;
@@ -33,7 +29,7 @@ declare class Flag extends RoomObject{
      * @parma secondaryColor Secondary color of the flag. One of the COLOR_* constants.
      * @returns Result Code: OK, ERR_INVALID_ARGS
      */
-    setColor(color: string, secondaryColor?: string): number;
+    setColor(color: number, secondaryColor?: number): number;
     /**
      * Set new position of the flag.
      * @param x The X position in the room.
