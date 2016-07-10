@@ -992,6 +992,10 @@ interface LookAtResultWithPos {
     creep?: Creep;
     terrain?: string;
     structure?: Structure;
+    flag?: Flag;
+    energy?: Resource;
+    exit?: any;
+    source?: Source;
 }
 interface LookAtResult {
     type: string;
