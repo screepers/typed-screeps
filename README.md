@@ -55,7 +55,7 @@ npm run compile
 
 # Changelog
 
-### v4.1.0
+### v4.2.0
 - New Creep.withdraw
 - Add and fix a lot of constants
 
