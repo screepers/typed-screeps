@@ -820,6 +820,13 @@ declare class Creep extends RoomObject {
      * @param target The target controller object to be upgraded.
      */
     upgradeController(target: Controller): number;
+    /**
+     * Withdraw resources from a structure. The target has to be at adjacent square to the creep. Multiple creeps can withdraw from the same structure in the same tick. Your creeps can withdraw resources from hostile structures as well, in case if there is no hostile rampart on top of it.
+     * @param target The target object.
+     * @param resourceType The target One of the RESOURCE_* constants..
+     * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
+     */
+    withdraw(target: Structure, resourceType: string, amount?: number): number;
 }
 /**
  * A flag. Flags can be used to mark particular spots in a room. Flags are visible to their owners only.
