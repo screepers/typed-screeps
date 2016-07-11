@@ -55,6 +55,10 @@ npm run compile
 
 # Changelog
 
+### v4.1.0
+- New Creep.withdraw
+- Add and fix a lot of constants
+
 ### v4.0.1
 - Fix issues with REACTIONS and LOOK_* constants
 
@@ -134,9 +138,10 @@ Unfortunately other changes in that changelog are not added yet. We're working o
 
 ## Authors
 
+* **Nhan Ho** - *Current maintainer* - [NhanHo](https://github.com/NhanHo)
 * **Marko Sulamägi** - *Converted Cameron's work to quickly installable TS skeleton app.* - [MarkoSulamagi](https://github.com/MarkoSulamagi)
 * **vanhouc** - *Screep project with TS functionality. His gulpfile and screep.d.ts was very useful.* - [vanhouc](https://github.com/vanhouc)
-* **Nhan Ho** - *Helpful contributor* - [NhanHo](https://github.com/NhanHo)
+
 
 See also the list of [contributors](https://github.com/screepers/Screeps-Typescript-Declarations/contributors) who participated in this project.
 
