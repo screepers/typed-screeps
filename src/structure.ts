@@ -400,3 +400,30 @@ declare class StructureContainer extends Structure{
      */
     transfer(target: Creep, resourceType: string, amount?: number): number;
 }
+declare class StructureNuker extends OwnedStructure {
+    /**
+     * The amount of energy contained in this structure.
+     */
+    energy: number;
+    /**
+     * The total amount of energy this structure can contain.
+     */
+    energyCapacity: number;
+    /**
+     * The amount of energy contained in this structure.
+     */
+    ghodium: number;
+    /**
+     * The total amount of energy this structure can contain.
+     */
+    ghodiumCapacity: number;
+    /**
+     * The amount of game ticks the link has to wait until the next transfer is possible.
+     */
+    cooldown: number;
+    /**
+     * Launch a nuke to the specified position.
+     * @param pos The target room position.
+     */
+    launchNuke(pos : RoomPosition): number;
+}
