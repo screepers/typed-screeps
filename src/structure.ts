@@ -140,7 +140,7 @@ declare class StructureObserver extends OwnedStructure {
      * Provide visibility into a distant room from your script. The target room object will be available on the next tick. The maximum range is 5 rooms.
      * @param roomName
      */
-    observerRoom(roomName: string): number;
+    observeRoom(roomName: string): number;
 }
 // Updated 2016-02-05
 /**
