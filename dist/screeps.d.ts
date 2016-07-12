@@ -13,6 +13,7 @@ declare var FIND_HOSTILE_CREEPS: number;
 declare var FIND_SOURCES_ACTIVE: number;
 declare var FIND_SOURCES: number;
 declare var FIND_DROPPED_RESOURCES: number;
+declare var FIND_DROPPED_ENERGY: number;
 declare var FIND_STRUCTURES: number;
 declare var FIND_MY_STRUCTURES: number;
 declare var FIND_HOSTILE_STRUCTURES: number;
@@ -819,6 +820,13 @@ declare class Creep extends RoomObject {
      * @param target The target controller object to be upgraded.
      */
     upgradeController(target: Controller): number;
+    /**
+     * Withdraw resources from a structure. The target has to be at adjacent square to the creep. Multiple creeps can withdraw from the same structure in the same tick. Your creeps can withdraw resources from hostile structures as well, in case if there is no hostile rampart on top of it.
+     * @param target The target object.
+     * @param resourceType The target One of the RESOURCE_* constants..
+     * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
+     */
+    withdraw(target: Structure, resourceType: string, amount?: number): number;
 }
 /**
  * A flag. Flags can be used to mark particular spots in a room. Flags are visible to their owners only.
@@ -837,10 +845,6 @@ declare class Flag extends RoomObject {
      */
     name: string;
     /**
-     * The name of the room in which this flag is in. This property is deprecated and will be removed soon. Use pos.roomName instead.
-     */
-    roomName: string;
-    /**
      * Flag secondary color. One of the COLOR_* constants.
      */
     secondaryColor: number;
@@ -855,7 +859,7 @@ declare class Flag extends RoomObject {
      * @parma secondaryColor Secondary color of the flag. One of the COLOR_* constants.
      * @returns Result Code: OK, ERR_INVALID_ARGS
      */
-    setColor(color: string, secondaryColor?: string): number;
+    setColor(color: number, secondaryColor?: number): number;
     /**
      * Set new position of the flag.
      * @param x The X position in the room.
@@ -1572,7 +1576,7 @@ declare class Room {
      * @param color The color of a new flag. Should be one of the COLOR_* constants. The default value is COLOR_WHITE.
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      */
-    createFlag(x: number, y: number, name: string, color: string, secondaryColor?: string): number;
+    createFlag(x: number, y: number, name: string, color: number, secondaryColor?: number): number;
     /**
      * Create new Flag at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
@@ -1582,10 +1586,10 @@ declare class Room {
      */
     createFlag(pos: RoomPosition | {
         pos: RoomPosition;
-    }, name: string, color: string, secondaryColor?: string): number;
+    }, name: string, color: number, secondaryColor?: number): number;
     /**
      * Find all objects of the specified type in the room.
-     * @param type One of the following constants:FIND_CREEPS, FIND_MY_CREEPS, FIND_HOSTILE_CREEPS, FIND_MY_SPAWNS, FIND_HOSTILE_SPAWNS, FIND_SOURCES, FIND_SOURCES_ACTIVE, FIND_DROPPED_ENERGY, FIND_STRUCTURES, FIND_MY_STRUCTURES, FIND_HOSTILE_STRUCTURES, FIND_FLAGS, FIND_CONSTRUCTION_SITES, FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT, FIND_EXIT
+     * @param type One of the following constants:FIND_CREEPS, FIND_MY_CREEPS, FIND_HOSTILE_CREEPS, FIND_MY_SPAWNS, FIND_HOSTILE_SPAWNS, FIND_SOURCES, FIND_SOURCES_ACTIVE, FIND_DROPPED_RESOURCES, FIND_DROPPED_ENERGY, FIND_STRUCTURES, FIND_MY_STRUCTURES, FIND_HOSTILE_STRUCTURES, FIND_FLAGS, FIND_CONSTRUCTION_SITES, FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT, FIND_EXIT
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
