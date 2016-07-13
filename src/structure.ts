@@ -140,7 +140,7 @@ declare class StructureObserver extends OwnedStructure {
      * Provide visibility into a distant room from your script. The target room object will be available on the next tick. The maximum range is 5 rooms.
      * @param roomName
      */
-    observerRoom(roomName: string): number;
+    observeRoom(roomName: string): number;
 }
 // Updated 2016-02-05
 /**
@@ -399,4 +399,31 @@ declare class StructureContainer extends Structure{
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
     transfer(target: Creep, resourceType: string, amount?: number): number;
+}
+declare class StructureNuker extends OwnedStructure {
+    /**
+     * The amount of energy contained in this structure.
+     */
+    energy: number;
+    /**
+     * The total amount of energy this structure can contain.
+     */
+    energyCapacity: number;
+    /**
+     * The amount of energy contained in this structure.
+     */
+    ghodium: number;
+    /**
+     * The total amount of energy this structure can contain.
+     */
+    ghodiumCapacity: number;
+    /**
+     * The amount of game ticks the link has to wait until the next transfer is possible.
+     */
+    cooldown: number;
+    /**
+     * Launch a nuke to the specified position.
+     * @param pos The target room position.
+     */
+    launchNuke(pos : RoomPosition): number;
 }
