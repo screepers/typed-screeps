@@ -168,6 +168,7 @@ declare var STRUCTURE_EXTRACTOR: string;
 declare var STRUCTURE_LAB: string;
 declare var STRUCTURE_TERMINAL: string;
 declare var STRUCTURE_CONTAINER: string;
+declare var STRUCTURE_NUKER: string;
 declare var RESOURCE_ENERGY: string;
 declare var RESOURCE_POWER: string;
 declare var RESOURCE_UTRIUM: string;
@@ -1145,7 +1146,11 @@ declare class GameMap {
      * @param toRoom Finish room name or room object.
      * @returns the route array or ERR_NO_PATH code
      */
-    findRoute(fromRoom: string | Room, toRoom: string | Room): {
+    findRoute(fromRoom: string | Room, toRoom: string | Room, opts?: {
+        routeCallback: {
+            (roomName: string, fromRoomName: string): any;
+        };
+    }): {
         exit: string;
         room: string;
     }[] | number;
@@ -1204,6 +1209,7 @@ interface Transaction {
     description: string;
 }
 interface Memory {
+    [name: string]: any;
     creeps: {
         [name: string]: any;
     };
@@ -1326,7 +1332,7 @@ interface PathFinderOpts {
      *
      * @param roomName
      */
-    roomCallback?(roomName: string): CostMatrix;
+    roomCallback?(roomName: string): boolean | CostMatrix;
 }
 /**
  * Container for custom navigation cost data.
@@ -2015,7 +2021,7 @@ declare class StructureObserver extends OwnedStructure {
      * Provide visibility into a distant room from your script. The target room object will be available on the next tick. The maximum range is 5 rooms.
      * @param roomName
      */
-    observerRoom(roomName: string): number;
+    observeRoom(roomName: string): number;
 }
 /**
  *
@@ -2260,4 +2266,31 @@ declare class StructureContainer extends Structure {
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
     transfer(target: Creep, resourceType: string, amount?: number): number;
+}
+declare class StructureNuker extends OwnedStructure {
+    /**
+     * The amount of energy contained in this structure.
+     */
+    energy: number;
+    /**
+     * The total amount of energy this structure can contain.
+     */
+    energyCapacity: number;
+    /**
+     * The amount of energy contained in this structure.
+     */
+    ghodium: number;
+    /**
+     * The total amount of energy this structure can contain.
+     */
+    ghodiumCapacity: number;
+    /**
+     * The amount of game ticks the link has to wait until the next transfer is possible.
+     */
+    cooldown: number;
+    /**
+     * Launch a nuke to the specified position.
+     * @param pos The target room position.
+     */
+    launchNuke(pos: RoomPosition): number;
 }
