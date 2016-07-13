@@ -124,7 +124,7 @@ declare class Creep extends RoomObject{
      * Move the creep using the specified predefined path. Needs the MOVE body part.
      * @param path A path value as returned from Room.findPath or RoomPosition.findPathTo methods. Both array form and serialized string form are accepted.
      */
-    moveByPath(path: PathStep[] |  {path: RoomPosition[], ops:number} | string): number;
+    moveByPath(path: PathStep[] | RoomPosition[] | string): number;
     /**
      * Find the optimal path to the target within the same room and move to it. A shorthand to consequent calls of pos.findPathTo() and move() methods. If the target is in another room, then the corresponding exit will be used as a target. Needs the MOVE body part.
      * @param x X position of the target in the room.

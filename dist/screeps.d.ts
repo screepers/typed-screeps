@@ -745,10 +745,7 @@ declare class Creep extends RoomObject {
      * Move the creep using the specified predefined path. Needs the MOVE body part.
      * @param path A path value as returned from Room.findPath or RoomPosition.findPathTo methods. Both array form and serialized string form are accepted.
      */
-    moveByPath(path: PathStep[] | {
-        path: RoomPosition[];
-        ops: number;
-    } | string): number;
+    moveByPath(path: PathStep[] | RoomPosition[] | string): number;
     /**
      * Find the optimal path to the target within the same room and move to it. A shorthand to consequent calls of pos.findPathTo() and move() methods. If the target is in another room, then the corresponding exit will be used as a target. Needs the MOVE body part.
      * @param x X position of the target in the room.
@@ -1602,7 +1599,7 @@ declare class Room {
      * @returns The room direction constant, one of the following: FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT
      * Or one of the following error codes: ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExitTo(room: string | Room): string | number;
+    findExitTo(room: string | Room): number;
     /**
      * Find an optimal path inside the room between fromPos and toPos using A* search algorithm.
      * @param fromPos The start position.
