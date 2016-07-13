@@ -74,7 +74,7 @@ interface PathFinderOps {
      *
      * @param roomName
      */
-    roomCallback?(roomName: string): CostMatrix;
+    roomCallback?(roomName: string): boolean | CostMatrix;
 }
 
 /**
