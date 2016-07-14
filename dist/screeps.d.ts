@@ -1177,6 +1177,11 @@ declare class GameMap {
      * @param pos The position object.
      */
     getTerrainAt(pos: RoomPosition): string;
+    /**
+     * Check if the room with the given name is protected by temporary "newbie" walls.
+     * @param roomName The room name.
+     * @returns A boolean value.
+     */
     isRoomProtected(roomName: string): boolean;
 }
 /**
@@ -1388,8 +1393,17 @@ interface RawMemory {
  * A dropped piece of resource. It will decay after a while if not picked up. Dropped resource pile decays for ceil(amount/1000) units per tick.
  */
 declare class Resource extends RoomObject {
+    /**
+     * The amount of resource units containing.
+     */
     amount: number;
+    /**
+     * A unique object identificator. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
+     */
     id: string;
+    /**
+     * One of the `RESOURCE_*` constants.
+     */
     resourceType: string;
 }
 /**
@@ -1398,7 +1412,15 @@ declare class Resource extends RoomObject {
  */
 declare class RoomObject {
     prototype: RoomObject;
+    /**
+     * An object representing the position of this object in the room.
+     */
     pos: RoomPosition;
+    /**
+     * The link to the Room object. May be undefined in case if an object is a
+     * flag or a construction site and is placed in a room that is not visible
+     * to you.
+     */
     room: Room;
 }
 /**
