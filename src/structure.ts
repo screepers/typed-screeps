@@ -1,5 +1,3 @@
-// Updated 2016-02-05
-
 /**
  * Parent object for structure classes
  */
@@ -47,7 +45,7 @@ declare class OwnedStructure extends Structure {
     owner: Owner;
 
 }
-// Updated 2016-02-05
+
 /**
  *
  */
@@ -77,7 +75,7 @@ declare class StructureController extends OwnedStructure {
      */
     unclaim(): number;
 }
-// Updated 2016-02-05
+
 /**
  *
  */
@@ -97,7 +95,7 @@ declare class StructureExtension extends OwnedStructure {
      */
     transferEnergy(target: Creep, amount?: number): number;
 }
-// Updated 2016-02-05
+
 /**
  *
  */
@@ -121,7 +119,7 @@ interface StructureLink extends OwnedStructure {
      */
     transferEnergy(target: Creep|StructureLink, amount?: number): number;
 }
-// Updated 2016-02-05
+
 /**
  *
  */
@@ -131,7 +129,7 @@ declare class StructureKeeperLair extends OwnedStructure {
      */
     ticksToSpawn: number;
 }
-// Updated 2016-02-05
+
 /**
  *
  */
@@ -142,7 +140,7 @@ declare class StructureObserver extends OwnedStructure {
      */
     observeRoom(roomName: string): number;
 }
-// Updated 2016-02-05
+
 /**
  *
  */
@@ -156,7 +154,7 @@ declare class StructurePowerBank extends OwnedStructure {
      */
     ticksToDecay: number;
 }
-// Updated 2016-02-05
+
 /**
  *
  */
@@ -195,7 +193,7 @@ declare class StructurePowerSpawn extends OwnedStructure {
     transferEnergy(target: Creep, amount?: number): number;
 
 }
-// Updated 2016-02-05
+
 /**
  *
  */
@@ -216,7 +214,7 @@ declare class StructureRampart extends OwnedStructure {
      */
     setPublic(isPublic: boolean);
 }
-// Updated 2016-02-05
+
 /**
  *
  */
@@ -226,7 +224,7 @@ declare class StructureRoad extends Structure {
      */
     ticksToDecay: number;
 }
-// Updated 2016-02-05
+
 /**
  *
  */
@@ -256,7 +254,7 @@ declare class StructureStorage extends OwnedStructure {
      */
     transferEnergy(target: Creep, amount?: number): number;
 }
-// Updated 2016-02-05
+
 /**
  *
  */
@@ -292,6 +290,7 @@ declare class StructureTower extends OwnedStructure {
      */
     transferEnergy(target: Creep, amount?: number): number;
 }
+
 /**
  *
  */
@@ -301,12 +300,14 @@ declare class StructureWall extends Structure {
      */
     ticksToLive: number;
 }
+
 /**
  * Allows to harvest mineral deposits.
  */
 declare class StructureExtractor extends OwnedStructure {
 
 }
+
 /**
  * Produces mineral compounds from base minerals and boosts creeps.
  */
@@ -351,6 +352,7 @@ declare class StructureLab extends OwnedStructure {
      */
     transfer(target: Creep, resourceType: string, amount?: number): number;
 }
+
 /**
  * 	Sends any resources to a Terminal in another room.
  */
@@ -379,6 +381,7 @@ declare class StructureTerminal extends OwnedStructure {
      */
     transfer(target: Creep, resourceType: String, amount?: number): number;
 }
+
 /**
  * 	Contains up to 2,000 resource units. Can be constructed in neutral rooms. Decays for 5,000 hits per 100 ticks.
  */
@@ -400,6 +403,7 @@ declare class StructureContainer extends Structure{
      */
     transfer(target: Creep, resourceType: string, amount?: number): number;
 }
+
 declare class StructureNuker extends OwnedStructure {
     /**
      * The amount of energy contained in this structure.
