@@ -53,5 +53,10 @@ declare class GameMap {
      */
     getTerrainAt(pos: RoomPosition): string;
 
+    /**
+     * Check if the room with the given name is protected by temporary "newbie" walls.
+     * @param roomName The room name.
+     * @returns A boolean value.
+     */
     isRoomProtected(roomName: string): boolean
 }
