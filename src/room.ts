@@ -155,7 +155,7 @@ declare class Room {
      * @param path A path array retrieved from Room.findPath.
      * @returns A serialized string form of the given path.
      */
-    serializePath(path: PathStep[]): string;
+    static serializePath(path: PathStep[]): string;
 
     /**
      * Deserialize a short string path representation into an array form.
