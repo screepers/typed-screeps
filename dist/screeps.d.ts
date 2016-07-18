@@ -946,7 +946,7 @@ interface Game {
      * @param message Custom text which will be sent in the message. Maximum length is 1000 characters.
      * @param groupInterval If set to 0 (default), the notification will be scheduled immediately. Otherwise, it will be grouped with other notifications and mailed out later using the specified time in minutes.
      */
-    notify(message: string, groupInterval: number): void;
+    notify(message: string, groupInterval?: number): void;
 }
 interface GlobalControlLevel {
     level: number;
