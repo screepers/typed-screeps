@@ -193,6 +193,7 @@ declare var STRUCTURE_LAB: string;
 declare var STRUCTURE_TERMINAL: string;
 declare var STRUCTURE_CONTAINER: string;
 declare var STRUCTURE_NUKER: string;
+declare var STRUCTURE_PORTAL: string;
 
 declare var RESOURCE_ENERGY: string;
 declare var RESOURCE_POWER: string;

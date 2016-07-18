@@ -169,6 +169,7 @@ declare var STRUCTURE_LAB: string;
 declare var STRUCTURE_TERMINAL: string;
 declare var STRUCTURE_CONTAINER: string;
 declare var STRUCTURE_NUKER: string;
+declare var STRUCTURE_PORTAL: string;
 declare var RESOURCE_ENERGY: string;
 declare var RESOURCE_POWER: string;
 declare var RESOURCE_UTRIUM: string;
@@ -2337,4 +2338,19 @@ declare class StructureNuker extends OwnedStructure {
      * @param pos The target room position.
      */
     launchNuke(pos: RoomPosition): number;
+}
+/**
+ * A non-player structure.
+ * Instantly teleports your creeps to a distant room acting as a room exit tile.
+ * Portals appear randomly in the central room of each sector.
+ */
+declare class StructurePortal extends Structure {
+    /**
+     * The position object in the destination room.
+     */
+    destination: RoomPosition;
+    /**
+     * The amount of game ticks when the portal disappears, or undefined when the portal is stable.
+     */
+    ticksToDecay: number;
 }
