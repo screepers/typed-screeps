@@ -4,10 +4,10 @@
     "target": "es5",
     "sourceMap": false,
     "declaration": true,
+    "noImplicitAny": false,
+    "strictNullChecks": true,
     "outFile": "./dist/screeps.ts"
   },
-  "exclude": ["node_modules", "dist"],
-  "filesGlob": [
-    "./src/**/*.ts"
-  ]
+  "include": ["./src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
 }
