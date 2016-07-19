@@ -22,7 +22,7 @@ Or if you use [typings](https://github.com/typings/typings), add this to your ty
 ```json
 {
   "globalDependencies": {
-    "screeps": "github:screepers/Screeps-Typescript-Declarations/dist/screeps.d.ts#master"
+    "screeps": "github:screepers/Screeps-Typescript-Declarations/dist/screeps.d.ts#TS2"
   }
 }
 ```
