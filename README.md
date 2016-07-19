@@ -6,19 +6,7 @@ Discussion in [screep's community forum](http://support.screeps.com/hc/en-us/com
 
 # Installation
 
-Run command:
-
-```
-$ npm install screeps-typescript-declarations --save
-```
-
-Include declaration file in your typescript compiler (usually tsconfig.json), "files" attribute.
-
-```json
-"files": ["./your_sources_folder/**/*.ts", "./node_modules/screeps-typescript-declarations/dist/screeps.d.ts"],
-```
-
-Or if you use [typings](https://github.com/typings/typings), add this to your typings.json:
+Using [typings](https://github.com/typings/typings), add this to your typings.json:
 ```json
 {
   "globalDependencies": {
