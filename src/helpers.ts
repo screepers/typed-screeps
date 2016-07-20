@@ -153,7 +153,7 @@ interface MoveToOpts {
      * If reusePath is enabled and this option is set to true, the path will be stored in memory in the short serialized form using 
      * Room.serializePath. The default value is true.
      */
-    serializeMemory: boolean;
+    serializeMemory?: boolean;
     
     /**
      * If this option is set to true, moveTo method will return ERR_NOT_FOUND if there is no memorized path to reuse. This can 
