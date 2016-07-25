@@ -55,7 +55,7 @@ npm run compile
 
 # Changelog
 
-### v4.2.0 2016-07-25 [ChangeLog] (http://support.screeps.com/hc/en-us/articles/210048285-Changelog-2016-07-22)
+### v4.2.1 2016-07-25 [ChangeLog](http://support.screeps.com/hc/en-us/articles/210048285-Changelog-2016-07-22)
 - Added new toPublic option to `Creep.say`
 - Fixed some issue with using `instanceof` with `StructureSpawn`, `Source`, `StructureLink`
 
@@ -77,7 +77,7 @@ npm run compile
 ### v3.0.0 Change all usage of interface to class.
 Please raise an issue if this break your code!
 
-### v2.1.0 2016-06-23 [ChangeLog] (http://support.screeps.com/hc/en-us/articles/209164605-Changelog-2016-06-17)
+### v2.1.0 2016-06-23 [ChangeLog](http://support.screeps.com/hc/en-us/articles/209164605-Changelog-2016-06-17)
 - Added new method StructureRampart.setPublic.
 - Added new property StructureRamprt.isPublic.
 - Added new global property Game.constructionSites.
