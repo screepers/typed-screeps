@@ -619,7 +619,6 @@ declare type Rampart = StructureRampart;
 declare type Terminal = StructureTerminal;
 declare type Container = StructureContainer;
 declare type Tower = StructureTower;
-declare type StructureSpawn = Spawn;
 interface Storage extends StructureStorage {
 }
 /**
@@ -680,6 +679,10 @@ declare class Creep extends RoomObject {
      * Whether this creep is still being spawned.
      */
     spawning: boolean;
+    /**
+     * The text message that the creep was saying at the last tick.
+     */
+    saying: string;
     /**
      * The remaining amount of game ticks after which the creep will die.
      */
@@ -801,8 +804,9 @@ declare class Creep extends RoomObject {
     /**
      * Display a visual speech balloon above the creep with the specified message. The message will disappear after a few seconds. Useful for debugging purposes. Only the creep's owner can see the speech message.
      * @param message The message to be displayed. Maximum length is 10 characters.
+     * @param set to 'true' to allow other players to see this message. Default is 'false'.
      */
-    say(message: string): number;
+    say(message: string, toPublic?: boolean): number;
     /**
      * Kill the creep immediately.
      */
@@ -1085,7 +1089,7 @@ interface MoveToOpts {
      * If reusePath is enabled and this option is set to true, the path will be stored in memory in the short serialized form using
      * Room.serializePath. The default value is true.
      */
-    serializeMemory: boolean;
+    serializeMemory?: boolean;
     /**
      * If this option is set to true, moveTo method will return ERR_NOT_FOUND if there is no memorized path to reuse. This can
      * significantly save CPU time in some cases. The default value is false.
@@ -1769,7 +1773,7 @@ declare class Room {
 /**
  * An energy source object. Can be harvested by creeps with a WORK body part.
  */
-interface Source {
+declare class Source extends RoomObject {
     /**
      * The prototype is stored in the Source.prototype global object. You can use it to extend game objects behaviour globally:
      */
@@ -1786,14 +1790,6 @@ interface Source {
      * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
     id: string;
-    /**
-     * An object representing the position of this structure in the room.
-     */
-    pos: RoomPosition;
-    /**
-     * The link to the Room object of this structure.
-     */
-    room: Room;
     /**
      * The remaining time after which the source will be refilled.
      */
@@ -1912,6 +1908,8 @@ declare class Spawn extends OwnedStructure {
      */
     transferEnergy(target: Creep, amount?: number): number;
 }
+declare class StructureSpawn extends Spawn {
+}
 /**
  * Parent object for structure classes
  */
@@ -2015,7 +2013,7 @@ declare class StructureExtension extends OwnedStructure {
 /**
  * Remotely transfers energy to another Link in the same room.
  */
-interface StructureLink extends OwnedStructure {
+declare class StructureLink extends OwnedStructure {
     /**
      * The amount of game ticks the link has to wait until the next transfer is possible.
      */

@@ -107,7 +107,7 @@ declare class StructureExtension extends OwnedStructure {
 /**
  * Remotely transfers energy to another Link in the same room.
  */
-interface StructureLink extends OwnedStructure {
+declare class StructureLink extends OwnedStructure {
     /**
      * The amount of game ticks the link has to wait until the next transfer is possible.
      */
@@ -190,7 +190,7 @@ declare class StructurePowerSpawn extends OwnedStructure {
      * Create a power creep. Currently in development
      * @param name The name of the power creep.
      */
-    createPowerCreep(name: string): number
+    createPowerCreep(name: string): number;
     /**
      * Register power resource units into your account. Registered power allows to develop power creeps skills. Consumes 1 power resource unit and 50 energy resource units.
      */
