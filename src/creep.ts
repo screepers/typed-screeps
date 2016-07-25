@@ -103,7 +103,7 @@ declare class Creep extends RoomObject{
      * @param resourceType One of the RESOURCE_* constants.
      * @param amount The amount of resource units to be dropped. If omitted, all the available carried amount is used.
      */
-    drop(resourceType: string, amount?: number): number
+    drop(resourceType: string, amount?: number): number;
     /**
      * Get the quantity of live body parts of the given type. Fully damaged parts do not count.
      * @param type A body part type, one of the following body part constants: MOVE, WORK, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH, CLAIM
