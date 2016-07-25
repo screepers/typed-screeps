@@ -58,5 +58,5 @@ declare class GameMap {
      * @param roomName The room name.
      * @returns A boolean value.
      */
-    isRoomProtected(roomName: string): boolean
+    isRoomProtected(roomName: string): boolean;
 }
