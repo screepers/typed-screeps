@@ -58,6 +58,10 @@ declare class Creep extends RoomObject{
      */
     spawning: boolean;
     /**
+     * The text message that the creep was saying at the last tick.
+     */ 
+    saying: string;
+    /**
      * The remaining amount of game ticks after which the creep will die.
      */
     ticksToLive: number;
@@ -176,8 +180,9 @@ declare class Creep extends RoomObject{
     /**
      * Display a visual speech balloon above the creep with the specified message. The message will disappear after a few seconds. Useful for debugging purposes. Only the creep's owner can see the speech message.
      * @param message The message to be displayed. Maximum length is 10 characters.
+     * @param set to 'true' to allow other players to see this message. Default is 'false'.
      */
-    say(message: string): number;
+    say(message: string, public?: boolean): number;
     /**
      * Kill the creep immediately.
      */
