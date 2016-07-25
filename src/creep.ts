@@ -182,7 +182,7 @@ declare class Creep extends RoomObject{
      * @param message The message to be displayed. Maximum length is 10 characters.
      * @param set to 'true' to allow other players to see this message. Default is 'false'.
      */
-    say(message: string, public?: boolean): number;
+    say(message: string, toPublic?: boolean): number;
     /**
      * Kill the creep immediately.
      */

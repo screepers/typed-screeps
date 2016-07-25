@@ -619,7 +619,6 @@ declare type Rampart = StructureRampart;
 declare type Terminal = StructureTerminal;
 declare type Container = StructureContainer;
 declare type Tower = StructureTower;
-declare type StructureSpawn = Spawn;
 interface Storage extends StructureStorage {
 }
 /**
@@ -680,6 +679,10 @@ declare class Creep extends RoomObject {
      * Whether this creep is still being spawned.
      */
     spawning: boolean;
+    /**
+     * The text message that the creep was saying at the last tick.
+     */
+    saying: string;
     /**
      * The remaining amount of game ticks after which the creep will die.
      */
@@ -801,8 +804,9 @@ declare class Creep extends RoomObject {
     /**
      * Display a visual speech balloon above the creep with the specified message. The message will disappear after a few seconds. Useful for debugging purposes. Only the creep's owner can see the speech message.
      * @param message The message to be displayed. Maximum length is 10 characters.
+     * @param set to 'true' to allow other players to see this message. Default is 'false'.
      */
-    say(message: string): number;
+    say(message: string, toPublic?: boolean): number;
     /**
      * Kill the creep immediately.
      */
@@ -1912,6 +1916,8 @@ declare class Spawn extends OwnedStructure {
      */
     transferEnergy(target: Creep, amount?: number): number;
 }
+declare class StructureSpawn extends Spawn {
+}
 /**
  * Parent object for structure classes
  */
@@ -2015,7 +2021,7 @@ declare class StructureExtension extends OwnedStructure {
 /**
  * Remotely transfers energy to another Link in the same room.
  */
-interface StructureLink extends OwnedStructure {
+declare class StructureLink extends OwnedStructure {
     /**
      * The amount of game ticks the link has to wait until the next transfer is possible.
      */

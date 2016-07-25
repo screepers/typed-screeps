@@ -109,3 +109,6 @@ declare class Spawn extends OwnedStructure{
      */
     transferEnergy(target: Creep, amount?: number): number;
 }
+
+declare class StructureSpawn extends Spawn {
+}
