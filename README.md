@@ -55,20 +55,24 @@ npm run compile
 
 # Changelog
 
+### v4.2.0 2016-07-25 [ChangeLog] (http://support.screeps.com/hc/en-us/articles/210048285-Changelog-2016-07-22)
+- Added new toPublic option to `Creep.say`
+- Fixed some issue with using `instanceof` with `StructureSpawn`, `Source`, `StructureLink`
+
 ### v4.2.0
 - New Creep.withdraw
-- Add and fix a lot of constants
+- Added and fixed a lot of constants
 
 ### v4.0.1
-- Fix issues with REACTIONS and LOOK_* constants
+- Fixed issues with REACTIONS and LOOK_* constants
 
 ### v4.0.0
-- Change `Map` to `GameMap` to avoid conflict with new ES6 Map type
-- Remove Energy Interface and replace it with Resource. This could potentially break your code. Please change all reference of Energy to Resource and it should fix the issue.
+- Changed `Map` to `GameMap` to avoid conflict with new ES6 Map type
+- Removed Energy Interface and replace it with Resource. This could potentially break your code. Please change all reference of Energy to Resource and it should fix the issue.
 - Spawn will now extends OwnStructure, and StructureContainer will extends Structure.
-- Fix createCreep return type to `number | string`.
-- Update new options for findPath
-- Add string as an acceptable params to moveByPath.
+- Fixed createCreep return type to `number | string`.
+- Updated new options for findPath
+- Added string as an acceptable params to moveByPath.
 
 ### v3.0.0 Change all usage of interface to class.
 Please raise an issue if this break your code!
