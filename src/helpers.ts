@@ -103,7 +103,7 @@ interface FindPathOpts {
      * @param costMatrix The current CostMatrix 
      * @returns The new CostMatrix to use
      */
-    costCallBack?(roomName: string, costMatrix: CostMatrix): CostMatrix;
+    costCallback?(roomName: string, costMatrix: CostMatrix): CostMatrix;
 
     /**
      * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search. This option 
