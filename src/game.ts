@@ -53,7 +53,7 @@ interface Game {
      * @param id The unique identificator.
      * @returns an object instance or null if it cannot be found.
      */
-    getObjectById<T>(id: string): T;
+    getObjectById<T>(id: string): T | null;
     /**
      * Send a custom message at your profile email. This way, you can set up notifications to yourself on any occasion within the game. You can schedule up to 20 notifications during one game tick. Not available in the Simulation Room.
      * @param message Custom text which will be sent in the message. Maximum length is 1000 characters.
