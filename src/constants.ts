@@ -467,6 +467,122 @@ declare var REACTIONS: {
     }
 }
 
+declare var BOOSTS: {
+    work: {
+        UO: {
+            harvest: number
+        },
+        UHO2: {
+            harvest: number
+        },
+        XUHO2: {
+            harvest: number
+        },
+        LH: {
+            build: number,
+            repair: number
+        },
+        LH2O: {
+            build: number,
+            repair: number
+        },
+        XLH2O: {
+            build: number,
+            repair: number
+        },
+        ZH: {
+            dismantle: number
+        },
+        ZH2O: {
+            dismantle: number
+        },
+        XZH2O: {
+            dismantle: number
+        },
+        GH: {
+            upgradeController: number
+        },
+        GH2O: {
+            upgradeController: number
+        },
+        XGH2O: {
+            upgradeController: number
+        }
+    },
+    attack: {
+        UH: {
+            attack: number
+        },
+        UH2O: {
+            attack: number
+        },
+        XUH2O: {
+            attack: number
+        }
+    },
+    ranged_attack: {
+        KO: {
+            rangedAttack: number,
+            rangedMassAttack: number
+        },
+        KHO2: {
+            rangedAttack: number,
+            rangedMassAttack: number
+        },
+        XKHO2: {
+            rangedAttack: number,
+            rangedMassAttack: number
+        }
+    },
+    heal: {
+        LO: {
+            heal: number,
+            rangedHeal: number
+        },
+        LHO2: {
+            heal: number,
+            rangedHeal: number
+        },
+        XLHO2: {
+            heal: number,
+            rangedHeal: number
+        }
+    },
+    carry: {
+        KH: {
+            capacity: number
+        },
+        KH2O: {
+            capacity: number
+        },
+        XKH2O: {
+            capacity: number
+        }
+    },
+    move: {
+        ZO: {
+            fatigue: number
+        },
+        ZHO2: {
+            fatigue: number
+        },
+        XZHO2: {
+            fatigue: number
+        }
+    },
+    tough: {
+        GO: {
+            damage: number
+        },
+        GHO2: {
+            damage: number
+        },
+        XGHO2: {
+            damage: number
+        }
+    }
+}
+
 declare var LOOK_CREEPS: string;
 declare var LOOK_ENERGY: string;
 declare var LOOK_RESOURCES: string;
