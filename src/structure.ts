@@ -328,6 +328,10 @@ declare class StructureExtractor extends OwnedStructure {
  */
 declare class StructureLab extends OwnedStructure {
     /**
+     * The amount of game ticks the lab has to wait until the next reaction is possible.
+     */
+    cooldown: number;
+    /**
      * The amount of energy containing in the lab. Energy is used for boosting creeps.
      */
     energy: number;
