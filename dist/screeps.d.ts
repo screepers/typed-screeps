@@ -1973,6 +1973,10 @@ declare class StructureController extends OwnedStructure {
      */
     ticksToDowngrade: number;
     /**
+     * The amount of game ticks while this controller cannot be upgraded due to attack.
+     */
+    upgradeBlocked: number;
+    /**
      * Make your claimed controller neutral again.
      */
     unclaim(): number;
