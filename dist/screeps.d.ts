@@ -433,6 +433,121 @@ declare var REACTIONS: {
         X: string;
     };
 };
+declare var BOOSTS: {
+    work: {
+        UO: {
+            harvest: number;
+        };
+        UHO2: {
+            harvest: number;
+        };
+        XUHO2: {
+            harvest: number;
+        };
+        LH: {
+            build: number;
+            repair: number;
+        };
+        LH2O: {
+            build: number;
+            repair: number;
+        };
+        XLH2O: {
+            build: number;
+            repair: number;
+        };
+        ZH: {
+            dismantle: number;
+        };
+        ZH2O: {
+            dismantle: number;
+        };
+        XZH2O: {
+            dismantle: number;
+        };
+        GH: {
+            upgradeController: number;
+        };
+        GH2O: {
+            upgradeController: number;
+        };
+        XGH2O: {
+            upgradeController: number;
+        };
+    };
+    attack: {
+        UH: {
+            attack: number;
+        };
+        UH2O: {
+            attack: number;
+        };
+        XUH2O: {
+            attack: number;
+        };
+    };
+    ranged_attack: {
+        KO: {
+            rangedAttack: number;
+            rangedMassAttack: number;
+        };
+        KHO2: {
+            rangedAttack: number;
+            rangedMassAttack: number;
+        };
+        XKHO2: {
+            rangedAttack: number;
+            rangedMassAttack: number;
+        };
+    };
+    heal: {
+        LO: {
+            heal: number;
+            rangedHeal: number;
+        };
+        LHO2: {
+            heal: number;
+            rangedHeal: number;
+        };
+        XLHO2: {
+            heal: number;
+            rangedHeal: number;
+        };
+    };
+    carry: {
+        KH: {
+            capacity: number;
+        };
+        KH2O: {
+            capacity: number;
+        };
+        XKH2O: {
+            capacity: number;
+        };
+    };
+    move: {
+        ZO: {
+            fatigue: number;
+        };
+        ZHO2: {
+            fatigue: number;
+        };
+        XZHO2: {
+            fatigue: number;
+        };
+    };
+    tough: {
+        GO: {
+            damage: number;
+        };
+        GHO2: {
+            damage: number;
+        };
+        XGHO2: {
+            damage: number;
+        };
+    };
+};
 declare var LOOK_CREEPS: string;
 declare var LOOK_ENERGY: string;
 declare var LOOK_RESOURCES: string;
@@ -920,7 +1035,7 @@ interface FindPathOpts {
      * @param costMatrix The current CostMatrix
      * @returns The new CostMatrix to use
      */
-    costCallBack?(roomName: string, costMatrix: CostMatrix): CostMatrix;
+    costCallback?(roomName: string, costMatrix: CostMatrix): CostMatrix;
     /**
      * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search. This option
      * cannot be used when the new PathFinder is enabled (use costCallback option instead).
@@ -1130,6 +1245,23 @@ interface Mineral extends RoomObject {
      * The remaining time after which the deposit will be refilled.
      */
     ticksToRegeneration: number;
+}
+/**
+ * A nuke landing position. This object cannot be removed or modified. You can find incoming nukes in the room using the FIND_NUKES constant.
+ */
+declare class Nuke extends RoomObject {
+    /**
+     * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
+     */
+    id: string;
+    /**
+     * The name of the room where this nuke has been launched from.
+     */
+    launchRoomName: string;
+    /**
+     * The remaining landing time.
+     */
+    timeToLand: number;
 }
 /**
  * Contains powerful methods for pathfinding in the game world. Support exists for custom navigation costs and paths which span multiple rooms.
@@ -1858,6 +1990,10 @@ declare class StructureController extends OwnedStructure {
      */
     ticksToDowngrade: number;
     /**
+     * The amount of game ticks while this controller cannot be upgraded due to attack.
+     */
+    upgradeBlocked: number;
+    /**
      * Make your claimed controller neutral again.
      */
     unclaim(): number;
@@ -2087,6 +2223,10 @@ declare class StructureExtractor extends OwnedStructure {
  * Produces mineral compounds from base minerals and boosts creeps.
  */
 declare class StructureLab extends OwnedStructure {
+    /**
+     * The amount of game ticks the lab has to wait until the next reaction is possible.
+     */
+    cooldown: number;
     /**
      * The amount of energy containing in the lab. Energy is used for boosting creeps.
      */
