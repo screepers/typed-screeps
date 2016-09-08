@@ -1015,13 +1015,13 @@ interface Transaction {
 interface Order {
     id: string;
     created: number;
-    active: boolean;
+    active?: boolean;
     type: string;
     resourceType: string;
     roomName?: string;
     amount: number;
     remainingAmount: number;
-    totalAmount: number;
+    totalAmount?: number;
     price: number;
 }
 interface OrderFilter {
