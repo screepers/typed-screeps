@@ -240,6 +240,8 @@ declare var RESOURCE_CATALYZED_GHODIUM_ACID: string;
 declare var RESOURCE_CATALYZED_GHODIUM_ALKALIDE: string;
 declare var RESOURCES_ALL: string[];
 
+declare var SUBSCRIPTION_TOKEN: string;
+
 declare var CONTROLLER_LEVELS: {[level: number]: number};
 declare var CONTROLLER_STRUCTURES: {[structure: string]: {[level: number]: number}};
 declare var CONTROLLER_DOWNGRADE: {[level: number]: number};
@@ -358,3 +360,6 @@ declare var LOOK_FLAGS: string;
 declare var LOOK_CONSTRUCTION_SITES: string;
 declare var LOOK_NUKES: string;
 declare var LOOK_TERRAIN: string;
+
+declare var ORDER_SELL: string;
+declare var ORDER_BUY: string;
