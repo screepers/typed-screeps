@@ -5,7 +5,7 @@ interface Game {
     /**
      * An object containing information about your CPU usage with the following properties:
      */
-    cpu: CPU
+    cpu: CPU;
     /**
      * A hash containing all your creeps with creep names as hash keys.
      */
@@ -17,7 +17,7 @@ interface Game {
     /**
      * Your Global Control Level, an object with the following properties :
      */
-    gcl: GlobalControlLevel
+    gcl: GlobalControlLevel;
     /**
      * A global object representing world GameMap.
      */
@@ -42,7 +42,7 @@ interface Game {
     /**
      * A hash containing all your construction sites with their id as hash keys.
      */
-    constructionSites: {[constructionSiteId: string]: ConstructionSite}
+    constructionSites: {[constructionSiteId: string]: ConstructionSite};
     /**
      * System game tick counter. It is automatically incremented on every tick.
      */

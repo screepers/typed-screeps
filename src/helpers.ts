@@ -49,6 +49,7 @@ interface LookAtResultWithPos {
     x: number;
     y: number;
     type: string;
+    constructionSite?: ConstructionSite;
     creep?: Creep;
     terrain?: string;
     structure?: Structure;
@@ -56,6 +57,7 @@ interface LookAtResultWithPos {
     energy?: Resource;
     exit?: any;
     source?: Source;
+    mineral?: Mineral;
 }
 interface LookAtResult {
     type: string;
@@ -67,6 +69,7 @@ interface LookAtResult {
     source?: Source;
     structure?: Structure;
     terrain?: string;
+    mineral?: Mineral;
 }
 
 
