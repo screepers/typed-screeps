@@ -25,7 +25,10 @@ declare class GameMap {
      * @param toRoom Finish room name or room object.
      * @returns the route array or ERR_NO_PATH code
      */
-    findRoute(fromRoom: string|Room, toRoom: string|Room): {exit: string, room: string}[]|number;
+    findRoute(fromRoom: string | Room, toRoom: string | Room, opts?: { routeCallback: { (roomName: string, fromRoomName: string): any } }): {
+        exit: string;
+        room: string;
+    }[] | number;
     /**
      * Get the linear distance (in rooms) between two rooms. You can use this function to estimate the energy cost of
      * sending resources through terminals, or using observers and nukes.
@@ -50,5 +53,10 @@ declare class GameMap {
      */
     getTerrainAt(pos: RoomPosition): string;
 
-    isRoomProtected(roomName: string): boolean
+    /**
+     * Check if the room with the given name is protected by temporary "newbie" walls.
+     * @param roomName The room name.
+     * @returns A boolean value.
+     */
+    isRoomProtected(roomName: string): boolean;
 }
