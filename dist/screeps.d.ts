@@ -1224,7 +1224,7 @@ interface Memory {
 /**
  * A mineral deposit object. Can be harvested by creeps with a WORK body part using the extractor structure.
  */
-interface Mineral extends RoomObject {
+declare class Mineral extends RoomObject {
     /**
      * The prototype is stored in the Mineral.prototype global object. You can use it to extend game objects behaviour globally.
      */
@@ -1566,7 +1566,9 @@ declare class RoomPosition {
      * @param toPos The target position.
      * @param range The range distance.
      */
-    inRangeTo(toPos: RoomPosition, range: number): boolean;
+    inRangeTo(target: RoomPosition | {
+        pos: RoomPosition;
+    }, range: number): boolean;
     /**
      * Check whether this position is the same as the specified position.
      * @param x X position in the room.
