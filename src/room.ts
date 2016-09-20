@@ -64,7 +64,7 @@ declare class Room {
      * @param color The color of a new flag. Should be one of the COLOR_* constants. The default value is COLOR_WHITE.
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      */
-    createFlag(x: number, y:number, name: string, color: number, secondaryColor?: number): number;
+    createFlag(x: number, y:number, name?: string, color?: number, secondaryColor?: number): number;
     /**
      * Create new Flag at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
@@ -72,7 +72,7 @@ declare class Room {
      * @param color The color of a new flag. Should be one of the COLOR_* constants. The default value is COLOR_WHITE.
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      */
-    createFlag(pos: RoomPosition|{pos: RoomPosition}, name: string, color: number, secondaryColor?: number): number;
+    createFlag(pos: RoomPosition|{pos: RoomPosition}, name?: string, color?: number, secondaryColor?: number): number;
     /**
      * Find all objects of the specified type in the room.
      * @param type One of the following constants:FIND_CREEPS, FIND_MY_CREEPS, FIND_HOSTILE_CREEPS, FIND_MY_SPAWNS, FIND_HOSTILE_SPAWNS, FIND_SOURCES, FIND_SOURCES_ACTIVE, FIND_DROPPED_RESOURCES, FIND_DROPPED_ENERGY, FIND_STRUCTURES, FIND_MY_STRUCTURES, FIND_HOSTILE_STRUCTURES, FIND_FLAGS, FIND_CONSTRUCTION_SITES, FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT, FIND_EXIT
@@ -86,7 +86,7 @@ declare class Room {
      * @returns The room direction constant, one of the following: FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT
      * Or one of the following error codes: ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExitTo(room: string|Room): string|number;
+    findExitTo(room: string|Room): number;
     /**
      * Find an optimal path inside the room between fromPos and toPos using A* search algorithm.
      * @param fromPos The start position.
@@ -155,7 +155,7 @@ declare class Room {
      * @param path A path array retrieved from Room.findPath.
      * @returns A serialized string form of the given path.
      */
-    serializePath(path: PathStep[]): string;
+    static serializePath(path: PathStep[]): string;
 
     /**
      * Deserialize a short string path representation into an array form.

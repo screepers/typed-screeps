@@ -58,6 +58,10 @@ declare class Creep extends RoomObject{
      */
     spawning: boolean;
     /**
+     * The text message that the creep was saying at the last tick.
+     */ 
+    saying: string;
+    /**
      * The remaining amount of game ticks after which the creep will die.
      */
     ticksToLive: number;
@@ -99,7 +103,7 @@ declare class Creep extends RoomObject{
      * @param resourceType One of the RESOURCE_* constants.
      * @param amount The amount of resource units to be dropped. If omitted, all the available carried amount is used.
      */
-    drop(resourceType: string, amount?: number): number
+    drop(resourceType: string, amount?: number): number;
     /**
      * Get the quantity of live body parts of the given type. Fully damaged parts do not count.
      * @param type A body part type, one of the following body part constants: MOVE, WORK, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH, CLAIM
@@ -124,20 +128,20 @@ declare class Creep extends RoomObject{
      * Move the creep using the specified predefined path. Needs the MOVE body part.
      * @param path A path value as returned from Room.findPath or RoomPosition.findPathTo methods. Both array form and serialized string form are accepted.
      */
-    moveByPath(path: PathStep[] |  {path: RoomPosition[], ops:number} | string): number;
+    moveByPath(path: PathStep[] | RoomPosition[] | string): number;
     /**
      * Find the optimal path to the target within the same room and move to it. A shorthand to consequent calls of pos.findPathTo() and move() methods. If the target is in another room, then the corresponding exit will be used as a target. Needs the MOVE body part.
      * @param x X position of the target in the room.
      * @param y Y position of the target in the room.
      * @param opts An object containing pathfinding options flags (see Room.findPath for more info) or one of the following: reusePath, serializeMemory, noPathFinding
      */
-    moveTo(x: number, y: number, opts?: MoveToOpts | PathFinderOps): number;
+    moveTo(x: number, y: number, opts?: MoveToOpts & FindPathOpts): number;
     /**
      * Find the optimal path to the target within the same room and move to it. A shorthand to consequent calls of pos.findPathTo() and move() methods. If the target is in another room, then the corresponding exit will be used as a target. Needs the MOVE body part.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @param opts An object containing pathfinding options flags (see Room.findPath for more info) or one of the following: reusePath, serializeMemory, noPathFinding
      */
-    moveTo(target: RoomPosition|{pos: RoomPosition}, opts?: MoveToOpts | PathFinderOps): number;
+    moveTo(target: RoomPosition|{pos: RoomPosition}, opts?: MoveToOpts & FindPathOpts): number;
     /**
      * Toggle auto notification when the creep is under attack. The notification will be sent to your account email. Turned on by default.
      * @param enabled Whether to enable notification or disable.
@@ -176,8 +180,9 @@ declare class Creep extends RoomObject{
     /**
      * Display a visual speech balloon above the creep with the specified message. The message will disappear after a few seconds. Useful for debugging purposes. Only the creep's owner can see the speech message.
      * @param message The message to be displayed. Maximum length is 10 characters.
+     * @param set to 'true' to allow other players to see this message. Default is 'false'.
      */
-    say(message: string): number;
+    say(message: string, toPublic?: boolean): number;
     /**
      * Kill the creep immediately.
      */

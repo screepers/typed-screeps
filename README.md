@@ -55,21 +55,29 @@ npm run compile
 
 # Changelog
 
+### v4.2.1 2016-07-25 [ChangeLog](http://support.screeps.com/hc/en-us/articles/210048285-Changelog-2016-07-22)
+- Added new toPublic option to `Creep.say`
+- Fixed some issue with using `instanceof` with `StructureSpawn`, `Source`, `StructureLink`
+
+### v4.2.0
+- New Creep.withdraw
+- Added and fixed a lot of constants
+
 ### v4.0.1
-- Fix issues with REACTIONS and LOOK_* constants
+- Fixed issues with REACTIONS and LOOK_* constants
 
 ### v4.0.0
-- Change `Map` to `GameMap` to avoid conflict with new ES6 Map type
-- Remove Energy Interface and replace it with Resource. This could potentially break your code. Please change all reference of Energy to Resource and it should fix the issue.
+- Changed `Map` to `GameMap` to avoid conflict with new ES6 Map type
+- Removed Energy Interface and replace it with Resource. This could potentially break your code. Please change all reference of Energy to Resource and it should fix the issue.
 - Spawn will now extends OwnStructure, and StructureContainer will extends Structure.
-- Fix createCreep return type to `number | string`.
-- Update new options for findPath
-- Add string as an acceptable params to moveByPath.
+- Fixed createCreep return type to `number | string`.
+- Updated new options for findPath
+- Added string as an acceptable params to moveByPath.
 
 ### v3.0.0 Change all usage of interface to class.
 Please raise an issue if this break your code!
 
-### v2.1.0 2016-06-23 [ChangeLog] (http://support.screeps.com/hc/en-us/articles/209164605-Changelog-2016-06-17)
+### v2.1.0 2016-06-23 [ChangeLog](http://support.screeps.com/hc/en-us/articles/209164605-Changelog-2016-06-17)
 - Added new method StructureRampart.setPublic.
 - Added new property StructureRamprt.isPublic.
 - Added new global property Game.constructionSites.
@@ -134,9 +142,10 @@ Unfortunately other changes in that changelog are not added yet. We're working o
 
 ## Authors
 
+* **Nhan Ho** - *Current maintainer* - [NhanHo](https://github.com/NhanHo)
 * **Marko Sulamägi** - *Converted Cameron's work to quickly installable TS skeleton app.* - [MarkoSulamagi](https://github.com/MarkoSulamagi)
 * **vanhouc** - *Screep project with TS functionality. His gulpfile and screep.d.ts was very useful.* - [vanhouc](https://github.com/vanhouc)
-* **Nhan Ho** - *Helpful contributor* - [NhanHo](https://github.com/NhanHo)
+
 
 See also the list of [contributors](https://github.com/screepers/Screeps-Typescript-Declarations/contributors) who participated in this project.
 

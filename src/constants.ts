@@ -193,6 +193,7 @@ declare var STRUCTURE_LAB: string;
 declare var STRUCTURE_TERMINAL: string;
 declare var STRUCTURE_CONTAINER: string;
 declare var STRUCTURE_NUKER: string;
+declare var STRUCTURE_PORTAL: string;
 
 declare var RESOURCE_ENERGY: string;
 declare var RESOURCE_POWER: string;
@@ -240,138 +241,7 @@ declare var RESOURCE_CATALYZED_GHODIUM_ALKALIDE: string;
 declare var RESOURCES_ALL: string[];
 
 declare var CONTROLLER_LEVELS: {[level: number]: number};
-declare var CONTROLLER_STRUCTURES: {
-    spawn: {
-        1: number;
-        2: number;
-        3: number;
-        4: number;
-        5: number;
-        6: number;
-        7: number;
-        8: number;
-    };
-    extension: {
-        1: number;
-        2: number;
-        3: number;
-        4: number;
-        5: number;
-        6: number;
-        7: number;
-        8: number;
-    };
-    link: {
-        1: number;
-        2: number;
-        3: number;
-        4: number;
-        5: number;
-        6: number;
-        7: number;
-        8: number;
-    };
-    constructedWall: {
-        1: number;
-        2: number;
-        3: number;
-        4: number;
-        5: number;
-        6: number;
-        7: number;
-        8: number;
-    };
-    rampart: {
-        1: number;
-        2: number;
-        3: number;
-        4: number;
-        5: number;
-        6: number;
-        7: number;
-        8: number;
-    };
-    storage: {
-        1: number;
-        2: number;
-        3: number;
-        4: number;
-        5: number;
-        6: number;
-        7: number;
-        8: number;
-    };
-    tower: {
-        1: number;
-        2: number;
-        3: number;
-        4: number;
-        5: number;
-        6: number;
-        7: number;
-        8: number;
-    };
-    observer: {
-        1: number;
-        2: number;
-        3: number;
-        4: number;
-        5: number;
-        6: number;
-        7: number;
-        8: number;
-    };
-    powerSpawn: {
-        1: number;
-        2: number;
-        3: number;
-        4: number;
-        5: number;
-        6: number;
-        7: number;
-        8: number;
-    };
-    extractor: {
-        1: number;
-        2: number;
-        3: number;
-        4: number;
-        5: number;
-        6: number;
-        7: number;
-        8: number;
-    };
-    terminal: {
-        1: number;
-        2: number;
-        3: number;
-        4: number;
-        5: number;
-        6: number;
-        7: number;
-        8: number;
-    };
-    lab: {
-        1: number;
-        2: number;
-        3: number;
-        4: number;
-        5: number;
-        6: number;
-        7: number;
-        8: number;
-    };
-    container: {
-        1: number;
-        2: number;
-        3: number;
-        4: number;
-        5: number;
-        6: number;
-        7: number;
-        8: number;
-    };
-};
+declare var CONTROLLER_STRUCTURES: {[structure: string]: {[level: number]: number}};
 declare var CONTROLLER_DOWNGRADE: {[level: number]: number};
 declare var CONTROLLER_CLAIM_DOWNGRADE: number;
 declare var CONTROLLER_RESERVE: number;
@@ -594,6 +464,122 @@ declare var REACTIONS: {
     },
     GHO2: {
         X: string
+    }
+}
+
+declare var BOOSTS: {
+    work: {
+        UO: {
+            harvest: number
+        },
+        UHO2: {
+            harvest: number
+        },
+        XUHO2: {
+            harvest: number
+        },
+        LH: {
+            build: number,
+            repair: number
+        },
+        LH2O: {
+            build: number,
+            repair: number
+        },
+        XLH2O: {
+            build: number,
+            repair: number
+        },
+        ZH: {
+            dismantle: number
+        },
+        ZH2O: {
+            dismantle: number
+        },
+        XZH2O: {
+            dismantle: number
+        },
+        GH: {
+            upgradeController: number
+        },
+        GH2O: {
+            upgradeController: number
+        },
+        XGH2O: {
+            upgradeController: number
+        }
+    },
+    attack: {
+        UH: {
+            attack: number
+        },
+        UH2O: {
+            attack: number
+        },
+        XUH2O: {
+            attack: number
+        }
+    },
+    ranged_attack: {
+        KO: {
+            rangedAttack: number,
+            rangedMassAttack: number
+        },
+        KHO2: {
+            rangedAttack: number,
+            rangedMassAttack: number
+        },
+        XKHO2: {
+            rangedAttack: number,
+            rangedMassAttack: number
+        }
+    },
+    heal: {
+        LO: {
+            heal: number,
+            rangedHeal: number
+        },
+        LHO2: {
+            heal: number,
+            rangedHeal: number
+        },
+        XLHO2: {
+            heal: number,
+            rangedHeal: number
+        }
+    },
+    carry: {
+        KH: {
+            capacity: number
+        },
+        KH2O: {
+            capacity: number
+        },
+        XKH2O: {
+            capacity: number
+        }
+    },
+    move: {
+        ZO: {
+            fatigue: number
+        },
+        ZHO2: {
+            fatigue: number
+        },
+        XZHO2: {
+            fatigue: number
+        }
+    },
+    tough: {
+        GO: {
+            damage: number
+        },
+        GHO2: {
+            damage: number
+        },
+        XGHO2: {
+            damage: number
+        }
     }
 }
 

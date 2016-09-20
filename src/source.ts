@@ -2,7 +2,7 @@
 /**
  * An energy source object. Can be harvested by creeps with a WORK body part.
  */
-interface Source {
+declare class Source extends RoomObject{
     /**
      * The prototype is stored in the Source.prototype global object. You can use it to extend game objects behaviour globally:
      */
@@ -19,14 +19,6 @@ interface Source {
      * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
     id: string;
-    /**
-     * An object representing the position of this structure in the room.
-     */
-    pos: RoomPosition;
-    /**
-     * The link to the Room object of this structure.
-     */
-    room: Room;
     /**
      * The remaining time after which the source will be refilled.
      */

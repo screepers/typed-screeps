@@ -1,10 +1,8 @@
-// Updated 2016-02-05
-
 /**
  * Parent object for structure classes
  */
 
-declare class Structure extends RoomObject{
+declare class Structure extends RoomObject {
     /**
      * The current amount of hit points of the structure.
      */
@@ -36,6 +34,10 @@ declare class Structure extends RoomObject{
     notifyWhenAttacked(enabled: boolean): number;
 }
 
+/**
+ * The base prototype for a structure that has an owner. Such structures can be
+ * found using `FIND_MY_STRUCTURES` and `FIND_HOSTILE_STRUCTURES` constants.
+ */
 declare class OwnedStructure extends Structure {
     /**
      * Whether this is your own structure. Walls and roads don't have this property as they are considered neutral structures.
@@ -47,9 +49,11 @@ declare class OwnedStructure extends Structure {
     owner: Owner;
 
 }
-// Updated 2016-02-05
+
 /**
- *
+ * Claim this structure to take control over the room. The controller structure
+ * cannot be damaged or destroyed. It can be addressed by `Room.controller`
+ * property.
  */
 declare class StructureController extends OwnedStructure {
     /**
@@ -73,13 +77,19 @@ declare class StructureController extends OwnedStructure {
      */
     ticksToDowngrade: number;
     /**
+     * The amount of game ticks while this controller cannot be upgraded due to attack.
+     */
+    upgradeBlocked: number;
+    /**
      * Make your claimed controller neutral again.
      */
     unclaim(): number;
 }
-// Updated 2016-02-05
+
 /**
- *
+ * Contains energy which can be spent on spawning bigger creeps. Extensions can
+ * be placed anywhere in the room, any spawns will be able to use them regardless
+ * of distance.
  */
 declare class StructureExtension extends OwnedStructure {
     /**
@@ -97,11 +107,11 @@ declare class StructureExtension extends OwnedStructure {
      */
     transferEnergy(target: Creep, amount?: number): number;
 }
-// Updated 2016-02-05
+
 /**
- *
+ * Remotely transfers energy to another Link in the same room.
  */
-interface StructureLink extends OwnedStructure {
+declare class StructureLink extends OwnedStructure {
     /**
      * The amount of game ticks the link has to wait until the next transfer is possible.
      */
@@ -119,11 +129,12 @@ interface StructureLink extends OwnedStructure {
      * @param target The target object.
      * @param amount The amount of energy to be transferred. If omitted, all the available energy is used.
      */
-    transferEnergy(target: Creep|StructureLink, amount?: number): number;
+    transferEnergy(target: Creep | StructureLink, amount?: number): number;
 }
-// Updated 2016-02-05
+
 /**
- *
+ * Non-player structure. Spawns NPC Source Keepers that guards energy sources
+ * and minerals in some rooms. This structure cannot be destroyed.
  */
 declare class StructureKeeperLair extends OwnedStructure {
     /**
@@ -131,9 +142,9 @@ declare class StructureKeeperLair extends OwnedStructure {
      */
     ticksToSpawn: number;
 }
-// Updated 2016-02-05
+
 /**
- *
+ * Provides visibility into a distant room from your script.
  */
 declare class StructureObserver extends OwnedStructure {
     /**
@@ -142,7 +153,7 @@ declare class StructureObserver extends OwnedStructure {
      */
     observeRoom(roomName: string): number;
 }
-// Updated 2016-02-05
+
 /**
  *
  */
@@ -156,9 +167,10 @@ declare class StructurePowerBank extends OwnedStructure {
      */
     ticksToDecay: number;
 }
-// Updated 2016-02-05
+
 /**
- *
+ * Non-player structure. Contains power resource which can be obtained by
+ * destroying the structure. Hits the attacker creep back on each attack.
  */
 declare class StructurePowerSpawn extends OwnedStructure {
     /**
@@ -182,7 +194,7 @@ declare class StructurePowerSpawn extends OwnedStructure {
      * Create a power creep. Currently in development
      * @param name The name of the power creep.
      */
-    createPowerCreep(name: string): number
+    createPowerCreep(name: string): number;
     /**
      * Register power resource units into your account. Registered power allows to develop power creeps skills. Consumes 1 power resource unit and 50 energy resource units.
      */
@@ -195,9 +207,10 @@ declare class StructurePowerSpawn extends OwnedStructure {
     transferEnergy(target: Creep, amount?: number): number;
 
 }
-// Updated 2016-02-05
+
 /**
- *
+ * Blocks movement of hostile creeps, and defends your creeps and structures on
+ * the same tile. Can be used as a controllable gate.
  */
 declare class StructureRampart extends OwnedStructure {
     /**
@@ -211,14 +224,15 @@ declare class StructureRampart extends OwnedStructure {
     isPublic: boolean;
 
     /**
-     *  Make this rampart public to allow other players' creeps to pass through.
+     * Make this rampart public to allow other players' creeps to pass through.
      * @param isPublic Whether this rampart should be public or non-public
      */
     setPublic(isPublic: boolean);
 }
-// Updated 2016-02-05
+
 /**
- *
+ * Decreases movement cost to 1. Using roads allows creating creeps with less
+ * `MOVE` body parts.
  */
 declare class StructureRoad extends Structure {
     /**
@@ -226,9 +240,10 @@ declare class StructureRoad extends Structure {
      */
     ticksToDecay: number;
 }
-// Updated 2016-02-05
+
 /**
- *
+ * A structure that can store huge amount of resource units. Only one structure
+ * per room is allowed that can be addressed by `Room.storage` property.
  */
 declare class StructureStorage extends OwnedStructure {
 
@@ -256,9 +271,11 @@ declare class StructureStorage extends OwnedStructure {
      */
     transferEnergy(target: Creep, amount?: number): number;
 }
-// Updated 2016-02-05
+
 /**
- *
+ * Remotely attacks or heals creeps, or repairs structures. Can be targeted to
+ * any object in the room. However, its effectiveness highly depends on the
+ * distance. Each action consumes energy.
  */
 declare class StructureTower extends OwnedStructure {
     /**
@@ -284,7 +301,7 @@ declare class StructureTower extends OwnedStructure {
      * Remotely repair any structure in the room. Consumes 10 energy units per tick. Repair power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
      * @param target The target structure.
      */
-    repair(target: Spawn|Structure): number;
+    repair(target: Spawn | Structure): number;
     /**
      *
      * @param target The creep object which energy should be transferred to.
@@ -292,8 +309,9 @@ declare class StructureTower extends OwnedStructure {
      */
     transferEnergy(target: Creep, amount?: number): number;
 }
+
 /**
- *
+ * Blocks movement of all creeps.
  */
 declare class StructureWall extends Structure {
     /**
@@ -301,16 +319,22 @@ declare class StructureWall extends Structure {
      */
     ticksToLive: number;
 }
+
 /**
  * Allows to harvest mineral deposits.
  */
 declare class StructureExtractor extends OwnedStructure {
 
 }
+
 /**
  * Produces mineral compounds from base minerals and boosts creeps.
  */
 declare class StructureLab extends OwnedStructure {
+    /**
+     * The amount of game ticks the lab has to wait until the next reaction is possible.
+     */
+    cooldown: number;
     /**
      * The amount of energy containing in the lab. Energy is used for boosting creeps.
      */
@@ -351,8 +375,9 @@ declare class StructureLab extends OwnedStructure {
      */
     transfer(target: Creep, resourceType: string, amount?: number): number;
 }
+
 /**
- * 	Sends any resources to a Terminal in another room.
+ * Sends any resources to a Terminal in another room.
  */
 declare class StructureTerminal extends OwnedStructure {
     /**
@@ -379,10 +404,11 @@ declare class StructureTerminal extends OwnedStructure {
      */
     transfer(target: Creep, resourceType: String, amount?: number): number;
 }
+
 /**
- * 	Contains up to 2,000 resource units. Can be constructed in neutral rooms. Decays for 5,000 hits per 100 ticks.
+ * Contains up to 2,000 resource units. Can be constructed in neutral rooms. Decays for 5,000 hits per 100 ticks.
  */
-declare class StructureContainer extends Structure{
+declare class StructureContainer extends Structure {
     /**
      * An object with the structure contents. Each object key is one of the RESOURCE_* constants, values are resources
      * amounts. Use _.sum(structure.store) to get the total amount of contents
@@ -400,6 +426,14 @@ declare class StructureContainer extends Structure{
      */
     transfer(target: Creep, resourceType: string, amount?: number): number;
 }
+
+/**
+ * Launches a nuke to another room dealing huge damage to the landing area.
+ * Each launch has a cooldown and requires energy and ghodium resources. Launching
+ * creates a Nuke object at the target room position which is visible to any player
+ * until it is landed. Incoming nuke cannot be moved or cancelled. Nukes cannot
+ * be launched from or to novice rooms.
+ */
 declare class StructureNuker extends OwnedStructure {
     /**
      * The amount of energy contained in this structure.
@@ -425,5 +459,21 @@ declare class StructureNuker extends OwnedStructure {
      * Launch a nuke to the specified position.
      * @param pos The target room position.
      */
-    launchNuke(pos : RoomPosition): number;
+    launchNuke(pos: RoomPosition): number;
+}
+
+/**
+ * A non-player structure. 
+ * Instantly teleports your creeps to a distant room acting as a room exit tile. 
+ * Portals appear randomly in the central room of each sector.
+ */
+declare class StructurePortal extends Structure {
+    /**
+     * The position object in the destination room.
+     */
+    destination: RoomPosition;
+    /**
+     * The amount of game ticks when the portal disappears, or undefined when the portal is stable.
+     */
+    ticksToDecay: number;
 }
