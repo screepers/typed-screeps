@@ -764,6 +764,7 @@ interface LookAtResultWithPos {
     exit?: any;
     source?: Source;
     mineral?: Mineral;
+    resource?: Resource;
 }
 interface LookAtResult {
     type: string;
@@ -776,6 +777,7 @@ interface LookAtResult {
     structure?: Structure;
     terrain?: string;
     mineral?: Mineral;
+    resource?: Resource;
 }
 interface LookAtResultMatrix {
     [coord: number]: LookAtResultMatrix | LookAtResult[];
@@ -806,7 +808,7 @@ interface FindPathOpts {
      * @param costMatrix The current CostMatrix
      * @returns The new CostMatrix to use
      */
-    costCallback?(roomName: string, costMatrix: CostMatrix): CostMatrix;
+    costCallback?(roomName: string, costMatrix: CostMatrix): boolean | CostMatrix;
     /**
      * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search. This option
      * cannot be used when the new PathFinder is enabled (use costCallback option instead).
