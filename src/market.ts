@@ -12,6 +12,14 @@ declare class Market {
      * An array of the last 100 outgoing transactions from your terminals
      */
     outgoingTransactions: Transaction[];
+    /**
+     * Estimate the energy transaction cost of StructureTerminal.send and Market.deal methods. The formula: Math.ceil( amount * (Math.log(0.1*linearDistanceBetweenRooms + 0.9) + 0.1) )
+     * @param amount Amount of resources to be sent.
+     * @param roomName1 The name of the first room.
+     * @param roomName2 The name of the second room.
+     * @returns The amount of energy required to perform the transaction. 
+     */
+    calcTransactionCost(amount:number , roomName1:string, roomName2:string): number;
 
 }
 
