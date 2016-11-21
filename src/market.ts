@@ -21,6 +21,12 @@ declare class Market {
      */
     calcTransactionCost(amount:number, roomName1:string, roomName2:string): number;
     /**
+     * Cancel a previously created order. The 5% fee is not returned.
+     * @param orderId The order ID as provided in Game.market.orders
+     * @returns Result Code: OK, ERR_INVALID_ARGS
+     */  
+    cancelOrder(orderId: string): number;
+    /**
      * Change the price of an existing order. If newPrice is greater than old price, you will be charged (newPrice-oldPrice)*remainingAmount*0.05 credits.
      * @param orderId The order ID as provided in Game.market.orders
      * @param newPrice The new order price.
