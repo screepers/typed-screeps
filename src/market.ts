@@ -34,6 +34,12 @@ declare class Market {
      * @returns Result Code: OK, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_ARGS
      */
     extendOrder(orderId: string, addAmount: number): number;
+    /**
+     * Retrieve info for specific market order.
+     * @param orderId The order ID
+     * @returns An object with the order info. See getAllOrders for properties explanation.
+     */
+    getOrderById(id: string): Order;
 
 }
 
@@ -47,4 +53,15 @@ interface Transaction {
     from: string;
     to: string;
     description: string;
+}
+
+interface Order {
+    id: string;
+    created: number;
+    type: string;
+    resourceType: string;
+    roomName: string;
+    amount: number;
+    remainingAmount: number;
+    price: number;
 }
