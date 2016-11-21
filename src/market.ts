@@ -19,7 +19,21 @@ declare class Market {
      * @param roomName2 The name of the second room.
      * @returns The amount of energy required to perform the transaction. 
      */
-    calcTransactionCost(amount:number , roomName1:string, roomName2:string): number;
+    calcTransactionCost(amount:number, roomName1:string, roomName2:string): number;
+    /**
+     * Change the price of an existing order. If newPrice is greater than old price, you will be charged (newPrice-oldPrice)*remainingAmount*0.05 credits.
+     * @param orderId The order ID as provided in Game.market.orders
+     * @param newPrice The new order price.
+     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_ARGS
+     */
+    changeOrderPrice(orderId: string, newPrice:number): number;
+    /**
+     * Add more capacity to an existing order. It will affect remainingAmount and totalAmount properties. You will be charged price*addAmount*0.05 credits.
+     * @param orderId The order ID as provided in Game.market.orders
+     * @param addAmount How much capacity to add. Cannot be a negative value.
+     * @returns Result Code: OK, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_ARGS
+     */
+    extendOrder(orderId: string, addAmount: number): number;
 
 }
 
