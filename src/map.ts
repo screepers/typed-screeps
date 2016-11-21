@@ -52,9 +52,16 @@ declare class GameMap {
      * @param pos The position object.
      */
     getTerrainAt(pos: RoomPosition): string;
-
+    
+    /**
+     * Check if the room is available to move into.
+     * @param roomName The room name.
+     * @returns A boolean value.
+     */
+    isRoomAvailable(roomName: string): boolean;
     /**
      * Check if the room with the given name is protected by temporary "newbie" walls.
+     * Warning: Deprecated
      * @param roomName The room name.
      * @returns A boolean value.
      */
