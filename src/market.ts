@@ -35,6 +35,12 @@ declare class Market {
      */
     extendOrder(orderId: string, addAmount: number): number;
     /**
+     * Get other players' orders currently active on the market.
+     * @param filter (optional) An object or function that will filter the resulting list using the lodash.filter method.
+     * @returns An array of objects containing order information.
+     */
+    getAllOrders(filter: any): [Order];
+    /**
      * Retrieve info for specific market order.
      * @param orderId The order ID
      * @returns An object with the order info. See getAllOrders for properties explanation.
