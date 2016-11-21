@@ -341,7 +341,10 @@ declare class StructureWall extends Structure {
  * Allows to harvest mineral deposits.
  */
 declare class StructureExtractor extends OwnedStructure {
-
+    /**
+     * The amount of game ticks until the next harvest action is possible.
+     */
+    cooldown: number;
 }
 
 /**
