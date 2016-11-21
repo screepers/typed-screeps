@@ -35,10 +35,12 @@ declare class GameMap {
      * @param roomName1 The name of the first room.
      * @param roomName2 The name of the second room.
      */
-    getRoomLinearDistance(roomName1: string, roomName2: string): number;
+    getRoomLinearDistance(roomName1: string, roomName2: string, continuous?: boolean): number;
     /**
      * Check if the room with the given name is protected by temporary "newbie" walls.
-     * @param roomName The room name.
+     * @param roomName1 The name of the first room.
+     * @param roomName2 The name of the second room.
+     * @param continuous Whether to treat the world map continuous on borders. Set to true if you want to calculate the trade or terminal send cost. Default is false.
      */
     /**
      * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
