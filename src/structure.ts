@@ -73,6 +73,18 @@ declare class StructureController extends OwnedStructure {
      */
     reservation: ReservationDefinition;
     /**
+     * How many ticks of safe mode are remaining, or undefined.
+     */
+    safeMode: number;
+    /**
+     * Safe mode activations available to use.
+     */
+    safeModeAvailable: number;
+    /**
+     * During this period in ticks new safe mode activations will be blocked, undefined if cooldown is inactive.
+     */
+    safeModeCooldown: number;
+    /**
      * The amount of game ticks when this controller will lose one level. This timer can be reset by using Creep.upgradeController.
      */
     ticksToDowngrade: number;
@@ -80,6 +92,11 @@ declare class StructureController extends OwnedStructure {
      * The amount of game ticks while this controller cannot be upgraded due to attack.
      */
     upgradeBlocked: number;
+    /**
+     * Activate safe mode if available.
+     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_TIRED
+     */
+    activateSafeMode(): number;
     /**
      * Make your claimed controller neutral again.
      */
@@ -324,7 +341,10 @@ declare class StructureWall extends Structure {
  * Allows to harvest mineral deposits.
  */
 declare class StructureExtractor extends OwnedStructure {
-
+    /**
+     * The amount of game ticks until the next harvest action is possible.
+     */
+    cooldown: number;
 }
 
 /**
@@ -418,6 +438,10 @@ declare class StructureContainer extends Structure {
      * The total amount of resources the structure can contain.
      */
     storeCapacity: number;
+    /**
+     * The amount of game ticks when this container will lose some hit points.
+     */
+    ticksToDecay: number;
     /**
      * Transfer resource from this structure to a creep. The target has to be at adjacent square.
      * @param target The target object.
