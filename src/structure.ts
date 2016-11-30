@@ -85,6 +85,10 @@ declare class StructureController extends OwnedStructure {
      */
     safeModeCooldown: number;
     /**
+     * An object with the controller sign info if present
+     */
+    sign: SignDefinition;
+    /**
      * The amount of game ticks when this controller will lose one level. This timer can be reset by using Creep.upgradeController.
      */
     ticksToDowngrade: number;
@@ -102,6 +106,7 @@ declare class StructureController extends OwnedStructure {
      */
     unclaim(): number;
 }
+
 
 /**
  * Contains energy which can be spent on spawning bigger creeps. Extensions can
