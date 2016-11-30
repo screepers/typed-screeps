@@ -819,6 +819,14 @@ declare class Creep extends RoomObject {
      */
     say(message: string, toPublic?: boolean): number;
     /**
+     * Sign a controller with a random text visible to all players. This text will appear in the room UI, in the world map, and can be accessed via the API.
+     * You can sign unowned and hostile controllers. The target has to be at adjacent square to the creep. Pass an empty string to remove the sign.
+     * @param target The target controller object to be signed.
+     * @param text The sign text. The maximum text length is 100 characters.
+     * @returns Result Code: OK, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE
+     */
+    signController(target: Controller, test: string): any;
+    /**
      * Kill the creep immediately.
      */
     suicide(): number;
@@ -1000,6 +1008,12 @@ interface Owner {
 interface ReservationDefinition {
     username: string;
     ticksToEnd: number;
+}
+interface SignDefinition {
+    username: string;
+    test: string;
+    time: number;
+    datetime: Date;
 }
 interface StoreDefinition {
     [resource: string]: number;
@@ -2085,6 +2099,10 @@ declare class StructureController extends OwnedStructure {
      * During this period in ticks new safe mode activations will be blocked, undefined if cooldown is inactive.
      */
     safeModeCooldown: number;
+    /**
+     * An object with the controller sign info if present
+     */
+    sign: SignDefinition;
     /**
      * The amount of game ticks when this controller will lose one level. This timer can be reset by using Creep.upgradeController.
      */
