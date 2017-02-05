@@ -919,6 +919,14 @@ interface SurvivalGameInfo {
     wave: number;
 }
 /**
+ * The options that can be accepted by `findRoute()` and friends.
+ */
+interface RouteOptions {
+    routeCallback: {
+        (roomName: string, fromRoomName: string): any;
+    };
+}
+/**
  * A global object representing world map. Use it to navigate between rooms. The object is accessible via Game.map property.
  */
 declare class GameMap {
@@ -928,33 +936,31 @@ declare class GameMap {
      * @returns The exits information or null if the room not found.
      */
     describeExits(roomName: string): {
-        "1": string;
-        "3": string;
-        "5": string;
-        "7": string;
+        "1"?: string;
+        "3"?: string;
+        "5"?: string;
+        "7"?: string;
     };
     /**
      * Find the exit direction from the given room en route to another room.
      * @param fromRoom Start room name or room object.
      * @param toRoom Finish room name or room object.
+     * @param opts (optional) An object with the pathfinding options.
      * @return The room direction constant, one of the following:
      * FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT
      * Or one of the following Result codes:
      * ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExit(fromRoom: string | Room, toRoom: string | Room): string | number;
+    findExit(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): number;
     /**
      * Find route from the given room to another room.
      * @param fromRoom Start room name or room object.
      * @param toRoom Finish room name or room object.
+     * @param opts (optional) An object with the pathfinding options.
      * @returns the route array or ERR_NO_PATH code
      */
-    findRoute(fromRoom: string | Room, toRoom: string | Room, opts?: {
-        routeCallback: {
-            (roomName: string, fromRoomName: string): any;
-        };
-    }): {
-        exit: string;
+    findRoute(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): {
+        exit: number;
         room: string;
     }[] | number;
     /**
@@ -962,15 +968,10 @@ declare class GameMap {
      * sending resources through terminals, or using observers and nukes.
      * @param roomName1 The name of the first room.
      * @param roomName2 The name of the second room.
-     * @param continuous Whether to treat the world map continuous on borders. Set to true if you want to calculate the trade or terminal send cost. Default is false.
+     * @param continuous Whether to treat the world map continuous on borders. Set to true if you
+     *                   want to calculate the trade or terminal send cost. Default is false.
      */
     getRoomLinearDistance(roomName1: string, roomName2: string, continuous?: boolean): number;
-    /**
-     * Check if the room with the given name is protected by temporary "newbie" walls.
-     * @param roomName1 The name of the first room.
-     * @param roomName2 The name of the second room.
-     * @param continuous Whether to treat the world map continuous on borders. Set to true if you want to calculate the trade or terminal send cost. Default is false.
-     */
     /**
      * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
      * @param x X position in the room.
@@ -996,12 +997,6 @@ declare class GameMap {
      * @returns A boolean value.
      */
     isRoomProtected(roomName: string): boolean;
-    /**
-     * Check if the room is available to move into.
-     * @param roomName The room name.
-     * @returns A boolean value.
-     */
-    isRoomAvailable(roomName: string): boolean;
 }
 /**
  * A global object representing the in-game market. You can use this object to track resource transactions to/from your
