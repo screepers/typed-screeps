@@ -26,7 +26,7 @@ declare class Market {
      * @param roomName2 The name of the second room.
      * @returns The amount of energy required to perform the transaction. 
      */
-    calcTransactionCost(amount:number, roomName1:string, roomName2:string): number;
+    calcTransactionCost(amount: number, roomName1: string, roomName2: string): number;
     /**
      * Cancel a previously created order. The 5% fee is not returned.
      * @param orderId The order ID as provided in Game.market.orders
@@ -39,7 +39,7 @@ declare class Market {
      * @param newPrice The new order price.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_ARGS
      */
-    changeOrderPrice(orderId: string, newPrice:number): number;
+    changeOrderPrice(orderId: string, newPrice: number): number;
     /**
      * Create a market order in your terminal. You will be charged price*amount*0.05 credits when the order is placed.
      * The maximum orders count is 20 per player. You can create an order at any time with any amount,
@@ -71,10 +71,7 @@ declare class Market {
      * @param orderId The order ID
      * @returns An object with the order info. See getAllOrders for properties explanation.
      */
-    getOrderById(id: string): Order;
-
-
-
+    getOrderById(id: string): Order | null;
 }
 
 interface Transaction {

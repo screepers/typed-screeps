@@ -731,7 +731,7 @@ interface Game {
      * @param id The unique identificator.
      * @returns an object instance or null if it cannot be found.
      */
-    getObjectById<T>(id: string): T | null;
+    getObjectById<T>(id: string | undefined): T | null;
     /**
      * Send a custom message at your profile email. This way, you can set up notifications to yourself on any occasion within the game. You can schedule up to 20 notifications during one game tick. Not available in the Simulation Room.
      * @param message Custom text which will be sent in the message. Maximum length is 1000 characters.
@@ -962,6 +962,7 @@ declare class GameMap {
      * sending resources through terminals, or using observers and nukes.
      * @param roomName1 The name of the first room.
      * @param roomName2 The name of the second room.
+     * @param continuous Whether to treat the world map continuous on borders. Set to true if you want to calculate the trade or terminal send cost. Default is false.
      */
     getRoomLinearDistance(roomName1: string, roomName2: string, continuous?: boolean): number;
     /**
@@ -995,6 +996,12 @@ declare class GameMap {
      * @returns A boolean value.
      */
     isRoomProtected(roomName: string): boolean;
+    /**
+     * Check if the room is available to move into.
+     * @param roomName The room name.
+     * @returns A boolean value.
+     */
+    isRoomAvailable(roomName: string): boolean;
 }
 /**
  * A global object representing the in-game market. You can use this object to track resource transactions to/from your
@@ -1071,7 +1078,7 @@ declare class Market {
      * @param orderId The order ID
      * @returns An object with the order info. See getAllOrders for properties explanation.
      */
-    getOrderById(id: string): Order;
+    getOrderById(id: string): Order | null;
 }
 interface Transaction {
     transactionId: string;
@@ -1190,10 +1197,7 @@ interface PathFinder {
     search(origin: RoomPosition, goal: RoomPosition | {
         pos: RoomPosition;
         range: number;
-    }, opts?: PathFinderOpts): {
-        path: RoomPosition[];
-        ops: number;
-    };
+    }, opts?: PathFinderOpts): PathFinderPath;
     /**
      * Find an optimal path between origin and goal.
      *
@@ -1204,10 +1208,7 @@ interface PathFinder {
     search(origin: RoomPosition, goal: RoomPosition[] | {
         pos: RoomPosition;
         range: number;
-    }[], opts?: PathFinderOpts): {
-        path: RoomPosition[];
-        ops: number;
-    };
+    }[], opts?: PathFinderOpts): PathFinderPath;
     /**
      * Specify whether to use this new experimental pathfinder in game objects methods.
      * This method should be invoked every tick. It affects the following methods behavior:
@@ -1216,6 +1217,20 @@ interface PathFinder {
      * @param isEnabled Whether to activate the new pathfinder or deactivate.
      */
     use(isEnabled: boolean): any;
+}
+/**
+ * An object containing:
+ * path - An array of RoomPosition objects.
+ * ops - Total number of operations performed before this path was calculated.
+ * cost - The total cost of the path as derived from `plainCost`, `swampCost` and any given CostMatrix instances.
+ * incomplete - If the pathfinder fails to find a complete path, this will be true.
+ *   Note that `path` will still be populated with a partial path which represents the closest path it could find given the search parameters.
+ */
+interface PathFinderPath {
+    path: RoomPosition[];
+    ops: number;
+    cost: number;
+    incomplete: boolean;
 }
 /**
  * An object containing additional pathfinding flags.

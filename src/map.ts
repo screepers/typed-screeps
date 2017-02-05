@@ -34,6 +34,7 @@ declare class GameMap {
      * sending resources through terminals, or using observers and nukes.
      * @param roomName1 The name of the first room.
      * @param roomName2 The name of the second room.
+     * @param continuous Whether to treat the world map continuous on borders. Set to true if you want to calculate the trade or terminal send cost. Default is false.
      */
     getRoomLinearDistance(roomName1: string, roomName2: string, continuous?: boolean): number;
     /**
@@ -68,4 +69,11 @@ declare class GameMap {
      * @returns A boolean value.
      */
     isRoomProtected(roomName: string): boolean;
+
+    /**
+     * Check if the room is available to move into.
+     * @param roomName The room name.
+     * @returns A boolean value.
+     */
+    isRoomAvailable(roomName: string): boolean;
 }
