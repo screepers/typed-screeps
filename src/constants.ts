@@ -171,6 +171,7 @@ declare var CONSTRUCTION_COST: {
     lab: number;
     terminal: number;
     container: number;
+    nuker: number;
 };
 
 declare var CONSTRUCTION_COST_ROAD_SWAMP_RATIO: number;
