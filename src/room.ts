@@ -42,6 +42,10 @@ declare class Room {
      */
     terminal: Terminal | undefined;
     /**
+     * The RoomVisual object for this room.
+     */
+    visual: RoomVisual;
+    /**
      * Create new ConstructionSite at the specified location.
      * @param x The X position.
      * @param y The Y position.
