@@ -348,7 +348,7 @@ declare var ORDER_BUY: string;
  */
 declare class ConstructionSite extends RoomObject {
     /**
-     * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
+     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
     id: string;
     /**
@@ -429,7 +429,7 @@ declare class Creep extends RoomObject {
      */
     hitsMax: number;
     /**
-     * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
+     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
     id: string;
     /**
@@ -536,7 +536,7 @@ declare class Creep extends RoomObject {
      * @param y Y position of the target in the room.
      * @param opts An object containing pathfinding options flags (see Room.findPath for more info) or one of the following: reusePath, serializeMemory, noPathFinding
      */
-    moveTo(x: number, y: number, opts?: MoveToOpts & FindPathOpts): number;
+    moveTo(x: number, y: number, opts?: MoveToOpts): number;
     /**
      * Find the optimal path to the target within the same room and move to it. A shorthand to consequent calls of pos.findPathTo() and move() methods. If the target is in another room, then the corresponding exit will be used as a target. Needs the MOVE body part.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
@@ -544,7 +544,7 @@ declare class Creep extends RoomObject {
      */
     moveTo(target: RoomPosition | {
         pos: RoomPosition;
-    }, opts?: MoveToOpts & FindPathOpts): number;
+    }, opts?: MoveToOpts): number;
     /**
      * Toggle auto notification when the creep is under attack. The notification will be sent to your account email. Turned on by default.
      * @param enabled Whether to enable notification or disable.
@@ -728,7 +728,7 @@ interface Game {
     time: number;
     /**
      * Get an object with the specified unique ID. It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.
-     * @param id The unique identificator.
+     * @param id The unique identifier.
      * @returns an object instance or null if it cannot be found.
      */
     getObjectById<T>(id: string | undefined): T | null;
@@ -875,7 +875,7 @@ interface FindPathOpts {
      */
     maxRooms?: number;
 }
-interface MoveToOpts {
+interface MoveToOpts extends FindPathOpts {
     /**
      * This option enables reusing the path found along multiple game ticks. It allows to save CPU time, but can result in a slightly
      * slower creep reaction behavior. The path is stored into the creep's memory to the _move property. The reusePath value defines
@@ -1141,7 +1141,7 @@ declare class Mineral extends RoomObject {
      */
     mineralType: string;
     /**
-     * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
+     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
     id: string;
     /**
@@ -1154,7 +1154,7 @@ declare class Mineral extends RoomObject {
  */
 declare class Nuke extends RoomObject {
     /**
-     * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
+     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
     id: string;
     /**
@@ -1319,7 +1319,7 @@ declare class Resource extends RoomObject {
      */
     amount: number;
     /**
-     * A unique object identificator. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
+     * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
      */
     id: string;
     /**
@@ -1636,10 +1636,6 @@ declare class Room {
      */
     storage: StructureStorage | undefined;
     /**
-     * An object with survival game info if available
-     */
-    survivalInfo: SurvivalGameInfo | undefined;
-    /**
      * The Terminal structure of this room, if present, otherwise undefined.
      */
     terminal: Terminal | undefined;
@@ -1735,6 +1731,7 @@ declare class Room {
      * @param left The left X boundary of the area.
      * @param bottom The bottom Y boundary of the area.
      * @param right The right X boundary of the area.
+     * @param asArray Set to true if you want to get the result as a plain array.
      * @returns An object with all the objects in the specified area
      */
     lookAtArea(top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix | LookAtResultWithPos[];
@@ -1795,7 +1792,7 @@ declare class Source extends RoomObject {
      */
     energyCapacity: number;
     /**
-     * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
+     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
     id: string;
     /**
@@ -1816,45 +1813,13 @@ declare class Spawn extends OwnedStructure {
      */
     energyCapacity: number;
     /**
-     * The current amount of hit points of the spawn.
-     */
-    hits: number;
-    /**
-     * The maximum amount of hit points of the spawn.
-     */
-    hitsMax: number;
-    /**
-     * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
-     */
-    id: string;
-    /**
      * A shorthand to Memory.spawns[spawn.name]. You can use it for quick access the spawn’s specific memory data object.
      */
     memory: any;
     /**
-     * Whether it is your spawn or foe.
-     */
-    my: boolean;
-    /**
      * Spawn’s name. You choose the name upon creating a new spawn, and it cannot be changed later. This name is a hash key to access the spawn via the Game.spawns object.
      */
     name: string;
-    /**
-     * An object with the spawn’s owner info containing the following properties: username
-     */
-    owner: Owner;
-    /**
-     * An object representing the position of this spawn in a room.
-     */
-    pos: RoomPosition;
-    /**
-     * The link to the Room object of this spawn.
-     */
-    room: Room;
-    /**
-     * Always equal to ‘spawn’.
-     */
-    structureType: string;
     /**
      * If the spawn is in process of spawning a new creep, this object will contain the new creep’s information, or null otherwise.
      * @param name The name of a new creep.
@@ -1910,6 +1875,7 @@ declare class Spawn extends OwnedStructure {
      */
     recycleCreep(target: Creep): number;
     /**
+     * @deprecated
      * Transfer the energy from the spawn to a creep.
      * @param target The creep object which energy should be transferred to.
      * @param amount The amount of energy to be transferred. If omitted, all the remaining amount of energy will be used.
@@ -1931,7 +1897,7 @@ declare class Structure extends RoomObject {
      */
     hitsMax: number;
     /**
-     * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
+     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
     id: string;
     /**
@@ -2037,6 +2003,7 @@ declare class StructureExtension extends OwnedStructure {
      */
     energyCapacity: number;
     /**
+     * @deprecated
      * Transfer the energy from the extension to a creep.
      * @param target The creep object which energy should be transferred to.
      * @param amount The amount of energy to be transferred. If omitted, all the remaining amount of energy will be used.
@@ -2130,6 +2097,7 @@ declare class StructurePowerSpawn extends OwnedStructure {
      */
     processPower(): number;
     /**
+     * @deprecated
      * Transfer the energy from this structure to a creep.
      * @param target The creep object which energy should be transferred to.
      * @param amount The amount of energy to be transferred. If omitted, all the remaining amount of energy will be used.
@@ -2186,7 +2154,8 @@ declare class StructureStorage extends OwnedStructure {
      */
     transfer(target: Creep, resourceType: string, amount?: number): number;
     /**
-     * An alias for storage.transfer(target, RESOURCE_ENERGY, amount). This method is deprecated.
+     * @deprecated
+     * An alias for storage.transfer(target, RESOURCE_ENERGY, amount).
      * @param target The target object.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      * @deprecated
@@ -2223,7 +2192,7 @@ declare class StructureTower extends OwnedStructure {
      */
     repair(target: Spawn | Structure): number;
     /**
-     *
+     * @deprecated
      * @param target The creep object which energy should be transferred to.
      * @param amount The amount of energy to be transferred. If omitted, all the remaining amount of energy will be used.
      */
@@ -2321,7 +2290,7 @@ declare class StructureTerminal extends OwnedStructure {
      * @param resourceType One of the RESOURCE_* constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    transfer(target: Creep, resourceType: String, amount?: number): number;
+    transfer(target: Creep, resourceType: string, amount?: number): number;
 }
 /**
  * Contains up to 2,000 resource units. Can be constructed in neutral rooms. Decays for 5,000 hits per 100 ticks.

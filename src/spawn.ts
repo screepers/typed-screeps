@@ -12,45 +12,13 @@ declare class Spawn extends OwnedStructure{
      */
     energyCapacity: number;
     /**
-     * The current amount of hit points of the spawn.
-     */
-    hits: number;
-    /**
-     * The maximum amount of hit points of the spawn.
-     */
-    hitsMax: number;
-    /**
-     * A unique object identificator. You can use Game.getObjectById method to retrieve an object instance by its id.
-     */
-    id: string;
-    /**
      * A shorthand to Memory.spawns[spawn.name]. You can use it for quick access the spawn’s specific memory data object.
      */
     memory: any;
     /**
-     * Whether it is your spawn or foe.
-     */
-    my: boolean;
-    /**
      * Spawn’s name. You choose the name upon creating a new spawn, and it cannot be changed later. This name is a hash key to access the spawn via the Game.spawns object.
      */
     name: string;
-    /**
-     * An object with the spawn’s owner info containing the following properties: username
-     */
-    owner: Owner;
-    /**
-     * An object representing the position of this spawn in a room.
-     */
-    pos: RoomPosition;
-    /**
-     * The link to the Room object of this spawn.
-     */
-    room: Room;
-    /**
-     * Always equal to ‘spawn’.
-     */
-    structureType: string;
     /**
      * If the spawn is in process of spawning a new creep, this object will contain the new creep’s information, or null otherwise.
      * @param name The name of a new creep.
@@ -103,6 +71,7 @@ declare class Spawn extends OwnedStructure{
      */
     recycleCreep(target: Creep): number;
     /**
+     * @deprecated
      * Transfer the energy from the spawn to a creep.
      * @param target The creep object which energy should be transferred to.
      * @param amount The amount of energy to be transferred. If omitted, all the remaining amount of energy will be used.

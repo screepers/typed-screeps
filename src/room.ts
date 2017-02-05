@@ -34,10 +34,6 @@ declare class Room {
      */
     storage: StructureStorage | undefined;
     /**
-     * An object with survival game info if available
-     */
-    survivalInfo: SurvivalGameInfo | undefined;
-    /**
      * The Terminal structure of this room, if present, otherwise undefined.
      */
     terminal: Terminal | undefined;
@@ -125,6 +121,7 @@ declare class Room {
      * @param left The left X boundary of the area.
      * @param bottom The bottom Y boundary of the area.
      * @param right The right X boundary of the area.
+     * @param asArray Set to true if you want to get the result as a plain array.
      * @returns An object with all the objects in the specified area
      */
     lookAtArea(top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix | LookAtResultWithPos[];

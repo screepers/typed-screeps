@@ -50,7 +50,7 @@ interface Game {
 
     /**
      * Get an object with the specified unique ID. It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.
-     * @param id The unique identificator.
+     * @param id The unique identifier.
      * @returns an object instance or null if it cannot be found.
      */
     getObjectById<T>(id: string | undefined): T | null;
