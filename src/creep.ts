@@ -69,12 +69,12 @@ declare class Creep extends RoomObject{
      * Attack another creep or structure in a short-ranged attack. Needs the ATTACK body part. If the target is inside a rampart, then the rampart is attacked instead. The target has to be at adjacent square to the creep. If the target is a creep with ATTACK body parts and is not inside a rampart, it will automatically hit back at the attacker.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
      */
-    attack(target: Creep|Spawn|Structure): number;
+    attack(target: Creep|Structure): number;
     /**
      * Decreases the controller's downgrade or reservation timer for 1 tick per every 5 CLAIM body parts (so the creep must have at least 5xCLAIM). The controller under attack cannot be upgraded for the next 1,000 ticks. The target has to be at adjacent square to the creep.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
      */
-    attackController(target: Structure): number;
+    attackController(target: Controller): number;
     /**
      * Build a structure at the target construction site using carried energy. Needs WORK and CARRY body parts. The target has to be within 3 squares range of the creep.
      * @param target The target object to be attacked.
@@ -97,7 +97,7 @@ declare class Creep extends RoomObject{
      * Dismantles any (even hostile) structure returning 50% of the energy spent on its repair. Requires the WORK body part. If the creep has an empty CARRY body part, the energy is put into it; otherwise it is dropped on the ground. The target has to be at adjacent square to the creep.
      * @param target The target structure.
      */
-    dismantle(target: Spawn|Structure): number;
+    dismantle(target: Structure): number;
     /**
      * Drop this resource on the ground.
      * @param resourceType One of the RESOURCE_* constants.
@@ -162,7 +162,7 @@ declare class Creep extends RoomObject{
      * A ranged attack against another creep or structure. Needs the RANGED_ATTACK body part. If the target is inside a rampart, the rampart is attacked instead. The target has to be within 3 squares range of the creep.
      * @param target The target object to be attacked.
      */
-    rangedAttack(target: Creep|Spawn|Structure): number;
+    rangedAttack(target: Creep|Structure): number;
     /**
      * Heal another creep at a distance. It will restore the target creep’s damaged body parts function and increase the hits counter. Needs the HEAL body part. The target has to be within 3 squares range of the creep.
      * @param target The target creep object.
@@ -176,7 +176,7 @@ declare class Creep extends RoomObject{
      * Repair a damaged structure using carried energy. Needs the WORK and CARRY body parts. The target has to be within 3 squares range of the creep.
      * @param target he target structure to be repaired.
      */
-    repair(target: Spawn|Structure): number;
+    repair(target: Structure): number;
     /**
      * Temporarily block a neutral controller from claiming by other players. Each tick, this command increases the counter of the period during which the controller is unavailable by 1 tick per each CLAIM body part. The maximum reservation period to maintain is 5,000 ticks. The target has to be at adjacent square to the creep....
      * @param target The target controller object to be reserved.
@@ -196,7 +196,7 @@ declare class Creep extends RoomObject{
      * @param text The sign text. The maximum text length is 100 characters.
      * @returns Result Code: OK, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE
      */
-    signController(target:Controller, test:string);
+    signController(target:Controller, text:string);
     /**
      * Kill the creep immediately.
      */
@@ -207,7 +207,7 @@ declare class Creep extends RoomObject{
      * @param resourceType One of the RESOURCE_* constants
      * @param amount The amount of resources to be transferred. If omitted, all the available carried amount is used.
      */
-    transfer(target: Creep|Spawn|Structure, resourceType: string, amount?: number): number;
+    transfer(target: Creep|Structure, resourceType: string, amount?: number): number;
     /**
      * Upgrade your controller to the next level using carried energy. Upgrading controllers raises your Global Control Level in parallel. Needs WORK and CARRY body parts. The target has to be at adjacent square to the creep. A fully upgraded level 8 controller can't be upgraded with the power over 15 energy units per tick regardless of creeps power. The cumulative effect of all the creeps performing upgradeController in the current tick is taken into account.
      * @param target The target controller object to be upgraded.
