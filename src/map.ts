@@ -67,12 +67,4 @@ declare class GameMap {
      * @returns A boolean value.
      */
     isRoomAvailable(roomName: string): boolean;
-
-    /**
-     * Check if the room with the given name is protected by temporary "newbie" walls.
-     * Warning: Deprecated
-     * @param roomName The room name.
-     * @returns A boolean value.
-     */
-    isRoomProtected(roomName: string): boolean;
 }
