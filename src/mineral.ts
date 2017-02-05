@@ -1,12 +1,15 @@
 /**
  * A mineral deposit object. Can be harvested by creeps with a WORK body part using the extractor structure.
  */
-interface Mineral extends RoomObject{
+declare class Mineral extends RoomObject{
     /**
      * The prototype is stored in the Mineral.prototype global object. You can use it to extend game objects behaviour globally.
      */
     prototype: Mineral;
-
+    /**
+     * The density of this mineral deposit, one of the DENSITY_* constants.
+     */
+    density: number;
     /**
      * The remaining amount of resources.
      */

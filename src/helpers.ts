@@ -39,6 +39,12 @@ interface ReservationDefinition {
     username: string,
     ticksToEnd: number
 }
+interface SignDefinition {
+    username: string;
+    text: string;
+    time: number,
+    datetime: Date;
+}
 interface StoreDefinition {
     [resource: string]: number | undefined;
     energy?: number;

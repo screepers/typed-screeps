@@ -313,6 +313,26 @@ declare var MINERAL_MIN_AMOUNT: {
 }
 declare var MINERAL_RANDOM_FACTOR: number;
 
+
+declare var MINERAL_DENSITY: {
+        1: number,
+        2: number,
+        3: number,
+        4: number
+}
+declare var MINERAL_DENSITY_PROBABILITY: {
+        1: number,
+        2: number,
+        3: number,
+        4: number
+}
+declare var MINERAL_DENSITY_CHANGE: number;
+
+declare var DENSITY_LOW: number;
+declare var DENSITY_MODERATE: number;
+declare var DENSITY_HIGH: number;
+declare var DENSITY_ULTRA: number;
+
 declare var TERMINAL_CAPACITY: number;
 declare var TERMINAL_HITS: number;
 declare var TERMINAL_SEND_COST: number;

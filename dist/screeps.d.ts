@@ -282,6 +282,23 @@ declare var MINERAL_MIN_AMOUNT: {
     X: number;
 };
 declare var MINERAL_RANDOM_FACTOR: number;
+declare var MINERAL_DENSITY: {
+    1: number;
+    2: number;
+    3: number;
+    4: number;
+};
+declare var MINERAL_DENSITY_PROBABILITY: {
+    1: number;
+    2: number;
+    3: number;
+    4: number;
+};
+declare var MINERAL_DENSITY_CHANGE: number;
+declare var DENSITY_LOW: number;
+declare var DENSITY_MODERATE: number;
+declare var DENSITY_HIGH: number;
+declare var DENSITY_ULTRA: number;
 declare var TERMINAL_CAPACITY: number;
 declare var TERMINAL_HITS: number;
 declare var TERMINAL_SEND_COST: number;
@@ -483,6 +500,12 @@ declare class Creep extends RoomObject {
      */
     drop(resourceType: string, amount?: number): number;
     /**
+     * Add one more available safe mode activation to a room controller. The creep has to be at adjacent square to the target room controller and have 1000 ghodium resource.
+     * @param target The target room controller.
+     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE
+     */
+    generateSafeMode(target: Controller): number;
+    /**
      * Get the quantity of live body parts of the given type. Fully damaged parts do not count.
      * @param type A body part type, one of the following body part constants: MOVE, WORK, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH, CLAIM
      */
@@ -563,6 +586,14 @@ declare class Creep extends RoomObject {
      * @param set to 'true' to allow other players to see this message. Default is 'false'.
      */
     say(message: string, toPublic?: boolean): number;
+    /**
+     * Sign a controller with a random text visible to all players. This text will appear in the room UI, in the world map, and can be accessed via the API.
+     * You can sign unowned and hostile controllers. The target has to be at adjacent square to the creep. Pass an empty string to remove the sign.
+     * @param target The target controller object to be signed.
+     * @param text The sign text. The maximum text length is 100 characters.
+     * @returns Result Code: OK, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE
+     */
+    signController(target: Controller, test: string): any;
     /**
      * Kill the creep immediately.
      */
@@ -746,6 +777,12 @@ interface ReservationDefinition {
     username: string;
     ticksToEnd: number;
 }
+interface SignDefinition {
+    username: string;
+    text: string;
+    time: number;
+    datetime: Date;
+}
 interface StoreDefinition {
     [resource: string]: number | undefined;
     energy?: number;
@@ -926,10 +963,12 @@ declare class GameMap {
      * @param roomName1 The name of the first room.
      * @param roomName2 The name of the second room.
      */
-    getRoomLinearDistance(roomName1: string, roomName2: string): number;
+    getRoomLinearDistance(roomName1: string, roomName2: string, continuous?: boolean): number;
     /**
      * Check if the room with the given name is protected by temporary "newbie" walls.
-     * @param roomName The room name.
+     * @param roomName1 The name of the first room.
+     * @param roomName2 The name of the second room.
+     * @param continuous Whether to treat the world map continuous on borders. Set to true if you want to calculate the trade or terminal send cost. Default is false.
      */
     /**
      * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
@@ -944,7 +983,14 @@ declare class GameMap {
      */
     getTerrainAt(pos: RoomPosition): string;
     /**
+     * Check if the room is available to move into.
+     * @param roomName The room name.
+     * @returns A boolean value.
+     */
+    isRoomAvailable(roomName: string): boolean;
+    /**
      * Check if the room with the given name is protected by temporary "newbie" walls.
+     * Warning: Deprecated
      * @param roomName The room name.
      * @returns A boolean value.
      */
@@ -974,13 +1020,26 @@ declare class Market {
      */
     outgoingTransactions: Transaction[];
     /**
-     * Estimate the energy transaction cost of StructureTerminal.send and Market.deal methods.
+     * Estimate the energy transaction cost of StructureTerminal.send and Market.deal methods. The formula: Math.ceil( amount * (Math.log(0.1*linearDistanceBetweenRooms + 0.9) + 0.1) )
+     * @param amount Amount of resources to be sent.
+     * @param roomName1 The name of the first room.
+     * @param roomName2 The name of the second room.
+     * @returns The amount of energy required to perform the transaction.
      */
     calcTransactionCost(amount: number, roomName1: string, roomName2: string): number;
     /**
      * Cancel a previously created order. The 5% fee is not returned.
+     * @param orderId The order ID as provided in Game.market.orders
+     * @returns Result Code: OK, ERR_INVALID_ARGS
      */
     cancelOrder(orderId: string): number;
+    /**
+     * Change the price of an existing order. If newPrice is greater than old price, you will be charged (newPrice-oldPrice)*remainingAmount*0.05 credits.
+     * @param orderId The order ID as provided in Game.market.orders
+     * @param newPrice The new order price.
+     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_ARGS
+     */
+    changeOrderPrice(orderId: string, newPrice: number): number;
     /**
      * Create a market order in your terminal. You will be charged price*amount*0.05 credits when the order is placed.
      * The maximum orders count is 20 per player. You can create an order at any time with any amount,
@@ -995,9 +1054,24 @@ declare class Market {
      */
     deal(orderId: string, amount: number, targetRoomName?: string): number;
     /**
+     * Add more capacity to an existing order. It will affect remainingAmount and totalAmount properties. You will be charged price*addAmount*0.05 credits.
+     * @param orderId The order ID as provided in Game.market.orders
+     * @param addAmount How much capacity to add. Cannot be a negative value.
+     * @returns Result Code: OK, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_ARGS
+     */
+    extendOrder(orderId: string, addAmount: number): number;
+    /**
      * Get other players' orders currently active on the market.
+     * @param filter (optional) An object or function that will filter the resulting list using the lodash.filter method.
+     * @returns An array of objects containing order information.
      */
     getAllOrders(filter?: OrderFilter | ((o: Order) => boolean)): Order[];
+    /**
+     * Retrieve info for specific market order.
+     * @param orderId The order ID
+     * @returns An object with the order info. See getAllOrders for properties explanation.
+     */
+    getOrderById(id: string): Order;
 }
 interface Transaction {
     transactionId: string;
@@ -1054,11 +1128,15 @@ interface Memory {
 /**
  * A mineral deposit object. Can be harvested by creeps with a WORK body part using the extractor structure.
  */
-interface Mineral extends RoomObject {
+declare class Mineral extends RoomObject {
     /**
      * The prototype is stored in the Mineral.prototype global object. You can use it to extend game objects behaviour globally.
      */
     prototype: Mineral;
+    /**
+     * The density of this mineral deposit, one of the DENSITY_* constants.
+     */
+    density: number;
     /**
      * The remaining amount of resources.
      */
@@ -1396,7 +1474,9 @@ declare class RoomPosition {
      * @param toPos The target position.
      * @param range The range distance.
      */
-    inRangeTo(toPos: RoomPosition, range: number): boolean;
+    inRangeTo(target: RoomPosition | {
+        pos: RoomPosition;
+    }, range: number): boolean;
     /**
      * Check whether this position is the same as the specified position.
      * @param x X position in the room.
@@ -1816,6 +1896,22 @@ declare class StructureController extends OwnedStructure {
      */
     reservation: ReservationDefinition;
     /**
+     * How many ticks of safe mode are remaining, or undefined.
+     */
+    safeMode: number;
+    /**
+     * Safe mode activations available to use.
+     */
+    safeModeAvailable: number;
+    /**
+     * During this period in ticks new safe mode activations will be blocked, undefined if cooldown is inactive.
+     */
+    safeModeCooldown: number;
+    /**
+     * An object with the controller sign info if present
+     */
+    sign: SignDefinition;
+    /**
      * The amount of game ticks when this controller will lose one level. This timer can be reset by using Creep.upgradeController.
      */
     ticksToDowngrade: number;
@@ -1823,6 +1919,11 @@ declare class StructureController extends OwnedStructure {
      * The amount of game ticks while this controller cannot be upgraded due to attack.
      */
     upgradeBlocked: number;
+    /**
+     * Activate safe mode if available.
+     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_TIRED
+     */
+    activateSafeMode(): number;
     /**
      * Make your claimed controller neutral again.
      */
@@ -2048,6 +2149,10 @@ declare class StructureWall extends Structure {
  * Allows to harvest mineral deposits.
  */
 declare class StructureExtractor extends OwnedStructure {
+    /**
+     * The amount of game ticks until the next harvest action is possible.
+     */
+    cooldown: number;
 }
 /**
  * Produces mineral compounds from base minerals and boosts creeps.
@@ -2138,6 +2243,10 @@ declare class StructureContainer extends Structure {
      * The total amount of resources the structure can contain.
      */
     storeCapacity: number;
+    /**
+     * The amount of game ticks when this container will lose some hit points.
+     */
+    ticksToDecay: number;
     /**
      * Transfer resource from this structure to a creep. The target has to be at adjacent square.
      * @param target The target object.

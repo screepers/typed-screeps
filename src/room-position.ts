@@ -10,7 +10,7 @@ declare class RoomPosition {
      */
     //new(x: number, y: number, roomName: string): RoomPosition;
     constructor (x: number, y: number, roomName: string);
-    
+
     /**
      * The name of the room.
      */
@@ -113,7 +113,7 @@ declare class RoomPosition {
      * @param toPos The target position.
      * @param range The range distance.
      */
-    inRangeTo(toPos: RoomPosition, range: number): boolean;
+    inRangeTo(target: RoomPosition|{pos: RoomPosition}, range: number): boolean;
     /**
      * Check whether this position is the same as the specified position.
      * @param x X position in the room.
