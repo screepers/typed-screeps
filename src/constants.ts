@@ -3,86 +3,84 @@
  * This might need some updates when Screeps publishes new features or changes it's existing API
  */
 
-declare var FIND_EXIT_TOP: number;
-declare var FIND_EXIT_RIGHT: number;
-declare var FIND_EXIT_BOTTOM: number;
-declare var FIND_EXIT_LEFT: number;
-declare var FIND_EXIT: number;
-declare var FIND_CREEPS: number;
-declare var FIND_MY_CREEPS: number;
-declare var FIND_HOSTILE_CREEPS: number;
-declare var FIND_SOURCES_ACTIVE: number;
-declare var FIND_SOURCES: number;
-declare var FIND_DROPPED_RESOURCES: number;
-declare var FIND_DROPPED_ENERGY: number;
-declare var FIND_STRUCTURES: number;
-declare var FIND_MY_STRUCTURES: number;
-declare var FIND_HOSTILE_STRUCTURES: number;
-declare var FIND_FLAGS: number;
-declare var FIND_CONSTRUCTION_SITES: number;
-declare var FIND_MY_CONSTRUCTION_SITES: number;
-declare var FIND_HOSTILE_CONSTRUCTION_SITES: number;
-declare var FIND_MY_SPAWNS: number;
-declare var FIND_HOSTILE_SPAWNS: number;
-declare var FIND_MINERALS: number;
+declare const FIND_EXIT_TOP: number;
+declare const FIND_EXIT_RIGHT: number;
+declare const FIND_EXIT_BOTTOM: number;
+declare const FIND_EXIT_LEFT: number;
+declare const FIND_EXIT: number;
+declare const FIND_CREEPS: number;
+declare const FIND_MY_CREEPS: number;
+declare const FIND_HOSTILE_CREEPS: number;
+declare const FIND_SOURCES_ACTIVE: number;
+declare const FIND_SOURCES: number;
+declare const FIND_DROPPED_RESOURCES: number;
+declare const FIND_DROPPED_ENERGY: number;
+declare const FIND_STRUCTURES: number;
+declare const FIND_MY_STRUCTURES: number;
+declare const FIND_HOSTILE_STRUCTURES: number;
+declare const FIND_FLAGS: number;
+declare const FIND_CONSTRUCTION_SITES: number;
+declare const FIND_MY_CONSTRUCTION_SITES: number;
+declare const FIND_HOSTILE_CONSTRUCTION_SITES: number;
+declare const FIND_MY_SPAWNS: number;
+declare const FIND_HOSTILE_SPAWNS: number;
+declare const FIND_MINERALS: number;
 
-declare var TOP: number;
-declare var TOP_RIGHT: number;
-declare var RIGHT: number;
-declare var BOTTOM_RIGHT: number;
-declare var BOTTOM: number;
-declare var BOTTOM_LEFT: number;
-declare var LEFT: number;
-declare var TOP_LEFT: number;
+declare const TOP: number;
+declare const TOP_RIGHT: number;
+declare const RIGHT: number;
+declare const BOTTOM_RIGHT: number;
+declare const BOTTOM: number;
+declare const BOTTOM_LEFT: number;
+declare const LEFT: number;
+declare const TOP_LEFT: number;
 
-declare var OK: number;
-declare var ERR_NOT_OWNER: number;
-declare var ERR_NO_PATH: number;
-declare var ERR_NAME_EXISTS: number;
-declare var ERR_BUSY: number;
-declare var ERR_NOT_FOUND: number;
-declare var ERR_NOT_ENOUGH_RESOURCES: number;
-declare var ERR_NOT_ENOUGH_ENERGY: number;
-declare var ERR_INVALID_TARGET: number;
-declare var ERR_FULL: number;
-declare var ERR_NOT_IN_RANGE: number;
-declare var ERR_INVALID_ARGS: number;
-declare var ERR_TIRED: number;
-declare var ERR_NO_BODYPART: number;
-declare var ERR_NOT_ENOUGH_EXTENSIONS: number;
-declare var ERR_RCL_NOT_ENOUGH: number;
-declare var ERR_GCL_NOT_ENOUGH: number;
+declare const OK: number;
+declare const ERR_NOT_OWNER: number;
+declare const ERR_NO_PATH: number;
+declare const ERR_NAME_EXISTS: number;
+declare const ERR_BUSY: number;
+declare const ERR_NOT_FOUND: number;
+declare const ERR_NOT_ENOUGH_RESOURCES: number;
+declare const ERR_NOT_ENOUGH_ENERGY: number;
+declare const ERR_INVALID_TARGET: number;
+declare const ERR_FULL: number;
+declare const ERR_NOT_IN_RANGE: number;
+declare const ERR_INVALID_ARGS: number;
+declare const ERR_TIRED: number;
+declare const ERR_NO_BODYPART: number;
+declare const ERR_NOT_ENOUGH_EXTENSIONS: number;
+declare const ERR_RCL_NOT_ENOUGH: number;
+declare const ERR_GCL_NOT_ENOUGH: number;
 
-declare var COLOR_RED: number;
-declare var COLOR_PURPLE: number;
-declare var COLOR_BLUE: number;
-declare var COLOR_CYAN: number;
-declare var COLOR_GREEN: number;
-declare var COLOR_YELLOW: number;
-declare var COLOR_ORANGE: number;
-declare var COLOR_BROWN: number;
-declare var COLOR_GREY: number;
-declare var COLOR_WHITE: number;
-declare var COLORS_ALL: number[];
+declare const COLOR_RED: number;
+declare const COLOR_PURPLE: number;
+declare const COLOR_BLUE: number;
+declare const COLOR_CYAN: number;
+declare const COLOR_GREEN: number;
+declare const COLOR_YELLOW: number;
+declare const COLOR_ORANGE: number;
+declare const COLOR_BROWN: number;
+declare const COLOR_GREY: number;
+declare const COLOR_WHITE: number;
+declare const COLORS_ALL: number[];
 
-declare var CREEP_SPAWN_TIME: number;
-declare var CREEP_LIFE_TIME: number;
-declare var CREEP_CLAIM_LIFE_TIME: number;
-declare var CREEP_CORPSE_RATE: number;
+declare const CREEP_SPAWN_TIME: number;
+declare const CREEP_LIFE_TIME: number;
+declare const CREEP_CLAIM_LIFE_TIME: number;
+declare const CREEP_CORPSE_RATE: number;
 
-declare var OBSTACLE_OBJECT_TYPES: string[];
+declare const OBSTACLE_OBJECT_TYPES: string[];
 
-declare var ENERGY_REGEN_TIME: number;
-declare var ENERGY_DECAY: number;
+declare const ENERGY_REGEN_TIME: number;
+declare const ENERGY_DECAY: number;
 
-declare var CREEP_CORPSE_RATE: number;
+declare const REPAIR_COST: number;
 
-declare var REPAIR_COST: number;
-
-declare var RAMPART_DECAY_AMOUNT: number;
-declare var RAMPART_DECAY_TIME: number;
-declare var RAMPART_HITS: number;
-declare var RAMPART_HITS_MAX: {
+declare const RAMPART_DECAY_AMOUNT: number;
+declare const RAMPART_DECAY_TIME: number;
+declare const RAMPART_HITS: number;
+declare const RAMPART_HITS_MAX: {
     2: number,
     3: number,
     4: number,
@@ -92,35 +90,35 @@ declare var RAMPART_HITS_MAX: {
     8: number
 };
 
-declare var SPAWN_HITS: number;
-declare var SPAWN_ENERGY_START: number;
-declare var SPAWN_ENERGY_CAPACITY: number;
+declare const SPAWN_HITS: number;
+declare const SPAWN_ENERGY_START: number;
+declare const SPAWN_ENERGY_CAPACITY: number;
 
-declare var SOURCE_ENERGY_CAPACITY: number;
-declare var SOURCE_ENERGY_NEUTRAL_CAPACITY: number;
-declare var SOURCE_ENERGY_KEEPER_CAPACITY: number;
+declare const SOURCE_ENERGY_CAPACITY: number;
+declare const SOURCE_ENERGY_NEUTRAL_CAPACITY: number;
+declare const SOURCE_ENERGY_KEEPER_CAPACITY: number;
 
-declare var WALL_HITS: number;
-declare var WALL_HITS_MAX: number;
+declare const WALL_HITS: number;
+declare const WALL_HITS_MAX: number;
 
-declare var EXTENSION_HITS: number;
-declare var EXTENSION_ENERGY_CAPACITY: number;
+declare const EXTENSION_HITS: number;
+declare const EXTENSION_ENERGY_CAPACITY: number;
 
-declare var ROAD_HITS: number;
-declare var ROAD_WEAROUT: number;
-declare var ROAD_DECAY_AMOUNT: number;
-declare var ROAD_DECAY_TIME: number;
+declare const ROAD_HITS: number;
+declare const ROAD_WEAROUT: number;
+declare const ROAD_DECAY_AMOUNT: number;
+declare const ROAD_DECAY_TIME: number;
 
-declare var LINK_HITS: number;
-declare var LINK_HITS_MAX: number;
-declare var LINK_CAPACITY: number;
-declare var LINK_COOLDOWN: number;
-declare var LINK_LOSS_RATION: number;
+declare const LINK_HITS: number;
+declare const LINK_HITS_MAX: number;
+declare const LINK_CAPACITY: number;
+declare const LINK_COOLDOWN: number;
+declare const LINK_LOSS_RATION: number;
 
-declare var STORAGE_CAPACITY: number;
-declare var STORAGE_HITS: number;
+declare const STORAGE_CAPACITY: number;
+declare const STORAGE_HITS: number;
 
-declare var BODYPART_COST: {
+declare const BODYPART_COST: {
     [part: string]: number;
     move: number;
     work: number;
@@ -131,32 +129,32 @@ declare var BODYPART_COST: {
     tough: number;
     claim: number;
 };
-declare var BODYPARTS_ALL: string[];
+declare const BODYPARTS_ALL: string[];
 
 
-declare var CARRY_CAPACITY: number;
-declare var HARVEST_POWER: number;
-declare var HARVEST_MINERAL_POWER: number;
-declare var REPAIR_POWER: number;
-declare var DISMANTLE_POWER: number;
-declare var BUILD_POWER: number;
-declare var ATTACK_POWER: number;
-declare var UPGRADE_CONTROLLER_POWER: number;
-declare var RANGED_ATTACK_POWER: number;
-declare var HEAL_POWER: number;
-declare var RANGED_HEAL_POWER: number;
-declare var DISMANTLE_COST: number;
+declare const CARRY_CAPACITY: number;
+declare const HARVEST_POWER: number;
+declare const HARVEST_MINERAL_POWER: number;
+declare const REPAIR_POWER: number;
+declare const DISMANTLE_POWER: number;
+declare const BUILD_POWER: number;
+declare const ATTACK_POWER: number;
+declare const UPGRADE_CONTROLLER_POWER: number;
+declare const RANGED_ATTACK_POWER: number;
+declare const HEAL_POWER: number;
+declare const RANGED_HEAL_POWER: number;
+declare const DISMANTLE_COST: number;
 
-declare var MOVE: string;
-declare var WORK: string;
-declare var CARRY: string;
-declare var ATTACK: string;
-declare var RANGED_ATTACK: string;
-declare var TOUGH: string;
-declare var HEAL: string;
-declare var CLAIM: string;
+declare const MOVE: string;
+declare const WORK: string;
+declare const CARRY: string;
+declare const ATTACK: string;
+declare const RANGED_ATTACK: string;
+declare const TOUGH: string;
+declare const HEAL: string;
+declare const CLAIM: string;
 
-declare var CONSTRUCTION_COST: {
+declare const CONSTRUCTION_COST: {
     spawn: number;
     extension: number;
     road: number;
@@ -174,136 +172,136 @@ declare var CONSTRUCTION_COST: {
     nuker: number;
 };
 
-declare var CONSTRUCTION_COST_ROAD_SWAMP_RATIO: number;
+declare const CONSTRUCTION_COST_ROAD_SWAMP_RATIO: number;
 
-declare var STRUCTURE_EXTENSION: string;
-declare var STRUCTURE_RAMPART: string;
-declare var STRUCTURE_ROAD: string;
-declare var STRUCTURE_SPAWN: string;
-declare var STRUCTURE_LINK: string;
-declare var STRUCTURE_WALL: string;
-declare var STRUCTURE_KEEPER_LAIR: string;
-declare var STRUCTURE_CONTROLLER: string;
-declare var STRUCTURE_STORAGE: string;
-declare var STRUCTURE_TOWER: string;
-declare var STRUCTURE_OBSERVER: string;
-declare var STRUCTURE_POWER_BANK: string;
-declare var STRUCTURE_POWER_SPAWN: string;
-declare var STRUCTURE_EXTRACTOR: string;
-declare var STRUCTURE_LAB: string;
-declare var STRUCTURE_TERMINAL: string;
-declare var STRUCTURE_CONTAINER: string;
-declare var STRUCTURE_NUKER: string;
-declare var STRUCTURE_PORTAL: string;
+declare const STRUCTURE_EXTENSION: string;
+declare const STRUCTURE_RAMPART: string;
+declare const STRUCTURE_ROAD: string;
+declare const STRUCTURE_SPAWN: string;
+declare const STRUCTURE_LINK: string;
+declare const STRUCTURE_WALL: string;
+declare const STRUCTURE_KEEPER_LAIR: string;
+declare const STRUCTURE_CONTROLLER: string;
+declare const STRUCTURE_STORAGE: string;
+declare const STRUCTURE_TOWER: string;
+declare const STRUCTURE_OBSERVER: string;
+declare const STRUCTURE_POWER_BANK: string;
+declare const STRUCTURE_POWER_SPAWN: string;
+declare const STRUCTURE_EXTRACTOR: string;
+declare const STRUCTURE_LAB: string;
+declare const STRUCTURE_TERMINAL: string;
+declare const STRUCTURE_CONTAINER: string;
+declare const STRUCTURE_NUKER: string;
+declare const STRUCTURE_PORTAL: string;
 
-declare var RESOURCE_ENERGY: string;
-declare var RESOURCE_POWER: string;
-declare var RESOURCE_UTRIUM: string;
-declare var RESOURCE_LEMERGIUM: string;
-declare var RESOURCE_KEANIUM: string;
-declare var RESOURCE_GHODIUM: string;
-declare var RESOURCE_ZYNTHIUM: string;
-declare var RESOURCE_OXYGEN: string;
-declare var RESOURCE_HYDROGEN: string;
-declare var RESOURCE_CATALYST: string;
-declare var RESOURCE_HYDROXIDE: string;
-declare var RESOURCE_ZYNTHIUM_KEANITE: string;
-declare var RESOURCE_UTRIUM_LEMERGITE: string;
-declare var RESOURCE_UTRIUM_HYDRIDE: string;
-declare var RESOURCE_UTRIUM_OXIDE: string;
-declare var RESOURCE_KEANIUM_HYDRIDE: string;
-declare var RESOURCE_KEANIUM_OXIDE: string;
-declare var RESOURCE_LEMERGIUM_HYDRIDE: string;
-declare var RESOURCE_LEMERGIUM_OXIDE: string;
-declare var RESOURCE_ZYNTHIUM_HYDRIDE: string;
-declare var RESOURCE_ZYNTHIUM_OXIDE: string;
-declare var RESOURCE_GHODIUM_HYDRIDE: string;
-declare var RESOURCE_GHODIUM_OXIDE: string;
-declare var RESOURCE_UTRIUM_ACID: string;
-declare var RESOURCE_UTRIUM_ALKALIDE: string;
-declare var RESOURCE_KEANIUM_ACID: string;
-declare var RESOURCE_KEANIUM_ALKALIDE: string;
-declare var RESOURCE_LEMERGIUM_ACID: string;
-declare var RESOURCE_LEMERGIUM_ALKALIDE: string;
-declare var RESOURCE_ZYNTHIUM_ACID: string;
-declare var RESOURCE_ZYNTHIUM_ALKALIDE: string;
-declare var RESOURCE_GHODIUM_ACID: string;
-declare var RESOURCE_GHODIUM_ALKALIDE: string;
-declare var RESOURCE_CATALYZED_UTRIUM_ACID: string;
-declare var RESOURCE_CATALYZED_UTRIUM_ALKALIDE: string;
-declare var RESOURCE_CATALYZED_KEANIUM_ACID: string;
-declare var RESOURCE_CATALYZED_KEANIUM_ALKALIDE: string;
-declare var RESOURCE_CATALYZED_LEMERGIUM_ACID: string;
-declare var RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE: string;
-declare var RESOURCE_CATALYZED_ZYNTHIUM_ACID: string;
-declare var RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: string;
-declare var RESOURCE_CATALYZED_GHODIUM_ACID: string;
-declare var RESOURCE_CATALYZED_GHODIUM_ALKALIDE: string;
-declare var RESOURCES_ALL: string[];
+declare const RESOURCE_ENERGY: string;
+declare const RESOURCE_POWER: string;
+declare const RESOURCE_UTRIUM: string;
+declare const RESOURCE_LEMERGIUM: string;
+declare const RESOURCE_KEANIUM: string;
+declare const RESOURCE_GHODIUM: string;
+declare const RESOURCE_ZYNTHIUM: string;
+declare const RESOURCE_OXYGEN: string;
+declare const RESOURCE_HYDROGEN: string;
+declare const RESOURCE_CATALYST: string;
+declare const RESOURCE_HYDROXIDE: string;
+declare const RESOURCE_ZYNTHIUM_KEANITE: string;
+declare const RESOURCE_UTRIUM_LEMERGITE: string;
+declare const RESOURCE_UTRIUM_HYDRIDE: string;
+declare const RESOURCE_UTRIUM_OXIDE: string;
+declare const RESOURCE_KEANIUM_HYDRIDE: string;
+declare const RESOURCE_KEANIUM_OXIDE: string;
+declare const RESOURCE_LEMERGIUM_HYDRIDE: string;
+declare const RESOURCE_LEMERGIUM_OXIDE: string;
+declare const RESOURCE_ZYNTHIUM_HYDRIDE: string;
+declare const RESOURCE_ZYNTHIUM_OXIDE: string;
+declare const RESOURCE_GHODIUM_HYDRIDE: string;
+declare const RESOURCE_GHODIUM_OXIDE: string;
+declare const RESOURCE_UTRIUM_ACID: string;
+declare const RESOURCE_UTRIUM_ALKALIDE: string;
+declare const RESOURCE_KEANIUM_ACID: string;
+declare const RESOURCE_KEANIUM_ALKALIDE: string;
+declare const RESOURCE_LEMERGIUM_ACID: string;
+declare const RESOURCE_LEMERGIUM_ALKALIDE: string;
+declare const RESOURCE_ZYNTHIUM_ACID: string;
+declare const RESOURCE_ZYNTHIUM_ALKALIDE: string;
+declare const RESOURCE_GHODIUM_ACID: string;
+declare const RESOURCE_GHODIUM_ALKALIDE: string;
+declare const RESOURCE_CATALYZED_UTRIUM_ACID: string;
+declare const RESOURCE_CATALYZED_UTRIUM_ALKALIDE: string;
+declare const RESOURCE_CATALYZED_KEANIUM_ACID: string;
+declare const RESOURCE_CATALYZED_KEANIUM_ALKALIDE: string;
+declare const RESOURCE_CATALYZED_LEMERGIUM_ACID: string;
+declare const RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE: string;
+declare const RESOURCE_CATALYZED_ZYNTHIUM_ACID: string;
+declare const RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: string;
+declare const RESOURCE_CATALYZED_GHODIUM_ACID: string;
+declare const RESOURCE_CATALYZED_GHODIUM_ALKALIDE: string;
+declare const RESOURCES_ALL: string[];
 
-declare var SUBSCRIPTION_TOKEN: string;
+declare const SUBSCRIPTION_TOKEN: string;
 
-declare var CONTROLLER_LEVELS: {[level: number]: number};
-declare var CONTROLLER_STRUCTURES: {[structure: string]: {[level: number]: number}};
-declare var CONTROLLER_DOWNGRADE: {[level: number]: number};
-declare var CONTROLLER_CLAIM_DOWNGRADE: number;
-declare var CONTROLLER_RESERVE: number;
-declare var CONTROLLER_RESERVE_MAX: number;
-declare var CONTROLLER_MAX_UPGRADE_PER_TICK: number;
-declare var CONTROLLER_ATTACK_BLOCKED_UPGRADE: number;
+declare const CONTROLLER_LEVELS: {[level: number]: number};
+declare const CONTROLLER_STRUCTURES: {[structure: string]: {[level: number]: number}};
+declare const CONTROLLER_DOWNGRADE: {[level: number]: number};
+declare const CONTROLLER_CLAIM_DOWNGRADE: number;
+declare const CONTROLLER_RESERVE: number;
+declare const CONTROLLER_RESERVE_MAX: number;
+declare const CONTROLLER_MAX_UPGRADE_PER_TICK: number;
+declare const CONTROLLER_ATTACK_BLOCKED_UPGRADE: number;
 
-declare var TOWER_HITS: number;
-declare var TOWER_CAPACITY: number;
-declare var TOWER_ENERGY_COST: number;
-declare var TOWER_POWER_ATTACK: number;
-declare var TOWER_POWER_HEAL: number;
-declare var TOWER_POWER_REPAIR: number;
-declare var TOWER_OPTIMAL_RANGE: number;
-declare var TOWER_FALLOFF_RANGE: number;
-declare var TOWER_FALLOFF: number;
+declare const TOWER_HITS: number;
+declare const TOWER_CAPACITY: number;
+declare const TOWER_ENERGY_COST: number;
+declare const TOWER_POWER_ATTACK: number;
+declare const TOWER_POWER_HEAL: number;
+declare const TOWER_POWER_REPAIR: number;
+declare const TOWER_OPTIMAL_RANGE: number;
+declare const TOWER_FALLOFF_RANGE: number;
+declare const TOWER_FALLOFF: number;
 
-declare var OBSERVER_HITS: number;
-declare var OBSERVER_RANGE: number;
+declare const OBSERVER_HITS: number;
+declare const OBSERVER_RANGE: number;
 
-declare var POWER_BANK_HITS: number;
-declare var POWER_BANK_CAPACITY_MAX: number;
-declare var POWER_BANK_CAPACITY_MIN: number;
-declare var POWER_BANK_CAPACITY_CRIT: number;
-declare var POWER_BANK_DECAY: number;
-declare var POWER_BANK_HIT_BACK: number;
+declare const POWER_BANK_HITS: number;
+declare const POWER_BANK_CAPACITY_MAX: number;
+declare const POWER_BANK_CAPACITY_MIN: number;
+declare const POWER_BANK_CAPACITY_CRIT: number;
+declare const POWER_BANK_DECAY: number;
+declare const POWER_BANK_HIT_BACK: number;
 
-declare var POWER_SPAWN_HITS: number;
-declare var POWER_SPAWN_ENERGY_CAPACITY: number;
-declare var POWER_SPAWN_POWER_CAPACITY: number;
-declare var POWER_SPAWN_ENERGY_RATIO: number;
+declare const POWER_SPAWN_HITS: number;
+declare const POWER_SPAWN_ENERGY_CAPACITY: number;
+declare const POWER_SPAWN_POWER_CAPACITY: number;
+declare const POWER_SPAWN_ENERGY_RATIO: number;
 
-declare var EXTRACTOR_HITS: number;
+declare const EXTRACTOR_HITS: number;
 
-declare var LAB_HITS: number;
-declare var LAB_MINERAL_CAPACITY: number;
-declare var LAB_ENERGY_CAPACITY: number;
-declare var LAB_BOOST_ENERGY: number;
-declare var LAB_BOOST_MINERAL: number;
-declare var LAB_COOLDOWN: number;
+declare const LAB_HITS: number;
+declare const LAB_MINERAL_CAPACITY: number;
+declare const LAB_ENERGY_CAPACITY: number;
+declare const LAB_BOOST_ENERGY: number;
+declare const LAB_BOOST_MINERAL: number;
+declare const LAB_COOLDOWN: number;
 
-declare var GCL_POW: number;
-declare var GCL_MULTIPLY: number;
-declare var GCL_NOVICE: number;
+declare const GCL_POW: number;
+declare const GCL_MULTIPLY: number;
+declare const GCL_NOVICE: number;
 
-declare var MODE_SIMULATION: string;
-declare var MODE_SURVIVAL: string;
-declare var MODE_WORLD: string;
-declare var MODE_ARENA: string;
+declare const MODE_SIMULATION: string;
+declare const MODE_SURVIVAL: string;
+declare const MODE_WORLD: string;
+declare const MODE_ARENA: string;
 
-declare var TERRAIN_MASK_WALL: number;
-declare var TERRAIN_MASK_SWAMP: number;
-declare var TERRAIN_MASK_LAVA: number;
+declare const TERRAIN_MASK_WALL: number;
+declare const TERRAIN_MASK_SWAMP: number;
+declare const TERRAIN_MASK_LAVA: number;
 
-declare var MAX_CONSTRUCTION_SITES: number;
-declare var MAX_CREEP_SIZE: number;
+declare const MAX_CONSTRUCTION_SITES: number;
+declare const MAX_CREEP_SIZE: number;
 
-declare var MINERAL_REGEN_TIME: number;
-declare var MINERAL_MIN_AMOUNT: {
+declare const MINERAL_REGEN_TIME: number;
+declare const MINERAL_MIN_AMOUNT: {
     H: number,
     O: number,
     L: number,
@@ -312,58 +310,58 @@ declare var MINERAL_MIN_AMOUNT: {
     U: number,
     X: number
 }
-declare var MINERAL_RANDOM_FACTOR: number;
+declare const MINERAL_RANDOM_FACTOR: number;
 
 
-declare var MINERAL_DENSITY: {
+declare const MINERAL_DENSITY: {
         1: number,
         2: number,
         3: number,
         4: number
 }
-declare var MINERAL_DENSITY_PROBABILITY: {
+declare const MINERAL_DENSITY_PROBABILITY: {
         1: number,
         2: number,
         3: number,
         4: number
 }
-declare var MINERAL_DENSITY_CHANGE: number;
+declare const MINERAL_DENSITY_CHANGE: number;
 
-declare var DENSITY_LOW: number;
-declare var DENSITY_MODERATE: number;
-declare var DENSITY_HIGH: number;
-declare var DENSITY_ULTRA: number;
+declare const DENSITY_LOW: number;
+declare const DENSITY_MODERATE: number;
+declare const DENSITY_HIGH: number;
+declare const DENSITY_ULTRA: number;
 
-declare var TERMINAL_CAPACITY: number;
-declare var TERMINAL_HITS: number;
-declare var TERMINAL_SEND_COST: number;
-declare var TERMINAL_MIN_SEND: number;
+declare const TERMINAL_CAPACITY: number;
+declare const TERMINAL_HITS: number;
+declare const TERMINAL_SEND_COST: number;
+declare const TERMINAL_MIN_SEND: number;
 
-declare var CONTAINER_HITS: number;
-declare var CONTAINER_CAPACITY: number;
-declare var CONTAINER_DECAY: number;
-declare var CONTAINER_DECAY_TIME: number;
-declare var CONTAINER_DECAY_TIME_OWNED: number;
+declare const CONTAINER_HITS: number;
+declare const CONTAINER_CAPACITY: number;
+declare const CONTAINER_DECAY: number;
+declare const CONTAINER_DECAY_TIME: number;
+declare const CONTAINER_DECAY_TIME_OWNED: number;
 
-declare var NUKER_HITS: number;
-declare var NUKER_COOLDOWN: number;
-declare var NUKER_ENERGY_CAPACITY: number;
-declare var NUKER_GHODIUM_CAPACITY: number;
-declare var NUKE_LAND_TIME: number;
-declare var NUKE_RANGE: number;
-declare var NUKE_DAMAGE: {
+declare const NUKER_HITS: number;
+declare const NUKER_COOLDOWN: number;
+declare const NUKER_ENERGY_CAPACITY: number;
+declare const NUKER_GHODIUM_CAPACITY: number;
+declare const NUKE_LAND_TIME: number;
+declare const NUKE_RANGE: number;
+declare const NUKE_DAMAGE: {
     0: number,
     1: number,
     4: number
 }
 
-declare var REACTIONS: {
+declare const REACTIONS: {
     [reagent: string]: {
         [reagent: string]: string
     }
 }
 
-declare var BOOSTS: {
+declare const BOOSTS: {
     [part: string]: {
         [boost: string]: {
             [action: string]: number
@@ -371,16 +369,16 @@ declare var BOOSTS: {
     }
 }
 
-declare var LOOK_CREEPS: string;
-declare var LOOK_ENERGY: string;
-declare var LOOK_RESOURCES: string;
-declare var LOOK_SOURCES: string;
-declare var LOOK_MINERALS: string;
-declare var LOOK_STRUCTURES: string;
-declare var LOOK_FLAGS: string;
-declare var LOOK_CONSTRUCTION_SITES: string;
-declare var LOOK_NUKES: string;
-declare var LOOK_TERRAIN: string;
+declare const LOOK_CREEPS: string;
+declare const LOOK_ENERGY: string;
+declare const LOOK_RESOURCES: string;
+declare const LOOK_SOURCES: string;
+declare const LOOK_MINERALS: string;
+declare const LOOK_STRUCTURES: string;
+declare const LOOK_FLAGS: string;
+declare const LOOK_CONSTRUCTION_SITES: string;
+declare const LOOK_NUKES: string;
+declare const LOOK_TERRAIN: string;
 
-declare var ORDER_SELL: string;
-declare var ORDER_BUY: string;
+declare const ORDER_SELL: string;
+declare const ORDER_BUY: string;
