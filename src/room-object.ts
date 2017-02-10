@@ -3,8 +3,8 @@
  * are derived from RoomObject.
  */
 
-declare class RoomObject {
-    prototype: RoomObject;
+interface RoomObject {
+    readonly prototype: RoomObject;
     /**
      * An object representing the position of this object in the room.
      */
@@ -16,3 +16,10 @@ declare class RoomObject {
      */
     room: Room;
 }
+
+interface RoomObjectConstructor extends _Constructor<RoomObject> {
+    new (x: number, y: number, roomName: string): RoomObject;
+    (x: number, y: number, roomName: string): RoomObject;
+}
+
+declare const RoomObject: RoomObjectConstructor;

@@ -2,7 +2,9 @@
  * A dropped piece of resource. It will decay after a while if not picked up. Dropped resource pile decays for ceil(amount/1000) units per tick.
  */
 
-declare class Resource extends RoomObject {
+interface Resource extends RoomObject {
+    readonly prototype: Resource;
+    
     /**
      * The amount of resource units containing.
      */
@@ -16,3 +18,9 @@ declare class Resource extends RoomObject {
      */
     resourceType: string;
 }
+
+interface ResourceConstructor {
+    new (id: string): Resource;
+}
+
+declare const Resource: ResourceConstructor;

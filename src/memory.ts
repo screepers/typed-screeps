@@ -1,4 +1,3 @@
-// Updated 2016-02-05
 interface Memory {
     [name: string]: any;
     creeps: {[name: string]: any};

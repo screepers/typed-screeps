@@ -1,15 +1,8 @@
 /**
  * An object representing the specified position in the room. Every object in the room contains RoomPosition as the pos property. The position object of a custom location can be obtained using the Room.getPositionAt() method or using the constructor.
  */
-declare class RoomPosition {
-    /**
-     * You can create new RoomPosition object using its constructor.
-     * @param x X position in the room.
-     * @param y Y position in the room.
-     * @param roomName The room name.
-     */
-    //new(x: number, y: number, roomName: string): RoomPosition;
-    constructor (x: number, y: number, roomName: string);
+interface RoomPosition {
+    readonly prototype: RoomPosition;
 
     /**
      * The name of the room.
@@ -40,39 +33,39 @@ declare class RoomPosition {
      * @param type See Room.find
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByPath<T>(type: number, opts?: FindPathOpts & {filter?: any|string, algorithm?: string}): T;
+    findClosestByPath<T>(type: number, opts?: FindPathOpts & { filter?: any | string, algorithm?: string }): T;
     /**
      * Find an object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByPath<T>(objects: T[]|RoomPosition[], opts?: FindPathOpts & {filter?: any|string, algorithm?: string}): T;
+    findClosestByPath<T>(objects: T[] | RoomPosition[], opts?: FindPathOpts & { filter?: any | string, algorithm?: string }): T;
     /**
      * Find an object with the shortest linear distance from the given position.
      * @param type See Room.find.
      * @param opts
      */
-    findClosestByRange<T>(type: number, opts?: {filter: any|string }): T;
+    findClosestByRange<T>(type: number, opts?: { filter: any | string }): T;
     /**
      * Find an object with the shortest linear distance from the given position.
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
      * @param opts An object containing one of the following options: filter
      */
-    findClosestByRange<T>(objects: T[]|RoomPosition[], opts?: {filter: any|string }): T;
+    findClosestByRange<T>(objects: T[] | RoomPosition[], opts?: { filter: any | string }): T;
     /**
      * Find all objects in the specified linear range.
      * @param type See Room.find.
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<T>(type: number, range: number, opts?: {filter?: any|string}): T[];
+    findInRange<T>(type: number, range: number, opts?: { filter?: any | string }): T[];
     /**
      * Find all objects in the specified linear range.
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<T>(objects: T[]|RoomPosition[], range: number, opts?: {filter?: any|string}): T[];
+    findInRange<T>(objects: T[] | RoomPosition[], range: number, opts?: { filter?: any | string }): T[];
     /**
      * Find an optimal path to the specified position using A* search algorithm. This method is a shorthand for Room.findPath. If the target is in another room, then the corresponding exit will be used as a target.
      * @param x X position in the room.
@@ -85,7 +78,7 @@ declare class RoomPosition {
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @param opts An object containing pathfinding options flags (see Room.findPath for more details).
      */
-    findPathTo(target: RoomPosition|{pos: RoomPosition}, opts?: FindPathOpts): PathStep[];
+    findPathTo(target: RoomPosition | { pos: RoomPosition }, opts?: FindPathOpts): PathStep[];
     /**
      * Get linear direction to the specified position.
      * @param x X position in the room.
@@ -96,7 +89,7 @@ declare class RoomPosition {
      * Get linear direction to the specified position.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
-    getDirectionTo(target: RoomPosition|{pos: RoomPosition}): number;
+    getDirectionTo(target: RoomPosition | { pos: RoomPosition }): number;
     /**
      * Get linear range to the specified position.
      * @param x X position in the room.
@@ -107,7 +100,7 @@ declare class RoomPosition {
      * Get linear range to the specified position.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
-    getRangeTo(target: RoomPosition|{pos: RoomPosition}): number;
+    getRangeTo(target: RoomPosition | { pos: RoomPosition }): number;
     /**
      * Check whether this position is in the given range of another position.
      * @param toPos The target position.
@@ -124,7 +117,7 @@ declare class RoomPosition {
      * Check whether this position is the same as the specified position.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
-    isEqualTo(target: RoomPosition|{pos: RoomPosition}): boolean;
+    isEqualTo(target: RoomPosition | { pos: RoomPosition }): boolean;
     /**
      * Check whether this position is on the adjacent square to the specified position. The same as inRangeTo(target, 1).
      * @param x X position in the room.
@@ -135,7 +128,7 @@ declare class RoomPosition {
      * Check whether this position is on the adjacent square to the specified position. The same as inRangeTo(target, 1).
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
-    isNearTo(target: RoomPosition|{pos: RoomPosition}): boolean;
+    isNearTo(target: RoomPosition | { pos: RoomPosition }): boolean;
     /**
      * Get the list of objects at the specified room position.
      */
@@ -146,3 +139,16 @@ declare class RoomPosition {
      */
     lookFor<T>(type: string): T[];
 }
+
+interface RoomPositionConstructor extends _Constructor<RoomPosition> {
+    /**
+     * You can create new RoomPosition object using its constructor.
+     * @param x X position in the room.
+     * @param y Y position in the room.
+     * @param roomName The room name.
+     */
+    new (x: number, y: number, roomName: string): RoomPosition;
+    (x: number, y: number, roomName: string): RoomPosition;
+}
+
+declare const RoomPosition: RoomPositionConstructor;

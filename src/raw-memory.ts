@@ -1,4 +1,3 @@
-// Updated 2016-02-05
 /**
  * RawMemory object allows to implement your own memory stringifier instead of built-in serializer based on JSON.stringify.
  */
