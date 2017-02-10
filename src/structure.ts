@@ -251,7 +251,7 @@ declare class StructureRampart extends OwnedStructure {
      * Make this rampart public to allow other players' creeps to pass through.
      * @param isPublic Whether this rampart should be public or non-public
      */
-    setPublic(isPublic: boolean): undefined;
+    setPublic(isPublic: boolean): void;
 }
 
 /**
