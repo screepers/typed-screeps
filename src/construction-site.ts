@@ -1,7 +1,7 @@
 /**
  * A site of a structure which is currently under construction.
  */
-declare class ConstructionSite extends RoomObject{
+declare class ConstructionSite extends RoomObject {
     /**
      * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */

@@ -2,7 +2,7 @@
 /**
  * Spawns are your colony centers. You can transfer energy into it and create new creeps using createCreep() method.
  */
-declare class Spawn extends OwnedStructure{
+declare class Spawn extends OwnedStructure {
     /**
      * The amount of energy containing in the spawn.
      */
