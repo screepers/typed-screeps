@@ -31,7 +31,7 @@ interface PathFinder {
      *
      * @param isEnabled Whether to activate the new pathfinder or deactivate.
      */
-    use(isEnabled: boolean);
+    use(isEnabled: boolean): undefined;
 }
 
 /**
@@ -106,13 +106,13 @@ interface CostMatrix {
      * @param y Y position in the room.
      * @param cost Cost of this position. Must be a whole number. A cost of 0 will use the terrain cost for that tile. A cost greater than or equal to 255 will be treated as unwalkable.
      */
-    set(x: number, y: number, cost: number);
+    set(x: number, y: number, cost: number): undefined;
     /**
      * Get the cost of a position in this CostMatrix.
      * @param x X position in the room.
      * @param y Y position in the room.
      */
-    get(x: number, y: number);
+    get(x: number, y: number): number;
     /**
      * Copy this CostMatrix into a new CostMatrix with the same data.
      */

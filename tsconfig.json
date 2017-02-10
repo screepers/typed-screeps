@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "module": "system",
-    "target": "es5",
+    "target": "es6",
     "sourceMap": false,
     "declaration": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "strictNullChecks": true,
     "outFile": "./dist/screeps.ts"
   },

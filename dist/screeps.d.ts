@@ -605,7 +605,7 @@ declare class Creep extends RoomObject {
      * @param text The sign text. The maximum text length is 100 characters.
      * @returns Result Code: OK, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE
      */
-    signController(target: Controller, text: string): any;
+    signController(target: Controller, text: string): number;
     /**
      * Kill the creep immediately.
      */
@@ -1216,7 +1216,7 @@ interface PathFinder {
      *
      * @param isEnabled Whether to activate the new pathfinder or deactivate.
      */
-    use(isEnabled: boolean): any;
+    use(isEnabled: boolean): undefined;
 }
 /**
  * An object containing:
@@ -1287,13 +1287,13 @@ interface CostMatrix {
      * @param y Y position in the room.
      * @param cost Cost of this position. Must be a whole number. A cost of 0 will use the terrain cost for that tile. A cost greater than or equal to 255 will be treated as unwalkable.
      */
-    set(x: number, y: number, cost: number): any;
+    set(x: number, y: number, cost: number): undefined;
     /**
      * Get the cost of a position in this CostMatrix.
      * @param x X position in the room.
      * @param y Y position in the room.
      */
-    get(x: number, y: number): any;
+    get(x: number, y: number): number;
     /**
      * Copy this CostMatrix into a new CostMatrix with the same data.
      */
@@ -1320,7 +1320,7 @@ interface RawMemory {
      * Set new memory value.
      * @param value New memory value as a string.
      */
-    set(value: string): any;
+    set(value: string): undefined;
 }
 /**
  * A dropped piece of resource. It will decay after a while if not picked up. Dropped resource pile decays for ceil(amount/1000) units per tick.
@@ -2133,7 +2133,7 @@ declare class StructureRampart extends OwnedStructure {
      * Make this rampart public to allow other players' creeps to pass through.
      * @param isPublic Whether this rampart should be public or non-public
      */
-    setPublic(isPublic: boolean): any;
+    setPublic(isPublic: boolean): undefined;
 }
 /**
  * Decreases movement cost to 1. Using roads allows creating creeps with less
