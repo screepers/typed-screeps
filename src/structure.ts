@@ -75,7 +75,7 @@ declare class StructureController extends OwnedStructure {
     /**
      * How many ticks of safe mode are remaining, or undefined.
      */
-    safeMode: number;
+    safeMode: number | undefined;
     /**
      * Safe mode activations available to use.
      */
@@ -83,7 +83,7 @@ declare class StructureController extends OwnedStructure {
     /**
      * During this period in ticks new safe mode activations will be blocked, undefined if cooldown is inactive.
      */
-    safeModeCooldown: number;
+    safeModeCooldown: number | undefined;
     /**
      * An object with the controller sign info if present
      */
