@@ -4,7 +4,6 @@
  */
 interface StructureSpawn extends OwnedStructure {
     readonly prototype: StructureSpawn;
-    
     /**
      * The amount of energy containing in the spawn.
      */

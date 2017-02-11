@@ -91,7 +91,7 @@ interface StructureController extends OwnedStructure {
     /**
      * How many ticks of safe mode are remaining, or undefined.
      */
-    safeMode: number;
+    safeMode: number | undefined;
     /**
      * Safe mode activations available to use.
      */
@@ -99,7 +99,7 @@ interface StructureController extends OwnedStructure {
     /**
      * During this period in ticks new safe mode activations will be blocked, undefined if cooldown is inactive.
      */
-    safeModeCooldown: number;
+    safeModeCooldown: number | undefined;
     /**
      * An object with the controller sign info if present
      */
@@ -314,7 +314,7 @@ interface StructureRampart extends OwnedStructure {
      * Make this rampart public to allow other players' creeps to pass through.
      * @param isPublic Whether this rampart should be public or non-public
      */
-    setPublic(isPublic: boolean): undefined;
+    setPublic(isPublic: boolean): void;
 }
 
 interface StructureRampartConstructor extends _Constructor<StructureRampart>, _ConstructorById<StructureRampart> {

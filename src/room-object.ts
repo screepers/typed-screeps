@@ -14,7 +14,7 @@ interface RoomObject {
      * flag or a construction site and is placed in a room that is not visible
      * to you.
      */
-    room: Room;
+    room: Room | undefined;
 }
 
 interface RoomObjectConstructor extends _Constructor<RoomObject> {

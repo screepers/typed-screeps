@@ -11,6 +11,6 @@ interface RawMemory {
      * Set new memory value.
      * @param value New memory value as a string.
      */
-    set(value: string): undefined;
+    set(value: string): void;
 
 }
