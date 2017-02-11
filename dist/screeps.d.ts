@@ -1247,7 +1247,7 @@ interface PathFinder {
      *
      * @param isEnabled Whether to activate the new pathfinder or deactivate.
      */
-    use(isEnabled: boolean): undefined;
+    use(isEnabled: boolean): void;
 }
 /**
  * An object containing:
@@ -1318,7 +1318,7 @@ interface CostMatrix {
      * @param y Y position in the room.
      * @param cost Cost of this position. Must be a whole number. A cost of 0 will use the terrain cost for that tile. A cost greater than or equal to 255 will be treated as unwalkable.
      */
-    set(x: number, y: number, cost: number): undefined;
+    set(x: number, y: number, cost: number): void;
     /**
      * Get the cost of a position in this CostMatrix.
      * @param x X position in the room.
@@ -1351,7 +1351,7 @@ interface RawMemory {
      * Set new memory value.
      * @param value New memory value as a string.
      */
-    set(value: string): undefined;
+    set(value: string): void;
 }
 /**
  * A dropped piece of resource. It will decay after a while if not picked up. Dropped resource pile decays for ceil(amount/1000) units per tick.
@@ -1390,7 +1390,7 @@ interface RoomObject {
      * flag or a construction site and is placed in a room that is not visible
      * to you.
      */
-    room: Room;
+    room: Room | undefined;
 }
 interface RoomObjectConstructor extends _Constructor<RoomObject> {
     new (x: number, y: number, roomName: string): RoomObject;
@@ -2024,7 +2024,7 @@ interface StructureController extends OwnedStructure {
     /**
      * How many ticks of safe mode are remaining, or undefined.
      */
-    safeMode: number;
+    safeMode: number | undefined;
     /**
      * Safe mode activations available to use.
      */
@@ -2032,7 +2032,7 @@ interface StructureController extends OwnedStructure {
     /**
      * During this period in ticks new safe mode activations will be blocked, undefined if cooldown is inactive.
      */
-    safeModeCooldown: number;
+    safeModeCooldown: number | undefined;
     /**
      * An object with the controller sign info if present
      */
@@ -2216,7 +2216,7 @@ interface StructureRampart extends OwnedStructure {
      * Make this rampart public to allow other players' creeps to pass through.
      * @param isPublic Whether this rampart should be public or non-public
      */
-    setPublic(isPublic: boolean): undefined;
+    setPublic(isPublic: boolean): void;
 }
 interface StructureRampartConstructor extends _Constructor<StructureRampart>, _ConstructorById<StructureRampart> {
 }
