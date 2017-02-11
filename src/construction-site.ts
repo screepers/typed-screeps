@@ -1,7 +1,8 @@
 /**
  * A site of a structure which is currently under construction.
  */
-declare class ConstructionSite extends RoomObject {
+interface ConstructionSite extends RoomObject {
+    readonly prototype: ConstructionSite;
     /**
      * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
@@ -32,3 +33,8 @@ declare class ConstructionSite extends RoomObject {
      */
     remove(): number;
 }
+
+interface ConstructionSiteConstructor extends _Constructor<ConstructionSite>, _ConstructorById<ConstructionSite> {
+}
+
+declare const ConstructionSite: ConstructionSiteConstructor;

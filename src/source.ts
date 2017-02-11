@@ -2,11 +2,11 @@
 /**
  * An energy source object. Can be harvested by creeps with a WORK body part.
  */
-declare class Source extends RoomObject{
+interface Source extends RoomObject {
     /**
      * The prototype is stored in the Source.prototype global object. You can use it to extend game objects behaviour globally:
      */
-    prototype: Source;
+    readonly prototype: Source;
     /**
      * The remaining amount of energy.
      */
@@ -24,3 +24,8 @@ declare class Source extends RoomObject{
      */
     ticksToRegeneration: number;
 }
+
+interface SourceConstructor extends _Constructor<Source>, _ConstructorById<Source> {
+}
+
+declare const Source: SourceConstructor;
