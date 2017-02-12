@@ -1643,26 +1643,26 @@ declare class RoomVisual {
     getSize(): number;
 }
 interface LineStyle {
-    width: number;
-    color: string;
-    opacity: number;
-    lineStyle: undefined | "dashed" | "dotted";
+    width?: number;
+    color?: string;
+    opacity?: number;
+    lineStyle?: "dashed" | "dotted";
 }
 interface PolyStyle {
-    fill: string;
-    opacity: number;
-    stroke: string | undefined;
-    strokeWidth: number;
-    lineStyle: undefined | "dashed" | "dotted";
+    fill?: string;
+    opacity?: number;
+    stroke?: string | undefined;
+    strokeWidth?: number;
+    lineStyle?: "dashed" | "dotted";
 }
 interface CircleStyle extends PolyStyle {
-    radius: number;
+    radius?: number;
 }
 interface TextStyle {
-    color: string;
-    size: number;
-    align: "center" | "left" | "right";
-    opacity: number;
+    color?: string;
+    size?: number;
+    align?: "center" | "left" | "right";
+    opacity?: number;
 }
 /**
  * An object representing the room in which your units and structures are in. It can be used to look around, find paths, etc. Every object in the room contains its linked Room instance in the room property.
