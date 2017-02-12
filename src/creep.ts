@@ -54,6 +54,10 @@ interface Creep extends RoomObject {
      */
     readonly owner: Owner;
     /**
+     * The link to the Room object. Always defined because creeps give visibility into the room they're in.
+     */
+    room: Room;
+    /**
      * Whether this creep is still being spawned.
      */
     readonly spawning: boolean;
