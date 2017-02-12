@@ -1,137 +1,70 @@
 /**
- * Screeps constants and types
+ * This file is Screeps API description file.
+ * This might need some updates when Screeps publishes new features or changes it's existing API
  */
 
-declare type OK = 0; declare const OK: OK;
-declare type ERR_NOT_OWNER = -1; declare const ERR_NOT_OWNER: ERR_NOT_OWNER;
-declare type ERR_NO_PATH = -2; declare const ERR_NO_PATH: ERR_NO_PATH;
-declare type ERR_NAME_EXISTS = -3; declare const ERR_NAME_EXISTS: ERR_NAME_EXISTS;
-declare type ERR_BUSY = -4; declare const ERR_BUSY: ERR_BUSY;
-declare type ERR_NOT_FOUND = -5; declare const ERR_NOT_FOUND: ERR_NOT_FOUND;
-declare type ERR_NOT_ENOUGH_RESOURCES = -6; declare const ERR_NOT_ENOUGH_RESOURCES: ERR_NOT_ENOUGH_RESOURCES;
-declare type ERR_NOT_ENOUGH_ENERGY = -6; declare const ERR_NOT_ENOUGH_ENERGY: ERR_NOT_ENOUGH_ENERGY;
-declare type ERR_INVALID_TARGET = -7; declare const ERR_INVALID_TARGET: ERR_INVALID_TARGET;
-declare type ERR_FULL = -8; declare const ERR_FULL: ERR_FULL;
-declare type ERR_NOT_IN_RANGE = -9; declare const ERR_NOT_IN_RANGE: ERR_NOT_IN_RANGE;
-declare type ERR_INVALID_ARGS = -10; declare const ERR_INVALID_ARGS: ERR_INVALID_ARGS;
-declare type ERR_TIRED = -11; declare const ERR_TIRED: ERR_TIRED;
-declare type ERR_NO_BODYPART = -12; declare const ERR_NO_BODYPART: ERR_NO_BODYPART;
-declare type ERR_NOT_ENOUGH_EXTENSIONS = -6; declare const ERR_NOT_ENOUGH_EXTENSIONS: ERR_NOT_ENOUGH_EXTENSIONS;
-declare type ERR_RCL_NOT_ENOUGH = -14; declare const ERR_RCL_NOT_ENOUGH: ERR_RCL_NOT_ENOUGH;
-declare type ERR_GCL_NOT_ENOUGH = -15; declare const ERR_GCL_NOT_ENOUGH: ERR_GCL_NOT_ENOUGH;
-declare type ERRORCODE = (
-    | ERR_NOT_OWNER
-    | ERR_NO_PATH
-    | ERR_NAME_EXISTS
-    | ERR_BUSY
-    | ERR_NOT_FOUND
-    | ERR_NOT_ENOUGH_RESOURCES
-    | ERR_NOT_ENOUGH_ENERGY
-    | ERR_INVALID_TARGET
-    | ERR_FULL
-    | ERR_NOT_IN_RANGE
-    | ERR_INVALID_ARGS
-    | ERR_TIRED
-    | ERR_NO_BODYPART
-    | ERR_NOT_ENOUGH_EXTENSIONS
-    | ERR_RCL_NOT_ENOUGH
-    | ERR_GCL_NOT_ENOUGH
-);
-declare type RETURNCODE = OK | ERRORCODE;
+declare const OK: 0;
+declare const ERR_NOT_OWNER: -1;
+declare const ERR_NO_PATH: -2;
+declare const ERR_NAME_EXISTS: -3;
+declare const ERR_BUSY: -4;
+declare const ERR_NOT_FOUND: -5;
+declare const ERR_NOT_ENOUGH_RESOURCES: -6;
+declare const ERR_NOT_ENOUGH_ENERGY: -6;
+declare const ERR_INVALID_TARGET: -7;
+declare const ERR_FULL: -8;
+declare const ERR_NOT_IN_RANGE: -9;
+declare const ERR_INVALID_ARGS: -10;
+declare const ERR_TIRED: -11;
+declare const ERR_NO_BODYPART: -12;
+declare const ERR_NOT_ENOUGH_EXTENSIONS: -6;
+declare const ERR_RCL_NOT_ENOUGH: -14;
+declare const ERR_GCL_NOT_ENOUGH: -15;
 
-declare type FIND_EXIT_TOP = 1; declare const FIND_EXIT_TOP: FIND_EXIT_TOP;
-declare type FIND_EXIT_RIGHT = 3; declare const FIND_EXIT_RIGHT: FIND_EXIT_RIGHT;
-declare type FIND_EXIT_BOTTOM = 5; declare const FIND_EXIT_BOTTOM: FIND_EXIT_BOTTOM;
-declare type FIND_EXIT_LEFT = 7; declare const FIND_EXIT_LEFT: FIND_EXIT_LEFT;
-declare type FIND_EXIT = 10; declare const FIND_EXIT: FIND_EXIT;
-declare type FIND_CREEPS = 101; declare const FIND_CREEPS: FIND_CREEPS;
-declare type FIND_MY_CREEPS = 102; declare const FIND_MY_CREEPS: FIND_MY_CREEPS;
-declare type FIND_HOSTILE_CREEPS = 103; declare const FIND_HOSTILE_CREEPS: FIND_HOSTILE_CREEPS;
-declare type FIND_SOURCES_ACTIVE = 104; declare const FIND_SOURCES_ACTIVE: FIND_SOURCES_ACTIVE;
-declare type FIND_SOURCES = 105; declare const FIND_SOURCES: FIND_SOURCES;
-declare type FIND_DROPPED_RESOURCES_OR_ENERGY = 106;//Yep. It's 106. And they're both the same.
-declare type FIND_DROPPED_RESOURCES = FIND_DROPPED_RESOURCES_OR_ENERGY; declare const FIND_DROPPED_RESOURCES: FIND_DROPPED_RESOURCES;
-declare type FIND_DROPPED_ENERGY = FIND_DROPPED_RESOURCES_OR_ENERGY; declare const FIND_DROPPED_ENERGY: FIND_DROPPED_ENERGY;
-declare type FIND_STRUCTURES = 107; declare const FIND_STRUCTURES: FIND_STRUCTURES;
-declare type FIND_MY_STRUCTURES = 108; declare const FIND_MY_STRUCTURES: FIND_MY_STRUCTURES;
-declare type FIND_HOSTILE_STRUCTURES = 109; declare const FIND_HOSTILE_STRUCTURES: FIND_HOSTILE_STRUCTURES;
-declare type FIND_FLAGS = 110; declare const FIND_FLAGS: FIND_FLAGS;
-declare type FIND_CONSTRUCTION_SITES = 111; declare const FIND_CONSTRUCTION_SITES: FIND_CONSTRUCTION_SITES;
-declare type FIND_MY_SPAWNS = 112; declare const FIND_MY_SPAWNS: FIND_MY_SPAWNS;
-declare type FIND_HOSTILE_SPAWNS = 113; declare const FIND_HOSTILE_SPAWNS: FIND_HOSTILE_SPAWNS;
-declare type FIND_MY_CONSTRUCTION_SITES = 114; declare const FIND_MY_CONSTRUCTION_SITES: FIND_MY_CONSTRUCTION_SITES;
-declare type FIND_HOSTILE_CONSTRUCTION_SITES = 115; declare const FIND_HOSTILE_CONSTRUCTION_SITES: FIND_HOSTILE_CONSTRUCTION_SITES;
-declare type FIND_MINERALS = 116; declare const FIND_MINERALS: FIND_MINERALS;
-declare type FIND_NUKES = 117; declare const FIND_NUKES: FIND_NUKES;
-declare type FIND = (
-    | FIND_EXIT_TOP
-    | FIND_EXIT_RIGHT
-    | FIND_EXIT_BOTTOM
-    | FIND_EXIT_LEFT
-    | FIND_EXIT
-    | FIND_CREEPS
-    | FIND_MY_CREEPS
-    | FIND_HOSTILE_CREEPS
-    | FIND_SOURCES_ACTIVE
-    | FIND_SOURCES
-    | FIND_DROPPED_RESOURCES_OR_ENERGY
-    | FIND_DROPPED_RESOURCES
-    | FIND_DROPPED_ENERGY
-    | FIND_STRUCTURES
-    | FIND_MY_STRUCTURES
-    | FIND_HOSTILE_STRUCTURES
-    | FIND_FLAGS
-    | FIND_CONSTRUCTION_SITES
-    | FIND_MY_SPAWNS
-    | FIND_HOSTILE_SPAWNS
-    | FIND_MY_CONSTRUCTION_SITES
-    | FIND_HOSTILE_CONSTRUCTION_SITES
-    | FIND_MINERALS
-    | FIND_NUKES
-);
+declare const FIND_EXIT_TOP: 1;
+declare const FIND_EXIT_RIGHT: 3;
+declare const FIND_EXIT_BOTTOM: 5;
+declare const FIND_EXIT_LEFT: 7;
+declare const FIND_EXIT: 10;
+declare const FIND_CREEPS: 101;
+declare const FIND_MY_CREEPS: 102;
+declare const FIND_HOSTILE_CREEPS: 103;
+declare const FIND_SOURCES_ACTIVE: 104;
+declare const FIND_SOURCES: 105;
+declare const FIND_DROPPED_RESOURCES: 106;
+declare const FIND_DROPPED_ENERGY: 106; // Yup, it's 106.
+declare const FIND_STRUCTURES: 107;
+declare const FIND_MY_STRUCTURES: 108;
+declare const FIND_HOSTILE_STRUCTURES: 109;
+declare const FIND_FLAGS: 110;
+declare const FIND_CONSTRUCTION_SITES: 111;
+declare const FIND_MY_SPAWNS: 112;
+declare const FIND_HOSTILE_SPAWNS: 113;
+declare const FIND_MY_CONSTRUCTION_SITES: 114;
+declare const FIND_HOSTILE_CONSTRUCTION_SITES: 115;
+declare const FIND_MINERALS: 116;
+declare const FIND_NUKES: 117;
 
-declare type TOP = 1; declare const TOP: TOP;
-declare type TOP_RIGHT = 2; declare const TOP_RIGHT: TOP_RIGHT;
-declare type RIGHT = 3; declare const RIGHT: RIGHT;
-declare type BOTTOM_RIGHT = 4; declare const BOTTOM_RIGHT: BOTTOM_RIGHT;
-declare type BOTTOM = 5; declare const BOTTOM: BOTTOM;
-declare type BOTTOM_LEFT = 6; declare const BOTTOM_LEFT: BOTTOM_LEFT;
-declare type LEFT = 7; declare const LEFT: LEFT;
-declare type TOP_LEFT = 8; declare const TOP_LEFT: TOP_LEFT;
-declare type DIRECTION = (
-    | TOP
-    | TOP_RIGHT
-    | RIGHT
-    | BOTTOM_RIGHT
-    | BOTTOM
-    | BOTTOM_LEFT
-    | LEFT
-    | TOP_LEFT
-);
+declare const TOP: 1;
+declare const TOP_RIGHT: 2;
+declare const RIGHT: 3;
+declare const BOTTOM_RIGHT: 4;
+declare const BOTTOM: 5;
+declare const BOTTOM_LEFT: 6;
+declare const LEFT: 7;
+declare const TOP_LEFT: 8;
 
-declare type COLOR_RED = 1; declare const COLOR_RED: COLOR_RED;
-declare type COLOR_PURPLE = 2; declare const COLOR_PURPLE: COLOR_PURPLE;
-declare type COLOR_BLUE = 3; declare const COLOR_BLUE: COLOR_BLUE;
-declare type COLOR_CYAN = 4; declare const COLOR_CYAN: COLOR_CYAN;
-declare type COLOR_GREEN = 5; declare const COLOR_GREEN: COLOR_GREEN;
-declare type COLOR_YELLOW = 6; declare const COLOR_YELLOW: COLOR_YELLOW;
-declare type COLOR_ORANGE = 7; declare const COLOR_ORANGE: COLOR_ORANGE;
-declare type COLOR_BROWN = 8; declare const COLOR_BROWN: COLOR_BROWN;
-declare type COLOR_GREY = 9; declare const COLOR_GREY: COLOR_GREY;
-declare type COLOR_WHITE = 10; declare const COLOR_WHITE: COLOR_WHITE;
-declare type COLOR = (
-    | COLOR_RED
-    | COLOR_PURPLE
-    | COLOR_BLUE
-    | COLOR_CYAN
-    | COLOR_GREEN
-    | COLOR_YELLOW
-    | COLOR_ORANGE
-    | COLOR_BROWN
-    | COLOR_GREY
-    | COLOR_WHITE
-);
-declare const COLORS_ALL: COLOR[];
+declare const COLOR_RED: 1;
+declare const COLOR_PURPLE: 2;
+declare const COLOR_BLUE: 3;
+declare const COLOR_CYAN: 4;
+declare const COLOR_GREEN: 5;
+declare const COLOR_YELLOW: 6;
+declare const COLOR_ORANGE: 7;
+declare const COLOR_BROWN: 8;
+declare const COLOR_GREY: 9;
+declare const COLOR_WHITE: 10;
+declare const COLORS_ALL: number[];
 
 declare const CREEP_SPAWN_TIME: 3;
 declare const CREEP_LIFE_TIME: 1500;
@@ -196,122 +129,81 @@ declare const LINK_LOSS_RATIO: 0.03;
 declare const STORAGE_CAPACITY: 1000000;
 declare const STORAGE_HITS: 10000;
 
+declare const BODYPART_COST: {
+    [part: string]: number;
+    move: 50;
+    work: 100;
+    attack: 80;
+    carry: 50;
+    heal: 250;
+    ranged_attack: 150;
+    tough: 10;
+    claim: 600;
+};
+declare const BODYPARTS_ALL: string[];
+
+
 declare const CARRY_CAPACITY: 50;
-declare const ATTACK_POWER: 30;
-declare const BUILD_POWER: 5;
-declare const DISMANTLE_POWER: 50;
-declare const HARVEST_MINERAL_POWER: 1;
 declare const HARVEST_POWER: 2;
-declare const HEAL_POWER: 12;
-declare const RANGED_ATTACK_POWER: 10;
-declare const RANGED_HEAL_POWER: 4;
+declare const HARVEST_MINERAL_POWER: 1;
 declare const REPAIR_POWER: 100;
+declare const DISMANTLE_POWER: 50;
+declare const BUILD_POWER: 5;
+declare const ATTACK_POWER: 30;
 declare const UPGRADE_CONTROLLER_POWER: 1;
+declare const RANGED_ATTACK_POWER: 10;
+declare const HEAL_POWER: 12;
+declare const RANGED_HEAL_POWER: 4;
 declare const DISMANTLE_COST: 0.005;
 
-declare type ATTACK = "attack"; declare const ATTACK: ATTACK;
-declare type CARRY = "carry"; declare const CARRY: CARRY;
-declare type CLAIM = "claim"; declare const CLAIM: CLAIM;
-declare type HEAL = "heal"; declare const HEAL: HEAL;
-declare type MOVE = "move"; declare const MOVE: MOVE;
-declare type RANGED_ATTACK = "ranged_attack"; declare const RANGED_ATTACK: RANGED_ATTACK;
-declare type TOUGH = "tough"; declare const TOUGH: TOUGH;
-declare type WORK = "work"; declare const WORK: WORK;
-
-declare type BODYPART = (
-    | ATTACK
-    | CARRY
-    | CLAIM
-    | HEAL
-    | MOVE
-    | RANGED_ATTACK
-    | TOUGH
-    | WORK
-);
-
-declare const BODYPARTS_ALL: BODYPART[];
-
-declare type __BODYPART_COST = (
-    & Record<ATTACK, 80>
-    & Record<CARRY, 50>
-    & Record<CLAIM, 600>
-    & Record<HEAL, 250>
-    & Record<MOVE, 50>
-    & Record<RANGED_ATTACK, 150>
-    & Record<TOUGH, 10>
-    & Record<WORK, 100>
-);
-
-declare const BODYPART_COST: {
-    [part in BODYPART]: __BODYPART_COST[part];
-}
-
-declare type __CONSTRUCTION_COST = (
-    & Record<STRUCTURE_CONTAINER, 5000>
-    & Record<STRUCTURE_EXTENSION, 3000>
-    & Record<STRUCTURE_EXTRACTOR, 5000>
-    & Record<STRUCTURE_LAB, 50000>
-    & Record<STRUCTURE_LINK, 5000>
-    & Record<STRUCTURE_NUKER, 100000>
-    & Record<STRUCTURE_OBSERVER, 8000>
-    & Record<STRUCTURE_POWER_SPAWN, 100000>
-    & Record<STRUCTURE_RAMPART, 1>
-    & Record<STRUCTURE_ROAD, 300>
-    & Record<STRUCTURE_SPAWN, 15000>
-    & Record<STRUCTURE_STORAGE, 30000>
-    & Record<STRUCTURE_TERMINAL, 100000>
-    & Record<STRUCTURE_TOWER, 5000>
-    & Record<STRUCTURE_WALL, 1>
-);
+declare const MOVE: "move";
+declare const WORK: "work";
+declare const CARRY: "carry";
+declare const ATTACK: "attack";
+declare const RANGED_ATTACK: "ranged_attack";
+declare const TOUGH: "tough";
+declare const HEAL: "heal";
+declare const CLAIM: "claim";
 
 declare const CONSTRUCTION_COST: {
-    [construction in CONSTRUCTABLE_STRUCTURE]: __CONSTRUCTION_COST[construction];
-}
+    spawn: 15000,
+    extension: 3000,
+    road: 300,
+    constructedWall: 1,
+    rampart: 1,
+    link: 5000,
+    storage: 30000,
+    tower: 5000,
+    observer: 8000,
+    powerSpawn: 100000,
+    extractor: 5000,
+    lab: 50000,
+    terminal: 100000,
+    container: 5000,
+    nuker: 100000
+};
 
 declare const CONSTRUCTION_COST_ROAD_SWAMP_RATIO: 5;
 
-declare type STRUCTURE_CONTAINER = "container"; declare const STRUCTURE_CONTAINER: STRUCTURE_CONTAINER;
-declare type STRUCTURE_CONTROLLER = "controller"; declare const STRUCTURE_CONTROLLER: STRUCTURE_CONTROLLER;
-declare type STRUCTURE_EXTENSION = "extension"; declare const STRUCTURE_EXTENSION: STRUCTURE_EXTENSION;
-declare type STRUCTURE_EXTRACTOR = "extractor"; declare const STRUCTURE_EXTRACTOR: STRUCTURE_EXTRACTOR;
-declare type STRUCTURE_KEEPER_LAIR = "keeperLair"; declare const STRUCTURE_KEEPER_LAIR: STRUCTURE_KEEPER_LAIR;
-declare type STRUCTURE_LAB = "lab"; declare const STRUCTURE_LAB: STRUCTURE_LAB;
-declare type STRUCTURE_LINK = "link"; declare const STRUCTURE_LINK: STRUCTURE_LINK;
-declare type STRUCTURE_NUKER = "nuker"; declare const STRUCTURE_NUKER: STRUCTURE_NUKER;
-declare type STRUCTURE_OBSERVER = "observer"; declare const STRUCTURE_OBSERVER: STRUCTURE_OBSERVER;
-declare type STRUCTURE_PORTAL = "portal"; declare const STRUCTURE_PORTAL: STRUCTURE_PORTAL;
-declare type STRUCTURE_POWER_BANK = "powerBank"; declare const STRUCTURE_POWER_BANK: STRUCTURE_POWER_BANK;
-declare type STRUCTURE_POWER_SPAWN = "powerSpawn"; declare const STRUCTURE_POWER_SPAWN: STRUCTURE_POWER_SPAWN;
-declare type STRUCTURE_RAMPART = "rampart"; declare const STRUCTURE_RAMPART: STRUCTURE_RAMPART;
-declare type STRUCTURE_ROAD = "road"; declare const STRUCTURE_ROAD: STRUCTURE_ROAD;
-declare type STRUCTURE_SPAWN = "spawn"; declare const STRUCTURE_SPAWN: STRUCTURE_SPAWN;
-declare type STRUCTURE_STORAGE = "storage"; declare const STRUCTURE_STORAGE: STRUCTURE_STORAGE;
-declare type STRUCTURE_TERMINAL = "terminal"; declare const STRUCTURE_TERMINAL: STRUCTURE_TERMINAL;
-declare type STRUCTURE_TOWER = "tower"; declare const STRUCTURE_TOWER: STRUCTURE_TOWER;
-declare type STRUCTURE_WALL = "constructedWall"; declare const STRUCTURE_WALL: STRUCTURE_WALL;
-declare type CONSTRUCTABLE_STRUCTURE = (
-    | STRUCTURE_CONTAINER
-    | STRUCTURE_EXTENSION
-    | STRUCTURE_EXTRACTOR
-    | STRUCTURE_LAB
-    | STRUCTURE_LINK
-    | STRUCTURE_NUKER
-    | STRUCTURE_OBSERVER
-    | STRUCTURE_POWER_SPAWN
-    | STRUCTURE_RAMPART
-    | STRUCTURE_ROAD
-    | STRUCTURE_SPAWN
-    | STRUCTURE_STORAGE
-    | STRUCTURE_TERMINAL
-    | STRUCTURE_TOWER
-    | STRUCTURE_WALL
-);
-declare type STRUCTURE = CONSTRUCTABLE_STRUCTURE | (
-    | STRUCTURE_CONTROLLER
-    | STRUCTURE_KEEPER_LAIR
-    | STRUCTURE_PORTAL
-    | STRUCTURE_POWER_BANK
-);
+declare const STRUCTURE_EXTENSION: "extension";
+declare const STRUCTURE_RAMPART: "rampart";
+declare const STRUCTURE_ROAD: "road";
+declare const STRUCTURE_SPAWN: "spawn";
+declare const STRUCTURE_LINK: "link";
+declare const STRUCTURE_WALL: "wall";
+declare const STRUCTURE_KEEPER_LAIR: "keeperLair";
+declare const STRUCTURE_CONTROLLER: "controller";
+declare const STRUCTURE_STORAGE: "storage";
+declare const STRUCTURE_TOWER: "tower";
+declare const STRUCTURE_OBSERVER: "observer";
+declare const STRUCTURE_POWER_BANK: "powerBank";
+declare const STRUCTURE_POWER_SPAWN: "powerSpawn";
+declare const STRUCTURE_EXTRACTOR: "extractor";
+declare const STRUCTURE_LAB: "lab";
+declare const STRUCTURE_TERMINAL: "terminal";
+declare const STRUCTURE_CONTAINER: "container";
+declare const STRUCTURE_NUKER: "nuker";
+declare const STRUCTURE_PORTAL: "portal";
 
 declare const RESOURCE_ENERGY: "energy";
 declare const RESOURCE_POWER: "power";
@@ -412,10 +304,6 @@ declare const MODE_SURVIVAL: string;
 declare const MODE_WORLD: string;
 declare const MODE_ARENA: string;
 
-declare type TERRAIN_PLAIN = "plain";
-declare type TERRAIN_SWAMP = "swamp";
-declare type TERRAIN_WALL = "wall";
-
 declare const TERRAIN_MASK_WALL: number;
 declare const TERRAIN_MASK_SWAMP: number;
 declare const TERRAIN_MASK_LAVA: number;
@@ -492,29 +380,16 @@ declare const BOOSTS: {
     }
 }
 
-declare type LOOK_CREEPS = "creep"; declare const LOOK_CREEPS: LOOK_CREEPS;
-declare type LOOK_ENERGY = "energy"; declare const LOOK_ENERGY: LOOK_ENERGY;
-declare type LOOK_RESOURCES = "resource"; declare const LOOK_RESOURCES: LOOK_RESOURCES;
-declare type LOOK_SOURCES = "source"; declare const LOOK_SOURCES: LOOK_SOURCES;
-declare type LOOK_MINERALS = "mineral"; declare const LOOK_MINERALS: LOOK_MINERALS;
-declare type LOOK_STRUCTURES = "structure"; declare const LOOK_STRUCTURES: LOOK_STRUCTURES;
-declare type LOOK_FLAGS = "flag"; declare const LOOK_FLAGS: LOOK_FLAGS;
-declare type LOOK_CONSTRUCTION_SITES = "constructionSite"; declare const LOOK_CONSTRUCTION_SITES: LOOK_CONSTRUCTION_SITES;
-declare type LOOK_NUKES = "nuke"; declare const LOOK_NUKES: LOOK_NUKES;
-declare type LOOK_TERRAIN = "terrain"; declare const LOOK_TERRAIN: LOOK_TERRAIN;
-
-declare type LOOK = (
-    | LOOK_CREEPS
-    | LOOK_ENERGY
-    | LOOK_RESOURCES
-    | LOOK_SOURCES
-    | LOOK_MINERALS
-    | LOOK_STRUCTURES
-    | LOOK_FLAGS
-    | LOOK_CONSTRUCTION_SITES
-    | LOOK_NUKES
-    | LOOK_TERRAIN
-);
+declare const LOOK_CREEPS: "creep";
+declare const LOOK_ENERGY: "energy";
+declare const LOOK_RESOURCES: "resource";
+declare const LOOK_SOURCES: "source";
+declare const LOOK_MINERALS: "mineral";
+declare const LOOK_STRUCTURES: "structure";
+declare const LOOK_FLAGS: "flag";
+declare const LOOK_CONSTRUCTION_SITES: "constructionSite";
+declare const LOOK_NUKES: "nuke";
+declare const LOOK_TERRAIN: "terrain";
 
 declare const ORDER_SELL: "sell";
 declare const ORDER_BUY: "buy";

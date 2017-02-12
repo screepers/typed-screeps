@@ -3,22 +3,19 @@
  */
 interface Room {
     readonly prototype: Room;
-    /**
-     * The name of the room.
-     */
-    readonly name: string;
+    
     /**
      * The Controller structure of this room, if present, otherwise undefined.
      */
-    readonly controller: Controller | undefined;
+    controller: Controller | undefined;
     /**
      * Total amount of energy available in all spawns and extensions in the room.
      */
-    readonly energyAvailable: number;
+    energyAvailable: number;
     /**
      * Total amount of energyCapacity of all spawns and extensions in the room.
      */
-    readonly energyCapacityAvailable: number;
+    energyCapacityAvailable: number;
     /**
      * A shorthand to Memory.rooms[room.name]. You can use it for quick access the room’s specific memory data object.
      */
@@ -27,19 +24,23 @@ interface Room {
      * One of the following constants:
      * MODE_SIMULATION, MODE_SURVIVAL, MODE_WORLD, MODE_ARENA
      */
-    readonly mode: string;
+    mode: string;
+    /**
+     * The name of the room.
+     */
+    name: string;
     /**
      * The Storage structure of this room, if present, otherwise undefined.
      */
-    readonly storage: StructureStorage | undefined;
+    storage: StructureStorage | undefined;
     /**
      * The Terminal structure of this room, if present, otherwise undefined.
      */
-    readonly terminal: Terminal | undefined;
+    terminal: Terminal | undefined;
     /**
      * The RoomVisual object for this room.
      */
-    readonly visual: RoomVisual;
+    visual: RoomVisual;
     /**
      * Create new ConstructionSite at the specified location.
      * @param x The X position.
@@ -47,14 +48,14 @@ interface Room {
      * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
      * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
      */
-    createConstructionSite(x: number, y: number, structureType: CONSTRUCTABLE_STRUCTURE): OK | ERR_INVALID_TARGET | ERR_FULL | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
+    createConstructionSite(x: number, y: number, structureType: string): number;
     /**
      * Create new ConstructionSite at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
      * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
      * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
      */
-    createConstructionSite(pos: RoomPosition | RoomObject, structureType: CONSTRUCTABLE_STRUCTURE): OK | ERR_INVALID_TARGET | ERR_FULL | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
+    createConstructionSite(pos: RoomPosition | { pos: RoomPosition }, structureType: string): number;
     /**
      * Create new Flag at the specified location.
      * @param x The X position.
@@ -63,7 +64,7 @@ interface Room {
      * @param color The color of a new flag. Should be one of the COLOR_* constants. The default value is COLOR_WHITE.
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      */
-    createFlag(x: number, y: number, name?: string, color?: COLOR, secondaryColor?: COLOR): string | ERR_NAME_EXISTS | ERR_INVALID_ARGS;
+    createFlag(x: number, y: number, name?: string, color?: number, secondaryColor?: number): number;
     /**
      * Create new Flag at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
@@ -71,21 +72,21 @@ interface Room {
      * @param color The color of a new flag. Should be one of the COLOR_* constants. The default value is COLOR_WHITE.
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      */
-    createFlag(pos: RoomPosition | RoomObject, name?: string, color?: COLOR, secondaryColor?: COLOR): string | ERR_NAME_EXISTS | ERR_INVALID_ARGS;
+    createFlag(pos: RoomPosition | { pos: RoomPosition }, name?: string, color?: number, secondaryColor?: number): number;
     /**
      * Find all objects of the specified type in the room.
      * @param type One of the following constants:FIND_CREEPS, FIND_MY_CREEPS, FIND_HOSTILE_CREEPS, FIND_MY_SPAWNS, FIND_HOSTILE_SPAWNS, FIND_SOURCES, FIND_SOURCES_ACTIVE, FIND_DROPPED_RESOURCES, FIND_DROPPED_ENERGY, FIND_STRUCTURES, FIND_MY_STRUCTURES, FIND_HOSTILE_STRUCTURES, FIND_FLAGS, FIND_CONSTRUCTION_SITES, FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT, FIND_EXIT
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
-    find<T>(type: number, opts?: FindOpts<T>): T[];
+    find<T>(type: number, opts?: { filter: Object | Function | string }): T[];
     /**
      * Find the exit direction en route to another room.
      * @param room Another room name or room object.
      * @returns The room direction constant, one of the following: FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT
      * Or one of the following error codes: ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExitTo(room: string | Room): FIND_EXIT_TOP | FIND_EXIT_RIGHT | FIND_EXIT_BOTTOM | FIND_EXIT_LEFT | ERR_NO_PATH | ERR_INVALID_ARGS;
+    findExitTo(room: string | Room): number;
     /**
      * Find an optimal path inside the room between fromPos and toPos using A* search algorithm.
      * @param fromPos The start position.
@@ -113,7 +114,7 @@ interface Room {
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @returns An array with objects at the specified position
      */
-    lookAt(target: RoomPosition | RoomObject): LookAtResult[];
+    lookAt(target: RoomPosition | { pos: RoomPosition }): LookAtResult[];
     /**
      * Get the list of objects at the specified room area. This method is more CPU efficient in comparison to multiple lookAt calls.
      * @param top The top Y boundary of the area.
@@ -138,7 +139,7 @@ interface Room {
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @returns An array of objects of the given type at the specified position if found.
      */
-    lookForAt<T>(type: string, target: RoomPosition | RoomObject): T[];
+    lookForAt<T>(type: string, target: RoomPosition | { pos: RoomPosition }): T[];
     /**
      * Get the list of objects with the given type at the specified room area. This method is more CPU efficient in comparison to multiple lookForAt calls.
      * @param type One of the following string constants: constructionSite, creep, energy, exit, flag, source, structure, terrain

@@ -7,15 +7,15 @@ interface Nuke extends RoomObject {
     /**
      * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
-    readonly id: string;
+    id: string;
     /**
      * The name of the room where this nuke has been launched from.
      */
-    readonly launchRoomName: string;
+    launchRoomName: string;
     /**
      * The remaining landing time.
      */
-    readonly timeToLand: number;
+    timeToLand: number;
 }
 
 interface NukeConstructor {

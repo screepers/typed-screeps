@@ -22,41 +22,33 @@ interface BodyPartDefinition {
     /**
      * If the body part is boosted, this property specifies the mineral type which is used for boosting. One of the RESOURCE_* constants.
      */
-    readonly boost: string;
+    boost: string;
     /**
      * One of the body part types constants.
      */
-    readonly type: BODYPART;
+    type: string;
     /**
      * The remaining amount of hit points of this body part.
      */
-    readonly hits: number;
+    hits: number;
 }
-
-declare type DescribeExitsResult = {
-    "1"?: string;
-    "3"?: string;
-    "5"?: string;
-    "7"?: string;
-};
-
 interface Owner {
-    readonly username: string;
+    username: string;
 }
 interface ReservationDefinition {
-    readonly username: string;
-    ticksToEnd: number;
+    username: string,
+    ticksToEnd: number
 }
 interface SignDefinition {
-    readonly username: string;
-    readonly text: string;
-    readonly time: number;
-    readonly datetime: Date;
+    username: string;
+    text: string;
+    time: number,
+    datetime: Date;
 }
 interface StoreDefinition {
-    readonly [resource: string]: number | undefined;
-    readonly energy?: number;
-    readonly power?: number;
+    [resource: string]: number | undefined;
+    energy?: number;
+    power?: number;
 }
 
 interface LookAtResultWithPos {
@@ -88,27 +80,9 @@ interface LookAtResult {
     resource?: Resource;
 }
 
-interface SpawningSpec {
-    /**
-     * The name of a new creep.
-     */
-    name: string;
-    /**
-     * Time needed in total to complete the spawning.
-     */
-    needTime: number;
-    /**
-     * Remaining time to go.
-     */
-    remainingTime: number;
-};
 
 interface LookAtResultMatrix {
     [coord: number]: LookAtResultMatrix|LookAtResult[]
-}
-
-interface FindOpts<T> {
-    filter: LodashStringFilterFor<T>;
 }
 
 interface FindPathOpts {
@@ -126,8 +100,8 @@ interface FindPathOpts {
     ignoreDestructibleStructures?: boolean;
 
     /**
-     * Ignore road structures. Enabling this option can speed up the search. The default value is false.
-     * This is only used when the new PathFinder is enabled.
+     * Ignore road structures. Enabling this option can speed up the search. The default value is false. This is only used when the
+     * new PathFinder is enabled.
      */
     ignoreRoads?: boolean;
 
@@ -143,18 +117,16 @@ interface FindPathOpts {
     costCallback?(roomName: string, costMatrix: CostMatrix): boolean | CostMatrix;
 
     /**
-     * @deprecated Use {costCallback} instead
      * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search. This option
      * cannot be used when the new PathFinder is enabled (use costCallback option instead).
      */
-    ignore?: RoomObject[] | RoomPosition[];
+    ignore?: any[]|RoomPosition[];
 
     /**
-     * @deprecated Use {costCallback} instead
      * An array of the room's objects or RoomPosition objects which should be treated as obstacles during the search. This option cannot
      * be used when the new PathFinder is enabled (use costCallback option instead).
      */
-    avoid?: RoomObject[] | RoomPosition[];
+    avoid?: any[]|RoomPosition[];
 
     /**
      * The maximum limit of possible pathfinding operations. You can limit CPU time used for the search based on ratio 1 op ~ 0.001 CPU.
@@ -206,18 +178,7 @@ interface PathStep {
     dx: number;
     y: number;
     dy: number;
-    direction: DIRECTION;
-}
-
-interface FindRouteResult {
-    /**
-     * Exit direction
-     */
-    exit: FIND_EXIT_TOP | FIND_EXIT_RIGHT | FIND_EXIT_BOTTOM | FIND_EXIT_LEFT;
-    /**
-     * Name of the room
-     */
-    room: string;
+    direction: number;
 }
 
 /**
@@ -227,15 +188,15 @@ interface SurvivalGameInfo {
     /**
      * Current score.
      */
-    readonly score: number;
+    score: number;
     /**
      * Time to the next wave of invaders.
      */
-    readonly timeToWave: number;
+    timeToWave: number;
     /**
      * The number of the next wave.
      */
-    readonly wave: number;
+    wave: number;
 }
 
 interface _Constructor<T> {
@@ -246,12 +207,3 @@ interface _ConstructorById<T> extends _Constructor<T> {
     new (id: string): T;
     (id: string): T;
 }
-
-declare type LodashFilterCallback<T> = ((element: T) => boolean);
-
-declare type LodashFilterObjectFor<T> = {
-    [P in keyof T]?: T[P];
-};
-
-declare type LodashFilterFor<T> = LodashFilterCallback<T> | LodashFilterObjectFor<T>;
-declare type LodashStringFilterFor<T> = LodashFilterFor<T> | string;

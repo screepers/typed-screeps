@@ -3,6 +3,7 @@
  */
 interface RoomPosition {
     readonly prototype: RoomPosition;
+
     /**
      * The name of the room.
      */
@@ -19,14 +20,14 @@ interface RoomPosition {
      * Create new ConstructionSite at the specified location.
      * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
      */
-    createConstructionSite(structureType: CONSTRUCTABLE_STRUCTURE): OK | ERR_INVALID_TARGET | ERR_FULL | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
+    createConstructionSite(structureType: string): number;
     /**
      * Create new Flag at the specified location.
      * @param name The name of a new flag. It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key). If not defined, a random name will be generated.
      * @param color The color of a new flag. Should be one of the COLOR_* constants
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      */
-    createFlag(name?: string, color?: COLOR, secondaryColor?: COLOR): string | ERR_NAME_EXISTS | ERR_INVALID_ARGS;
+    createFlag(name?: string, color?: number, secondaryColor?: number): number;
     /**
      * Find an object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
      * @param type See Room.find
@@ -77,18 +78,18 @@ interface RoomPosition {
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @param opts An object containing pathfinding options flags (see Room.findPath for more details).
      */
-    findPathTo(target: RoomPosition | RoomObject, opts?: FindPathOpts): PathStep[];
+    findPathTo(target: RoomPosition | { pos: RoomPosition }, opts?: FindPathOpts): PathStep[];
     /**
      * Get linear direction to the specified position.
      * @param x X position in the room.
      * @param y Y position in the room.
      */
-    getDirectionTo(x: number, y: number): DIRECTION;
+    getDirectionTo(x: number, y: number): number;
     /**
      * Get linear direction to the specified position.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
-    getDirectionTo(target: RoomPosition | RoomObject): DIRECTION;
+    getDirectionTo(target: RoomPosition | { pos: RoomPosition }): number;
     /**
      * Get linear range to the specified position.
      * @param x X position in the room.
@@ -99,13 +100,13 @@ interface RoomPosition {
      * Get linear range to the specified position.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
-    getRangeTo(target: RoomPosition | RoomObject): number;
+    getRangeTo(target: RoomPosition | { pos: RoomPosition }): number;
     /**
      * Check whether this position is in the given range of another position.
      * @param toPos The target position.
      * @param range The range distance.
      */
-    inRangeTo(target: RoomPosition | RoomObject, range: number): boolean;
+    inRangeTo(target: RoomPosition|{pos: RoomPosition}, range: number): boolean;
     /**
      * Check whether this position is the same as the specified position.
      * @param x X position in the room.
@@ -116,7 +117,7 @@ interface RoomPosition {
      * Check whether this position is the same as the specified position.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
-    isEqualTo(target: RoomPosition | RoomObject): boolean;
+    isEqualTo(target: RoomPosition | { pos: RoomPosition }): boolean;
     /**
      * Check whether this position is on the adjacent square to the specified position. The same as inRangeTo(target, 1).
      * @param x X position in the room.
@@ -127,7 +128,7 @@ interface RoomPosition {
      * Check whether this position is on the adjacent square to the specified position. The same as inRangeTo(target, 1).
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
-    isNearTo(target: RoomPosition | RoomObject): boolean;
+    isNearTo(target: RoomPosition | { pos: RoomPosition }): boolean;
     /**
      * Get the list of objects at the specified room position.
      */
