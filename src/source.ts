@@ -20,6 +20,11 @@ interface Source extends RoomObject {
      */
     id: string;
     /**
+     * If you can get an instance of Source, you can see it.
+     * If you can see a Source, you can see the room it's in.
+     */
+    room: Room;
+    /**
      * The remaining time after which the source will be refilled.
      */
     ticksToRegeneration: number;

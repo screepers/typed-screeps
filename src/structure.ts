@@ -18,6 +18,11 @@ interface Structure extends RoomObject {
      */
     id: string;
     /**
+     * If you can get an instance of a Structure, you can see it.
+     * If you can see the Structure, you can see the room it's in.
+     */
+    room: Room;
+    /**
      * One of the STRUCTURE_* constants.
      */
     structureType: string;

@@ -1853,6 +1853,11 @@ interface Source extends RoomObject {
      */
     id: string;
     /**
+     * If you can get an instance of Source, you can see it.
+     * If you can see a Source, you can see the room it's in.
+     */
+    room: Room;
+    /**
      * The remaining time after which the source will be refilled.
      */
     ticksToRegeneration: number;
@@ -1963,6 +1968,11 @@ interface Structure extends RoomObject {
      * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
     id: string;
+    /**
+     * If you can get an instance of a Structure, you can see it.
+     * If you can see the Structure, you can see the room it's in.
+     */
+    room: Room;
     /**
      * One of the STRUCTURE_* constants.
      */
