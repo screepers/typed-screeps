@@ -4,19 +4,18 @@
 
 interface Resource extends RoomObject {
     readonly prototype: Resource;
-    
-    /**
-     * The amount of resource units containing.
-     */
-    amount: number;
     /**
      * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
      */
-    id: string;
+    readonly id: string;
+    /**
+     * The amount of resource units containing.
+     */
+    readonly amount: number;
     /**
      * One of the `RESOURCE_*` constants.
      */
-    resourceType: string;
+    readonly resourceType: string;
 }
 
 interface ResourceConstructor {

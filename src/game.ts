@@ -5,48 +5,47 @@ interface Game {
     /**
      * An object containing information about your CPU usage with the following properties:
      */
-    cpu: CPU;
+    readonly cpu: CPU;
     /**
      * A hash containing all your creeps with creep names as hash keys.
      */
-    creeps: {[creepName: string]: Creep};
+    readonly creeps: {[creepName: string]: Creep};
     /**
      * A hash containing all your flags with flag names as hash keys.
      */
-    flags: {[flagName: string]: Flag};
+    readonly flags: {[flagName: string]: Flag};
     /**
      * Your Global Control Level, an object with the following properties :
      */
-    gcl: GlobalControlLevel;
+    readonly gcl: GlobalControlLevel;
     /**
      * A global object representing world GameMap.
      */
-    map: GameMap;
+    readonly map: GameMap;
     /**
      * A global object representing the in-game market.
      */
-    market: Market;
+    readonly market: Market;
     /**
      * A hash containing all the rooms available to you with room names as hash keys.
      */
-    rooms: {[roomName: string]: Room};
+    readonly rooms: {[roomName: string]: Room};
     /**
      * A hash containing all your spawns with spawn names as hash keys.
      */
-    spawns: {[spawnName: string]: Spawn};
+    readonly spawns: {[spawnName: string]: Spawn};
     /**
      * A hash containing all your structures with structure id as hash keys.
      */
-    structures: {[structureId: string]: Structure};
-
+    readonly structures: {[structureId: string]: Structure};
     /**
      * A hash containing all your construction sites with their id as hash keys.
      */
-    constructionSites: {[constructionSiteId: string]: ConstructionSite};
+    readonly constructionSites: {[constructionSiteId: string]: ConstructionSite};
     /**
      * System game tick counter. It is automatically incremented on every tick.
      */
-    time: number;
+    readonly time: number;
 
     /**
      * Get an object with the specified unique ID. It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.

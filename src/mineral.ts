@@ -7,25 +7,25 @@ interface Mineral extends RoomObject {
      */
     readonly prototype: Mineral;
     /**
+     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
+     */
+    readonly id: string;
+    /**
      * The density of this mineral deposit, one of the DENSITY_* constants.
      */
-    density: number;
+    readonly density: number;
     /**
      * The remaining amount of resources.
      */
-    mineralAmount: number;
+    readonly mineralAmount: number;
     /**
      * The resource type, one of the RESOURCE_* constants.
      */
-    mineralType: string;
-    /**
-     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
-     */
-    id: string;
+    readonly mineralType: string;
     /**
      * The remaining time after which the deposit will be refilled.
      */
-    ticksToRegeneration: number;
+    readonly ticksToRegeneration: number;
 
 }
 

@@ -8,21 +8,21 @@ interface Source extends RoomObject {
      */
     readonly prototype: Source;
     /**
+     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
+     */
+    readonly id: string;
+    /**
      * The remaining amount of energy.
      */
-    energy: number;
+    readonly energy: number;
     /**
      * The total amount of energy in the source. Equals to 3000 in most cases.
      */
-    energyCapacity: number;
-    /**
-     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
-     */
-    id: string;
+    readonly energyCapacity: number;
     /**
      * The remaining time after which the source will be refilled.
      */
-    ticksToRegeneration: number;
+    readonly ticksToRegeneration: number;
 }
 
 interface SourceConstructor extends _Constructor<Source>, _ConstructorById<Source> {
