@@ -171,6 +171,11 @@ interface MoveToOpts extends FindPathOpts {
      * significantly save CPU time in some cases. The default value is false.
      */
     noPathFinding?: boolean;
+
+    /**
+     * Draw a line along the creep’s path using RoomVisual.poly. You can provide either an empty object or custom style parameters.
+     */
+    visualizePathStyle?: PolyStyle;
 };
 
 interface PathStep {
