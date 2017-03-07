@@ -906,6 +906,10 @@ interface FindPathOpts {
      * The maximum allowed rooms to search. The default (and maximum) is 16. This is only used when the new PathFinder is enabled.
      */
     maxRooms?: number;
+    /**
+     * Path to within (range) tiles of target tile. The default is to path to the tile that the target is on (0).
+     */
+    range?: number;
 }
 interface MoveToOpts extends FindPathOpts {
     /**
