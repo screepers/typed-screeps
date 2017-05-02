@@ -103,7 +103,7 @@ declare class RoomVisual {
 
     /**
      * Get the stored size of all visuals added in the room in the current tick. It must not exceed 512,000 (500 KB).
-     * @returns The RoomVisual object itself, so that you can chain calls.
+     * @returns The size of the visuals in bytes.
      */
     getSize(): number;
 }
