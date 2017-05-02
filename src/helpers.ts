@@ -171,6 +171,38 @@ interface MoveToOpts {
      * significantly save CPU time in some cases. The default value is false.
      */
     noPathFinding?: boolean;
+
+    /**
+     * Draws a line along the creep’s path using RoomVisual.poly.
+     */
+	visualizePathStyle?: PolyOpts;
+}
+
+interface PolyOpts {
+    /**
+     * Fill color in any web format, default is undefined (no fill).
+     */
+	fill?: string,
+
+    /**
+     * Stroke color in any web format, default is #ffffff (white).
+     */
+	stroke?: string;
+
+    /**
+     * Either undefined (solid line), dashed, or dotted. Default is undefined.
+     */
+	lineStyle?: string;
+
+    /**
+     * Stroke line width, default is 0.1.
+     */
+	strokeWidth?: number;
+
+    /**
+     * Opacity value, default is 0.5.
+     */
+	opacity?: number;
 }
 
 interface PathStep {
