@@ -40,11 +40,11 @@ declare class Room {
     /**
      * The Terminal structure of this room, if present, otherwise undefined.
      */
-	terminal: Terminal | undefined;
+    terminal: Terminal | undefined;
     /**
      * A RoomVisual object for this room. You can use this object to draw simple shapes (lines, circles, text labels) in the room.
      */
-	visual: RoomVisual;
+    visual: RoomVisual;
     /**
      * Create new ConstructionSite at the specified location.
      * @param x The X position.
