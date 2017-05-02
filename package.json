@@ -17,8 +17,5 @@
   "license": "MIT",
   "devDependencies": {
     "typescript": "^2.0.0"
-  },
-  "dependencies": {
-    "ntypescript": "^1.201609302242.1"
   }
 }
