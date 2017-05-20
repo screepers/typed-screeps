@@ -454,7 +454,7 @@ interface Creep extends RoomObject {
     /**
      * A shorthand to Memory.creeps[creep.name]. You can use it for quick access the creep’s specific memory data object.
      */
-    memory: any;
+    memory: CreepMemory;
     /**
      * Whether it is your creep or foe.
      */
@@ -656,7 +656,7 @@ interface Flag extends RoomObject {
     /**
      * A shorthand to Memory.flags[flag.name]. You can use it for quick access the flag's specific memory data object.
      */
-    memory: any;
+    memory: FlagMemory;
     /**
      * Flag’s name. You can choose the name while creating a new flag, and it cannot be changed later. This name is a hash key to access the spawn via the Game.flags object.
      */
@@ -1155,17 +1155,25 @@ interface OrderFilter {
 interface Memory {
     [name: string]: any;
     creeps: {
-        [name: string]: any;
+        [name: string]: CreepMemory;
     };
     flags: {
-        [name: string]: any;
+        [name: string]: FlagMemory;
     };
     rooms: {
-        [name: string]: any;
+        [name: string]: RoomMemory;
     };
     spawns: {
-        [name: string]: any;
+        [name: string]: SpawnMemory;
     };
+}
+interface CreepMemory {
+}
+interface FlagMemory {
+}
+interface RoomMemory {
+}
+interface SpawnMemory {
 }
 /**
  * A mineral deposit object. Can be harvested by creeps with a WORK body part using the extractor structure.
@@ -1702,7 +1710,7 @@ interface Room {
     /**
      * A shorthand to Memory.rooms[room.name]. You can use it for quick access the room’s specific memory data object.
      */
-    memory: any;
+    memory: RoomMemory;
     /**
      * One of the following constants:
      * MODE_SIMULATION, MODE_SURVIVAL, MODE_WORLD, MODE_ARENA
@@ -1899,7 +1907,7 @@ interface StructureSpawn extends OwnedStructure {
     /**
      * A shorthand to Memory.spawns[spawn.name]. You can use it for quick access the spawn’s specific memory data object.
      */
-    memory: any;
+    memory: SpawnMemory;
     /**
      * Spawn’s name. You choose the name upon creating a new spawn, and it cannot be changed later. This name is a hash key to access the spawn via the Game.spawns object.
      */
