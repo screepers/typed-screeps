@@ -4,7 +4,7 @@
 
 interface Resource extends RoomObject {
     readonly prototype: Resource;
-    
+
     /**
      * The amount of resource units containing.
      */
@@ -16,7 +16,7 @@ interface Resource extends RoomObject {
     /**
      * One of the `RESOURCE_*` constants.
      */
-    resourceType: string;
+    resourceType: ResourceConstant;
 }
 
 interface ResourceConstructor {

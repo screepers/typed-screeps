@@ -17,7 +17,7 @@ interface Mineral extends RoomObject {
     /**
      * The resource type, one of the RESOURCE_* constants.
      */
-    mineralType: string;
+    mineralType: MineralConstant;
     /**
      * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */

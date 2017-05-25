@@ -1,3 +1,5 @@
+type _HasRoomPosition = { pos: RoomPosition }
+
 interface GlobalControlLevel {
     level: number;
     progress: number;
@@ -123,13 +125,13 @@ interface FindPathOpts {
      * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search. This option
      * cannot be used when the new PathFinder is enabled (use costCallback option instead).
      */
-    ignore?: any[]|RoomPosition[];
+    ignore?: any[] | RoomPosition[];
 
     /**
      * An array of the room's objects or RoomPosition objects which should be treated as obstacles during the search. This option cannot
      * be used when the new PathFinder is enabled (use costCallback option instead).
      */
-    avoid?: any[]|RoomPosition[];
+    avoid?: any[] | RoomPosition[];
 
     /**
      * The maximum limit of possible pathfinding operations. You can limit CPU time used for the search based on ratio 1 op ~ 0.001 CPU.

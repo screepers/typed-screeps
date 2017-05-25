@@ -32,34 +32,34 @@ interface Market {
      * @param orderId The order ID as provided in Game.market.orders
      * @returns Result Code: OK, ERR_INVALID_ARGS
      */  
-    cancelOrder(orderId: string): number;
+    cancelOrder(orderId: string): ScreepsReturnCode;
     /**
      * Change the price of an existing order. If newPrice is greater than old price, you will be charged (newPrice-oldPrice)*remainingAmount*0.05 credits.
      * @param orderId The order ID as provided in Game.market.orders
      * @param newPrice The new order price.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_ARGS
      */
-    changeOrderPrice(orderId: string, newPrice: number): number;
+    changeOrderPrice(orderId: string, newPrice: number): ScreepsReturnCode;
     /**
      * Create a market order in your terminal. You will be charged price*amount*0.05 credits when the order is placed.
      * The maximum orders count is 20 per player. You can create an order at any time with any amount,
      * it will be automatically activated and deactivated depending on the resource/credits availability.
      */
-    createOrder(type: string, resourceType: string, price: number, totalAmount: number, roomName?: string): number;
+    createOrder(type: string, resourceType: ResourceConstant, price: number, totalAmount: number, roomName?: string): ScreepsReturnCode;
     /**
      * Execute a trade deal from your Terminal to another player's Terminal using the specified buy/sell order.
      * Your Terminal will be charged energy units of transfer cost regardless of the order resource type.
      * You can use Game.market.calcTransactionCost method to estimate it.
      * When multiple players try to execute the same deal, the one with the shortest distance takes precedence.
      */
-    deal(orderId: string, amount: number, targetRoomName?: string): number;
+    deal(orderId: string, amount: number, targetRoomName?: string): ScreepsReturnCode;
     /**
      * Add more capacity to an existing order. It will affect remainingAmount and totalAmount properties. You will be charged price*addAmount*0.05 credits.
      * @param orderId The order ID as provided in Game.market.orders
      * @param addAmount How much capacity to add. Cannot be a negative value.
      * @returns Result Code: OK, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_ARGS
      */
-    extendOrder(orderId: string, addAmount: number): number;
+    extendOrder(orderId: string, addAmount: number): ScreepsReturnCode;
     /**
      * Get other players' orders currently active on the market.
      * @param filter (optional) An object or function that will filter the resulting list using the lodash.filter method.
@@ -81,7 +81,7 @@ interface Transaction {
     time: number;
     sender?: { username: string };
     recipient?: { username: string };
-    resourceType: string;
+    resourceType: ResourceConstant;
     amount: number;
     from: string;
     to: string;
@@ -93,7 +93,7 @@ interface Order {
     created: number;
     active?: boolean;
     type: string;
-    resourceType: string;
+    resourceType: ResourceConstant;
     roomName?: string;
     amount: number;
     remainingAmount: number;
@@ -105,7 +105,7 @@ interface OrderFilter {
     id?: string;
     created?: number;
     type?: string;
-    resourceType?: string;
+    resourceType?: ResourceConstant;
     roomName?: string;
     amount?: number;
     remainingAmount?: number;

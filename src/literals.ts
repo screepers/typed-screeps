@@ -209,6 +209,7 @@ type COLOR_WHITE = 10;
 // Structure Constants
 
 type StructureConstant =
+  STRUCTURE_EXTENSION |
   STRUCTURE_RAMPART |
   STRUCTURE_ROAD |
   STRUCTURE_SPAWN |
