@@ -1,3 +1,5 @@
+type _HasRoomPosition = { pos: RoomPosition }
+
 interface GlobalControlLevel {
     level: number;
     progress: number;
@@ -22,11 +24,11 @@ interface BodyPartDefinition {
     /**
      * If the body part is boosted, this property specifies the mineral type which is used for boosting. One of the RESOURCE_* constants.
      */
-    boost: string;
+    boost?: ResourceConstant;
     /**
      * One of the body part types constants.
      */
-    type: string;
+    type: BodyPartConstant;
     /**
      * The remaining amount of hit points of this body part.
      */
@@ -45,44 +47,32 @@ interface SignDefinition {
     time: number,
     datetime: Date;
 }
-interface StoreDefinition {
-    [resource: string]: number | undefined;
-    energy?: number;
-    power?: number;
-}
 
-interface LookAtResultWithPos {
-    x: number;
-    y: number;
-    type: string;
+type StoreDefinition = Record<ResourceConstant, number | undefined> & { energy: number };
+
+interface LookAtTypes {
     constructionSite?: ConstructionSite;
     creep?: Creep;
-    terrain?: string;
-    structure?: Structure;
+    energy?: Resource<RESOURCE_ENERGY>;
+    exit?: any;  // TODO what type is this?
     flag?: Flag;
-    energy?: Resource;
-    exit?: any;
-    source?: Source;
     mineral?: Mineral;
+    nuke?: Nuke;
     resource? : Resource;
-}
-interface LookAtResult {
-    type: string;
-    constructionSite?: ConstructionSite;
-    creep?: Creep;
-    energy?: Resource;
-    exit?: any;
-    flag?: Flag;
     source?: Source;
     structure?: Structure;
-    terrain?: string;
-    mineral?: Mineral;
-    resource?: Resource;
+    terrain?: Terrain;
 }
 
+type LookAtResult<K extends keyof LookAtTypes = keyof LookAtTypes> = Pick<LookAtTypes, K> & { type: K }
 
-interface LookAtResultMatrix {
-    [coord: number]: LookAtResultMatrix|LookAtResult[]
+type LookAtResultWithPos<K extends keyof LookAtTypes = keyof LookAtTypes> = LookAtResult<K> & {
+  x: number,
+  y: number,
+}
+
+interface LookAtResultMatrix<K extends keyof LookAtTypes = keyof LookAtTypes> {
+    [coord: number]: LookAtResultMatrix<K> | LookAtResult<K>[]
 }
 
 interface FindPathOpts {
@@ -120,13 +110,13 @@ interface FindPathOpts {
      * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search. This option
      * cannot be used when the new PathFinder is enabled (use costCallback option instead).
      */
-    ignore?: any[]|RoomPosition[];
+    ignore?: any[] | RoomPosition[];
 
     /**
      * An array of the room's objects or RoomPosition objects which should be treated as obstacles during the search. This option cannot
      * be used when the new PathFinder is enabled (use costCallback option instead).
      */
-    avoid?: any[]|RoomPosition[];
+    avoid?: any[] | RoomPosition[];
 
     /**
      * The maximum limit of possible pathfinding operations. You can limit CPU time used for the search based on ratio 1 op ~ 0.001 CPU.
@@ -188,7 +178,7 @@ interface PathStep {
     dx: number;
     y: number;
     dy: number;
-    direction: number;
+    direction: DirectionConstant;
 }
 
 /**

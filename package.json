@@ -1,8 +1,8 @@
 {
-  "name": "screeps-typescript-declarations",
-  "version": "4.3.1",
+  "name": "typed-screeps",
+  "version": "1.0.0",
   "description": "Typescript declarations for Screeps API. To enable autocomplete and help with compilation",
-  "repository": "screepers/Screeps-Typescript-Declarations",
+  "repository": "resir014/typed-screeps",
   "typings": "./dist/screeps.d.ts",
   "scripts": {
     "compile": "node_modules/.bin/tsc"

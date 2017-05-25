@@ -1,7 +1,7 @@
 /**
  * A site of a structure which is currently under construction.
  */
-interface ConstructionSite extends RoomObject {
+interface ConstructionSite<T extends StructureConstant = StructureConstant> extends RoomObject {
     readonly prototype: ConstructionSite;
     /**
      * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
@@ -26,7 +26,7 @@ interface ConstructionSite extends RoomObject {
     /**
      * One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
      */
-    structureType: string;
+    structureType: T;
     /**
      * Remove the construction site.
      * @returns Result Code: OK, ERR_NOT_OWNER
