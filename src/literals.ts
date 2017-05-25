@@ -42,6 +42,21 @@ type ERR_NOT_ENOUGH_EXTENSIONS = -6;
 type ERR_RCL_NOT_ENOUGH = -14;
 type ERR_GCL_NOT_ENOUGH = -15;
 
+type CreepActionReturnCode =
+  OK |
+  ERR_NOT_OWNER |
+  ERR_BUSY |
+  ERR_INVALID_TARGET |
+  ERR_NOT_IN_RANGE |
+  ERR_NO_BODYPART
+
+type CreepMoveReturnCode =
+  OK |
+  ERR_NOT_OWNER |
+  ERR_BUSY |
+  ERR_TIRED |
+  ERR_NO_BODYPART
+
 ////////
 // Find Constants
 

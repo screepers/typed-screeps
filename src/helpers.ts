@@ -22,11 +22,11 @@ interface BodyPartDefinition {
     /**
      * If the body part is boosted, this property specifies the mineral type which is used for boosting. One of the RESOURCE_* constants.
      */
-    boost: string;
+    boost?: ResourceConstant;
     /**
      * One of the body part types constants.
      */
-    type: string;
+    type: BodyPartConstant;
     /**
      * The remaining amount of hit points of this body part.
      */
@@ -45,11 +45,14 @@ interface SignDefinition {
     time: number,
     datetime: Date;
 }
-interface StoreDefinition {
-    [resource: string]: number | undefined;
-    energy?: number;
-    power?: number;
-}
+
+// TODO make sure this workes
+type StoreDefinition = Record<ResourceConstant, number | undefined>;
+// interface StoreDefinition {
+    // [resource: string]: number | undefined;
+    // energy?: number;
+    // power?: number;
+// }
 
 interface LookAtResultWithPos {
     x: number;
