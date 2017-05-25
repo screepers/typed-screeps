@@ -55,39 +55,28 @@ type StoreDefinition = Record<ResourceConstant, number | undefined>;
     // energy?: number;
     // power?: number;
 // }
-
-interface LookAtResultWithPos {
-    x: number;
-    y: number;
-    type: string;
+interface LookAtTypes {
     constructionSite?: ConstructionSite;
     creep?: Creep;
-    terrain?: string;
-    structure?: Structure;
+    energy?: Resource<RESOURCE_ENERGY>;
+    exit?: any;  // TODO what type is this?
     flag?: Flag;
-    energy?: Resource;
-    exit?: any;
-    source?: Source;
     mineral?: Mineral;
     resource? : Resource;
-}
-interface LookAtResult {
-    type: string;
-    constructionSite?: ConstructionSite;
-    creep?: Creep;
-    energy?: Resource;
-    exit?: any;
-    flag?: Flag;
     source?: Source;
     structure?: Structure;
-    terrain?: string;
-    mineral?: Mineral;
-    resource?: Resource;
+    terrain?: Terrain;
 }
 
+type LookAtResult<K extends keyof LookAtTypes = keyof LookAtTypes> = Pick<LookAtTypes, K> & { type: K }
+
+type LookAtResultWithPos<K extends keyof LookAtTypes = keyof LookAtTypes> = LookAtResult<K> & {
+  x: number,
+  y: number,
+}
 
 interface LookAtResultMatrix {
-    [coord: number]: LookAtResultMatrix|LookAtResult[]
+    [coord: number]: LookAtResultMatrix | LookAtResult[]
 }
 
 interface FindPathOpts {

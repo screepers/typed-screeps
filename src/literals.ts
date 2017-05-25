@@ -3,6 +3,10 @@
  * It should be kept in sync with constants.ts
  */
 
+//// Extras
+
+type Terrain = "plain" | "swamp" | "wall";
+
 ////////
 // Return Codes
 
