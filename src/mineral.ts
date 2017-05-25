@@ -1,7 +1,7 @@
 /**
  * A mineral deposit object. Can be harvested by creeps with a WORK body part using the extractor structure.
  */
-interface Mineral extends RoomObject {
+interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObject {
     /**
      * The prototype is stored in the Mineral.prototype global object. You can use it to extend game objects behaviour globally.
      */
@@ -17,7 +17,7 @@ interface Mineral extends RoomObject {
     /**
      * The resource type, one of the RESOURCE_* constants.
      */
-    mineralType: MineralConstant;
+    mineralType: T;
     /**
      * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
