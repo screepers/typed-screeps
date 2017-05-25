@@ -38,7 +38,7 @@ interface Room {
      */
     terminal?: Terminal;
     /**
-     * The RoomVisual object for this room.
+     * A RoomVisual object for this room. You can use this object to draw simple shapes (lines, circles, text labels) in the room.
      */
     visual: RoomVisual;
     /**
