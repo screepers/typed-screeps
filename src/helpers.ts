@@ -49,7 +49,7 @@ interface SignDefinition {
 }
 
 // TODO make sure this workes
-type StoreDefinition = Record<ResourceConstant, number | undefined>;
+type StoreDefinition = Record<ResourceConstant, number | undefined> & { energy: number };
 // interface StoreDefinition {
     // [resource: string]: number | undefined;
     // energy?: number;

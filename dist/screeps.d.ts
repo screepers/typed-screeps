@@ -782,7 +782,9 @@ interface SignDefinition {
     time: number;
     datetime: Date;
 }
-declare type StoreDefinition = Record<ResourceConstant, number | undefined>;
+declare type StoreDefinition = Record<ResourceConstant, number | undefined> & {
+    energy: number;
+};
 interface LookAtTypes {
     constructionSite?: ConstructionSite;
     creep?: Creep;
