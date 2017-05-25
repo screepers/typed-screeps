@@ -131,7 +131,7 @@ declare const LINK_LOSS_RATIO: 0.03;
 declare const STORAGE_CAPACITY: 1000000;
 declare const STORAGE_HITS: 10000;
 
-declare const BODYPART_COST: {[T in BodyPartConstant]: number};
+declare const BODYPART_COST: Record<BodyPartConstant, number>;
 
 declare const BODYPARTS_ALL: BodyPartConstant[];
 
@@ -159,7 +159,7 @@ declare const HEAL: "heal";
 declare const CLAIM: "claim";
 
 // TODO do we care that some structure constants aren't buildable?
-declare const CONSTRUCTION_COST: {[T in StructureConstant]: number};
+declare const CONSTRUCTION_COST: Record<StructureConstant, number>;
 
 declare const CONSTRUCTION_COST_ROAD_SWAMP_RATIO: 5;
 
@@ -231,7 +231,8 @@ declare const RESOURCES_ALL: ResourceConstant[];
 declare const SUBSCRIPTION_TOKEN: string;
 
 declare const CONTROLLER_LEVELS: {[level: number]: number};
-declare const CONTROLLER_STRUCTURES: {[T in StructureConstant]: {[level: number]: number}};
+declare const CONTROLLER_STRUCTURES: Record<StructureConstant, {[level: number]: number}>;
+
 declare const CONTROLLER_DOWNGRADE: {[level: number]: number};
 declare const CONTROLLER_CLAIM_DOWNGRADE: number;
 declare const CONTROLLER_RESERVE: number;
@@ -290,7 +291,7 @@ declare const MAX_CONSTRUCTION_SITES: number;
 declare const MAX_CREEP_SIZE: number;
 
 declare const MINERAL_REGEN_TIME: number;
-declare const MINERAL_MIN_AMOUNT: {[T in MineralConstant]: number};
+declare const MINERAL_MIN_AMOUNT: Record<MineralConstant, number>;
 declare const MINERAL_RANDOM_FACTOR: number;
 
 
