@@ -95,6 +95,28 @@ type FIND_MINERALS = 116;
 type FIND_NUKES = 117;
 
 ////////
+// Body Part Constants
+
+type BodyPartConstant =
+  MOVE |
+  WORK |
+  CARRY |
+  ATTACK |
+  RANGED_ATTACK |
+  TOUGH |
+  HEAL |
+  CLAIM
+
+type MOVE = "move";
+type WORK = "work";
+type CARRY = "carry";
+type ATTACK = "attack";
+type RANGED_ATTACK = "ranged_attack";
+type TOUGH = "tough";
+type HEAL = "heal";
+type CLAIM = "claim";
+
+////////
 // Look Constants
 
 type LookConstant =
