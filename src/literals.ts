@@ -165,6 +165,32 @@ type LEFT = 7;
 type TOP_LEFT = 8;
 
 ////////
+// Color Constants
+
+type ColorConstant =
+  COLOR_RED |
+  COLOR_PURPLE |
+  COLOR_BLUE |
+  COLOR_CYAN |
+  COLOR_GREEN |
+  COLOR_YELLOW |
+  COLOR_ORANGE |
+  COLOR_BROWN |
+  COLOR_GREY |
+  COLOR_WHITE
+
+type COLOR_RED = 1;
+type COLOR_PURPLE = 2;
+type COLOR_BLUE = 3;
+type COLOR_CYAN = 4;
+type COLOR_GREEN = 5;
+type COLOR_YELLOW = 6;
+type COLOR_ORANGE = 7;
+type COLOR_BROWN = 8;
+type COLOR_GREY = 9;
+type COLOR_WHITE = 10;
+
+////////
 // Structure Constants
 
 type StructureConstant =
