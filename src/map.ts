@@ -27,7 +27,7 @@ interface GameMap {
      * Or one of the following Result codes:
      * ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExit(fromRoom: string|Room, toRoom: string|Room, opts?: RouteOptions): number;
+    findExit(fromRoom: string|Room, toRoom: string|Room, opts?: RouteOptions): ScreepsReturnCode;
     /**
      * Find route from the given room to another room.
      * @param fromRoom Start room name or room object.
@@ -36,9 +36,9 @@ interface GameMap {
      * @returns the route array or ERR_NO_PATH code
      */
     findRoute(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): {
-        exit: number;
+        exit: ExitConstant;
         room: string;
-    }[] | number;
+    }[] | ERR_NO_PATH;
     /**
      * Get the linear distance (in rooms) between two rooms. You can use this function to estimate the energy cost of
      * sending resources through terminals, or using observers and nukes.
@@ -54,13 +54,13 @@ interface GameMap {
      * @param y Y position in the room.
      * @param roomName The room name.
      */
-    getTerrainAt(x: number, y: number, roomName: string): string;
+    getTerrainAt(x: number, y: number, roomName: string): Terrain;
     /**
      * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
      * @param pos The position object.
      */
-    getTerrainAt(pos: RoomPosition): string;
-    
+    getTerrainAt(pos: RoomPosition): Terrain;
+
     /**
      * Check if the room is available to move into.
      * @param roomName The room name.
