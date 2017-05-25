@@ -2,7 +2,7 @@
  * A dropped piece of resource. It will decay after a while if not picked up. Dropped resource pile decays for ceil(amount/1000) units per tick.
  */
 
-interface Resource extends RoomObject {
+interface Resource<T extends ResourceConstant = ResourceConstant> extends RoomObject {
     readonly prototype: Resource;
 
     /**
@@ -16,7 +16,7 @@ interface Resource extends RoomObject {
     /**
      * One of the `RESOURCE_*` constants.
      */
-    resourceType: ResourceConstant;
+    resourceType: T;
 }
 
 interface ResourceConstructor {
