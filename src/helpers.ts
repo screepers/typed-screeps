@@ -48,13 +48,8 @@ interface SignDefinition {
     datetime: Date;
 }
 
-// TODO make sure this workes
 type StoreDefinition = Record<ResourceConstant, number | undefined> & { energy: number };
-// interface StoreDefinition {
-    // [resource: string]: number | undefined;
-    // energy?: number;
-    // power?: number;
-// }
+
 interface LookAtTypes {
     constructionSite?: ConstructionSite;
     creep?: Creep;
