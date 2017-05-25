@@ -64,13 +64,15 @@ declare const COLOR_ORANGE: 7;
 declare const COLOR_BROWN: 8;
 declare const COLOR_GREY: 9;
 declare const COLOR_WHITE: 10;
-declare const COLORS_ALL: number[];
+declare const COLORS_ALL: ColorConstant[];
 
 declare const CREEP_SPAWN_TIME: 3;
 declare const CREEP_LIFE_TIME: 1500;
 declare const CREEP_CLAIM_LIFE_TIME: 500;
 declare const CREEP_CORPSE_RATE: 0.2;
 
+// TODO figure out best way to type this next line
+//  because it includes "creep"
 declare const OBSTACLE_OBJECT_TYPES: string[];
 
 declare const ENERGY_REGEN_TIME: 300;
@@ -129,18 +131,9 @@ declare const LINK_LOSS_RATIO: 0.03;
 declare const STORAGE_CAPACITY: 1000000;
 declare const STORAGE_HITS: 10000;
 
-declare const BODYPART_COST: {
-    [part: string]: number;
-    move: 50;
-    work: 100;
-    attack: 80;
-    carry: 50;
-    heal: 250;
-    ranged_attack: 150;
-    tough: 10;
-    claim: 600;
-};
-declare const BODYPARTS_ALL: string[];
+declare const BODYPART_COST: {[T in BodyPartConstant]: number};
+
+declare const BODYPARTS_ALL: BodyPartConstant[];
 
 
 declare const CARRY_CAPACITY: 50;
@@ -165,23 +158,8 @@ declare const TOUGH: "tough";
 declare const HEAL: "heal";
 declare const CLAIM: "claim";
 
-declare const CONSTRUCTION_COST: {
-    spawn: 15000,
-    extension: 3000,
-    road: 300,
-    constructedWall: 1,
-    rampart: 1,
-    link: 5000,
-    storage: 30000,
-    tower: 5000,
-    observer: 8000,
-    powerSpawn: 100000,
-    extractor: 5000,
-    lab: 50000,
-    terminal: 100000,
-    container: 5000,
-    nuker: 100000
-};
+// TODO do we care that some structure constants aren't buildable?
+declare const CONSTRUCTION_COST: {[T in StructureConstant]: number};
 
 declare const CONSTRUCTION_COST_ROAD_SWAMP_RATIO: 5;
 
@@ -248,12 +226,12 @@ declare const RESOURCE_CATALYZED_ZYNTHIUM_ACID: "XZH2O";
 declare const RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: "ZXHO2";
 declare const RESOURCE_CATALYZED_GHODIUM_ACID: "XGH2O";
 declare const RESOURCE_CATALYZED_GHODIUM_ALKALIDE: "XGHO2";
-declare const RESOURCES_ALL: string[];
+declare const RESOURCES_ALL: ResourceConstant[];
 
 declare const SUBSCRIPTION_TOKEN: string;
 
 declare const CONTROLLER_LEVELS: {[level: number]: number};
-declare const CONTROLLER_STRUCTURES: {[structure: string]: {[level: number]: number}};
+declare const CONTROLLER_STRUCTURES: {[T in StructureConstant]: {[level: number]: number}};
 declare const CONTROLLER_DOWNGRADE: {[level: number]: number};
 declare const CONTROLLER_CLAIM_DOWNGRADE: number;
 declare const CONTROLLER_RESERVE: number;
@@ -312,15 +290,7 @@ declare const MAX_CONSTRUCTION_SITES: number;
 declare const MAX_CREEP_SIZE: number;
 
 declare const MINERAL_REGEN_TIME: number;
-declare const MINERAL_MIN_AMOUNT: {
-    H: number,
-    O: number,
-    L: number,
-    K: number,
-    Z: number,
-    U: number,
-    X: number
-}
+declare const MINERAL_MIN_AMOUNT: {[T in MineralConstant]: number};
 declare const MINERAL_RANDOM_FACTOR: number;
 
 
@@ -366,15 +336,17 @@ declare const NUKE_DAMAGE: {
     4: number
 }
 
+// TODO make this more strongly typed
 declare const REACTIONS: {
-    [reagent: string]: {
-        [reagent: string]: string
+    [T in ResourceConstant]: {
+        [P in ResourceConstant]: ResourceConstant
     }
 }
 
+// TODO type "action"
 declare const BOOSTS: {
-    [part: string]: {
-        [boost: string]: {
+    [P in BodyPartConstant]: {
+        [T in ResourceConstant]: {
             [action: string]: number
         }
     }
