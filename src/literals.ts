@@ -150,15 +150,15 @@ type LookConstant =
   LOOK_NUKES |
   LOOK_TERRAIN
 
+type LOOK_CONSTRUCTION_SITES = "constructionSite";
 type LOOK_CREEPS = "creep";
 type LOOK_ENERGY = "energy";
+type LOOK_FLAGS = "flag";
+type LOOK_MINERALS = "mineral";
+type LOOK_NUKES = "nuke";
 type LOOK_RESOURCES = "resource";
 type LOOK_SOURCES = "source";
-type LOOK_MINERALS = "mineral";
 type LOOK_STRUCTURES = "structure";
-type LOOK_FLAGS = "flag";
-type LOOK_CONSTRUCTION_SITES = "constructionSite";
-type LOOK_NUKES = "nuke";
 type LOOK_TERRAIN = "terrain";
 
 ////////

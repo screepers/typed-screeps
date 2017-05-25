@@ -62,6 +62,7 @@ interface LookAtTypes {
     exit?: any;  // TODO what type is this?
     flag?: Flag;
     mineral?: Mineral;
+    nuke?: Nuke;
     resource? : Resource;
     source?: Source;
     structure?: Structure;
@@ -75,8 +76,8 @@ type LookAtResultWithPos<K extends keyof LookAtTypes = keyof LookAtTypes> = Look
   y: number,
 }
 
-interface LookAtResultMatrix {
-    [coord: number]: LookAtResultMatrix | LookAtResult[]
+interface LookAtResultMatrix<K extends keyof LookAtTypes = keyof LookAtTypes> {
+    [coord: number]: LookAtResultMatrix<K> | LookAtResult<K>[]
 }
 
 interface FindPathOpts {
