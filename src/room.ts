@@ -79,7 +79,7 @@ interface Room {
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
-    find<T extends _HasRoomPosition>(type: FindConstant, opts?: { filter: Object | Function | string }): T[];
+    find<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: { filter: Object | Function | string }): T[];
     /**
      * Find the exit direction en route to another room.
      * @param room Another room name or room object.

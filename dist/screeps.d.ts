@@ -1572,7 +1572,7 @@ interface RoomPosition {
      * @param type See Room.find
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByPath<T extends _HasRoomPosition>(type: FindConstant, opts?: FindPathOpts & {
+    findClosestByPath<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: FindPathOpts & {
         filter?: any | string;
         algorithm?: string;
     }): T | null;
@@ -1590,7 +1590,7 @@ interface RoomPosition {
      * @param type See Room.find.
      * @param opts
      */
-    findClosestByRange<T extends _HasRoomPosition>(type: FindConstant, opts?: {
+    findClosestByRange<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: {
         filter: any | string;
     }): T | null;
     /**
@@ -1607,7 +1607,7 @@ interface RoomPosition {
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<T extends _HasRoomPosition>(type: FindConstant, range: number, opts?: {
+    findInRange<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, range: number, opts?: {
         filter?: any | string;
     }): T[];
     /**
@@ -1616,7 +1616,7 @@ interface RoomPosition {
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<T extends _HasRoomPosition>(objects: T[], range: number, opts?: {
+    findInRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], range: number, opts?: {
         filter?: any | string;
     }): T[];
     /**
@@ -1879,7 +1879,7 @@ interface Room {
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
-    find<T extends _HasRoomPosition>(type: FindConstant, opts?: {
+    find<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: {
         filter: Object | Function | string;
     }): T[];
     /**
