@@ -947,6 +947,7 @@ declare type ERR_GCL_NOT_ENOUGH = -15;
 declare type CreepActionReturnCode = OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
 declare type CreepMoveReturnCode = OK | ERR_NOT_OWNER | ERR_BUSY | ERR_TIRED | ERR_NO_BODYPART;
 declare type FindConstant = FIND_EXIT_TOP | FIND_EXIT_RIGHT | FIND_EXIT_BOTTOM | FIND_EXIT_LEFT | FIND_EXIT | FIND_CREEPS | FIND_MY_CREEPS | FIND_HOSTILE_CREEPS | FIND_SOURCES_ACTIVE | FIND_SOURCES | FIND_DROPPED_RESOURCES | FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES | FIND_FLAGS | FIND_CONSTRUCTION_SITES | FIND_MY_SPAWNS | FIND_HOSTILE_SPAWNS | FIND_MY_CONSTRUCTION_SITES | FIND_HOSTILE_CONSTRUCTION_SITES | FIND_MINERALS | FIND_NUKES;
+declare type ExitConstant = FIND_EXIT_TOP | FIND_EXIT_RIGHT | FIND_EXIT_BOTTOM | FIND_EXIT_LEFT;
 declare type FIND_EXIT_TOP = 1;
 declare type FIND_EXIT_RIGHT = 3;
 declare type FIND_EXIT_BOTTOM = 5;
@@ -1107,7 +1108,7 @@ interface GameMap {
      * Or one of the following Result codes:
      * ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExit(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): number;
+    findExit(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): ScreepsReturnCode;
     /**
      * Find route from the given room to another room.
      * @param fromRoom Start room name or room object.
@@ -1116,9 +1117,9 @@ interface GameMap {
      * @returns the route array or ERR_NO_PATH code
      */
     findRoute(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): {
-        exit: number;
+        exit: ExitConstant;
         room: string;
-    }[] | number;
+    }[] | ERR_NO_PATH;
     /**
      * Get the linear distance (in rooms) between two rooms. You can use this function to estimate the energy cost of
      * sending resources through terminals, or using observers and nukes.
@@ -1134,12 +1135,12 @@ interface GameMap {
      * @param y Y position in the room.
      * @param roomName The room name.
      */
-    getTerrainAt(x: number, y: number, roomName: string): string;
+    getTerrainAt(x: number, y: number, roomName: string): Terrain;
     /**
      * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
      * @param pos The position object.
      */
-    getTerrainAt(pos: RoomPosition): string;
+    getTerrainAt(pos: RoomPosition): Terrain;
     /**
      * Check if the room is available to move into.
      * @param roomName The room name.
