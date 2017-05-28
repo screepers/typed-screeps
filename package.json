@@ -6,7 +6,7 @@
   "typings": "./dist/screeps.d.ts",
   "scripts": {
     "compile": "node_modules/.bin/tsc",
-    "precommit": "npm run compile"
+    "precommit": "npm run compile && git add dist/screeps.d.ts"
   },
   "keywords": [
     "Screeps",
