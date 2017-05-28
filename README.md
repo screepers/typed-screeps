@@ -6,7 +6,7 @@
 
 Using [typings](https://github.com/typings/typings), add this to your typings.json:
 ```bash
-typings install github:resir014/typed-screeps/dist/screeps.d.ts#master -SG
+typings install github:screepers/typed-screeps/dist/screeps.d.ts#master -SG
 ```
 
 # Differences from **[Screeps-Typescript-Declarations](https://github.com/screepers/Screeps-Typescript-Declarations)**:
