@@ -17,7 +17,7 @@ typings install github:screepers/typed-screeps/dist/screeps.d.ts#master -SG
   - `SpawnMemory`
   - `RoomMemory`
 
-  If you like the idea of typed memory, but aren't ready to just fully in, just make sure you define an interface for the above four types.  Then you can extend them at a later time.  Example:
+  If you like the idea of typed memory, but aren't ready to just jump fully in, you only need to make sure you define an interface for the above four types.  Then you can extend them at a later time.  Example:
   ```TypeScript
   interface CreepMemory { [name: string]: any };
   interface FlagMemory { [name: string]: any };
@@ -61,9 +61,7 @@ typings install github:screepers/typed-screeps/dist/screeps.d.ts#master -SG
 - Screeps classes derived from `Structure` (ex `StructureContainer`) have their `type` property correspondingly constrained
 - `LookAt` results are now constrained to the type looked for
 - Results from `Find`-type functions are now constrained to have a `RoomPosition`
-
-  
-
+- Typings for new RawMemory and RoomVisuals
 
 # Usage
 
@@ -86,4 +84,13 @@ This library will stay up to date only with the help of you! If active players d
 This codebase uses [husky](https://github.com/typicode/husky) to auto-compile changes on commit.
 
 To get started, just clone this repository, and run `npm install`.  After that, make any changes you want in `src/`.  When you commit the changes, husky will first automatically run `npm run compile` and compile your changes.
+
+--------
+
+### Workarounds / Caveats
+
+Due to some unresolved issues in TypeScript, a few parts of the API can't currenty be typed perfectly without tradeoffs.  Below is a list (feel free to open an issue if you have any ideas, or wish to discuss):
+
+- The API returned from `store` or `carry` (ex. `myContainter.store`) returns an object with optional keys for each Resource Type, but is guaranteed to have a key for `RESOURCE_ENERGY`.  This is currently not (perfectly) typable in TypeScript (see issues [#13573](https://github.com/Microsoft/TypeScript/issues/13573) and [#12215](https://github.com/Microsoft/TypeScript/issues/12215)).  The chosen workaround is to just manually list the types using a fake type `_ResourceConstantSansEnergy`
+
 

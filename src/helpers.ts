@@ -48,7 +48,11 @@ interface SignDefinition {
     datetime: Date;
 }
 
-type StoreDefinition = Record<ResourceConstant, number | undefined> & { energy: number };
+type StoreDefinition = Partial<Record<_ResourceConstantSansEnergy, number>> & { energy: number };
+// type SD<K extends ResourceConstant> = {
+//   [P in K]: number;
+//   energy: number;
+// }
 
 interface LookAtTypes {
     constructionSite?: ConstructionSite;
