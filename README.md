@@ -36,6 +36,7 @@ typings install github:resir014/typed-screeps/dist/screeps.d.ts#master -SG
   MineralConstant (this is a subset of ResourceConstant)
   ColorConstant
   ScreepsReturnCode
+  Terrain
   ```
     
   To update your code, you just need to change any `string` types to match one of the above.  For example, if your code had:
@@ -82,11 +83,7 @@ Game.creeps['Worker1']
 
 This library will stay up to date only with the help of you! If active players don't update it, it'll get lost.
 
-To update the declarations, edit the files in ./src folder.
+This codebase uses [husky](https://github.com/typicode/husky) to auto-compile changes on commit.
 
-To compile the declarations, run:
-
-```
-npm run compile
-```
+To get started, just clone this repository, and run `npm install`.  After that, make any changes you want in `src/`.  When you commit the changes, husky will first automatically run `npm run compile` and compile your changes.
 
