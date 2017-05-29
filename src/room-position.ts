@@ -89,7 +89,7 @@ interface RoomPosition {
      * Get linear direction to the specified position.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
-    getDirectionTo(target: RoomPosition | _HasRoomPosition): number;
+    getDirectionTo(target: RoomPosition | _HasRoomPosition): DirectionConstant;
     /**
      * Get linear range to the specified position.
      * @param x X position in the room.
