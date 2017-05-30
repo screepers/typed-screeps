@@ -272,6 +272,7 @@ declare const LAB_ENERGY_CAPACITY: number;
 declare const LAB_BOOST_ENERGY: number;
 declare const LAB_BOOST_MINERAL: number;
 declare const LAB_COOLDOWN: number;
+declare const LAB_REACTION_AMOUNT: number;
 
 declare const GCL_POW: number;
 declare const GCL_MULTIPLY: number;
