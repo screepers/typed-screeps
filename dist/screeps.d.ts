@@ -241,6 +241,7 @@ declare const LAB_ENERGY_CAPACITY: number;
 declare const LAB_BOOST_ENERGY: number;
 declare const LAB_BOOST_MINERAL: number;
 declare const LAB_COOLDOWN: number;
+declare const LAB_REACTION_AMOUNT: number;
 declare const GCL_POW: number;
 declare const GCL_MULTIPLY: number;
 declare const GCL_NOVICE: number;
@@ -1420,6 +1421,11 @@ interface PathFinderOpts {
      */
     maxRooms?: number;
     /**
+     * The maximum allowed cost of the path returned. If at any point the pathfinder detects that it is impossible to find
+     * a path with a cost less than or equal to maxCost it will immediately halt the search. The default is Infinity.
+     */
+    maxCost?: number;
+    /**
      * Weight to apply to the heuristic in the A* formula F = G + weight * H. Use this option only if you understand
      * the underlying A* algorithm mechanics! The default value is 1.
      */
@@ -1650,7 +1656,7 @@ interface RoomPosition {
      * Get linear direction to the specified position.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
-    getDirectionTo(target: RoomPosition | _HasRoomPosition): number;
+    getDirectionTo(target: RoomPosition | _HasRoomPosition): DirectionConstant;
     /**
      * Get linear range to the specified position.
      * @param x X position in the room.
