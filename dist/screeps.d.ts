@@ -718,6 +718,10 @@ interface Game {
         [constructionSiteId: string]: ConstructionSite;
     };
     /**
+     * An object describing the world shard where your script is currently being executed in.
+     */
+    shard: Shard;
+    /**
      * System game tick counter. It is automatically incremented on every tick.
      */
     time: number;
@@ -741,6 +745,11 @@ interface GlobalControlLevel {
     level: number;
     progress: number;
     progressTotal: number;
+}
+interface Shard {
+    name: string;
+    type: "normal";
+    ptr: boolean;
 }
 interface CPU {
     limit: number;
@@ -1650,7 +1659,7 @@ interface RoomPosition {
      * Get linear direction to the specified position.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
-    getDirectionTo(target: RoomPosition | _HasRoomPosition): number;
+    getDirectionTo(target: RoomPosition | _HasRoomPosition): DirectionConstant;
     /**
      * Get linear range to the specified position.
      * @param x X position in the room.
