@@ -531,7 +531,7 @@ interface Creep extends RoomObject {
      */
     moveTo(target: RoomPosition | {
         pos: RoomPosition;
-    }, opts?: MoveToOpts): CreepMoveReturnCode | ERR_NO_PATH | ERR_INVALID_TARGET;
+    }, opts?: MoveToOpts): CreepMoveReturnCode | ERR_NO_PATH | ERR_INVALID_TARGET | ERR_NOT_FOUND;
     /**
      * Toggle auto notification when the creep is under attack. The notification will be sent to your account email. Turned on by default.
      * @param enabled Whether to enable notification or disable.
