@@ -2602,6 +2602,10 @@ declare const StructureLab: StructureLabConstructor;
 interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
     readonly prototype: StructureTerminal;
     /**
+     * The remaining amount of ticks while this terminal cannot be used to make StructureTerminal.send or Game.market.deal calls.
+     */
+    cooldown: number;
+    /**
      * An object with the storage contents. Each object key is one of the RESOURCE_* constants, values are resources amounts.
      */
     store: StoreDefinition;
