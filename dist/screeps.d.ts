@@ -719,6 +719,10 @@ interface Game {
         [constructionSiteId: string]: ConstructionSite;
     };
     /**
+     * An object describing the world shard where your script is currently being executed in.
+     */
+    shard: Shard;
+    /**
      * System game tick counter. It is automatically incremented on every tick.
      */
     time: number;
@@ -742,6 +746,11 @@ interface GlobalControlLevel {
     level: number;
     progress: number;
     progressTotal: number;
+}
+interface Shard {
+    name: string;
+    type: "normal";
+    ptr: boolean;
 }
 interface CPU {
     limit: number;
@@ -2598,6 +2607,10 @@ declare const StructureLab: StructureLabConstructor;
  */
 interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
     readonly prototype: StructureTerminal;
+    /**
+     * The remaining amount of ticks while this terminal cannot be used to make StructureTerminal.send or Game.market.deal calls.
+     */
+    cooldown: number;
     /**
      * An object with the storage contents. Each object key is one of the RESOURCE_* constants, values are resources amounts.
      */

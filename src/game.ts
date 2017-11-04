@@ -43,6 +43,12 @@ interface Game {
      * A hash containing all your construction sites with their id as hash keys.
      */
     constructionSites: {[constructionSiteId: string]: ConstructionSite};
+
+    /**
+     * An object describing the world shard where your script is currently being executed in.
+     */
+    shard: Shard;
+    
     /**
      * System game tick counter. It is automatically incremented on every tick.
      */

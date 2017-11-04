@@ -6,6 +6,12 @@ interface GlobalControlLevel {
     progressTotal: number;
 }
 
+interface Shard {
+    name: string;
+    type: "normal";
+    ptr: boolean;
+}
+
 interface CPU {
     limit: number;
     tickLimit: number;
