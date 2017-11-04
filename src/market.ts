@@ -86,6 +86,7 @@ interface Transaction {
     from: string;
     to: string;
     description: string;
+    order?: TransactionOrder;
 }
 
 interface Order {
@@ -98,6 +99,12 @@ interface Order {
     amount: number;
     remainingAmount: number;
     totalAmount?: number;
+    price: number;
+}
+
+interface TransactionOrder {
+    id: string;
+    type: string;
     price: number;
 }
 
