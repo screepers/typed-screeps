@@ -143,7 +143,7 @@ declare const STRUCTURE_RAMPART: "rampart";
 declare const STRUCTURE_ROAD: "road";
 declare const STRUCTURE_SPAWN: "spawn";
 declare const STRUCTURE_LINK: "link";
-declare const STRUCTURE_WALL: "wall";
+declare const STRUCTURE_WALL: "constructedWall";
 declare const STRUCTURE_KEEPER_LAIR: "keeperLair";
 declare const STRUCTURE_CONTROLLER: "controller";
 declare const STRUCTURE_STORAGE: "storage";
