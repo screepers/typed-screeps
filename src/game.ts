@@ -48,7 +48,7 @@ interface Game {
      * An object describing the world shard where your script is currently being executed in.
      */
     shard: Shard;
-    
+
     /**
      * System game tick counter. It is automatically incremented on every tick.
      */

@@ -149,7 +149,7 @@ interface Room {
      * @param right The right X boundary of the area.
      * @returns An object with all the objects of the given type in the specified area
      */
-    lookForAtArea<T extends LookConstant = LookConstant>(type: T, top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix<T> | LookAtResultWithPos<T>[];
+    lookForAtArea<T extends LookConstant = LookConstant>(type: T, top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix<T> | Array<LookAtResultWithPos<T>>;
 
     /**
      * Serialize a path array into a short string representation, which is suitable to store in memory.

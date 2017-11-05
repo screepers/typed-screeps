@@ -1382,10 +1382,10 @@ interface PathFinder {
      * @param goal an array of goals, the cheapest path found out of all the goals will be returned.
      * @param opts An object containing additional pathfinding flags.
      */
-    search(origin: RoomPosition, goal: RoomPosition[] | {
+    search(origin: RoomPosition, goal: RoomPosition[] | Array<{
         pos: RoomPosition;
         range: number;
-    }[], opts?: PathFinderOpts): PathFinderPath;
+    }>, opts?: PathFinderOpts): PathFinderPath;
     /**
      * Specify whether to use this new experimental pathfinder in game objects methods.
      * This method should be invoked every tick. It affects the following methods behavior:
@@ -1495,9 +1495,9 @@ interface CostMatrix {
  */
 interface RawMemory {
     /**
-      * An object with asynchronous memory segments available on this tick. Each object key is the segment ID with data in string values.
-      * Use RawMemory.setActiveSegments to fetch segments on the next tick. Segments data is saved automatically in the end of the tick.
-      */
+     * An object with asynchronous memory segments available on this tick. Each object key is the segment ID with data in string values.
+     * Use RawMemory.setActiveSegments to fetch segments on the next tick. Segments data is saved automatically in the end of the tick.
+     */
     segments: string[];
     foreignSegment: {
         username: string;
@@ -1505,18 +1505,18 @@ interface RawMemory {
         data: string;
     };
     /**
-      * Get a raw string representation of the Memory object.
-      */
+     * Get a raw string representation of the Memory object.
+     */
     get(): string;
     /**
-      * Set new memory value.
-      * @param value New memory value as a string.
-      */
+     * Set new memory value.
+     * @param value New memory value as a string.
+     */
     set(value: string): void;
     /**
-      * Request memory segments using the list of their IDs. Memory segments will become available on the next tick in RawMemory.segments object.
-      * @param ids An array of segment IDs. Each ID should be a number from 0 to 99. Maximum 10 segments can be active at the same time. Subsequent calls of setActiveSegments override previous ones.
-      */
+     * Request memory segments using the list of their IDs. Memory segments will become available on the next tick in RawMemory.segments object.
+     * @param ids An array of segment IDs. Each ID should be a number from 0 to 99. Maximum 10 segments can be active at the same time. Subsequent calls of setActiveSegments override previous ones.
+     */
     setActiveSegments(ids: number[]): void;
     setActiveForeignSegment(username: string | null, id: number): void;
     setDefaultPublicSegment(id: number | null): void;
@@ -2076,7 +2076,7 @@ interface Room {
      * @param right The right X boundary of the area.
      * @returns An object with all the objects of the given type in the specified area
      */
-    lookForAtArea<T extends LookConstant = LookConstant>(type: T, top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix<T> | LookAtResultWithPos<T>[];
+    lookForAtArea<T extends LookConstant = LookConstant>(type: T, top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix<T> | Array<LookAtResultWithPos<T>>;
 }
 interface RoomConstructor {
     new (id: string): Room;

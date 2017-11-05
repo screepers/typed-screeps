@@ -3,6 +3,7 @@
     "tslint:recommended"
   ],
   "rules": {
+    "ban-types": false,
     "class-name": false,
     "forin": false,
     "interface-name": [false],
@@ -17,6 +18,7 @@
       true,
       "never"
     ],
+    "unified-signatures": false,
     "variable-name": [
       true,
       "ban-keywords",

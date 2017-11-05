@@ -6,6 +6,7 @@
   "types": "./dist/screeps.d.ts",
   "scripts": {
     "compile": "node_modules/.bin/tsc",
+    "lint": "tslint 'src/**/*.ts'",
     "precommit": "npm run compile && git add dist/screeps.d.ts"
   },
   "keywords": [

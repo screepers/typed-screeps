@@ -1,5 +1,7 @@
+// tslint:disable:unified-signatures
+
 /**
- * Contains powerful methods for pathfinding in the game world. Support exists for custom navigation costs and paths which span multiple rooms. 
+ * Contains powerful methods for pathfinding in the game world. Support exists for custom navigation costs and paths which span multiple rooms.
  * Additionally PathFinder can search for paths through rooms you can't see, although you won't be able to detect any dynamic obstacles like creeps or buildings.
  */
 interface PathFinder {
@@ -23,7 +25,7 @@ interface PathFinder {
      * @param goal an array of goals, the cheapest path found out of all the goals will be returned.
      * @param opts An object containing additional pathfinding flags.
      */
-    search(origin: RoomPosition, goal: RoomPosition[] | { pos: RoomPosition, range: number }[], opts?: PathFinderOpts): PathFinderPath;
+    search(origin: RoomPosition, goal: RoomPosition[] | Array<{ pos: RoomPosition, range: number }>, opts?: PathFinderOpts): PathFinderPath;
     /**
      * Specify whether to use this new experimental pathfinder in game objects methods.
      * This method should be invoked every tick. It affects the following methods behavior:
@@ -95,6 +97,8 @@ interface PathFinderOpts {
      */
     roomCallback?(roomName: string): boolean | CostMatrix;
 }
+
+// tslint:disable:no-misused-new
 
 /**
  * Container for custom navigation cost data.
