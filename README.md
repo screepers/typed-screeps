@@ -1,6 +1,6 @@
 # typed-screeps
 
-> **Stronger** TypeScript declarations for the game Screeps.
+> Stronger TypeScript declarations for the game Screeps.
 
 ## Installation
 
