@@ -759,10 +759,20 @@ interface CPU {
     limit: number;
     tickLimit: number;
     bucket: number;
+    shardLimits: CPUShardLimits;
     /**
      * Get amount of CPU time used from the beginning of the current game tick. Always returns 0 in the Simulation mode.
      */
     getUsed(): number;
+    /**
+     * Allocate CPU limits to different shards. Total amount of CPU should remain equal to `Game.cpu.shardLimits`.
+     * This method can be used only once per 12 hours.
+     *
+     * @param {CPUShardLimits} limits An object with CPU values for each shard in the same format as `Game.cpu.shardLimits`.
+     * @returns {(OK | ERR_BUSY | ERR_INVALID_ARGS)} One of the following codes: `OK | ERR_BUSY | ERR_INVALID_ARGS`
+     * @memberof CPU
+     */
+    setShardLimits(limits: CPUShardLimits): OK | ERR_BUSY | ERR_INVALID_ARGS;
 }
 /**
  * An array describing the creep’s body. Each element contains the following properties:
@@ -793,6 +803,9 @@ interface SignDefinition {
     text: string;
     time: number;
     datetime: Date;
+}
+interface CPUShardLimits {
+    [shard: string]: number;
 }
 declare type StoreDefinition = Partial<Record<_ResourceConstantSansEnergy, number>> & {
     energy: number;
