@@ -18,6 +18,7 @@
   "license": "MIT",
   "devDependencies": {
     "husky": "^0.13.3",
+    "tslint": "^5.8.0",
     "typescript": "^2.1.0"
   }
 }
