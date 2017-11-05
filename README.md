@@ -1,15 +1,32 @@
 # Typed-Screeps
 
-> The forked repository for **strong** *Screep's* TypeScript type definitions. https://screeps.com/
+> **Stronger** type declarations for the game Screeps. https://screeps.com/
 
-# Installation
 
-Using [typings](https://github.com/typings/typings), add this to your typings.json:
+## Installation
+
+*Thanks to [@apemanzilla](https://github.com/apemanzilla) for their help on testing this installation path!*
+
+Currently `typed-screeps` is not yet published to `npm`, but you can still install it by running:
+
 ```bash
-typings install github:screepers/typed-screeps/dist/screeps.d.ts#master -SG
+npm install screepers/typed-screeps
 ```
 
-# Differences from **[Screeps-Typescript-Declarations](https://github.com/screepers/Screeps-Typescript-Declarations)**:
+However, since the typings aren't installed within the `@types/` scope, you'll have to include it in your `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "types": ["lodash", "typed-screeps"]
+  }
+}
+```
+
+An npm package for this repo will be published soon. Hang tight!
+
+## Differences from **[Screeps-Typescript-Declarations](https://github.com/screepers/Screeps-Typescript-Declarations)**
+
 ### Breaking Changes:
 - `Memory` is typed by default.  The added typings are:
   - `CreepMemory`
@@ -63,7 +80,7 @@ typings install github:screepers/typed-screeps/dist/screeps.d.ts#master -SG
 - Results from `Find`-type functions are now constrained to have a `RoomPosition`
 - Typings for new RawMemory and RoomVisuals
 
-# Usage
+## Usage
 
 Note: When using this API, you can't access creeps in manner suggested in Screeps' tutorial:
 
@@ -77,7 +94,7 @@ Instead, you have to use
 Game.creeps['Worker1']
 ```
 
-# Contribute
+## Contribute
 
 This library will stay up to date only with the help of you! If active players don't update it, it'll get lost.
 
