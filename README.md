@@ -10,7 +10,7 @@
 Currently `typed-screeps` is not yet published to `npm`, but you can still install it by running:
 
 ```bash
-npm install screepers/typed-screeps
+npm install typed-screeps
 ```
 
 However, since the typings aren't installed within the `@types/` scope, you'll have to include it in your `tsconfig.json`:
@@ -23,7 +23,9 @@ However, since the typings aren't installed within the `@types/` scope, you'll h
 }
 ```
 
-An npm package for this repo will be published soon. Hang tight!
+**Note:** Because `"types"` also works as a whitelist for the declarations used on your project, you will also have to include all other type declarations you're using here.
+
+Installing through `@types/` will be made available soon. Hang tight!
 
 ## Differences from **[Screeps-Typescript-Declarations](https://github.com/screepers/Screeps-Typescript-Declarations)**
 
@@ -35,8 +37,8 @@ An npm package for this repo will be published soon. Hang tight!
   - `SpawnMemory`
   - `RoomMemory`
 
-  If you like the idea of typed memory, but aren't ready to just jump fully in, you only need to make sure you define an interface for the above four types.  Then you can extend them at a later time.
-  
+  If you like the idea of typed memory, but aren't ready to just jump fully in, you only need to make sure you define an interface for the above four types. Then you can extend them at a later time.
+
   Example:
 
   ```TypeScript
@@ -45,8 +47,8 @@ An npm package for this repo will be published soon. Hang tight!
   interface SpawnMemory { [name: string]: any };
   interface RoomMemory { [name: string]: any };
   ```
-  
-- Any place in code that uses a constant (ex `STRUCTURE_EXTENSION` or `FIND_MY_SPAWNS` is now constrained to use literal types.  Here is the list of the new types:
+
+- Any place in code that uses a constant (ex `STRUCTURE_EXTENSION` or `FIND_MY_SPAWNS` is now constrained to use literal types. Here is the list of the new types:
 
   ```
   BodyPartConstant
@@ -60,8 +62,8 @@ An npm package for this repo will be published soon. Hang tight!
   ScreepsReturnCode
   Terrain
   ```
-    
-  To update your code, you just need to change any `string` types to match one of the above.  For example, if your code had:
+
+  To update your code, you just need to change any `string` types to match one of the above. For example, if your code had:
 
   ```TypeScript
   function getBody(): string[] {
@@ -78,7 +80,7 @@ An npm package for this repo will be published soon. Hang tight!
   }
   ```
 
-- Some original functions were incorrectly typed to not include `null` as a possible return.  You may need to update your code to reflect this update (ex. `findClosestByPath` or `findClosestByRange`)
+- Some original functions were incorrectly typed to not include `null` as a possible return. You may need to update your code to reflect this update (ex. `findClosestByPath` or `findClosestByRange`)
 
 ### Additional (non-breaking) Features:
 
@@ -95,13 +97,13 @@ An npm package for this repo will be published soon. Hang tight!
 
 Note: When using this API, you can't access creeps in manner suggested in Screeps' tutorial:
 
-```
+```TypeScript
 Game.creeps.Worker1  // This is not allowed by TypeScript compiler
 ```
 
 Instead, you have to use
 
-```
+```TypeScript
 Game.creeps['Worker1']
 ```
 
@@ -111,14 +113,20 @@ This library will stay up to date only with the help of you! If active players d
 
 This codebase uses [husky](https://github.com/typicode/husky) to auto-compile changes on commit.
 
-To get started, just clone this repository, and run `npm install`.  After that, make any changes you want in `src/`.  When you commit the changes, husky will first automatically run `npm run compile` and compile your changes.
+To get started, just clone this repository, and run `npm install`. After that, make any changes you want in `src/`. When you commit the changes, husky will first automatically run `npm run compile` and compile your changes.
+
+To test your changes, we've included a `test/typed-screeps-tests.ts` file. This file is not meant to be executed. It exists solely to test whether or not the typings actually work.
+
+If you open this file and see no red squiggly lines, then you're good!
 
 --------
 
 ### Workarounds / Caveats
 
-Due to some unresolved issues in TypeScript, a few parts of the API can't currenty be typed perfectly without tradeoffs.  Below is a list (feel free to open an issue if you have any ideas, or wish to discuss):
+Due to some unresolved issues in TypeScript, a few parts of the API can't currenty be typed perfectly without tradeoffs.
 
-- The API returned from `store` or `carry` (ex. `myContainter.store`) returns an object with optional keys for each Resource Type, but is guaranteed to have a key for `RESOURCE_ENERGY`.  This is currently not (perfectly) typable in TypeScript (see issues [#13573](https://github.com/Microsoft/TypeScript/issues/13573) and [#12215](https://github.com/Microsoft/TypeScript/issues/12215)).  The chosen workaround is to just manually list the types using a fake type `_ResourceConstantSansEnergy`
+Below is a list (feel free to open an issue if you have any ideas, or wish to discuss):
+
+- The API returned from `store` or `carry` (ex. `myContainter.store`) returns an object with optional keys for each Resource Type, but is guaranteed to have a key for `RESOURCE_ENERGY`. This is currently not (perfectly) typable in TypeScript (see issues [#13573](https://github.com/Microsoft/TypeScript/issues/13573) and [#12215](https://github.com/Microsoft/TypeScript/issues/12215)). The chosen workaround is to just manually list the types using a fake type `_ResourceConstantSansEnergy`
 
 
