@@ -1,7 +1,7 @@
 {
   "name": "typed-screeps",
   "version": "1.0.0",
-  "description": "Typescript declarations for Screeps API. To enable autocomplete and help with compilation",
+  "description": "Stronger TypeScript declarations for the game Screeps.",
   "repository": "screepers/typed-screeps",
   "types": "./dist/screeps.d.ts",
   "scripts": {

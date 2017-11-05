@@ -1,16 +1,17 @@
 # typed-screeps
 
-> **Stronger** type declarations for the game Screeps. https://screeps.com/
-
+> **Stronger** TypeScript declarations for the game Screeps.
 
 ## Installation
 
 *Thanks to [@apemanzilla](https://github.com/apemanzilla) for their help on testing this installation path!*
 
-Currently `typed-screeps` is not yet published to `npm`, but you can still install it by running:
-
 ```bash
+# npm
 npm install typed-screeps
+
+# yarn
+yarn add typed-screeps
 ```
 
 However, since the typings aren't installed within the `@types/` scope, you'll have to include it in your `tsconfig.json`:
