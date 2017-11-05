@@ -1,4 +1,4 @@
-# Typed-Screeps
+# typed-screeps
 
 > **Stronger** type declarations for the game Screeps. https://screeps.com/
 
@@ -28,13 +28,17 @@ An npm package for this repo will be published soon. Hang tight!
 ## Differences from **[Screeps-Typescript-Declarations](https://github.com/screepers/Screeps-Typescript-Declarations)**
 
 ### Breaking Changes:
+
 - `Memory` is typed by default.  The added typings are:
   - `CreepMemory`
   - `FlagMemory`
   - `SpawnMemory`
   - `RoomMemory`
 
-  If you like the idea of typed memory, but aren't ready to just jump fully in, you only need to make sure you define an interface for the above four types.  Then you can extend them at a later time.  Example:
+  If you like the idea of typed memory, but aren't ready to just jump fully in, you only need to make sure you define an interface for the above four types.  Then you can extend them at a later time.
+  
+  Example:
+
   ```TypeScript
   interface CreepMemory { [name: string]: any };
   interface FlagMemory { [name: string]: any };
@@ -43,6 +47,7 @@ An npm package for this repo will be published soon. Hang tight!
   ```
   
 - Any place in code that uses a constant (ex `STRUCTURE_EXTENSION` or `FIND_MY_SPAWNS` is now constrained to use literal types.  Here is the list of the new types:
+
   ```
   BodyPartConstant
   StructureConstant
@@ -57,20 +62,26 @@ An npm package for this repo will be published soon. Hang tight!
   ```
     
   To update your code, you just need to change any `string` types to match one of the above.  For example, if your code had:
+
   ```TypeScript
   function getBody(): string[] {
     return [ WORK, MOVE, CARRY ];
   }
+
   ```
+
   Change it to:
+
   ```TypeScript
   function getBody(): BodyPartConstant[] {  // this line changed
     return [ WORK, MOVE, CARRY ];
   }
   ```
+
 - Some original functions were incorrectly typed to not include `null` as a possible return.  You may need to update your code to reflect this update (ex. `findClosestByPath` or `findClosestByRange`)
 
 ### Additional (non-breaking) Features:
+
 - `ConstructionSite` can be optionally constrained by a structure type (ex. `ConstructionSite<STRUCTURE_CONTAINER>`). TypeScript will enforce that the `type` property of the `ConstructionSite` appropriately matches
 - `Resource` can optionally be constrained (ex. `Resource<RESOURCE_ENERGY>`)
 - `Mineral` can optionally be constrained by `MineralConstant` (ex. `Mineral<RESOURCE_GHODIUM>`)
