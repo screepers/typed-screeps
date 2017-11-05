@@ -1089,9 +1089,7 @@ declare type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
  * The options that can be accepted by `findRoute()` and friends.
  */
 interface RouteOptions {
-    routeCallback: {
-        (roomName: string, fromRoomName: string): any;
-    };
+    routeCallback: (roomName: string, fromRoomName: string) => any;
 }
 /**
  * A global object representing world map. Use it to navigate between rooms. The object is accessible via Game.map property.

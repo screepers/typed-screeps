@@ -2,9 +2,7 @@
  * The options that can be accepted by `findRoute()` and friends.
  */
 interface RouteOptions {
-    routeCallback: {
-        (roomName: string, fromRoomName: string): any
-    };
+    routeCallback: (roomName: string, fromRoomName: string) => any;
 }
 
 /**
