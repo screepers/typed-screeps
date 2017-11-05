@@ -1,6 +1,6 @@
 declare var Memory: Memory;
 declare var RawMemory: RawMemory;
-declare var Game:Game;
+declare var Game: Game;
 declare var PathFinder: PathFinder;
 type Controller= StructureController;
 type Extension = StructureExtension;
@@ -14,6 +14,6 @@ type Rampart = StructureRampart;
 type Terminal = StructureTerminal;
 type Container = StructureContainer;
 type Tower = StructureTower;
-type Spawn = StructureSpawn;//Legacy Alias
+type Spawn = StructureSpawn; // Legacy Alias
 declare const Spawn: StructureSpawnConstructor;
-interface Storage extends StructureStorage { }//Legacy Alias
+interface Storage extends StructureStorage { } // Legacy Alias

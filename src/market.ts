@@ -24,14 +24,14 @@ interface Market {
      * @param amount Amount of resources to be sent.
      * @param roomName1 The name of the first room.
      * @param roomName2 The name of the second room.
-     * @returns The amount of energy required to perform the transaction. 
+     * @returns The amount of energy required to perform the transaction.
      */
     calcTransactionCost(amount: number, roomName1: string, roomName2: string): number;
     /**
      * Cancel a previously created order. The 5% fee is not returned.
      * @param orderId The order ID as provided in Game.market.orders
      * @returns Result Code: OK, ERR_INVALID_ARGS
-     */  
+     */
     cancelOrder(orderId: string): ScreepsReturnCode;
     /**
      * Change the price of an existing order. If newPrice is greater than old price, you will be charged (newPrice-oldPrice)*remainingAmount*0.05 credits.
@@ -74,7 +74,7 @@ interface Market {
     getOrderById(id: string): Order | null;
 }
 
-//No static is available
+// No static is available
 
 interface Transaction {
     transactionId: string;

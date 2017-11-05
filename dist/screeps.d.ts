@@ -818,7 +818,7 @@ declare type LookAtResultWithPos<K extends keyof LookAtTypes = keyof LookAtTypes
     y: number;
 };
 interface LookAtResultMatrix<K extends keyof LookAtTypes = keyof LookAtTypes> {
-    [coord: number]: LookAtResultMatrix<K> | LookAtResult<K>[];
+    [coord: number]: LookAtResultMatrix<K> | Array<LookAtResult<K>>;
 }
 interface FindPathOpts {
     /**
@@ -883,23 +883,23 @@ interface FindPathOpts {
 interface MoveToOpts extends FindPathOpts {
     /**
      * This option enables reusing the path found along multiple game ticks. It allows to save CPU time, but can result in a slightly
-     * slower creep reaction behavior. The path is stored into the creep's memory to the _move property. The reusePath value defines
+     * slower creep reaction behavior. The path is stored into the creep's memory to the `_move` property. The `reusePath` value defines
      * the amount of ticks which the path should be reused for. The default value is 5. Increase the amount to save more CPU, decrease
      * to make the movement more consistent. Set to 0 if you want to disable path reusing.
      */
     reusePath?: number;
     /**
-     * If reusePath is enabled and this option is set to true, the path will be stored in memory in the short serialized form using
-     * Room.serializePath. The default value is true.
+     * If `reusePath` is enabled and this option is set to true, the path will be stored in memory in the short serialized form using
+     * `Room.serializePath`. The default value is true.
      */
     serializeMemory?: boolean;
     /**
-     * If this option is set to true, moveTo method will return ERR_NOT_FOUND if there is no memorized path to reuse. This can
+     * If this option is set to true, `moveTo` method will return `ERR_NOT_FOUND` if there is no memorized path to reuse. This can
      * significantly save CPU time in some cases. The default value is false.
      */
     noPathFinding?: boolean;
     /**
-     * Draw a line along the creep’s path using RoomVisual.poly. You can provide either an empty object or custom style parameters.
+     * Draw a line along the creep’s path using `RoomVisual.poly`. You can provide either an empty object or custom style parameters.
      */
     visualizePathStyle?: PolyStyle;
 }
@@ -934,10 +934,6 @@ interface _ConstructorById<T> extends _Constructor<T> {
     new (id: string): T;
     (id: string): T;
 }
-/**
- * This file creates literal versions of many of the constants
- * It should be kept in sync with constants.ts
- */
 declare type Terrain = "plain" | "swamp" | "wall";
 declare type ScreepsReturnCode = OK | ERR_NOT_OWNER | ERR_NO_PATH | ERR_BUSY | ERR_NOT_FOUND | ERR_NOT_ENOUGH_RESOURCES | ERR_NOT_ENOUGH_ENERGY | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS | ERR_TIRED | ERR_NO_BODYPART | ERR_NOT_ENOUGH_EXTENSIONS | ERR_RCL_NOT_ENOUGH | ERR_GCL_NOT_ENOUGH;
 declare type OK = 0;
@@ -1130,10 +1126,10 @@ interface GameMap {
      * @param opts (optional) An object with the pathfinding options.
      * @returns the route array or ERR_NO_PATH code
      */
-    findRoute(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): {
+    findRoute(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): Array<{
         exit: ExitConstant;
         room: string;
-    }[] | ERR_NO_PATH;
+    }> | ERR_NO_PATH;
     /**
      * Get the linear distance (in rooms) between two rooms. You can use this function to estimate the energy cost of
      * sending resources through terminals, or using observers and nukes.
@@ -2190,7 +2186,7 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      */
     spawnCreep(body: BodyPartConstant[], name: string, opts?: {
         memory?: CreepMemory;
-        energyStructures?: (StructureSpawn | StructureExtension)[];
+        energyStructures?: Array<(StructureSpawn | StructureExtension)>;
         dryRun?: boolean;
     }): ScreepsReturnCode;
     /**

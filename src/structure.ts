@@ -1,7 +1,6 @@
 /**
  * Parent object for structure classes
  */
-
 interface Structure<T extends StructureConstant = StructureConstant> extends RoomObject {
     readonly prototype: Structure;
 

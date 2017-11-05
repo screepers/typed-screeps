@@ -1,4 +1,4 @@
-/**
+/*
  * This file creates literal versions of many of the constants
  * It should be kept in sync with constants.ts
  */
@@ -26,7 +26,7 @@ type ScreepsReturnCode =
   ERR_NO_BODYPART |
   ERR_NOT_ENOUGH_EXTENSIONS |
   ERR_RCL_NOT_ENOUGH |
-  ERR_GCL_NOT_ENOUGH
+  ERR_GCL_NOT_ENOUGH;
 
 type OK = 0;
 type ERR_NOT_OWNER = -1;
@@ -52,14 +52,14 @@ type CreepActionReturnCode =
   ERR_BUSY |
   ERR_INVALID_TARGET |
   ERR_NOT_IN_RANGE |
-  ERR_NO_BODYPART
+  ERR_NO_BODYPART;
 
 type CreepMoveReturnCode =
   OK |
   ERR_NOT_OWNER |
   ERR_BUSY |
   ERR_TIRED |
-  ERR_NO_BODYPART
+  ERR_NO_BODYPART;
 
 ////////
 // Find Constants
@@ -68,7 +68,7 @@ type ExitConstant =
   FIND_EXIT_TOP |
   FIND_EXIT_RIGHT |
   FIND_EXIT_BOTTOM |
-  FIND_EXIT_LEFT
+  FIND_EXIT_LEFT;
 
 type FindConstant =
   FIND_EXIT_TOP |
@@ -92,7 +92,7 @@ type FindConstant =
   FIND_MY_CONSTRUCTION_SITES |
   FIND_HOSTILE_CONSTRUCTION_SITES |
   FIND_MINERALS |
-  FIND_NUKES
+  FIND_NUKES;
 
 type FIND_EXIT_TOP = 1;
 type FIND_EXIT_RIGHT = 3;
@@ -128,7 +128,7 @@ type BodyPartConstant =
   RANGED_ATTACK |
   TOUGH |
   HEAL |
-  CLAIM
+  CLAIM;
 
 type MOVE = "move";
 type WORK = "work";
@@ -152,7 +152,7 @@ type LookConstant =
   LOOK_FLAGS |
   LOOK_CONSTRUCTION_SITES |
   LOOK_NUKES |
-  LOOK_TERRAIN
+  LOOK_TERRAIN;
 
 type LOOK_CONSTRUCTION_SITES = "constructionSite";
 type LOOK_CREEPS = "creep";
@@ -200,7 +200,7 @@ type ColorConstant =
   COLOR_ORANGE |
   COLOR_BROWN |
   COLOR_GREY |
-  COLOR_WHITE
+  COLOR_WHITE;
 
 type COLOR_RED = 1;
 type COLOR_PURPLE = 2;
@@ -303,7 +303,7 @@ type ResourceConstant =
   RESOURCE_CATALYZED_ZYNTHIUM_ACID |
   RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE |
   RESOURCE_CATALYZED_GHODIUM_ACID |
-  RESOURCE_CATALYZED_GHODIUM_ALKALIDE
+  RESOURCE_CATALYZED_GHODIUM_ALKALIDE;
 
 type _ResourceConstantSansEnergy =
   RESOURCE_POWER |
@@ -347,7 +347,7 @@ type _ResourceConstantSansEnergy =
   RESOURCE_CATALYZED_ZYNTHIUM_ACID |
   RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE |
   RESOURCE_CATALYZED_GHODIUM_ACID |
-  RESOURCE_CATALYZED_GHODIUM_ALKALIDE
+  RESOURCE_CATALYZED_GHODIUM_ALKALIDE;
 
 type MineralConstant =
   RESOURCE_UTRIUM |
@@ -357,7 +357,7 @@ type MineralConstant =
   RESOURCE_ZYNTHIUM |
   RESOURCE_OXYGEN |
   RESOURCE_HYDROGEN |
-  RESOURCE_CATALYST
+  RESOURCE_CATALYST;
 
 type RESOURCE_ENERGY = "energy";
 type RESOURCE_POWER = "power";
@@ -406,4 +406,3 @@ type RESOURCE_CATALYZED_ZYNTHIUM_ACID = "XZH2O";
 type RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = "ZXHO2";
 type RESOURCE_CATALYZED_GHODIUM_ACID = "XGH2O";
 type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
-

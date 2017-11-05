@@ -3,10 +3,15 @@
     "tslint:recommended"
   ],
   "rules": {
+    "class-name": false,
     "forin": false,
     "interface-name": [false],
+    "interface-over-type-literal": false,
     "max-line-length": [false],
+    "member-access": [false],
+    "member-ordering": [false],
     "no-console": [false],
+    "no-empty-interface": false,
     "no-namespace": [true, "allow-declarations"],
     "trailing-comma": [
       true,

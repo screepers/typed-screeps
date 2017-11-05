@@ -1,4 +1,5 @@
 // Updated 2016-02-05
+
 /**
  * An energy source object. Can be harvested by creeps with a WORK body part.
  */

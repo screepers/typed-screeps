@@ -137,7 +137,6 @@ declare const BODYPART_COST: Record<BodyPartConstant, number>;
 
 declare const BODYPARTS_ALL: BodyPartConstant[];
 
-
 declare const CARRY_CAPACITY: 50;
 declare const HARVEST_POWER: 2;
 declare const HARVEST_MINERAL_POWER: 1;
@@ -297,19 +296,20 @@ declare const MINERAL_REGEN_TIME: number;
 declare const MINERAL_MIN_AMOUNT: Record<MineralConstant, number>;
 declare const MINERAL_RANDOM_FACTOR: number;
 
-
 declare const MINERAL_DENSITY: {
         1: number,
         2: number,
         3: number,
         4: number
-}
+};
+
 declare const MINERAL_DENSITY_PROBABILITY: {
         1: number,
         2: number,
         3: number,
         4: number
-}
+};
+
 declare const MINERAL_DENSITY_CHANGE: number;
 
 declare const DENSITY_LOW: number;
@@ -338,14 +338,14 @@ declare const NUKE_DAMAGE: {
     0: number,
     1: number,
     4: number
-}
+};
 
 // TODO make this more strongly typed
 declare const REACTIONS: {
     [T in ResourceConstant]: {
         [P in ResourceConstant]: ResourceConstant
     }
-}
+};
 
 // TODO type "action"
 declare const BOOSTS: {
@@ -354,7 +354,7 @@ declare const BOOSTS: {
             [action: string]: number
         }
     }
-}
+};
 
 declare const LOOK_CREEPS: "creep";
 declare const LOOK_ENERGY: "energy";

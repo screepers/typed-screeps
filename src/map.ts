@@ -4,7 +4,7 @@
 interface RouteOptions {
     routeCallback: {
         (roomName: string, fromRoomName: string): any
-    }
+    };
 }
 
 /**
@@ -35,10 +35,10 @@ interface GameMap {
      * @param opts (optional) An object with the pathfinding options.
      * @returns the route array or ERR_NO_PATH code
      */
-    findRoute(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): {
+    findRoute(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): Array<{
         exit: ExitConstant;
         room: string;
-    }[] | ERR_NO_PATH;
+    }> | ERR_NO_PATH;
     /**
      * Get the linear distance (in rooms) between two rooms. You can use this function to estimate the energy cost of
      * sending resources through terminals, or using observers and nukes.
@@ -69,4 +69,4 @@ interface GameMap {
     isRoomAvailable(roomName: string): boolean;
 }
 
-//No static is available
+// No static is available

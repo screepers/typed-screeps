@@ -38,7 +38,7 @@ interface Flag extends RoomObject {
      * @param y The Y position in the room.
      * @returns Result Code: OK, ERR_INVALID_TARGET
      */
-    setPosition(x: number,y: number): OK | ERR_INVALID_ARGS;
+    setPosition(x: number, y: number): OK | ERR_INVALID_ARGS;
     /**
      * Set new position of the flag.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.

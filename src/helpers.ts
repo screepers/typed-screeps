@@ -1,4 +1,4 @@
-type _HasRoomPosition = { pos: RoomPosition }
+type _HasRoomPosition = { pos: RoomPosition };
 
 interface GlobalControlLevel {
     level: number;
@@ -44,13 +44,13 @@ interface Owner {
     username: string;
 }
 interface ReservationDefinition {
-    username: string,
-    ticksToEnd: number
+    username: string;
+    ticksToEnd: number;
 }
 interface SignDefinition {
     username: string;
     text: string;
-    time: number,
+    time: number;
     datetime: Date;
 }
 
@@ -68,21 +68,21 @@ interface LookAtTypes {
     flag?: Flag;
     mineral?: Mineral;
     nuke?: Nuke;
-    resource? : Resource;
+    resource?: Resource;
     source?: Source;
     structure?: Structure;
     terrain?: Terrain;
 }
 
-type LookAtResult<K extends keyof LookAtTypes = keyof LookAtTypes> = Pick<LookAtTypes, K> & { type: K }
+type LookAtResult<K extends keyof LookAtTypes = keyof LookAtTypes> = Pick<LookAtTypes, K> & { type: K };
 
 type LookAtResultWithPos<K extends keyof LookAtTypes = keyof LookAtTypes> = LookAtResult<K> & {
   x: number,
   y: number,
-}
+};
 
 interface LookAtResultMatrix<K extends keyof LookAtTypes = keyof LookAtTypes> {
-    [coord: number]: LookAtResultMatrix<K> | LookAtResult<K>[]
+    [coord: number]: LookAtResultMatrix<K> | Array<LookAtResult<K>>;
 }
 
 interface FindPathOpts {
@@ -159,29 +159,29 @@ interface FindPathOpts {
 interface MoveToOpts extends FindPathOpts {
     /**
      * This option enables reusing the path found along multiple game ticks. It allows to save CPU time, but can result in a slightly
-     * slower creep reaction behavior. The path is stored into the creep's memory to the _move property. The reusePath value defines
+     * slower creep reaction behavior. The path is stored into the creep's memory to the `_move` property. The `reusePath` value defines
      * the amount of ticks which the path should be reused for. The default value is 5. Increase the amount to save more CPU, decrease
      * to make the movement more consistent. Set to 0 if you want to disable path reusing.
      */
     reusePath?: number;
 
     /**
-     * If reusePath is enabled and this option is set to true, the path will be stored in memory in the short serialized form using
-     * Room.serializePath. The default value is true.
+     * If `reusePath` is enabled and this option is set to true, the path will be stored in memory in the short serialized form using
+     * `Room.serializePath`. The default value is true.
      */
     serializeMemory?: boolean;
 
     /**
-     * If this option is set to true, moveTo method will return ERR_NOT_FOUND if there is no memorized path to reuse. This can
+     * If this option is set to true, `moveTo` method will return `ERR_NOT_FOUND` if there is no memorized path to reuse. This can
      * significantly save CPU time in some cases. The default value is false.
      */
     noPathFinding?: boolean;
 
     /**
-     * Draw a line along the creep’s path using RoomVisual.poly. You can provide either an empty object or custom style parameters.
+     * Draw a line along the creep’s path using `RoomVisual.poly`. You can provide either an empty object or custom style parameters.
      */
     visualizePathStyle?: PolyStyle;
-};
+}
 
 interface PathStep {
     x: number;
