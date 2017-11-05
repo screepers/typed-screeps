@@ -14,6 +14,7 @@
     "no-console": [false],
     "no-empty-interface": false,
     "no-namespace": [true, "allow-declarations"],
+    "no-string-literal": false,
     "trailing-comma": [
       true,
       "never"
