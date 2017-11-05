@@ -3,4 +3,11 @@ node_modules/
 *.log
 *.tgz
 
+.editorconfig
+.gitattributes
+tsconfig.json
+tslint.json
+
+src/
+dist/
 !dist/screeps.d.ts
