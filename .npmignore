@@ -9,5 +9,5 @@ tsconfig.json
 tslint.json
 
 src/
-dist/
+dist/screeps.ts
 !dist/screeps.d.ts
