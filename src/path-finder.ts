@@ -29,8 +29,12 @@ interface PathFinder {
     /**
      * Specify whether to use this new experimental pathfinder in game objects methods.
      * This method should be invoked every tick. It affects the following methods behavior:
-     * Room.findPath, RoomPosition.findPathTo, RoomPosition.findClosestByPath, Creep.moveTo....
+     * * `Room.findPath`
+     * * `RoomPosition.findPathTo`
+     * * `RoomPosition.findClosestByPath`
+     * * `Creep.moveTo`
      *
+     * @deprecated This method is deprecated and will be removed soon.
      * @param isEnabled Whether to activate the new pathfinder or deactivate.
      */
     use(isEnabled: boolean): void;
