@@ -271,6 +271,10 @@ interface CreepMemory {
   let myCreeps = room.find<Creep>(FIND_MY_CREEPS)
 
   myCreeps[0].drop(resources[0].resourceType)
+
+  let creepsHere = room.lookForAt(LOOK_CREEPS, 10, 10)
+
+  creepsHere[0].getActiveBodyparts(ATTACK)
 }
 
 ////////

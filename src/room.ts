@@ -137,6 +137,16 @@ interface Room {
      * @param y The Y position.
      * @returns An array of objects of the given type at the specified position if found.
      */
+    lookForAt(type: LOOK_CREEPS, x: number, y: number): Creep[];
+    lookForAt(type: LOOK_FLAGS, x: number, y: number): Flag[];
+    lookForAt(type: LOOK_NUKES, x: number, y: number): Nuke[];
+    lookForAt(type: LOOK_ENERGY, x: number, y: number): Resource<RESOURCE_ENERGY>[];
+    lookForAt(type: LOOK_SOURCES, x: number, y: number): Source[];
+    lookForAt(type: LOOK_TERRAIN, x: number, y: number): Terrain[];
+    lookForAt(type: LOOK_MINERALS, x: number, y: number): Mineral[];
+    lookForAt(type: LOOK_RESOURCES, x: number, y: number): Resource[];
+    lookForAt(type: LOOK_STRUCTURES, x: number, y: number): Structure[];
+    lookForAt(type: LOOK_CONSTRUCTION_SITES, x: number, y: number): ConstructionSite[];
     lookForAt<T extends _HasRoomPosition>(type: LookConstant, x: number, y: number): T[];
     /**
      * Get an object with the given type at the specified room position.
@@ -144,6 +154,16 @@ interface Room {
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @returns An array of objects of the given type at the specified position if found.
      */
+    lookForAt(type: LOOK_CREEPS, target: RoomPosition | _HasRoomPosition): Creep[];
+    lookForAt(type: LOOK_FLAGS, target: RoomPosition | _HasRoomPosition): Flag[];
+    lookForAt(type: LOOK_NUKES, target: RoomPosition | _HasRoomPosition): Nuke[];
+    lookForAt(type: LOOK_ENERGY, target: RoomPosition | _HasRoomPosition): Resource<RESOURCE_ENERGY>[];
+    lookForAt(type: LOOK_SOURCES, target: RoomPosition | _HasRoomPosition): Source[];
+    lookForAt(type: LOOK_TERRAIN, target: RoomPosition | _HasRoomPosition): Terrain[];
+    lookForAt(type: LOOK_MINERALS, target: RoomPosition | _HasRoomPosition): Mineral[];
+    lookForAt(type: LOOK_RESOURCES, target: RoomPosition | _HasRoomPosition): Resource[];
+    lookForAt(type: LOOK_STRUCTURES, target: RoomPosition | _HasRoomPosition): Structure[];
+    lookForAt(type: LOOK_CONSTRUCTION_SITES, target: RoomPosition | _HasRoomPosition): ConstructionSite[];
     lookForAt<T extends _HasRoomPosition>(type: LookConstant, target: RoomPosition | { pos: RoomPosition }): T[];
     /**
      * Get the list of objects with the given type at the specified room area. This method is more CPU efficient in comparison to multiple lookForAt calls.
