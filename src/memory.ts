@@ -10,3 +10,5 @@ interface CreepMemory {}
 interface FlagMemory {}
 interface RoomMemory {}
 interface SpawnMemory {}
+
+declare const Memory: Memory;

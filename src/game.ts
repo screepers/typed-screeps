@@ -72,3 +72,5 @@ interface Game {
      */
     notify(message: string, groupInterval?: number): void;
 }
+
+declare const Game: Game;

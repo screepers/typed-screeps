@@ -359,26 +359,6 @@ interface ConstructionSite<T extends StructureConstant = StructureConstant> exte
 interface ConstructionSiteConstructor extends _Constructor<ConstructionSite>, _ConstructorById<ConstructionSite> {
 }
 declare const ConstructionSite: ConstructionSiteConstructor;
-declare var Memory: Memory;
-declare var RawMemory: RawMemory;
-declare var Game: Game;
-declare var PathFinder: PathFinder;
-declare type Controller = StructureController;
-declare type Extension = StructureExtension;
-declare type KeeperLair = StructureKeeperLair;
-declare type Lab = StructureLab;
-declare type Link = StructureLink;
-declare type Observer = StructureObserver;
-declare type PowerBank = StructurePowerBank;
-declare type PowerSpawn = StructurePowerSpawn;
-declare type Rampart = StructureRampart;
-declare type Terminal = StructureTerminal;
-declare type Container = StructureContainer;
-declare type Tower = StructureTower;
-declare type Spawn = StructureSpawn;
-declare const Spawn: StructureSpawnConstructor;
-interface Storage extends StructureStorage {
-}
 /**
  * Creeps are your units. Creeps can move, harvest energy, construct structures, attack another creeps, and perform other actions. Each creep consists of up to 50 body parts with the following possible types:
  */
@@ -759,6 +739,7 @@ interface Game {
      */
     notify(message: string, groupInterval?: number): void;
 }
+declare const Game: Game;
 declare type _HasRoomPosition = {
     pos: RoomPosition;
 };
@@ -1377,6 +1358,7 @@ interface RoomMemory {
 }
 interface SpawnMemory {
 }
+declare const Memory: Memory;
 /**
  * A mineral deposit object. Can be harvested by creeps with a WORK body part using the extractor structure.
  * @see http://docs.screeps.com/api/#Mineral
@@ -1585,6 +1567,7 @@ interface CostMatrix {
      */
     deserialize(val: number[]): CostMatrix;
 }
+declare const PathFinder: PathFinder;
 /**
  * RawMemory object allows to implement your own memory stringifier instead of built-in serializer based on JSON.stringify.
  */
@@ -1645,6 +1628,7 @@ interface RawMemory {
      */
     setPublicSegments(ids: number[]): void;
 }
+declare const RawMemory: RawMemory;
 /**
  * A dropped piece of resource. It will decay after a while if not picked up. Dropped resource pile decays for ceil(amount/1000) units per tick.
  */
@@ -2364,6 +2348,20 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
 interface StructureSpawnConstructor extends _Constructor<StructureSpawn>, _ConstructorById<StructureSpawn> {
 }
 declare const StructureSpawn: StructureSpawnConstructor;
+declare const Spawn: StructureSpawnConstructor;
+declare type Controller = StructureController;
+declare type Extension = StructureExtension;
+declare type KeeperLair = StructureKeeperLair;
+declare type Lab = StructureLab;
+declare type Link = StructureLink;
+declare type Observer = StructureObserver;
+declare type PowerBank = StructurePowerBank;
+declare type PowerSpawn = StructurePowerSpawn;
+declare type Rampart = StructureRampart;
+declare type Terminal = StructureTerminal;
+declare type Container = StructureContainer;
+declare type Tower = StructureTower;
+declare type Spawn = StructureSpawn;
 /**
  * Parent object for structure classes
  */
@@ -2668,6 +2666,8 @@ interface StructureStorage extends OwnedStructure<STRUCTURE_STORAGE> {
     storeCapacity: number;
 }
 interface StructureStorageConstructor extends _Constructor<StructureStorage>, _ConstructorById<StructureStorage> {
+}
+interface Storage extends StructureStorage {
 }
 declare const StructureStorage: StructureStorageConstructor;
 /**

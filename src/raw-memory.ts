@@ -62,3 +62,5 @@ interface RawMemory {
    */
   setPublicSegments(ids: number[]): void;
 }
+
+declare const RawMemory: RawMemory;

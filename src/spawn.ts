@@ -112,3 +112,4 @@ interface StructureSpawnConstructor extends _Constructor<StructureSpawn>, _Const
 }
 
 declare const StructureSpawn: StructureSpawnConstructor;
+declare const Spawn: StructureSpawnConstructor; // legacy alias

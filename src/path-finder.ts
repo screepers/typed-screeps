@@ -154,3 +154,5 @@ interface CostMatrix {
      */
     deserialize(val: number[]): CostMatrix;
 }
+
+declare const PathFinder: PathFinder;
