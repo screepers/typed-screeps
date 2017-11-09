@@ -33,6 +33,12 @@ interface RoomPosition {
      * @param type See Room.find
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
+    findClosestByPath(type: FIND_CREEPS | FIND_MY_CREEPS | FIND_HOSTILE_CREEPS, opts?: FindPathOpts & {filter?: any | string, algorithm?: string}): Creep;
+    findClosestByPath(type: FIND_FLAGS, opts?: FindPathOpts & {filter?: any | string, algorithm?: string}): Flag;
+    findClosestByPath(type: FIND_MY_SPAWNS | FIND_HOSTILE_SPAWNS, opts?: FindPathOpts & {filter?: any | string, algorithm?: string}): StructureSpawn;
+    findClosestByPath(type: FIND_SOURCES | FIND_SOURCES_ACTIVE, opts?: FindPathOpts & {filter?: any | string, algorithm?: string}): Source;
+    findClosestByPath(type: FIND_DROPPED_RESOURCES | FIND_DROPPED_ENERGY, opts?: FindPathOpts & {filter?: any | string, algorithm?: string}): Resource;
+    findClosestByPath(type: FIND_CONSTRUCTION_SITES, opts?: FindPathOpts & {filter?: any | string, algorithm?: string}): ConstructionSite;
     findClosestByPath<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: FindPathOpts & { filter?: any | string, algorithm?: string }): T | null;
     /**
      * Find an object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
@@ -45,6 +51,12 @@ interface RoomPosition {
      * @param type See Room.find.
      * @param opts
      */
+    findClosestByRange(type: FIND_CREEPS | FIND_MY_CREEPS | FIND_HOSTILE_CREEPS, opts?: {filter: any | string}): Creep;
+    findClosestByRange(type: FIND_FLAGS, opts?: {filter: any | string}): Flag;
+    findClosestByRange(type: FIND_MY_SPAWNS | FIND_HOSTILE_SPAWNS, opts?: {filter: any | string}): StructureSpawn;
+    findClosestByRange(type: FIND_SOURCES | FIND_SOURCES_ACTIVE, opts?: {filter: any | string}): Source;
+    findClosestByRange(type: FIND_DROPPED_RESOURCES | FIND_DROPPED_ENERGY, opts?: {filter: any | string}): Resource;
+    findClosestByRange(type: FIND_CONSTRUCTION_SITES, opts?: {filter: any | string}): ConstructionSite;
     findClosestByRange<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: { filter: any | string }): T | null;
     /**
      * Find an object with the shortest linear distance from the given position.
@@ -58,6 +70,12 @@ interface RoomPosition {
      * @param range The range distance.
      * @param opts See Room.find.
      */
+    findInRange(type: FIND_CREEPS | FIND_MY_CREEPS | FIND_HOSTILE_CREEPS, range: number, opts?: {filter: any| string}): Creep[];
+    findInRange(type: FIND_FLAGS, range: number, opts?: {filter: any| string}): Flag[];
+    findInRange(type: FIND_MY_SPAWNS | FIND_HOSTILE_SPAWNS, range: number, opts?: {filter: any| string}): StructureSpawn[];
+    findInRange(type: FIND_SOURCES | FIND_SOURCES_ACTIVE, range: number, opts?: {filter: any| string}): Source[];
+    findInRange(type: FIND_DROPPED_RESOURCES | FIND_DROPPED_ENERGY, range: number, opts?: {filter: any| string}): Resource[];
+    findInRange(type: FIND_CONSTRUCTION_SITES, range: number, opts?: {filter: any| string}): ConstructionSite[];
     findInRange<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, range: number, opts?: { filter?: any | string }): T[];
     /**
      * Find all objects in the specified linear range.

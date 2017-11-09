@@ -261,3 +261,14 @@ let exits = room.find(FIND_EXIT)
 
 // Should support the old way
 let myCreeps = room.find<Creep>(FIND_MY_CREEPS)
+
+////////
+// RoomPosition Finds
+
+{
+  // Should have type Creep
+  let hostileCreep = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS)
+
+  // Should have type Creep[]
+  let hostileCreeps = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 10)
+}
