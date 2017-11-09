@@ -227,7 +227,7 @@ interface StructureObserverConstructor extends _Constructor<StructureObserver>, 
 declare const StructureObserver: StructureObserverConstructor;
 
 /**
- *
+ * Non-player structure. Contains power resource which can be obtained by destroying the structure. Hits the attacker creep back on each attack.
  */
 interface StructurePowerBank extends OwnedStructure<STRUCTURE_POWER_BANK> {
     readonly prototype: StructurePowerBank;

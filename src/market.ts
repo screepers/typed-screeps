@@ -20,7 +20,12 @@ interface Market {
      */
     outgoingTransactions: Transaction[];
     /**
-     * Estimate the energy transaction cost of StructureTerminal.send and Market.deal methods. The formula: Math.ceil( amount * (Math.log(0.1*linearDistanceBetweenRooms + 0.9) + 0.1) )
+     * Estimate the energy transaction cost of StructureTerminal.send and Market.deal methods. The formula:
+     *
+     * ```
+     * Math.ceil( amount * (Math.log(0.1*linearDistanceBetweenRooms + 0.9) + 0.1) )
+     * ```
+     *
      * @param amount Amount of resources to be sent.
      * @param roomName1 The name of the first room.
      * @param roomName2 The name of the second room.
@@ -34,30 +39,33 @@ interface Market {
      */
     cancelOrder(orderId: string): ScreepsReturnCode;
     /**
-     * Change the price of an existing order. If newPrice is greater than old price, you will be charged (newPrice-oldPrice)*remainingAmount*0.05 credits.
+     * Change the price of an existing order. If `newPrice` is greater than old price, you will be charged `(newPrice-oldPrice)*remainingAmount*0.05` credits.
      * @param orderId The order ID as provided in Game.market.orders
      * @param newPrice The new order price.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_ARGS
      */
     changeOrderPrice(orderId: string, newPrice: number): ScreepsReturnCode;
     /**
-     * Create a market order in your terminal. You will be charged price*amount*0.05 credits when the order is placed.
-     * The maximum orders count is 20 per player. You can create an order at any time with any amount,
+     * Create a market order in your terminal. You will be charged `price*amount*0.05` credits when the order is placed.
+     *
+     * The maximum orders count is 50 per player. You can create an order at any time with any amount,
      * it will be automatically activated and deactivated depending on the resource/credits availability.
      */
     createOrder(type: string, resourceType: ResourceConstant, price: number, totalAmount: number, roomName?: string): ScreepsReturnCode;
     /**
      * Execute a trade deal from your Terminal to another player's Terminal using the specified buy/sell order.
+     *
      * Your Terminal will be charged energy units of transfer cost regardless of the order resource type.
      * You can use Game.market.calcTransactionCost method to estimate it.
+     *
      * When multiple players try to execute the same deal, the one with the shortest distance takes precedence.
      */
     deal(orderId: string, amount: number, targetRoomName?: string): ScreepsReturnCode;
     /**
-     * Add more capacity to an existing order. It will affect remainingAmount and totalAmount properties. You will be charged price*addAmount*0.05 credits.
+     * Add more capacity to an existing order. It will affect `remainingAmount` and `totalAmount` properties. You will be charged `price*addAmount*0.05` credits.
      * @param orderId The order ID as provided in Game.market.orders
      * @param addAmount How much capacity to add. Cannot be a negative value.
-     * @returns Result Code: OK, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_ARGS
+     * @returns One of the following codes: `OK`, `ERR_NOT_ENOUGH_RESOURCES`, `ERR_INVALID_ARGS`
      */
     extendOrder(orderId: string, addAmount: number): ScreepsReturnCode;
     /**
@@ -68,8 +76,8 @@ interface Market {
     getAllOrders(filter?: OrderFilter | ((o: Order) => boolean)): Order[];
     /**
      * Retrieve info for specific market order.
-     * @param orderId The order ID
-     * @returns An object with the order info. See getAllOrders for properties explanation.
+     * @param orderId The order ID.
+     * @returns An object with the order info. See `getAllOrders` for properties explanation.
      */
     getOrderById(id: string): Order | null;
 }

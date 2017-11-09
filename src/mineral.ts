@@ -1,5 +1,6 @@
 /**
  * A mineral deposit object. Can be harvested by creeps with a WORK body part using the extractor structure.
+ * @see http://docs.screeps.com/api/#Mineral
  */
 interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObject {
     /**
@@ -7,7 +8,7 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
      */
     readonly prototype: Mineral;
     /**
-     * The density of this mineral deposit, one of the DENSITY_* constants.
+     * The density of this mineral deposit, one of the `DENSITY_*` constants.
      */
     density: number;
     /**
@@ -15,11 +16,11 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
      */
     mineralAmount: number;
     /**
-     * The resource type, one of the RESOURCE_* constants.
+     * The resource type, one of the `RESOURCE_*` constants.
      */
     mineralType: T;
     /**
-     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
+     * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
      */
     id: string;
     /**

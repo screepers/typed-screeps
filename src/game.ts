@@ -3,7 +3,7 @@
  */
 interface Game {
     /**
-     * An object containing information about your CPU usage with the following properties:
+     * An object containing information about your CPU usage.
      */
     cpu: CPU;
     /**
@@ -15,7 +15,7 @@ interface Game {
      */
     flags: {[flagName: string]: Flag};
     /**
-     * Your Global Control Level, an object with the following properties :
+     * Your Global Control Level.
      */
     gcl: GlobalControlLevel;
     /**
@@ -27,7 +27,12 @@ interface Game {
      */
     market: Market;
     /**
+     * An object with your global resources that are bound to the account, like subscription tokens. Each object key is a resource constant, values are resources amounts.
+     */
+    resources: {[key: string]: any};
+    /**
      * A hash containing all the rooms available to you with room names as hash keys.
+     * A room is visible if you have a creep or an owned structure in it.
      */
     rooms: {[roomName: string]: Room};
     /**

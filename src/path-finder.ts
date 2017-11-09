@@ -49,9 +49,23 @@ interface PathFinder {
  *   Note that `path` will still be populated with a partial path which represents the closest path it could find given the search parameters.
  */
 interface PathFinderPath {
+    /**
+     * An array of RoomPosition objects.
+     */
     path: RoomPosition[];
+    /**
+     * Total number of operations performed before this path was calculated.
+     */
     ops: number;
+    /**
+     * The total cost of the path as derived from `plainCost`, `swampCost` and any given CostMatrix instances.
+     */
     cost: number;
+    /**
+     * If the pathfinder fails to find a complete path, this will be true.
+     *
+     * Note that `path` will still be populated with a partial path which represents the closest path it could find given the search parameters.
+     */
     incomplete: boolean;
 }
 

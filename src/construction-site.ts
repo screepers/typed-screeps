@@ -4,7 +4,7 @@
 interface ConstructionSite<T extends StructureConstant = StructureConstant> extends RoomObject {
     readonly prototype: ConstructionSite;
     /**
-     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
+     * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
      */
     id: string;
     /**
@@ -12,7 +12,7 @@ interface ConstructionSite<T extends StructureConstant = StructureConstant> exte
      */
     my: boolean;
     /**
-     * An object with the structure’s owner info
+     * An object with the structure’s owner info.
      */
     owner: Owner;
     /**
@@ -24,7 +24,7 @@ interface ConstructionSite<T extends StructureConstant = StructureConstant> exte
      */
     progressTotal: number;
     /**
-     * One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
+     * One of the `STRUCTURE_*` constants.
      */
     structureType: T;
     /**

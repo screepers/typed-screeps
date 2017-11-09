@@ -327,7 +327,7 @@ declare const ORDER_BUY: "buy";
 interface ConstructionSite<T extends StructureConstant = StructureConstant> extends RoomObject {
     readonly prototype: ConstructionSite;
     /**
-     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
+     * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
      */
     id: string;
     /**
@@ -335,7 +335,7 @@ interface ConstructionSite<T extends StructureConstant = StructureConstant> exte
      */
     my: boolean;
     /**
-     * An object with the structure’s owner info
+     * An object with the structure’s owner info.
      */
     owner: Owner;
     /**
@@ -347,7 +347,7 @@ interface ConstructionSite<T extends StructureConstant = StructureConstant> exte
      */
     progressTotal: number;
     /**
-     * One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
+     * One of the `STRUCTURE_*` constants.
      */
     structureType: T;
     /**
@@ -385,17 +385,11 @@ interface Storage extends StructureStorage {
 interface Creep extends RoomObject {
     readonly prototype: Creep;
     /**
-     * An array describing the creep’s body. Each element contains the following properties:
-     * type: string
-     * body part constant
-     * hits: number
-     * The remaining amount of hit points of this body part.
+     * An array describing the creep's body.
      */
     body: BodyPartDefinition[];
     /**
-     * An object with the creep's cargo contents:
-     * energy: number
-     * The current amount of energy the creep is carrying.
+     * An object with the creep's cargo contents.
      */
     carry: StoreDefinition;
     /**
@@ -415,11 +409,11 @@ interface Creep extends RoomObject {
      */
     hitsMax: number;
     /**
-     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
+     * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
      */
     id: string;
     /**
-     * A shorthand to Memory.creeps[creep.name]. You can use it for quick access the creep’s specific memory data object.
+     * A shorthand to `Memory.creeps[creep.name]`. You can use it for quick access the creep’s specific memory data object.
      */
     memory: CreepMemory;
     /**
@@ -427,11 +421,11 @@ interface Creep extends RoomObject {
      */
     my: boolean;
     /**
-     * Creep’s name. You can choose the name while creating a new creep, and it cannot be changed later. This name is a hash key to access the creep via the Game.creeps object.
+     * Creep’s name. You can choose the name while creating a new creep, and it cannot be changed later. This name is a hash key to access the creep via the `Game.creeps` object.
      */
     name: string;
     /**
-     * An object with the creep’s owner info
+     * An object with the creep’s owner info.
      */
     owner: Owner;
     /**
@@ -451,17 +445,33 @@ interface Creep extends RoomObject {
      */
     ticksToLive: number;
     /**
-     * Attack another creep or structure in a short-ranged attack. Needs the ATTACK body part. If the target is inside a rampart, then the rampart is attacked instead. The target has to be at adjacent square to the creep. If the target is a creep with ATTACK body parts and is not inside a rampart, it will automatically hit back at the attacker.
+     * Attack another creep or structure in a short-ranged attack. Needs the
+     * ATTACK body part. If the target is inside a rampart, then the rampart is
+     * attacked instead.
+     *
+     * The target has to be at adjacent square to the creep. If the target is a
+     * creep with ATTACK body parts and is not inside a rampart, it will
+     * automatically hit back at the attacker.
+     *
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
      */
     attack(target: Creep | Structure): CreepActionReturnCode;
     /**
-     * Decreases the controller's downgrade or reservation timer for 1 tick per every 5 CLAIM body parts (so the creep must have at least 5xCLAIM). The controller under attack cannot be upgraded for the next 1,000 ticks. The target has to be at adjacent square to the creep.
+     * Decreases the controller's downgrade or reservation timer for 1 tick per
+     * every 5 `CLAIM` body parts (so the creep must have at least 5x`CLAIM`).
+     *
+     * The controller under attack cannot be upgraded for the next 1,000 ticks.
+     * The target has to be at adjacent square to the creep.
+     *
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
      */
     attackController(target: Controller): CreepActionReturnCode;
     /**
-     * Build a structure at the target construction site using carried energy. Needs WORK and CARRY body parts. The target has to be within 3 squares range of the creep.
+     * Build a structure at the target construction site using carried energy.
+     * Needs WORK and CARRY body parts.
+     *
+     * The target has to be within 3 squares range of the creep.
+     *
      * @param target The target object to be attacked.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_RCL_NOT_ENOUGH
      */
@@ -617,7 +627,7 @@ declare const Creep: CreepConstructor;
 interface Flag extends RoomObject {
     readonly prototype: Flag;
     /**
-     * Flag color. One of the following constants: COLOR_WHITE, COLOR_GREY, COLOR_RED, COLOR_PURPLE, COLOR_BLUE, COLOR_CYAN, COLOR_GREEN, COLOR_YELLOW, COLOR_ORANGE, COLOR_BROWN
+     * Flag color. One of the `COLOR_*` constants.
      */
     color: ColorConstant;
     /**
@@ -625,11 +635,11 @@ interface Flag extends RoomObject {
      */
     memory: FlagMemory;
     /**
-     * Flag’s name. You can choose the name while creating a new flag, and it cannot be changed later. This name is a hash key to access the spawn via the Game.flags object.
+     * Flag’s name. You can choose the name while creating a new flag, and it cannot be changed later. This name is a hash key to access the spawn via the `Game.flags` object. The maximum name length is 60 characters.
      */
     name: string;
     /**
-     * Flag secondary color. One of the COLOR_* constants.
+     * Flag secondary color. One of the `COLOR_*` constants.
      */
     secondaryColor: ColorConstant;
     /**
@@ -670,7 +680,7 @@ declare const Flag: FlagConstructor;
  */
 interface Game {
     /**
-     * An object containing information about your CPU usage with the following properties:
+     * An object containing information about your CPU usage.
      */
     cpu: CPU;
     /**
@@ -686,7 +696,7 @@ interface Game {
         [flagName: string]: Flag;
     };
     /**
-     * Your Global Control Level, an object with the following properties :
+     * Your Global Control Level.
      */
     gcl: GlobalControlLevel;
     /**
@@ -698,7 +708,14 @@ interface Game {
      */
     market: Market;
     /**
+     * An object with your global resources that are bound to the account, like subscription tokens. Each object key is a resource constant, values are resources amounts.
+     */
+    resources: {
+        [key: string]: any;
+    };
+    /**
      * A hash containing all the rooms available to you with room names as hash keys.
+     * A room is visible if you have a creep or an owned structure in it.
      */
     rooms: {
         [roomName: string]: Room;
@@ -746,19 +763,50 @@ declare type _HasRoomPosition = {
     pos: RoomPosition;
 };
 interface GlobalControlLevel {
+    /**
+     * The current level.
+     */
     level: number;
+    /**
+     * The current progress to the next level.
+     */
     progress: number;
+    /**
+     * The progress required to reach the next level.
+     */
     progressTotal: number;
 }
 interface Shard {
+    /**
+     * The name of the shard.
+     */
     name: string;
+    /**
+     * Currently always equals to normal.
+     */
     type: "normal";
+    /**
+     * Whether this shard belongs to the PTR.
+     */
     ptr: boolean;
 }
 interface CPU {
+    /**
+     * Your assigned CPU limit for the current shard.
+     */
     limit: number;
+    /**
+     * An amount of available CPU time at the current game tick. Usually it is higher than `Game.cpu.limit`.
+     */
     tickLimit: number;
+    /**
+     * An amount of unused CPU accumulated in your bucket.
+     * @see http://docs.screeps.com/cpu-limit.html#Bucket
+     */
     bucket: number;
+    /**
+     * An object with limits for each shard with shard names as keys. You can use `setShardLimits` method to re-assign them.
+     */
     shardLimits: CPUShardLimits;
     /**
      * Get amount of CPU time used from the beginning of the current game tick. Always returns 0 in the Simulation mode.
@@ -779,7 +827,9 @@ interface CPU {
  */
 interface BodyPartDefinition {
     /**
-     * If the body part is boosted, this property specifies the mineral type which is used for boosting. One of the RESOURCE_* constants.
+     * One of the `RESOURCE_*` constants.
+     *
+     * If the body part is boosted, this property specifies the mineral type which is used for boosting.
      */
     boost?: ResourceConstant;
     /**
@@ -792,6 +842,9 @@ interface BodyPartDefinition {
     hits: number;
 }
 interface Owner {
+    /**
+     * The name of the owner user.
+     */
     username: string;
 }
 interface ReservationDefinition {
@@ -1124,7 +1177,7 @@ interface GameMap {
      * @param fromRoom Start room name or room object.
      * @param toRoom Finish room name or room object.
      * @param opts (optional) An object with the pathfinding options.
-     * @return The room direction constant, one of the following:
+     * @returns The room direction constant, one of the following:
      * FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT
      * Or one of the following Result codes:
      * ERR_NO_PATH, ERR_INVALID_ARGS
@@ -1163,6 +1216,10 @@ interface GameMap {
      */
     getTerrainAt(pos: RoomPosition): Terrain;
     /**
+     * Returns the world size as a number of rooms between world corners. For example, for a world with rooms from W50N50 to E50S50 this method will return 102.
+     */
+    getWorldSize(): number;
+    /**
      * Check if the room is available to move into.
      * @param roomName The room name.
      * @returns A boolean value.
@@ -1193,7 +1250,12 @@ interface Market {
      */
     outgoingTransactions: Transaction[];
     /**
-     * Estimate the energy transaction cost of StructureTerminal.send and Market.deal methods. The formula: Math.ceil( amount * (Math.log(0.1*linearDistanceBetweenRooms + 0.9) + 0.1) )
+     * Estimate the energy transaction cost of StructureTerminal.send and Market.deal methods. The formula:
+     *
+     * ```
+     * Math.ceil( amount * (Math.log(0.1*linearDistanceBetweenRooms + 0.9) + 0.1) )
+     * ```
+     *
      * @param amount Amount of resources to be sent.
      * @param roomName1 The name of the first room.
      * @param roomName2 The name of the second room.
@@ -1207,30 +1269,33 @@ interface Market {
      */
     cancelOrder(orderId: string): ScreepsReturnCode;
     /**
-     * Change the price of an existing order. If newPrice is greater than old price, you will be charged (newPrice-oldPrice)*remainingAmount*0.05 credits.
+     * Change the price of an existing order. If `newPrice` is greater than old price, you will be charged `(newPrice-oldPrice)*remainingAmount*0.05` credits.
      * @param orderId The order ID as provided in Game.market.orders
      * @param newPrice The new order price.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_ARGS
      */
     changeOrderPrice(orderId: string, newPrice: number): ScreepsReturnCode;
     /**
-     * Create a market order in your terminal. You will be charged price*amount*0.05 credits when the order is placed.
-     * The maximum orders count is 20 per player. You can create an order at any time with any amount,
+     * Create a market order in your terminal. You will be charged `price*amount*0.05` credits when the order is placed.
+     *
+     * The maximum orders count is 50 per player. You can create an order at any time with any amount,
      * it will be automatically activated and deactivated depending on the resource/credits availability.
      */
     createOrder(type: string, resourceType: ResourceConstant, price: number, totalAmount: number, roomName?: string): ScreepsReturnCode;
     /**
      * Execute a trade deal from your Terminal to another player's Terminal using the specified buy/sell order.
+     *
      * Your Terminal will be charged energy units of transfer cost regardless of the order resource type.
      * You can use Game.market.calcTransactionCost method to estimate it.
+     *
      * When multiple players try to execute the same deal, the one with the shortest distance takes precedence.
      */
     deal(orderId: string, amount: number, targetRoomName?: string): ScreepsReturnCode;
     /**
-     * Add more capacity to an existing order. It will affect remainingAmount and totalAmount properties. You will be charged price*addAmount*0.05 credits.
+     * Add more capacity to an existing order. It will affect `remainingAmount` and `totalAmount` properties. You will be charged `price*addAmount*0.05` credits.
      * @param orderId The order ID as provided in Game.market.orders
      * @param addAmount How much capacity to add. Cannot be a negative value.
-     * @returns Result Code: OK, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_ARGS
+     * @returns One of the following codes: `OK`, `ERR_NOT_ENOUGH_RESOURCES`, `ERR_INVALID_ARGS`
      */
     extendOrder(orderId: string, addAmount: number): ScreepsReturnCode;
     /**
@@ -1241,8 +1306,8 @@ interface Market {
     getAllOrders(filter?: OrderFilter | ((o: Order) => boolean)): Order[];
     /**
      * Retrieve info for specific market order.
-     * @param orderId The order ID
-     * @returns An object with the order info. See getAllOrders for properties explanation.
+     * @param orderId The order ID.
+     * @returns An object with the order info. See `getAllOrders` for properties explanation.
      */
     getOrderById(id: string): Order | null;
 }
@@ -1314,6 +1379,7 @@ interface SpawnMemory {
 }
 /**
  * A mineral deposit object. Can be harvested by creeps with a WORK body part using the extractor structure.
+ * @see http://docs.screeps.com/api/#Mineral
  */
 interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObject {
     /**
@@ -1321,7 +1387,7 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
      */
     readonly prototype: Mineral;
     /**
-     * The density of this mineral deposit, one of the DENSITY_* constants.
+     * The density of this mineral deposit, one of the `DENSITY_*` constants.
      */
     density: number;
     /**
@@ -1329,11 +1395,11 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
      */
     mineralAmount: number;
     /**
-     * The resource type, one of the RESOURCE_* constants.
+     * The resource type, one of the `RESOURCE_*` constants.
      */
     mineralType: T;
     /**
-     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
+     * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
      */
     id: string;
     /**
@@ -1419,9 +1485,23 @@ interface PathFinder {
  *   Note that `path` will still be populated with a partial path which represents the closest path it could find given the search parameters.
  */
 interface PathFinderPath {
+    /**
+     * An array of RoomPosition objects.
+     */
     path: RoomPosition[];
+    /**
+     * Total number of operations performed before this path was calculated.
+     */
     ops: number;
+    /**
+     * The total cost of the path as derived from `plainCost`, `swampCost` and any given CostMatrix instances.
+     */
     cost: number;
+    /**
+     * If the pathfinder fails to find a complete path, this will be true.
+     *
+     * Note that `path` will still be populated with a partial path which represents the closest path it could find given the search parameters.
+     */
     incomplete: boolean;
 }
 /**
@@ -1514,11 +1594,23 @@ interface RawMemory {
      * Use RawMemory.setActiveSegments to fetch segments on the next tick. Segments data is saved automatically in the end of the tick.
      */
     segments: string[];
+    /**
+     * An object with a memory segment of another player available on this tick. Use `setActiveForeignSegment` to fetch segments on the next tick.
+     */
     foreignSegment: {
         username: string;
         id: number;
         data: string;
     };
+    /**
+     * A string with a shared memory segment available on every world shard. Maximum string length is 100 KB.
+     *
+     * **Warning:** this segment is not safe for concurrent usage! All shards have shared access to the same instance of
+     * data. When the segment contents is changed by two shards simultaneously, you may lose some data, since the segment
+     * string value is written all at once atomically. You must implement your own system to determine when each shard is
+     * allowed to rewrite the inter-shard memory, e.g. based on mutual exclusions.
+     */
+    interShardSegment: string;
     /**
      * Get a raw string representation of the Memory object.
      */
@@ -1533,8 +1625,24 @@ interface RawMemory {
      * @param ids An array of segment IDs. Each ID should be a number from 0 to 99. Maximum 10 segments can be active at the same time. Subsequent calls of setActiveSegments override previous ones.
      */
     setActiveSegments(ids: number[]): void;
+    /**
+     * Request a memory segment of another user. The segment should be marked by its owner as public using `setPublicSegments`. The segment data will become available on the next tick in `foreignSegment` object. You can only have access to one foreign segment at the same time.
+     *
+     * @param username The name of another user. Pass `null` to clear the foreign segment.
+     * @param id The ID of the requested segment from 0 to 99. If undefined, the user's default public segment is requested as set by `setDefaultPublicSegment`.
+     */
     setActiveForeignSegment(username: string | null, id: number): void;
+    /**
+     * Set the specified segment as your default public segment. It will be returned if no id parameter is passed to `setActiveForeignSegment` by another user.
+     *
+     * @param id The ID of the requested segment from 0 to 99. Pass `null` to clear the foreign segment.
+     */
     setDefaultPublicSegment(id: number | null): void;
+    /**
+     * Set specified segments as public. Other users will be able to request access to them using `setActiveForeignSegment`.
+     *
+     * @param ids An array of segment IDs. Each ID should be a number from 0 to 99. Subsequent calls of `setPublicSegments` override previous ones.
+     */
     setPublicSegments(ids: number[]): void;
 }
 /**
@@ -1951,12 +2059,11 @@ interface Room {
      */
     energyCapacityAvailable: number;
     /**
-     * A shorthand to Memory.rooms[room.name]. You can use it for quick access the room’s specific memory data object.
+     * A shorthand to `Memory.rooms[room.name]`. You can use it for quick access the room’s specific memory data object.
      */
     memory: RoomMemory;
     /**
-     * One of the following constants:
-     * MODE_SIMULATION, MODE_SURVIVAL, MODE_WORLD, MODE_ARENA
+     * One of the `MODE_*` constants.
      */
     mode: string;
     /**
@@ -2095,7 +2202,17 @@ interface Room {
 }
 interface RoomConstructor {
     new (id: string): Room;
+    /**
+     * Serialize a path array into a short string representation, which is suitable to store in memory.
+     * @param path A path array retrieved from `Room.findPath`.
+     * @returns A serialized string form of the given path.
+     */
     serializePath(path: PathStep[]): string;
+    /**
+     * Deserialize a short string path representation into an array form.
+     * @param path A serialized path string.
+     * @returns A path array.
+     */
     deserializePath(path: string): PathStep[];
 }
 declare const Room: RoomConstructor;
@@ -2447,7 +2564,7 @@ interface StructureObserverConstructor extends _Constructor<StructureObserver>, 
 }
 declare const StructureObserver: StructureObserverConstructor;
 /**
- *
+ * Non-player structure. Contains power resource which can be obtained by destroying the structure. Hits the attacker creep back on each attack.
  */
 interface StructurePowerBank extends OwnedStructure<STRUCTURE_POWER_BANK> {
     readonly prototype: StructurePowerBank;

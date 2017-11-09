@@ -20,7 +20,7 @@ interface GameMap {
      * @param fromRoom Start room name or room object.
      * @param toRoom Finish room name or room object.
      * @param opts (optional) An object with the pathfinding options.
-     * @return The room direction constant, one of the following:
+     * @returns The room direction constant, one of the following:
      * FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT
      * Or one of the following Result codes:
      * ERR_NO_PATH, ERR_INVALID_ARGS
@@ -58,6 +58,11 @@ interface GameMap {
      * @param pos The position object.
      */
     getTerrainAt(pos: RoomPosition): Terrain;
+
+    /**
+     * Returns the world size as a number of rooms between world corners. For example, for a world with rooms from W50N50 to E50S50 this method will return 102.
+     */
+    getWorldSize(): number;
 
     /**
      * Check if the room is available to move into.

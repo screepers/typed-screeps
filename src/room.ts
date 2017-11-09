@@ -17,12 +17,11 @@ interface Room {
      */
     energyCapacityAvailable: number;
     /**
-     * A shorthand to Memory.rooms[room.name]. You can use it for quick access the room’s specific memory data object.
+     * A shorthand to `Memory.rooms[room.name]`. You can use it for quick access the room’s specific memory data object.
      */
     memory: RoomMemory;
     /**
-     * One of the following constants:
-     * MODE_SIMULATION, MODE_SURVIVAL, MODE_WORLD, MODE_ARENA
+     * One of the `MODE_*` constants.
      */
     mode: string;
     /**
@@ -166,7 +165,17 @@ interface Room {
 
 interface RoomConstructor {
     new (id: string): Room;
+    /**
+     * Serialize a path array into a short string representation, which is suitable to store in memory.
+     * @param path A path array retrieved from `Room.findPath`.
+     * @returns A serialized string form of the given path.
+     */
     serializePath(path: PathStep[]): string;
+    /**
+     * Deserialize a short string path representation into an array form.
+     * @param path A serialized path string.
+     * @returns A path array.
+     */
     deserializePath(path: string): PathStep[];
 }
 

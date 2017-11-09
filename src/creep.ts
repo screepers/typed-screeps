@@ -1,4 +1,3 @@
-// Updated 2016-02-05
 /**
  * Creeps are your units. Creeps can move, harvest energy, construct structures, attack another creeps, and perform other actions. Each creep consists of up to 50 body parts with the following possible types:
  */
@@ -6,17 +5,11 @@ interface Creep extends RoomObject {
     readonly prototype: Creep;
 
     /**
-     * An array describing the creep’s body. Each element contains the following properties:
-     * type: string
-     * body part constant
-     * hits: number
-     * The remaining amount of hit points of this body part.
+     * An array describing the creep's body.
      */
     body: BodyPartDefinition[];
     /**
-     * An object with the creep's cargo contents:
-     * energy: number
-     * The current amount of energy the creep is carrying.
+     * An object with the creep's cargo contents.
      */
     carry: StoreDefinition;
     /**
@@ -36,11 +29,11 @@ interface Creep extends RoomObject {
      */
     hitsMax: number;
     /**
-     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
+     * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
      */
     id: string;
     /**
-     * A shorthand to Memory.creeps[creep.name]. You can use it for quick access the creep’s specific memory data object.
+     * A shorthand to `Memory.creeps[creep.name]`. You can use it for quick access the creep’s specific memory data object.
      */
     memory: CreepMemory;
     /**
@@ -48,11 +41,11 @@ interface Creep extends RoomObject {
      */
     my: boolean;
     /**
-     * Creep’s name. You can choose the name while creating a new creep, and it cannot be changed later. This name is a hash key to access the creep via the Game.creeps object.
+     * Creep’s name. You can choose the name while creating a new creep, and it cannot be changed later. This name is a hash key to access the creep via the `Game.creeps` object.
      */
     name: string;
     /**
-     * An object with the creep’s owner info
+     * An object with the creep’s owner info.
      */
     owner: Owner;
     /**
@@ -72,17 +65,33 @@ interface Creep extends RoomObject {
      */
     ticksToLive: number;
     /**
-     * Attack another creep or structure in a short-ranged attack. Needs the ATTACK body part. If the target is inside a rampart, then the rampart is attacked instead. The target has to be at adjacent square to the creep. If the target is a creep with ATTACK body parts and is not inside a rampart, it will automatically hit back at the attacker.
+     * Attack another creep or structure in a short-ranged attack. Needs the
+     * ATTACK body part. If the target is inside a rampart, then the rampart is
+     * attacked instead.
+     *
+     * The target has to be at adjacent square to the creep. If the target is a
+     * creep with ATTACK body parts and is not inside a rampart, it will
+     * automatically hit back at the attacker.
+     *
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
      */
     attack(target: Creep|Structure): CreepActionReturnCode;
     /**
-     * Decreases the controller's downgrade or reservation timer for 1 tick per every 5 CLAIM body parts (so the creep must have at least 5xCLAIM). The controller under attack cannot be upgraded for the next 1,000 ticks. The target has to be at adjacent square to the creep.
+     * Decreases the controller's downgrade or reservation timer for 1 tick per
+     * every 5 `CLAIM` body parts (so the creep must have at least 5x`CLAIM`).
+     *
+     * The controller under attack cannot be upgraded for the next 1,000 ticks.
+     * The target has to be at adjacent square to the creep.
+     *
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
      */
     attackController(target: Controller): CreepActionReturnCode;
     /**
-     * Build a structure at the target construction site using carried energy. Needs WORK and CARRY body parts. The target has to be within 3 squares range of the creep.
+     * Build a structure at the target construction site using carried energy.
+     * Needs WORK and CARRY body parts.
+     *
+     * The target has to be within 3 squares range of the creep.
+     *
      * @param target The target object to be attacked.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_RCL_NOT_ENOUGH
      */

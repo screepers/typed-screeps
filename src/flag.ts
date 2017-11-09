@@ -5,7 +5,7 @@ interface Flag extends RoomObject {
     readonly prototype: Flag;
 
     /**
-     * Flag color. One of the following constants: COLOR_WHITE, COLOR_GREY, COLOR_RED, COLOR_PURPLE, COLOR_BLUE, COLOR_CYAN, COLOR_GREEN, COLOR_YELLOW, COLOR_ORANGE, COLOR_BROWN
+     * Flag color. One of the `COLOR_*` constants.
      */
     color: ColorConstant;
     /**
@@ -13,11 +13,11 @@ interface Flag extends RoomObject {
      */
     memory: FlagMemory;
     /**
-     * Flag’s name. You can choose the name while creating a new flag, and it cannot be changed later. This name is a hash key to access the spawn via the Game.flags object.
+     * Flag’s name. You can choose the name while creating a new flag, and it cannot be changed later. This name is a hash key to access the spawn via the `Game.flags` object. The maximum name length is 60 characters.
      */
     name: string;
     /**
-     * Flag secondary color. One of the COLOR_* constants.
+     * Flag secondary color. One of the `COLOR_*` constants.
      */
     secondaryColor: ColorConstant;
     /**

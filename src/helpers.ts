@@ -1,21 +1,52 @@
 type _HasRoomPosition = { pos: RoomPosition };
 
 interface GlobalControlLevel {
+    /**
+     * The current level.
+     */
     level: number;
+    /**
+     * The current progress to the next level.
+     */
     progress: number;
+    /**
+     * The progress required to reach the next level.
+     */
     progressTotal: number;
 }
 
 interface Shard {
+    /**
+     * The name of the shard.
+     */
     name: string;
+    /**
+     * Currently always equals to normal.
+     */
     type: "normal";
+    /**
+     * Whether this shard belongs to the PTR.
+     */
     ptr: boolean;
 }
 
 interface CPU {
+    /**
+     * Your assigned CPU limit for the current shard.
+     */
     limit: number;
+    /**
+     * An amount of available CPU time at the current game tick. Usually it is higher than `Game.cpu.limit`.
+     */
     tickLimit: number;
+    /**
+     * An amount of unused CPU accumulated in your bucket.
+     * @see http://docs.screeps.com/cpu-limit.html#Bucket
+     */
     bucket: number;
+    /**
+     * An object with limits for each shard with shard names as keys. You can use `setShardLimits` method to re-assign them.
+     */
     shardLimits: CPUShardLimits;
 
     /**
@@ -38,7 +69,9 @@ interface CPU {
  */
 interface BodyPartDefinition {
     /**
-     * If the body part is boosted, this property specifies the mineral type which is used for boosting. One of the RESOURCE_* constants.
+     * One of the `RESOURCE_*` constants.
+     *
+     * If the body part is boosted, this property specifies the mineral type which is used for boosting.
      */
     boost?: ResourceConstant;
     /**
@@ -51,6 +84,9 @@ interface BodyPartDefinition {
     hits: number;
 }
 interface Owner {
+    /**
+     * The name of the owner user.
+     */
     username: string;
 }
 interface ReservationDefinition {
