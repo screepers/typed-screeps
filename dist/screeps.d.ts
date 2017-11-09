@@ -32,6 +32,7 @@ declare const FIND_MY_CREEPS: 102;
 declare const FIND_HOSTILE_CREEPS: 103;
 declare const FIND_SOURCES_ACTIVE: 104;
 declare const FIND_SOURCES: 105;
+declare const FIND_DROPPED_ENERGY: -106;
 declare const FIND_DROPPED_RESOURCES: 106;
 declare const FIND_STRUCTURES: 107;
 declare const FIND_MY_STRUCTURES: 108;
@@ -1003,7 +1004,7 @@ declare type ERR_GCL_NOT_ENOUGH = -15;
 declare type CreepActionReturnCode = OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
 declare type CreepMoveReturnCode = OK | ERR_NOT_OWNER | ERR_BUSY | ERR_TIRED | ERR_NO_BODYPART;
 declare type ExitConstant = FIND_EXIT_TOP | FIND_EXIT_RIGHT | FIND_EXIT_BOTTOM | FIND_EXIT_LEFT;
-declare type FindConstant = FIND_EXIT_TOP | FIND_EXIT_RIGHT | FIND_EXIT_BOTTOM | FIND_EXIT_LEFT | FIND_EXIT | FIND_CREEPS | FIND_MY_CREEPS | FIND_HOSTILE_CREEPS | FIND_SOURCES_ACTIVE | FIND_SOURCES | FIND_DROPPED_RESOURCES | FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES | FIND_FLAGS | FIND_CONSTRUCTION_SITES | FIND_MY_SPAWNS | FIND_HOSTILE_SPAWNS | FIND_MY_CONSTRUCTION_SITES | FIND_HOSTILE_CONSTRUCTION_SITES | FIND_MINERALS | FIND_NUKES;
+declare type FindConstant = FIND_EXIT_TOP | FIND_EXIT_RIGHT | FIND_EXIT_BOTTOM | FIND_EXIT_LEFT | FIND_EXIT | FIND_CREEPS | FIND_MY_CREEPS | FIND_HOSTILE_CREEPS | FIND_SOURCES_ACTIVE | FIND_SOURCES | FIND_DROPPED_ENERGY | FIND_DROPPED_RESOURCES | FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES | FIND_FLAGS | FIND_CONSTRUCTION_SITES | FIND_MY_SPAWNS | FIND_HOSTILE_SPAWNS | FIND_MY_CONSTRUCTION_SITES | FIND_HOSTILE_CONSTRUCTION_SITES | FIND_MINERALS | FIND_NUKES;
 declare type FIND_EXIT_TOP = 1;
 declare type FIND_EXIT_RIGHT = 3;
 declare type FIND_EXIT_BOTTOM = 5;
@@ -1014,6 +1015,7 @@ declare type FIND_MY_CREEPS = 102;
 declare type FIND_HOSTILE_CREEPS = 103;
 declare type FIND_SOURCES_ACTIVE = 104;
 declare type FIND_SOURCES = 105;
+declare type FIND_DROPPED_ENERGY = -106;
 declare type FIND_DROPPED_RESOURCES = 106;
 declare type FIND_STRUCTURES = 107;
 declare type FIND_MY_STRUCTURES = 108;
@@ -2106,6 +2108,24 @@ interface Room {
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
+    find(type: FIND_CREEPS | FIND_MY_CREEPS | FIND_HOSTILE_CREEPS, opts?: {
+        filter: Object | Function | string;
+    }): Creep[];
+    find(type: FIND_FLAGS, opts?: {
+        filter: Object | Function | string;
+    }): Flag[];
+    find(type: FIND_MY_SPAWNS | FIND_HOSTILE_SPAWNS, opts?: {
+        filter: Object | Function | string;
+    }): StructureSpawn[];
+    find(type: FIND_SOURCES | FIND_SOURCES_ACTIVE, opts?: {
+        filter: Object | Function | string;
+    }): Source[];
+    find(type: FIND_DROPPED_RESOURCES | FIND_DROPPED_ENERGY, opts?: {
+        filter: Object | Function | string;
+    }): Resource[];
+    find(type: FIND_CONSTRUCTION_SITES, opts?: {
+        filter: Object | Function | string;
+    }): ConstructionSite[];
     find<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: {
         filter: Object | Function | string;
     }): T[];

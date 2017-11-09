@@ -78,7 +78,15 @@ interface Room {
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
-    find<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: { filter: Object | Function | string }): T[];
+     find(type: FIND_CREEPS | FIND_MY_CREEPS | FIND_HOSTILE_CREEPS, opts?: { filter: Object | Function | string }): Creep[];
+     find(type: FIND_FLAGS, opts?: { filter: Object | Function | string }): Flag[];
+     find(type: FIND_MY_SPAWNS | FIND_HOSTILE_SPAWNS, opts?: { filter: Object | Function | string }): StructureSpawn[];
+     find(type: FIND_SOURCES | FIND_SOURCES_ACTIVE, opts?: { filter: Object | Function | string }): Source[];
+     find(type: FIND_DROPPED_RESOURCES | FIND_DROPPED_ENERGY, opts?: { filter: Object | Function | string }): Resource[];
+     find(type: FIND_CONSTRUCTION_SITES, opts?: { filter: Object | Function | string }): ConstructionSite[]
+     find<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: { filter: Object | Function | string }): T[];
+
+    //find<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: { filter: Object | Function | string }): T[];
     /**
      * Find the exit direction en route to another room.
      * @param room Another room name or room object.

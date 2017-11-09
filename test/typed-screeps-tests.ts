@@ -234,3 +234,30 @@ interface CreepMemory {
         creep.moveTo(room.getPositionAt(25, 25));
     }
 }
+
+////////
+// Find Overloads
+
+// Should have type Creep[]
+let creeps = room.find(FIND_HOSTILE_CREEPS)
+
+// Should have type Flag[]
+let flags = room.find(FIND_FLAGS)
+
+// Should have type StructureSpawn[]
+let spawns = room.find(FIND_HOSTILE_SPAWNS)
+
+// Should have type Source[]
+let sources = room.find(FIND_SOURCES)
+
+// Should have type Resource[]
+let resources = room.find(FIND_DROPPED_RESOURCES)
+
+// Should have type ConstructionSite[]
+let sites = room.find(FIND_CONSTRUCTION_SITES)
+
+// Should have type (_HasRoomPosition | RoomPosition)[]
+let exits = room.find(FIND_EXIT)
+
+// Should support the old way
+let myCreeps = room.find<Creep>(FIND_MY_CREEPS)
