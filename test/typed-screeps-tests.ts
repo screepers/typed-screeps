@@ -174,8 +174,8 @@ interface CreepMemory {
     const route = Game.map.findRoute(from.roomName, to.roomName, {
         routeCallback(roomName) {
             const parsed = /^[WE]([0-9]+)[NS]([0-9]+)$/.exec(roomName);
-            const isHighway = (Number.parseInt(parsed[1]) % 10 === 0) ||
-                (Number.parseInt(parsed[2]) % 10 === 0);
+            const isHighway = (parseInt(parsed[1]) % 10 === 0) ||
+                (parseInt(parsed[2]) % 10 === 0);
             const isMyRoom = Game.rooms[roomName] &&
                 Game.rooms[roomName].controller &&
                 Game.rooms[roomName].controller.my;
@@ -238,29 +238,40 @@ interface CreepMemory {
 ////////
 // Find Overloads
 
-// Should have type Creep[]
-let creeps = room.find(FIND_HOSTILE_CREEPS)
 
-// Should have type Flag[]
-let flags = room.find(FIND_FLAGS)
+{
+  let creeps = room.find(FIND_HOSTILE_CREEPS)
 
-// Should have type StructureSpawn[]
-let spawns = room.find(FIND_HOSTILE_SPAWNS)
+  creeps[0].say(creeps[1].name)
 
-// Should have type Source[]
-let sources = room.find(FIND_SOURCES)
+  let flags = room.find(FIND_FLAGS)
 
-// Should have type Resource[]
-let resources = room.find(FIND_DROPPED_RESOURCES)
+  flags[0].remove()
 
-// Should have type ConstructionSite[]
-let sites = room.find(FIND_CONSTRUCTION_SITES)
+  let spawns = room.find(FIND_HOSTILE_SPAWNS)
 
-// Should have type (_HasRoomPosition | RoomPosition)[]
-let exits = room.find(FIND_EXIT)
+  spawns[0].spawning
 
-// Should support the old way
-let myCreeps = room.find<Creep>(FIND_MY_CREEPS)
+  let sources = room.find(FIND_SOURCES)
+
+  sources[0].ticksToRegeneration
+
+  let resources = room.find(FIND_DROPPED_RESOURCES)
+
+  resources[0].resourceType
+
+  let sites = room.find(FIND_CONSTRUCTION_SITES)
+
+  sites[0].remove()
+
+  // Should have type (_HasRoomPosition | RoomPosition)[]
+  let exits = room.find(FIND_EXIT)
+
+  // Should support the old way
+  let myCreeps = room.find<Creep>(FIND_MY_CREEPS)
+
+  myCreeps[0].drop(resources[0].resourceType)
+}
 
 ////////
 // RoomPosition Finds
@@ -269,6 +280,9 @@ let myCreeps = room.find<Creep>(FIND_MY_CREEPS)
   // Should have type Creep
   let hostileCreep = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS)
 
+  creep.say(hostileCreep.name)
+
   // Should have type Creep[]
   let hostileCreeps = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 10)
+  hostileCreeps[0].saying
 }
