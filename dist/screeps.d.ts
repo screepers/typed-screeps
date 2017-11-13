@@ -1720,34 +1720,70 @@ interface RoomPosition {
      */
     createFlag(name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ScreepsReturnCode;
     /**
-     * Find an object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
-     * @param type See Room.find
+     * Find the creep with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
+     * @param type FIND_CREEPS or FIND_MY_CREEPS or FIND_HOSTILE_CREEPS.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
+     * @returns a Creep.
      */
     findClosestByPath(type: FIND_CREEPS | FIND_MY_CREEPS | FIND_HOSTILE_CREEPS, opts?: FindPathOpts & {
         filter?: any | string;
         algorithm?: string;
     }): Creep;
+    /**
+     * Find the flag with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
+     * @param type FIND_FLAGS.
+     * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
+     * @returns a Flag.
+     */
     findClosestByPath(type: FIND_FLAGS, opts?: FindPathOpts & {
         filter?: any | string;
         algorithm?: string;
     }): Flag;
+    /**
+     * Find the spawn with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
+     * @param type FIND_MY_SPAWNS or FIND_HOSTILE_SPAWNS.
+     * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
+     * @returns a Spawn.
+     */
     findClosestByPath(type: FIND_MY_SPAWNS | FIND_HOSTILE_SPAWNS, opts?: FindPathOpts & {
         filter?: any | string;
         algorithm?: string;
     }): StructureSpawn;
+    /**
+     * Find the source with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
+     * @param type FIND_SOURCES or FIND_SOURCES_ACTIVE.
+     * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
+     * @returns a Source.
+     */
     findClosestByPath(type: FIND_SOURCES | FIND_SOURCES_ACTIVE, opts?: FindPathOpts & {
         filter?: any | string;
         algorithm?: string;
     }): Source;
+    /**
+     * Find the dropped resource with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
+     * @param type FIND_DROPPED_RESOURCES or FIND_DROPPED_ENERGY.
+     * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
+     * @returns a Resource.
+     */
     findClosestByPath(type: FIND_DROPPED_RESOURCES | FIND_DROPPED_ENERGY, opts?: FindPathOpts & {
         filter?: any | string;
         algorithm?: string;
     }): Resource;
+    /**
+     * Find the construction site with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
+     * @param type FIND_CONSTRUCTION_SITES.
+     * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
+     * @returns a ConstructionSite.
+     */
     findClosestByPath(type: FIND_CONSTRUCTION_SITES, opts?: FindPathOpts & {
         filter?: any | string;
         algorithm?: string;
     }): ConstructionSite;
+    /**
+     * Find an object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
+     * @param type See Room.find
+     * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
+     */
     findClosestByPath<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: FindPathOpts & {
         filter?: any | string;
         algorithm?: string;
@@ -1762,28 +1798,58 @@ interface RoomPosition {
         algorithm?: string;
     }): T;
     /**
-     * Find an object with the shortest linear distance from the given position.
-     * @param type See Room.find.
+     * Find the creep with the shortest linear distance from the given position.
+     * @param type FIND_CREEPS or FIND_MY_CREEPS or FIND_HOSTILE_CREEPS.
      * @param opts
      */
     findClosestByRange(type: FIND_CREEPS | FIND_MY_CREEPS | FIND_HOSTILE_CREEPS, opts?: {
         filter: any | string;
     }): Creep;
+    /**
+     * Find the flag with the shortest linear distance from the given position.
+     * @param type FIND_FLAGS.
+     * @param opts
+     */
     findClosestByRange(type: FIND_FLAGS, opts?: {
         filter: any | string;
     }): Flag;
+    /**
+     * Find the spawn with the shortest linear distance from the given position.
+     * @param type FIND_MY_SPAWNS or FIND_HOSTILE_SPAWNS.
+     * @param opts
+     */
     findClosestByRange(type: FIND_MY_SPAWNS | FIND_HOSTILE_SPAWNS, opts?: {
         filter: any | string;
     }): StructureSpawn;
+    /**
+     * Find the source with the shortest linear distance from the given position.
+     * @param type FIND_SOURCES or FIND_SOURCES_ACTIVE.
+     * @param opts
+     */
     findClosestByRange(type: FIND_SOURCES | FIND_SOURCES_ACTIVE, opts?: {
         filter: any | string;
     }): Source;
+    /**
+     * Find the dropped resources with the shortest linear distance from the given position.
+     * @param type FIND_DROPPED_RESOURCES or FIND_DROPPED_ENERGY.
+     * @param opts
+     */
     findClosestByRange(type: FIND_DROPPED_RESOURCES | FIND_DROPPED_ENERGY, opts?: {
         filter: any | string;
     }): Resource;
+    /**
+     * Find the construction site with the shortest linear distance from the given position.
+     * @param type FIND_CONSTRUCTION_SITES.
+     * @param opts
+     */
     findClosestByRange(type: FIND_CONSTRUCTION_SITES, opts?: {
         filter: any | string;
     }): ConstructionSite;
+    /**
+     * Find an object with the shortest linear distance from the given position.
+     * @param type See Room.find.
+     * @param opts
+     */
     findClosestByRange<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: {
         filter: any | string;
     }): T | null;
@@ -1796,26 +1862,56 @@ interface RoomPosition {
         filter: any | string;
     }): T;
     /**
-     * Find all objects in the specified linear range.
-     * @param type See Room.find.
+     * Find all creeps in the specified linear range.
+     * @param type FIND_CREEPS or FIND_MY_CREEPS or FIND_HOSTILE_CREEPS.
      * @param range The range distance.
      * @param opts See Room.find.
      */
     findInRange(type: FIND_CREEPS | FIND_MY_CREEPS | FIND_HOSTILE_CREEPS, range: number, opts?: {
         filter: any | string;
     }): Creep[];
+    /**
+     * Find all flags in the specified linear range.
+     * @param type FIND_FLAGS.
+     * @param range The range distance.
+     * @param opts See Room.find.
+     */
     findInRange(type: FIND_FLAGS, range: number, opts?: {
         filter: any | string;
     }): Flag[];
+    /**
+     * Find all spawns in the specified linear range.
+     * @param type FIND_MY_SPAWNS or FIND_HOSTILE_SPAWNS.
+     * @param range The range distance.
+     * @param opts See Room.find.
+     */
     findInRange(type: FIND_MY_SPAWNS | FIND_HOSTILE_SPAWNS, range: number, opts?: {
         filter: any | string;
     }): StructureSpawn[];
+    /**
+     * Find all sources in the specified linear range.
+     * @param type FIND_SOURCES or FIND_SOURCES_ACTIVE.
+     * @param range The range distance.
+     * @param opts See Room.find.
+     */
     findInRange(type: FIND_SOURCES | FIND_SOURCES_ACTIVE, range: number, opts?: {
         filter: any | string;
     }): Source[];
+    /**
+     * Find all dropped resources in the specified linear range.
+     * @param type FIND_DROPPED_RESOURCES or FIND_DROPPED_ENERGY.
+     * @param range The range distance.
+     * @param opts See Room.find.
+     */
     findInRange(type: FIND_DROPPED_RESOURCES | FIND_DROPPED_ENERGY, range: number, opts?: {
         filter: any | string;
     }): Resource[];
+    /**
+     * Find all construction sites in the specified linear range.
+     * @param type FIND_CONSTRUCTION_SITES.
+     * @param range The range distance.
+     * @param opts See Room.find.
+     */
     findInRange(type: FIND_CONSTRUCTION_SITES, range: number, opts?: {
         filter: any | string;
     }): ConstructionSite[];
@@ -2178,29 +2274,65 @@ interface Room {
         pos: RoomPosition;
     }, name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ScreepsReturnCode;
     /**
-     * Find all objects of the specified type in the room.
-     * @param type One of the following constants:FIND_CREEPS, FIND_MY_CREEPS, FIND_HOSTILE_CREEPS, FIND_MY_SPAWNS, FIND_HOSTILE_SPAWNS, FIND_SOURCES, FIND_SOURCES_ACTIVE, FIND_DROPPED_RESOURCES, FIND_DROPPED_ENERGY, FIND_STRUCTURES, FIND_MY_STRUCTURES, FIND_HOSTILE_STRUCTURES, FIND_FLAGS, FIND_CONSTRUCTION_SITES, FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT, FIND_EXIT
+     * Find all Creeps in the room.
+     * @param type FIND_CREEPS
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
     find(type: FIND_CREEPS | FIND_MY_CREEPS | FIND_HOSTILE_CREEPS, opts?: {
         filter: Object | Function | string;
     }): Creep[];
+    /**
+     * Find all Flags in the room.
+     * @param type FIND_FLAGS
+     * @param opts An object with additional options
+     * @returns An array with the objects found.
+     */
     find(type: FIND_FLAGS, opts?: {
         filter: Object | Function | string;
     }): Flag[];
+    /**
+     * Find all Spawns in the room.
+     * @param type Either FIND_MY_SPAWNS or FIND_HOSTILE_SPAWNS
+     * @param opts An object with additional options
+     * @returns An array with the objects found.
+     */
     find(type: FIND_MY_SPAWNS | FIND_HOSTILE_SPAWNS, opts?: {
         filter: Object | Function | string;
     }): StructureSpawn[];
+    /**
+     * Find all Sources in the room.
+     * @param type Either FIND_SOURCES or FIND_SOURCES_ACTIVE
+     * @param opts An object with additional options
+     * @returns An array with the objects found.
+     */
     find(type: FIND_SOURCES | FIND_SOURCES_ACTIVE, opts?: {
         filter: Object | Function | string;
     }): Source[];
+    /**
+     * Find dropped resources in the room.
+     * @param type Either FIND_DROPPED_RESOURCES or FIND_DROPPED_ENERGY
+     * @param opts An object with additional options
+     * @returns An array with the objects found.
+     */
     find(type: FIND_DROPPED_RESOURCES | FIND_DROPPED_ENERGY, opts?: {
         filter: Object | Function | string;
     }): Resource[];
+    /**
+     * Find all construction sites in the room.
+     * @param type FIND_CONSTRUCTION_SITES
+     * @param opts An object with additional options
+     * @returns An array with the objects found.
+     */
     find(type: FIND_CONSTRUCTION_SITES, opts?: {
         filter: Object | Function | string;
     }): ConstructionSite[];
+    /**
+     * Find all objects of the specified type in the room.
+     * @param type One of the following constants:FIND_CREEPS, FIND_MY_CREEPS, FIND_HOSTILE_CREEPS, FIND_MY_SPAWNS, FIND_HOSTILE_SPAWNS, FIND_SOURCES, FIND_SOURCES_ACTIVE, FIND_DROPPED_RESOURCES, FIND_DROPPED_ENERGY, FIND_STRUCTURES, FIND_MY_STRUCTURES, FIND_HOSTILE_STRUCTURES, FIND_FLAGS, FIND_CONSTRUCTION_SITES, FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT, FIND_EXIT
+     * @param opts An object with additional options
+     * @returns An array with the objects found.
+     */
     find<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: {
         filter: Object | Function | string;
     }): T[];
@@ -2252,42 +2384,392 @@ interface Room {
      */
     lookAtArea(top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix | LookAtResultWithPos[];
     /**
+     * Get the creeps at the given position.
+     * @param type LOOK_CREEPS.
+     * @param x The X position.
+     * @param y The Y position.
+     * @returns An array of Creep at the given position.
+     */
+    lookForAt(type: LOOK_CREEPS, x: number, y: number): Creep[];
+    /**
+     * Get the flags at the given position.
+     * @param type LOOK_FLAGS.
+     * @param x The X position.
+     * @param y The Y position.
+     * @returns An array of Flag at the given position.
+     */
+    lookForAt(type: LOOK_FLAGS, x: number, y: number): Flag[];
+    /**
+     * Get the nukes at the given position.
+     * @param type LOOK_NUKES.
+     * @param x The X position.
+     * @param y The Y position.
+     * @returns An array of Nuke at the given position.
+     */
+    lookForAt(type: LOOK_NUKES, x: number, y: number): Nuke[];
+    /**
+     * Get the dropped energy at the given position.
+     * @param type LOOK_ENERGY.
+     * @param x The X position.
+     * @param y The Y position.
+     * @returns An array of Resource<RESOURCE_ENERGY> at the given position.
+     */
+    lookForAt(type: LOOK_ENERGY, x: number, y: number): Array<Resource<RESOURCE_ENERGY>>;
+    /**
+     * Get the source at the given position.
+     * @param type LOOK_NUKES.
+     * @param x The X position.
+     * @param y The Y position.
+     * @returns An array of Resource<RESOURCE_ENERGY> at the given position.
+     */
+    lookForAt(type: LOOK_SOURCES, x: number, y: number): Source[];
+    /**
+     * Get the terrain at the given position.
+     * @param type LOOK_TERRAIN.
+     * @param x The X position.
+     * @param y The Y position.
+     * @returns An array of Terrain at the given position.
+     */
+    lookForAt(type: LOOK_TERRAIN, x: number, y: number): Terrain[];
+    /**
+     * Get the mineral at the given position.
+     * @param type LOOK_MINERALS.
+     * @param x The X position.
+     * @param y The Y position.
+     * @returns An array of Mineral at the given position.
+     */
+    lookForAt(type: LOOK_MINERALS, x: number, y: number): Mineral[];
+    /**
+     * Get the dropped resources at the given position.
+     * @param type LOOK_RESOURCES.
+     * @param x The X position.
+     * @param y The Y position.
+     * @returns An array of Resource at the given position.
+     */
+    lookForAt(type: LOOK_RESOURCES, x: number, y: number): Resource[];
+    /**
+     * Get the structures at the given position.
+     * @param type LOOK_STRUCTURES.
+     * @param x The X position.
+     * @param y The Y position.
+     * @returns An array of Structure at the given position.
+     */
+    lookForAt(type: LOOK_STRUCTURES, x: number, y: number): Structure[];
+    /**
+     * Get the construction site at the given position.
+     * @param type LOOK_CONSTRUCTION_SITES.
+     * @param x The X position.
+     * @param y The Y position.
+     * @returns An array of ConstructionSite at the given position.
+     */
+    lookForAt(type: LOOK_CONSTRUCTION_SITES, x: number, y: number): ConstructionSite[];
+    /**
      * Get an object with the given type at the specified room position.
      * @param type One of the following string constants: constructionSite, creep, energy, exit, flag, source, structure, terrain
      * @param x The X position.
      * @param y The Y position.
      * @returns An array of objects of the given type at the specified position if found.
      */
-    lookForAt(type: LOOK_CREEPS, x: number, y: number): Creep[];
-    lookForAt(type: LOOK_FLAGS, x: number, y: number): Flag[];
-    lookForAt(type: LOOK_NUKES, x: number, y: number): Nuke[];
-    lookForAt(type: LOOK_ENERGY, x: number, y: number): Array<Resource<RESOURCE_ENERGY>>;
-    lookForAt(type: LOOK_SOURCES, x: number, y: number): Source[];
-    lookForAt(type: LOOK_TERRAIN, x: number, y: number): Terrain[];
-    lookForAt(type: LOOK_MINERALS, x: number, y: number): Mineral[];
-    lookForAt(type: LOOK_RESOURCES, x: number, y: number): Resource[];
-    lookForAt(type: LOOK_STRUCTURES, x: number, y: number): Structure[];
-    lookForAt(type: LOOK_CONSTRUCTION_SITES, x: number, y: number): ConstructionSite[];
     lookForAt<T extends _HasRoomPosition>(type: LookConstant, x: number, y: number): T[];
+    /**
+     * Get the Creeps at the given RoomPosition.
+     * @param type LOOK_CREEPS.
+     * @param target Can be a RoomPosition object or any object containing RoomPosition.
+     * @returns An array of Creeps at the specified position if found.
+     */
+    lookForAt(type: LOOK_CREEPS, target: RoomPosition | _HasRoomPosition): Creep[];
+    /**
+     * Get the Flags at the given RoomPosition.
+     * @param type LOOK_FLAGS.
+     * @param target Can be a RoomPosition object or any object containing RoomPosition.
+     * @returns An array of Creeps at the specified position if found.
+     */
+    lookForAt(type: LOOK_FLAGS, target: RoomPosition | _HasRoomPosition): Flag[];
+    /**
+     * Get the Nukes at the given RoomPosition.
+     * @param type LOOK_NUKES.
+     * @param target Can be a RoomPosition object or any object containing RoomPosition.
+     * @returns An array of Nukes at the specified position if found.
+     */
+    lookForAt(type: LOOK_NUKES, target: RoomPosition | _HasRoomPosition): Nuke[];
+    /**
+     * Get the dropped energy at the given RoomPosition.
+     * @param type LOOK_ENERGY.
+     * @param target Can be a RoomPosition object or any object containing RoomPosition.
+     * @returns An array of Resource<RESOURCE_ENERGY> at the specified position if found.
+     */
+    lookForAt(type: LOOK_ENERGY, target: RoomPosition | _HasRoomPosition): Array<Resource<RESOURCE_ENERGY>>;
+    /**
+     * Get the Sources at the given RoomPosition.
+     * @param type LOOK_SOURCES.
+     * @param target Can be a RoomPosition object or any object containing RoomPosition.
+     * @returns An array of Sources at the specified position if found.
+     */
+    lookForAt(type: LOOK_SOURCES, target: RoomPosition | _HasRoomPosition): Source[];
+    /**
+     * Get the Terrain at the given RoomPosition.
+     * @param type LOOK_TERRAIN.
+     * @param target Can be a RoomPosition object or any object containing RoomPosition.
+     * @returns An array of Terrain at the specified position if found.
+     */
+    lookForAt(type: LOOK_TERRAIN, target: RoomPosition | _HasRoomPosition): Terrain[];
+    /**
+     * Get the Mineral at the given RoomPosition.
+     * @param type LOOK_MINERALS.
+     * @param target Can be a RoomPosition object or any object containing RoomPosition.
+     * @returns An array of Mineral at the specified position if found.
+     */
+    lookForAt(type: LOOK_MINERALS, target: RoomPosition | _HasRoomPosition): Mineral[];
+    /**
+     * Get the Resources at the given RoomPosition.
+     * @param type LOOK_RESOURCES.
+     * @param target Can be a RoomPosition object or any object containing RoomPosition.
+     * @returns An array of Resource at the specified position if found.
+     */
+    lookForAt(type: LOOK_RESOURCES, target: RoomPosition | _HasRoomPosition): Resource[];
+    /**
+     * Get the Structures at the given RoomPosition.
+     * @param type LOOK_STRUCTURES.
+     * @param target Can be a RoomPosition object or any object containing RoomPosition.
+     * @returns An array of Structures at the specified position if found.
+     */
+    lookForAt(type: LOOK_STRUCTURES, target: RoomPosition | _HasRoomPosition): Structure[];
+    /**
+     * Get the Construction Sites at the given RoomPosition.
+     * @param type LOOK_CONSTRUCTION_SITES.
+     * @param target Can be a RoomPosition object or any object containing RoomPosition.
+     * @returns An array of ConstructionSites at the specified position if found.
+     */
+    lookForAt(type: LOOK_CONSTRUCTION_SITES, target: RoomPosition | _HasRoomPosition): ConstructionSite[];
     /**
      * Get an object with the given type at the specified room position.
      * @param type One of the following string constants: constructionSite, creep, energy, exit, flag, source, structure, terrain
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @returns An array of objects of the given type at the specified position if found.
      */
-    lookForAt(type: LOOK_CREEPS, target: RoomPosition | _HasRoomPosition): Creep[];
-    lookForAt(type: LOOK_FLAGS, target: RoomPosition | _HasRoomPosition): Flag[];
-    lookForAt(type: LOOK_NUKES, target: RoomPosition | _HasRoomPosition): Nuke[];
-    lookForAt(type: LOOK_ENERGY, target: RoomPosition | _HasRoomPosition): Array<Resource<RESOURCE_ENERGY>>;
-    lookForAt(type: LOOK_SOURCES, target: RoomPosition | _HasRoomPosition): Source[];
-    lookForAt(type: LOOK_TERRAIN, target: RoomPosition | _HasRoomPosition): Terrain[];
-    lookForAt(type: LOOK_MINERALS, target: RoomPosition | _HasRoomPosition): Mineral[];
-    lookForAt(type: LOOK_RESOURCES, target: RoomPosition | _HasRoomPosition): Resource[];
-    lookForAt(type: LOOK_STRUCTURES, target: RoomPosition | _HasRoomPosition): Structure[];
-    lookForAt(type: LOOK_CONSTRUCTION_SITES, target: RoomPosition | _HasRoomPosition): ConstructionSite[];
     lookForAt<T extends _HasRoomPosition>(type: LookConstant, target: RoomPosition | {
         pos: RoomPosition;
     }): T[];
+    /**
+     * Get the creeps in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_CREEPS.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to false returns a matrix of results
+     * @returns An object with all creeps in the specified area
+     */
+    lookForAtArea(type: LOOK_CREEPS, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Creep, LOOK_CREEPS>;
+    /**
+     * Get the flags in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_FLAGS.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to false returns a matrix of results
+     * @returns An object with all Flags in the specified area
+     */
+    lookForAtArea(type: LOOK_FLAGS, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Flag, LOOK_FLAGS>;
+    /**
+     * Get the nukes in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_NUKES.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to false returns a matrix of results
+     * @returns An object with all Nukes in the specified area
+     */
+    lookForAtArea(type: LOOK_NUKES, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Nuke, LOOK_NUKES>;
+    /**
+     * Get the dropped energy in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_ENERGY.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to false returns a matrix of results
+     * @returns An object with all Resource<RESOURCE_ENERGY> in the specified area
+     */
+    lookForAtArea(type: LOOK_ENERGY, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Resource<RESOURCE_ENERGY>, LOOK_ENERGY>;
+    /**
+     * Get the sources in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_SOURCES.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to false returns a matrix of results
+     * @returns An object with all Sources in the specified area
+     */
+    lookForAtArea(type: LOOK_SOURCES, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Source, LOOK_SOURCES>;
+    /**
+     * Get the terrain in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_TERRAIN.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to false returns a matrix of results
+     * @returns An object with all Terrain in the specified area
+     */
+    lookForAtArea(type: LOOK_TERRAIN, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Terrain, LOOK_TERRAIN>;
+    /**
+     * Get the minerals in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_MINERALS.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to false returns a matrix of results
+     * @returns An object with all Minerals in the specified area
+     */
+    lookForAtArea(type: LOOK_MINERALS, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Mineral, LOOK_MINERALS>;
+    /**
+     * Get the resources in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_RESOURCES.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to false returns a matrix of results
+     * @returns An object with all Resources in the specified area
+     */
+    lookForAtArea(type: LOOK_RESOURCES, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Resource, LOOK_RESOURCES>;
+    /**
+     * Get the structures in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_STRUCTURES.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to false returns a matrix of results
+     * @returns An object with all Structures in the specified area
+     */
+    lookForAtArea(type: LOOK_STRUCTURES, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Structure, LOOK_STRUCTURES>;
+    /**
+     * Get the construction sites in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_CONSTRUCTION_SITES.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to false returns a matrix of results
+     * @returns An object with all ConstructionSites in the specified area
+     */
+    lookForAtArea(type: LOOK_CONSTRUCTION_SITES, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<ConstructionSite, LOOK_CONSTRUCTION_SITES>;
+    /**
+     * Get the creeps in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_CREEPS.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to true retuns the same as lookForAt with an additional x and y property in each object.
+     * @returns An array with all Creeps in the specified area
+     */
+    lookForAtArea(type: LOOK_CREEPS, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Creep, LOOK_CREEPS>;
+    /**
+     * Get the flags in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_FLAGS.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to true retuns the same as lookForAt with an additional x and y property in each object.
+     * @returns An array with all Flags in the specified area
+     */
+    lookForAtArea(type: LOOK_FLAGS, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Flag, LOOK_FLAGS>;
+    /**
+     * Get the nukes in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_NUKES.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to true retuns the same as lookForAt with an additional x and y property in each object.
+     * @returns An array with all Nukes in the specified area
+     */
+    lookForAtArea(type: LOOK_NUKES, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Nuke, LOOK_NUKES>;
+    /**
+     * Get the dropped energy in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_ENERGY.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to true retuns the same as lookForAt with an additional x and y property in each object.
+     * @returns An array with all Resource<RESOURCE_ENERGY> in the specified area
+     */
+    lookForAtArea(type: LOOK_ENERGY, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Resource<RESOURCE_ENERGY>, LOOK_ENERGY>;
+    /**
+     * Get the sources in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_SOURCES.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to true retuns the same as lookForAt with an additional x and y property in each object.
+     * @returns An array with all Sources in the specified area
+     */
+    lookForAtArea(type: LOOK_SOURCES, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Source, LOOK_SOURCES>;
+    /**
+     * Get the terrain in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_TERRAIN.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to true retuns the same as lookForAt with an additional x and y property in each object.
+     * @returns An array with all Terrain in the specified area
+     */
+    lookForAtArea(type: LOOK_TERRAIN, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Terrain, LOOK_TERRAIN>;
+    /**
+     * Get the terrain in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_TERRAIN.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to true retuns the same as lookForAt with an additional x and y property in each object.
+     * @returns An array with all Terrain in the specified area
+     */
+    lookForAtArea(type: LOOK_MINERALS, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Mineral, LOOK_MINERALS>;
+    /**
+     * Get the resources in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_RESOURCES.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to true retuns the same as lookForAt with an additional x and y property in each object.
+     * @returns An array with all Resource> in the specified area
+     */
+    lookForAtArea(type: LOOK_RESOURCES, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Resource, LOOK_RESOURCES>;
+    /**
+     * Get the structures in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_STRUCTURES.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to true retuns the same as lookForAt with an additional x and y property in each object.
+     * @returns An array with all Structures in the specified area
+     */
+    lookForAtArea(type: LOOK_STRUCTURES, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Structure, LOOK_STRUCTURES>;
+    /**
+     * Get the construction sites in the given area. This method is more CPU efficient in comparison to multiple lookForAt calls.
+     * @param type LOOK_CONSTRUCTION_SITES.
+     * @param top The top Y boundary of the area.
+     * @param left The left X boundary of the area.
+     * @param bottom The bottom Y boundary of the area.
+     * @param right The right X boundary of the area.
+     * @param asArray (optional) set to true retuns the same as lookForAt with an additional x and y property in each object.
+     * @returns An array with all ConstructionSites in the specified area
+     */
+    lookForAtArea(type: LOOK_CONSTRUCTION_SITES, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<ConstructionSite, LOOK_CONSTRUCTION_SITES>;
     /**
      * Get the list of objects with the given type at the specified room area. This method is more CPU efficient in comparison to multiple lookForAt calls.
      * @param type One of the following string constants: constructionSite, creep, energy, exit, flag, source, structure, terrain
@@ -2297,26 +2779,6 @@ interface Room {
      * @param right The right X boundary of the area.
      * @returns An object with all the objects of the given type in the specified area
      */
-    lookForAtArea(type: LOOK_CREEPS, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Creep, LOOK_CREEPS>;
-    lookForAtArea(type: LOOK_FLAGS, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Flag, LOOK_FLAGS>;
-    lookForAtArea(type: LOOK_NUKES, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Nuke, LOOK_NUKES>;
-    lookForAtArea(type: LOOK_ENERGY, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Resource<RESOURCE_ENERGY>, LOOK_ENERGY>;
-    lookForAtArea(type: LOOK_SOURCES, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Source, LOOK_SOURCES>;
-    lookForAtArea(type: LOOK_TERRAIN, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Terrain, LOOK_TERRAIN>;
-    lookForAtArea(type: LOOK_MINERALS, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Mineral, LOOK_MINERALS>;
-    lookForAtArea(type: LOOK_RESOURCES, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Resource, LOOK_RESOURCES>;
-    lookForAtArea(type: LOOK_STRUCTURES, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Structure, LOOK_STRUCTURES>;
-    lookForAtArea(type: LOOK_CONSTRUCTION_SITES, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<ConstructionSite, LOOK_CONSTRUCTION_SITES>;
-    lookForAtArea(type: LOOK_CREEPS, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Creep, LOOK_CREEPS>;
-    lookForAtArea(type: LOOK_FLAGS, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Flag, LOOK_FLAGS>;
-    lookForAtArea(type: LOOK_NUKES, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Nuke, LOOK_NUKES>;
-    lookForAtArea(type: LOOK_ENERGY, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Resource<RESOURCE_ENERGY>, LOOK_ENERGY>;
-    lookForAtArea(type: LOOK_SOURCES, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Source, LOOK_SOURCES>;
-    lookForAtArea(type: LOOK_TERRAIN, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Terrain, LOOK_TERRAIN>;
-    lookForAtArea(type: LOOK_MINERALS, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Mineral, LOOK_MINERALS>;
-    lookForAtArea(type: LOOK_RESOURCES, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Resource, LOOK_RESOURCES>;
-    lookForAtArea(type: LOOK_STRUCTURES, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Structure, LOOK_STRUCTURES>;
-    lookForAtArea(type: LOOK_CONSTRUCTION_SITES, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<ConstructionSite, LOOK_CONSTRUCTION_SITES>;
     lookForAtArea<T extends LookConstant = LookConstant>(type: T, top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix<T> | Array<LookAtResultWithPos<T>>;
 }
 interface RoomConstructor {
