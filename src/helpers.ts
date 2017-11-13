@@ -135,19 +135,46 @@ interface LookAtResultMatrix<K extends LookConstant = LookConstant> {
     [coord: number]: LookAtResultMatrix<K> | Array<LookAtResult<K>>;
 }
 
-interface LookForAtAreaResultMatrix<T, K extends LookConstant = LookConstant> {
+interface LookForAtAreaResultMatrix<T, K extends keyof LookAtTypes = keyof LookAtTypes> {
   [x: number]: {
     [y: number]: Array<LookForAtAreaResult<T, K>>;
   };
 }
 
-type LookForAtAreaResult<T, K extends LookConstant = LookConstant> = {type: K} & {
+type LookForAtAreaResult<T, K extends keyof LookAtTypes = keyof LookAtTypes> = {type: K} & {
   [P in K]: T;
 };
 
-type LookForAtAreaResultWithPos<T, K extends LookConstant = LookConstant> = LookForAtAreaResult<T, K> & {x: number, y: number};
+type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTypes> = LookForAtAreaResult<T, K> & {x: number, y: number};
 
-type LookForAtAreaResultArray<T, K extends LookConstant = LookConstant> = Array<LookForAtAreaResultWithPos<T, K>>;
+type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<LookForAtAreaResultWithPos<T, K>>;
+
+interface FindTypes {
+  [key: number]: RoomPosition | Creep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke;
+  1: RoomPosition; // FIND_EXIT_TOP
+  3: RoomPosition; // FIND_EXIT_RIGHT
+  5: RoomPosition; // FIND_EXIT_BOTTOM
+  7: RoomPosition; // FIND_EXIT_LEFT
+  10: RoomPosition; // FIND_EXIT
+  101: Creep; // FIND_CREEPS
+  102: Creep; // FIND_MY_CREEPS
+  103: Creep; // FIND_HOSTILE_CREEPS
+  104: Source; // FIND_SOURCES_ACTIVE
+  105: Source; // FIND_SOURCES
+  "-106": Resource<RESOURCE_ENERGY>; // FIND_DROPPED_ENERGY
+  106: Resource; // FIND_DROPPED_RESOURCES
+  107: Structure; // FIND_STRUCTURES
+  108: Structure; // FIND_MY_STRUCTURES
+  109: Structure; // FIND_HOSTILE_STRUCTURES
+  110: Flag; // FIND_FLAGS
+  111: ConstructionSite; // FIND_CONSTRUCTION_SITES
+  112: StructureSpawn; // FIND_MY_SPAWNS
+  113: StructureSpawn; // FIND_HOSTILE_SPAWNS
+  114: ConstructionSite; // FIND_MY_CONSTRUCTION_SITES
+  115: ConstructionSite; // FIND_HOSTILE_CONSTRUCTION_SITES
+  116: Mineral; // FIND_MINERALS
+  117: Nuke; // FIND_NUKES
+}
 
 interface FindPathOpts {
     /**

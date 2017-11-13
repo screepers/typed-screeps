@@ -90,7 +90,7 @@ interface CreepMemory {
 // Game.getObjectById(id)
 
 {
-    creep.memory.sourceId = creep.pos.findClosestByRange<Source>(FIND_SOURCES).id;
+    creep.memory.sourceId = creep.pos.findClosestByRange(FIND_SOURCES).id;
     const source = Game.getObjectById<Source>(creep.memory.sourceId);
 }
 
@@ -259,6 +259,10 @@ interface CreepMemory {
   let resources = room.find(FIND_DROPPED_RESOURCES)
 
   resources[0].resourceType
+
+  let energy = room.find(FIND_DROPPED_ENERGY)
+
+  energy[0].resourceType
 
   let sites = room.find(FIND_CONSTRUCTION_SITES)
 
