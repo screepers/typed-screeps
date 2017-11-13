@@ -858,31 +858,31 @@ interface LookAtTypes {
     structure?: Structure;
     terrain?: Terrain;
 }
-declare type LookAtResult<K extends keyof LookAtTypes = keyof LookAtTypes> = Pick<LookAtTypes, K> & {
+declare type LookAtResult<K extends LookConstant = LookConstant> = Pick<LookAtTypes, K> & {
     type: K;
 };
-declare type LookAtResultWithPos<K extends keyof LookAtTypes = keyof LookAtTypes> = LookAtResult<K> & {
+declare type LookAtResultWithPos<K extends LookConstant = LookConstant> = LookAtResult<K> & {
     x: number;
     y: number;
 };
-interface LookAtResultMatrix<K extends keyof LookAtTypes = keyof LookAtTypes> {
+interface LookAtResultMatrix<K extends LookConstant = LookConstant> {
     [coord: number]: LookAtResultMatrix<K> | Array<LookAtResult<K>>;
 }
-interface LookForAtAreaResultMatrix<T, K extends keyof LookAtTypes = keyof LookAtTypes> {
+interface LookForAtAreaResultMatrix<T, K extends LookConstant = LookConstant> {
     [x: number]: {
         [y: number]: Array<LookForAtAreaResult<T, K>>;
     };
 }
-declare type LookForAtAreaResult<T, K extends keyof LookAtTypes = keyof LookAtTypes> = {
+declare type LookForAtAreaResult<T, K extends LookConstant = LookConstant> = {
     type: K;
 } & {
     [P in K]: T;
 };
-declare type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTypes> = LookForAtAreaResult<T, K> & {
+declare type LookForAtAreaResultWithPos<T, K extends LookConstant = LookConstant> = LookForAtAreaResult<T, K> & {
     x: number;
     y: number;
 };
-declare type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<LookForAtAreaResultWithPos<T, K>>;
+declare type LookForAtAreaResultArray<T, K extends LookConstant = LookConstant> = Array<LookForAtAreaResultWithPos<T, K>>;
 interface FindPathOpts {
     /**
      * Treat squares with creeps as walkable. Can be useful with too many moving creeps around or in some other cases. The default

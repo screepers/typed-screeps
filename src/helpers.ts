@@ -124,30 +124,30 @@ interface LookAtTypes {
     terrain?: Terrain;
 }
 
-type LookAtResult<K extends keyof LookAtTypes = keyof LookAtTypes> = Pick<LookAtTypes, K> & { type: K };
+type LookAtResult<K extends LookConstant = LookConstant> = Pick<LookAtTypes, K> & { type: K };
 
-type LookAtResultWithPos<K extends keyof LookAtTypes = keyof LookAtTypes> = LookAtResult<K> & {
+type LookAtResultWithPos<K extends LookConstant = LookConstant> = LookAtResult<K> & {
   x: number,
   y: number,
 };
 
-interface LookAtResultMatrix<K extends keyof LookAtTypes = keyof LookAtTypes> {
+interface LookAtResultMatrix<K extends LookConstant = LookConstant> {
     [coord: number]: LookAtResultMatrix<K> | Array<LookAtResult<K>>;
 }
 
-interface LookForAtAreaResultMatrix<T, K extends keyof LookAtTypes = keyof LookAtTypes> {
+interface LookForAtAreaResultMatrix<T, K extends LookConstant = LookConstant> {
   [x: number]: {
     [y: number]: Array<LookForAtAreaResult<T, K>>;
   };
 }
 
-type LookForAtAreaResult<T, K extends keyof LookAtTypes = keyof LookAtTypes> = {type: K} & {
+type LookForAtAreaResult<T, K extends LookConstant = LookConstant> = {type: K} & {
   [P in K]: T;
 };
 
-type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTypes> = LookForAtAreaResult<T, K> & {x: number, y: number};
+type LookForAtAreaResultWithPos<T, K extends LookConstant = LookConstant> = LookForAtAreaResult<T, K> & {x: number, y: number};
 
-type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<LookForAtAreaResultWithPos<T, K>>;
+type LookForAtAreaResultArray<T, K extends LookConstant = LookConstant> = Array<LookForAtAreaResultWithPos<T, K>>;
 
 interface FindPathOpts {
     /**
