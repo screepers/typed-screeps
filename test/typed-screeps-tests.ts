@@ -290,3 +290,25 @@ interface CreepMemory {
   let hostileCreeps = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 10)
   hostileCreeps[0].saying
 }
+
+////////
+// LookAt Finds
+
+{
+  let nukes = room.lookForAt(LOOK_NUKES, creep.pos)
+
+  nukes[0].launchRoomName
+
+  let flags = room.lookForAtArea(LOOK_FLAGS, 10, 10, 20, 20)
+
+  let x = flags[10]
+  let y = x[11]
+  let entry = y[0]
+  entry.flag.remove()
+
+  let creeps = room.lookForAtArea(LOOK_CREEPS, 10, 10, 20, 20, true)
+
+  creeps[0].x
+  creeps[0].y
+  creeps[0].creep.move(TOP)
+}

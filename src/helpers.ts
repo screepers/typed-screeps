@@ -135,6 +135,20 @@ interface LookAtResultMatrix<K extends keyof LookAtTypes = keyof LookAtTypes> {
     [coord: number]: LookAtResultMatrix<K> | Array<LookAtResult<K>>;
 }
 
+interface LookForAtAreaResultMatrix<T, K extends keyof LookAtTypes = keyof LookAtTypes> {
+  [x: number]: {
+    [y: number]: Array<LookForAtAreaResult<T, K>>;
+  };
+}
+
+type LookForAtAreaResult<T, K extends keyof LookAtTypes = keyof LookAtTypes> = {type: K} & {
+  [P in K]: T;
+};
+
+type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTypes> = LookForAtAreaResult<T, K> & {x: number, y: number};
+
+type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<LookForAtAreaResultWithPos<T, K>>;
+
 interface FindPathOpts {
     /**
      * Treat squares with creeps as walkable. Can be useful with too many moving creeps around or in some other cases. The default

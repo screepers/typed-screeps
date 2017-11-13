@@ -140,7 +140,7 @@ interface Room {
     lookForAt(type: LOOK_CREEPS, x: number, y: number): Creep[];
     lookForAt(type: LOOK_FLAGS, x: number, y: number): Flag[];
     lookForAt(type: LOOK_NUKES, x: number, y: number): Nuke[];
-    lookForAt(type: LOOK_ENERGY, x: number, y: number): Resource<RESOURCE_ENERGY>[];
+    lookForAt(type: LOOK_ENERGY, x: number, y: number): Array<Resource<RESOURCE_ENERGY>>;
     lookForAt(type: LOOK_SOURCES, x: number, y: number): Source[];
     lookForAt(type: LOOK_TERRAIN, x: number, y: number): Terrain[];
     lookForAt(type: LOOK_MINERALS, x: number, y: number): Mineral[];
@@ -157,7 +157,7 @@ interface Room {
     lookForAt(type: LOOK_CREEPS, target: RoomPosition | _HasRoomPosition): Creep[];
     lookForAt(type: LOOK_FLAGS, target: RoomPosition | _HasRoomPosition): Flag[];
     lookForAt(type: LOOK_NUKES, target: RoomPosition | _HasRoomPosition): Nuke[];
-    lookForAt(type: LOOK_ENERGY, target: RoomPosition | _HasRoomPosition): Resource<RESOURCE_ENERGY>[];
+    lookForAt(type: LOOK_ENERGY, target: RoomPosition | _HasRoomPosition): Array<Resource<RESOURCE_ENERGY>>;
     lookForAt(type: LOOK_SOURCES, target: RoomPosition | _HasRoomPosition): Source[];
     lookForAt(type: LOOK_TERRAIN, target: RoomPosition | _HasRoomPosition): Terrain[];
     lookForAt(type: LOOK_MINERALS, target: RoomPosition | _HasRoomPosition): Mineral[];
@@ -174,6 +174,26 @@ interface Room {
      * @param right The right X boundary of the area.
      * @returns An object with all the objects of the given type in the specified area
      */
+    lookForAtArea(type: LOOK_CREEPS, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Creep, LOOK_CREEPS>;
+    lookForAtArea(type: LOOK_FLAGS, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Flag, LOOK_FLAGS>;
+    lookForAtArea(type: LOOK_NUKES, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Nuke, LOOK_NUKES>;
+    lookForAtArea(type: LOOK_ENERGY, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Resource<RESOURCE_ENERGY>, LOOK_ENERGY>;
+    lookForAtArea(type: LOOK_SOURCES, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Source, LOOK_SOURCES>;
+    lookForAtArea(type: LOOK_TERRAIN, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Terrain, LOOK_TERRAIN>;
+    lookForAtArea(type: LOOK_MINERALS, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Mineral, LOOK_MINERALS>;
+    lookForAtArea(type: LOOK_RESOURCES, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Resource, LOOK_RESOURCES>;
+    lookForAtArea(type: LOOK_STRUCTURES, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<Structure, LOOK_STRUCTURES>;
+    lookForAtArea(type: LOOK_CONSTRUCTION_SITES, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<ConstructionSite, LOOK_CONSTRUCTION_SITES>;
+    lookForAtArea(type: LOOK_CREEPS, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Creep, LOOK_CREEPS>;
+    lookForAtArea(type: LOOK_FLAGS, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Flag, LOOK_FLAGS>;
+    lookForAtArea(type: LOOK_NUKES, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Nuke, LOOK_NUKES>;
+    lookForAtArea(type: LOOK_ENERGY, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Resource<RESOURCE_ENERGY>, LOOK_ENERGY>;
+    lookForAtArea(type: LOOK_SOURCES, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Source, LOOK_SOURCES>;
+    lookForAtArea(type: LOOK_TERRAIN, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Terrain, LOOK_TERRAIN>;
+    lookForAtArea(type: LOOK_MINERALS, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Mineral, LOOK_MINERALS>;
+    lookForAtArea(type: LOOK_RESOURCES, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Resource, LOOK_RESOURCES>;
+    lookForAtArea(type: LOOK_STRUCTURES, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<Structure, LOOK_STRUCTURES>;
+    lookForAtArea(type: LOOK_CONSTRUCTION_SITES, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<ConstructionSite, LOOK_CONSTRUCTION_SITES>;
     lookForAtArea<T extends LookConstant = LookConstant>(type: T, top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix<T> | Array<LookAtResultWithPos<T>>;
 
     /**
