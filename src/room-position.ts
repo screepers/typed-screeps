@@ -29,36 +29,38 @@ interface RoomPosition {
      */
     createFlag(name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ScreepsReturnCode;
     /**
-     * Find an object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
-     * @param type See Room.find
+     * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
+     * @param type Any of the FIND_* constants.
+     * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
+     * @returns An instance of a RoomObject.
+     */
+    findClosestByPath<T extends FindConstant>(type: T, opts?: FindPathOpts & {filter?: any | string, algorithm?: string}): FindTypes[T];
+    /**
+     * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
+     * @param objects An array of RoomPositions or objects with a RoomPosition
+     * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
+     * @returns One of the supplied objects
+     */
+    findClosestByPath<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: FindPathOpts & {filter?: any | string, algorithm?: string}): T;
+    /**
+     * Find the object with the shortest linear distance from the given position.
+     * @param type Any of the FIND_* constants.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByPath<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: FindPathOpts & { filter?: any | string, algorithm?: string }): T | null;
+    findClosestByRange<T extends FindConstant>(type: T, opts?: {filter: any | string}): FindTypes[T];
     /**
-     * Find an object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
-     * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
+     * Find the object with the shortest linear distance from the given position.
+     * @param objects An array of RoomPositions or objects with a RoomPosition.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByPath<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: FindPathOpts & { filter?: any | string, algorithm?: string }): T;
-    /**
-     * Find an object with the shortest linear distance from the given position.
-     * @param type See Room.find.
-     * @param opts
-     */
-    findClosestByRange<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: { filter: any | string }): T | null;
-    /**
-     * Find an object with the shortest linear distance from the given position.
-     * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
-     * @param opts An object containing one of the following options: filter
-     */
-    findClosestByRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: { filter: any | string }): T;
+    findClosestByRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: {filter: any | string}): T;
     /**
      * Find all objects in the specified linear range.
-     * @param type See Room.find.
+     * @param type Any of the FIND_* constants.
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, range: number, opts?: { filter?: any | string }): T[];
+    findInRange<T extends FindConstant>(type: T, range: number, opts?: {filter: any| string}): Array<FindTypes[T]>;
     /**
      * Find all objects in the specified linear range.
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
@@ -137,7 +139,7 @@ interface RoomPosition {
      * Get an object with the given type at the specified room position.
      * @param type One of the following string constants: constructionSite, creep, exit, flag, resource, source, structure, terrain
      */
-    lookFor<T extends RoomObject>(type: LookConstant): T[];
+    lookFor<T extends keyof LookAtTypes>(type: T): Array<LookAtTypes[T]>;
 }
 
 interface RoomPositionConstructor extends _Constructor<RoomPosition> {

@@ -78,7 +78,11 @@ interface Room {
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
-    find<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: { filter: Object | Function | string }): T[];
+    find<T extends FindConstant>(type: T, opts?: { filter: Object | Function | string }): Array<FindTypes[T]>;
+    /**
+     * Typing in this way is depracted. find(FIND_CONSTANT) will now return correctly typed output
+     */
+    find<T>(type: FindConstant, opts?: { filter: Object | Function | string }): T[];
     /**
      * Find the exit direction en route to another room.
      * @param room Another room name or room object.
@@ -125,30 +129,56 @@ interface Room {
      */
     lookAtArea(top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix | LookAtResultWithPos[];
     /**
-     * Get an object with the given type at the specified room position.
-     * @param type One of the following string constants: constructionSite, creep, energy, exit, flag, source, structure, terrain
+     * Get the objects at the given position.
+     * @param type One of the LOOK_* constants.
      * @param x The X position.
      * @param y The Y position.
-     * @returns An array of objects of the given type at the specified position if found.
+     * @returns An array of Creep at the given position.
      */
-    lookForAt<T extends _HasRoomPosition>(type: LookConstant, x: number, y: number): T[];
+    lookForAt<T extends keyof LookAtTypes>(type: T, x: number, y: number): Array<LookAtTypes[T]>;
     /**
-     * Get an object with the given type at the specified room position.
-     * @param type One of the following string constants: constructionSite, creep, energy, exit, flag, source, structure, terrain
+     * Get the objects at the given RoomPosition.
+     * @param type One of the LOOK_* constants.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
-     * @returns An array of objects of the given type at the specified position if found.
+     * @returns An array of Creeps at the specified position if found.
      */
-    lookForAt<T extends _HasRoomPosition>(type: LookConstant, target: RoomPosition | { pos: RoomPosition }): T[];
+    lookForAt<T extends keyof LookAtTypes>(type: T, target: RoomPosition | _HasRoomPosition): Array<LookAtTypes[T]>;
     /**
-     * Get the list of objects with the given type at the specified room area. This method is more CPU efficient in comparison to multiple lookForAt calls.
-     * @param type One of the following string constants: constructionSite, creep, energy, exit, flag, source, structure, terrain
-     * @param top The top Y boundary of the area.
-     * @param left The left X boundary of the area.
-     * @param bottom The bottom Y boundary of the area.
-     * @param right The right X boundary of the area.
-     * @returns An object with all the objects of the given type in the specified area
+     * Get the given objets in the supplied area.
+     * @param type One of the LOOK_* constants
+     * @param top The top (Y) boundry of the area.
+     * @param left The left (X) boundry of the area.
+     * @param bottom The bottom (Y) boundry of the area.
+     * @param right The right(X) boundry of the area.
+     * @param asArray Flatten the results into an array?
+     * @returns An object with the sstructure object[X coord][y coord] as an array of found objects.
      */
-    lookForAtArea<T extends LookConstant = LookConstant>(type: T, top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix<T> | Array<LookAtResultWithPos<T>>;
+    lookForAtArea<T extends keyof LookAtTypes>(
+      type: T,
+      top: number,
+      left: number,
+      bottom: number,
+      right: number,
+      asArray?: false
+    ): LookForAtAreaResultMatrix<LookAtTypes[T], T>;
+    /**
+     * Get the given objets in the supplied area.
+     * @param type One of the LOOK_* constants
+     * @param top The top (Y) boundry of the area.
+     * @param left The left (X) boundry of the area.
+     * @param bottom The bottom (Y) boundry of the area.
+     * @param right The right(X) boundry of the area.
+     * @param asArray Flatten the results into an array?
+     * @returns An array of found objects with an x & y property for their position
+     */
+    lookForAtArea<T extends keyof LookAtTypes>(
+      type: T,
+      top: number,
+      left: number,
+      bottom: number,
+      right: number,
+      asArray: true
+    ): LookForAtAreaResultArray<LookAtTypes[T], T>;
 
     /**
      * Serialize a path array into a short string representation, which is suitable to store in memory.

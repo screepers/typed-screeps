@@ -32,6 +32,7 @@ declare const FIND_MY_CREEPS: 102;
 declare const FIND_HOSTILE_CREEPS: 103;
 declare const FIND_SOURCES_ACTIVE: 104;
 declare const FIND_SOURCES: 105;
+declare const FIND_DROPPED_ENERGY: -106;
 declare const FIND_DROPPED_RESOURCES: 106;
 declare const FIND_STRUCTURES: 107;
 declare const FIND_MY_STRUCTURES: 108;
@@ -857,15 +858,56 @@ interface LookAtTypes {
     structure?: Structure;
     terrain?: Terrain;
 }
-declare type LookAtResult<K extends keyof LookAtTypes = keyof LookAtTypes> = Pick<LookAtTypes, K> & {
+declare type LookAtResult<K extends LookConstant = LookConstant> = Pick<LookAtTypes, K> & {
     type: K;
 };
-declare type LookAtResultWithPos<K extends keyof LookAtTypes = keyof LookAtTypes> = LookAtResult<K> & {
+declare type LookAtResultWithPos<K extends LookConstant = LookConstant> = LookAtResult<K> & {
     x: number;
     y: number;
 };
-interface LookAtResultMatrix<K extends keyof LookAtTypes = keyof LookAtTypes> {
+interface LookAtResultMatrix<K extends LookConstant = LookConstant> {
     [coord: number]: LookAtResultMatrix<K> | Array<LookAtResult<K>>;
+}
+interface LookForAtAreaResultMatrix<T, K extends keyof LookAtTypes = keyof LookAtTypes> {
+    [x: number]: {
+        [y: number]: Array<LookForAtAreaResult<T, K>>;
+    };
+}
+declare type LookForAtAreaResult<T, K extends keyof LookAtTypes = keyof LookAtTypes> = {
+    type: K;
+} & {
+    [P in K]: T;
+};
+declare type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTypes> = LookForAtAreaResult<T, K> & {
+    x: number;
+    y: number;
+};
+declare type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<LookForAtAreaResultWithPos<T, K>>;
+interface FindTypes {
+    [key: number]: RoomPosition | Creep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke;
+    1: RoomPosition;
+    3: RoomPosition;
+    5: RoomPosition;
+    7: RoomPosition;
+    10: RoomPosition;
+    101: Creep;
+    102: Creep;
+    103: Creep;
+    104: Source;
+    105: Source;
+    "-106": Resource<RESOURCE_ENERGY>;
+    106: Resource;
+    107: Structure;
+    108: Structure;
+    109: Structure;
+    110: Flag;
+    111: ConstructionSite;
+    112: StructureSpawn;
+    113: StructureSpawn;
+    114: ConstructionSite;
+    115: ConstructionSite;
+    116: Mineral;
+    117: Nuke;
 }
 interface FindPathOpts {
     /**
@@ -1003,7 +1045,7 @@ declare type ERR_GCL_NOT_ENOUGH = -15;
 declare type CreepActionReturnCode = OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
 declare type CreepMoveReturnCode = OK | ERR_NOT_OWNER | ERR_BUSY | ERR_TIRED | ERR_NO_BODYPART;
 declare type ExitConstant = FIND_EXIT_TOP | FIND_EXIT_RIGHT | FIND_EXIT_BOTTOM | FIND_EXIT_LEFT;
-declare type FindConstant = FIND_EXIT_TOP | FIND_EXIT_RIGHT | FIND_EXIT_BOTTOM | FIND_EXIT_LEFT | FIND_EXIT | FIND_CREEPS | FIND_MY_CREEPS | FIND_HOSTILE_CREEPS | FIND_SOURCES_ACTIVE | FIND_SOURCES | FIND_DROPPED_RESOURCES | FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES | FIND_FLAGS | FIND_CONSTRUCTION_SITES | FIND_MY_SPAWNS | FIND_HOSTILE_SPAWNS | FIND_MY_CONSTRUCTION_SITES | FIND_HOSTILE_CONSTRUCTION_SITES | FIND_MINERALS | FIND_NUKES;
+declare type FindConstant = FIND_EXIT_TOP | FIND_EXIT_RIGHT | FIND_EXIT_BOTTOM | FIND_EXIT_LEFT | FIND_EXIT | FIND_CREEPS | FIND_MY_CREEPS | FIND_HOSTILE_CREEPS | FIND_SOURCES_ACTIVE | FIND_SOURCES | FIND_DROPPED_ENERGY | FIND_DROPPED_RESOURCES | FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES | FIND_FLAGS | FIND_CONSTRUCTION_SITES | FIND_MY_SPAWNS | FIND_HOSTILE_SPAWNS | FIND_MY_CONSTRUCTION_SITES | FIND_HOSTILE_CONSTRUCTION_SITES | FIND_MINERALS | FIND_NUKES;
 declare type FIND_EXIT_TOP = 1;
 declare type FIND_EXIT_RIGHT = 3;
 declare type FIND_EXIT_BOTTOM = 5;
@@ -1014,6 +1056,7 @@ declare type FIND_MY_CREEPS = 102;
 declare type FIND_HOSTILE_CREEPS = 103;
 declare type FIND_SOURCES_ACTIVE = 104;
 declare type FIND_SOURCES = 105;
+declare type FIND_DROPPED_ENERGY = -106;
 declare type FIND_DROPPED_RESOURCES = 106;
 declare type FIND_STRUCTURES = 107;
 declare type FIND_MY_STRUCTURES = 108;
@@ -1703,48 +1746,50 @@ interface RoomPosition {
      */
     createFlag(name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ScreepsReturnCode;
     /**
-     * Find an object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
-     * @param type See Room.find
+     * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
+     * @param type Any of the FIND_* constants.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
+     * @returns An instance of a RoomObject.
      */
-    findClosestByPath<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: FindPathOpts & {
+    findClosestByPath<T extends FindConstant>(type: T, opts?: FindPathOpts & {
         filter?: any | string;
         algorithm?: string;
-    }): T | null;
+    }): FindTypes[T];
     /**
-     * Find an object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
-     * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
+     * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
+     * @param objects An array of RoomPositions or objects with a RoomPosition
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
+     * @returns One of the supplied objects
      */
     findClosestByPath<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: FindPathOpts & {
         filter?: any | string;
         algorithm?: string;
     }): T;
     /**
-     * Find an object with the shortest linear distance from the given position.
-     * @param type See Room.find.
-     * @param opts
+     * Find the object with the shortest linear distance from the given position.
+     * @param type Any of the FIND_* constants.
+     * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: {
+    findClosestByRange<T extends FindConstant>(type: T, opts?: {
         filter: any | string;
-    }): T | null;
+    }): FindTypes[T];
     /**
-     * Find an object with the shortest linear distance from the given position.
-     * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
-     * @param opts An object containing one of the following options: filter
+     * Find the object with the shortest linear distance from the given position.
+     * @param objects An array of RoomPositions or objects with a RoomPosition.
+     * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
     findClosestByRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: {
         filter: any | string;
     }): T;
     /**
      * Find all objects in the specified linear range.
-     * @param type See Room.find.
+     * @param type Any of the FIND_* constants.
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, range: number, opts?: {
-        filter?: any | string;
-    }): T[];
+    findInRange<T extends FindConstant>(type: T, range: number, opts?: {
+        filter: any | string;
+    }): Array<FindTypes[T]>;
     /**
      * Find all objects in the specified linear range.
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
@@ -1833,7 +1878,7 @@ interface RoomPosition {
      * Get an object with the given type at the specified room position.
      * @param type One of the following string constants: constructionSite, creep, exit, flag, resource, source, structure, terrain
      */
-    lookFor<T extends RoomObject>(type: LookConstant): T[];
+    lookFor<T extends keyof LookAtTypes>(type: T): Array<LookAtTypes[T]>;
 }
 interface RoomPositionConstructor extends _Constructor<RoomPosition> {
     /**
@@ -2106,7 +2151,13 @@ interface Room {
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
-    find<T extends _HasRoomPosition | RoomPosition>(type: FindConstant, opts?: {
+    find<T extends FindConstant>(type: T, opts?: {
+        filter: Object | Function | string;
+    }): Array<FindTypes[T]>;
+    /**
+     * Typing in this way is depracted. find(FIND_CONSTANT) will now return correctly typed output
+     */
+    find<T>(type: FindConstant, opts?: {
         filter: Object | Function | string;
     }): T[];
     /**
@@ -2157,32 +2208,42 @@ interface Room {
      */
     lookAtArea(top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix | LookAtResultWithPos[];
     /**
-     * Get an object with the given type at the specified room position.
-     * @param type One of the following string constants: constructionSite, creep, energy, exit, flag, source, structure, terrain
+     * Get the objects at the given position.
+     * @param type One of the LOOK_* constants.
      * @param x The X position.
      * @param y The Y position.
-     * @returns An array of objects of the given type at the specified position if found.
+     * @returns An array of Creep at the given position.
      */
-    lookForAt<T extends _HasRoomPosition>(type: LookConstant, x: number, y: number): T[];
+    lookForAt<T extends keyof LookAtTypes>(type: T, x: number, y: number): Array<LookAtTypes[T]>;
     /**
-     * Get an object with the given type at the specified room position.
-     * @param type One of the following string constants: constructionSite, creep, energy, exit, flag, source, structure, terrain
+     * Get the objects at the given RoomPosition.
+     * @param type One of the LOOK_* constants.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
-     * @returns An array of objects of the given type at the specified position if found.
+     * @returns An array of Creeps at the specified position if found.
      */
-    lookForAt<T extends _HasRoomPosition>(type: LookConstant, target: RoomPosition | {
-        pos: RoomPosition;
-    }): T[];
+    lookForAt<T extends keyof LookAtTypes>(type: T, target: RoomPosition | _HasRoomPosition): Array<LookAtTypes[T]>;
     /**
-     * Get the list of objects with the given type at the specified room area. This method is more CPU efficient in comparison to multiple lookForAt calls.
-     * @param type One of the following string constants: constructionSite, creep, energy, exit, flag, source, structure, terrain
-     * @param top The top Y boundary of the area.
-     * @param left The left X boundary of the area.
-     * @param bottom The bottom Y boundary of the area.
-     * @param right The right X boundary of the area.
-     * @returns An object with all the objects of the given type in the specified area
+     * Get the given objets in the supplied area.
+     * @param type One of the LOOK_* constants
+     * @param top The top (Y) boundry of the area.
+     * @param left The left (X) boundry of the area.
+     * @param bottom The bottom (Y) boundry of the area.
+     * @param right The right(X) boundry of the area.
+     * @param asArray Flatten the results into an array?
+     * @returns An object with the sstructure object[X coord][y coord] as an array of found objects.
      */
-    lookForAtArea<T extends LookConstant = LookConstant>(type: T, top: number, left: number, bottom: number, right: number, asArray?: boolean): LookAtResultMatrix<T> | Array<LookAtResultWithPos<T>>;
+    lookForAtArea<T extends keyof LookAtTypes>(type: T, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<LookAtTypes[T], T>;
+    /**
+     * Get the given objets in the supplied area.
+     * @param type One of the LOOK_* constants
+     * @param top The top (Y) boundry of the area.
+     * @param left The left (X) boundry of the area.
+     * @param bottom The bottom (Y) boundry of the area.
+     * @param right The right(X) boundry of the area.
+     * @param asArray Flatten the results into an array?
+     * @returns An array of found objects with an x & y property for their position
+     */
+    lookForAtArea<T extends keyof LookAtTypes>(type: T, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<LookAtTypes[T], T>;
 }
 interface RoomConstructor {
     new (id: string): Room;
