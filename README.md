@@ -94,20 +94,6 @@ Installing through `@types/` will be made available soon. Hang tight!
 - Results from `Find`-type functions are now constrained to have a `RoomPosition`
 - Typings for new RawMemory and RoomVisuals
 
-## Usage
-
-Note: When using this API, you can't access creeps in manner suggested in Screeps' tutorial:
-
-```TypeScript
-Game.creeps.Worker1  // This is not allowed by TypeScript compiler
-```
-
-Instead, you have to use
-
-```TypeScript
-Game.creeps['Worker1']
-```
-
 ## Contribute
 
 This library will stay up to date only with the help of you! If active players don't update it, it'll get lost.
