@@ -1,4 +1,4 @@
-// tslint:disable:no-reference
+// tslint:disable:no-reference no-unused-expression
 /// <reference path="../dist/screeps.d.ts" />
 
 // This file exists solely to test whether or not the typings actually work.
@@ -113,8 +113,6 @@ interface CreepMemory {
     }
 }
 
-//// Game.map
-
 ////////
 // Game.map.describeExits()
 
@@ -174,8 +172,8 @@ interface CreepMemory {
     const route = Game.map.findRoute(from.roomName, to.roomName, {
         routeCallback(roomName) {
             const parsed = /^[WE]([0-9]+)[NS]([0-9]+)$/.exec(roomName);
-            const isHighway = (parseInt(parsed[1]) % 10 === 0) ||
-                (parseInt(parsed[2]) % 10 === 0);
+            const isHighway = (parseInt(parsed[1], 10) % 10 === 0) ||
+                (parseInt(parsed[2], 10) % 10 === 0);
             const isMyRoom = Game.rooms[roomName] &&
                 Game.rooms[roomName].controller &&
                 Game.rooms[roomName].controller.my;
@@ -238,81 +236,71 @@ interface CreepMemory {
 ////////
 // Find Overloads
 
-
 {
-  let creeps = room.find(FIND_HOSTILE_CREEPS)
+    const creeps = room.find(FIND_HOSTILE_CREEPS);
+    creeps[0].say(creeps[1].name);
 
-  creeps[0].say(creeps[1].name)
+    const flags = room.find(FIND_FLAGS);
+    flags[0].remove();
 
-  let flags = room.find(FIND_FLAGS)
+    const spawns = room.find(FIND_HOSTILE_SPAWNS);
+    spawns[0].spawning;
 
-  flags[0].remove()
+    const sources = room.find(FIND_SOURCES);
+    sources[0].ticksToRegeneration;
 
-  let spawns = room.find(FIND_HOSTILE_SPAWNS)
+    const resources = room.find(FIND_DROPPED_RESOURCES);
+    resources[0].resourceType;
 
-  spawns[0].spawning
+    const energy = room.find(FIND_DROPPED_ENERGY);
+    energy[0].resourceType;
 
-  let sources = room.find(FIND_SOURCES)
+    const sites = room.find(FIND_CONSTRUCTION_SITES);
+    sites[0].remove();
 
-  sources[0].ticksToRegeneration
+    // Should have type (_HasRoomPosition | RoomPosition)[]
+    const exits = room.find(FIND_EXIT);
 
-  let resources = room.find(FIND_DROPPED_RESOURCES)
+    // Should support the old way
+    const myCreeps = room.find<Creep>(FIND_MY_CREEPS);
+    myCreeps[0].drop(resources[0].resourceType);
 
-  resources[0].resourceType
-
-  let energy = room.find(FIND_DROPPED_ENERGY)
-
-  energy[0].resourceType
-
-  let sites = room.find(FIND_CONSTRUCTION_SITES)
-
-  sites[0].remove()
-
-  // Should have type (_HasRoomPosition | RoomPosition)[]
-  let exits = room.find(FIND_EXIT)
-
-  // Should support the old way
-  let myCreeps = room.find<Creep>(FIND_MY_CREEPS)
-
-  myCreeps[0].drop(resources[0].resourceType)
-
-  let creepsHere = room.lookForAt(LOOK_CREEPS, 10, 10)
-
-  creepsHere[0].getActiveBodyparts(ATTACK)
+    const creepsHere = room.lookForAt(LOOK_CREEPS, 10, 10);
+    creepsHere[0].getActiveBodyparts(ATTACK);
 }
 
 ////////
 // RoomPosition Finds
 
 {
-  // Should have type Creep
-  let hostileCreep = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS)
+    // Should have type Creep
+    const hostileCreep = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
 
-  creep.say(hostileCreep.name)
+    creep.say(hostileCreep.name);
 
-  // Should have type Creep[]
-  let hostileCreeps = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 10)
-  hostileCreeps[0].saying
+    // Should have type Creep[]
+    const hostileCreeps = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 10);
+    hostileCreeps[0].saying;
 }
 
 ////////
 // LookAt Finds
 
 {
-  let nukes = room.lookForAt(LOOK_NUKES, creep.pos)
+    const nukes = room.lookForAt(LOOK_NUKES, creep.pos);
 
-  nukes[0].launchRoomName
+    nukes[0].launchRoomName;
 
-  let flags = room.lookForAtArea(LOOK_FLAGS, 10, 10, 20, 20)
+    const flags = room.lookForAtArea(LOOK_FLAGS, 10, 10, 20, 20);
 
-  let x = flags[10]
-  let y = x[11]
-  let entry = y[0]
-  entry.flag.remove()
+    const x = flags[10];
+    const y = x[11];
+    const entry = y[0];
+    entry.flag.remove();
 
-  let creeps = room.lookForAtArea(LOOK_CREEPS, 10, 10, 20, 20, true)
+    const creeps = room.lookForAtArea(LOOK_CREEPS, 10, 10, 20, 20, true);
 
-  creeps[0].x
-  creeps[0].y
-  creeps[0].creep.move(TOP)
+    creeps[0].x;
+    creeps[0].y;
+    creeps[0].creep.move(TOP);
 }

@@ -7,8 +7,9 @@
   "scripts": {
     "compile": "node_modules/.bin/tsc",
     "lint": "tslint 'src/**/*.ts'",
+    "lint-test": "tslint 'test/**/*.ts'",
     "precommit": "npm run compile && git add dist/screeps.d.ts",
-    "test": "npm run compile && npm run lint && npm run compile-test",
+    "test": "npm run compile && npm run lint && npm run lint-test && npm run compile-test",
     "compile-test": "node_modules/.bin/tsc test/typed-screeps-tests.ts"
   },
   "keywords": [
