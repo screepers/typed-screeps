@@ -74,9 +74,23 @@ declare const CREEP_LIFE_TIME: 1500;
 declare const CREEP_CLAIM_LIFE_TIME: 500;
 declare const CREEP_CORPSE_RATE: 0.2;
 
-// TODO figure out best way to type this next line
-//  because it includes "creep"
-declare const OBSTACLE_OBJECT_TYPES: string[];
+declare const OBSTACLE_OBJECT_TYPES: [
+  "spawn",
+  "creep",
+  "wall",
+  "source",
+  "constructedWall",
+  "extension",
+  "link",
+  "storage",
+  "tower",
+  "observer",
+  "powerSpawn",
+  "powerBank",
+  "lab",
+  "terminal",
+  "nuker"
+];
 
 declare const ENERGY_REGEN_TIME: 300;
 declare const ENERGY_DECAY: 1000;
@@ -160,8 +174,7 @@ declare const TOUGH: "tough";
 declare const HEAL: "heal";
 declare const CLAIM: "claim";
 
-// TODO do we care that some structure constants aren't buildable?
-declare const CONSTRUCTION_COST: Record<StructureConstant, number>;
+declare const CONSTRUCTION_COST: Record<BuildableStructureConstant, number>;
 
 declare const CONSTRUCTION_COST_ROAD_SWAMP_RATIO: 5;
 
@@ -233,7 +246,7 @@ declare const RESOURCES_ALL: ResourceConstant[];
 declare const SUBSCRIPTION_TOKEN: string;
 
 declare const CONTROLLER_LEVELS: {[level: number]: number};
-declare const CONTROLLER_STRUCTURES: Record<StructureConstant, {[level: number]: number}>;
+declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, {[level: number]: number}>;
 
 declare const CONTROLLER_DOWNGRADE: {[level: number]: number};
 declare const CONTROLLER_CLAIM_DOWNGRADE: number;

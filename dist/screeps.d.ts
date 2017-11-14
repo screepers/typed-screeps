@@ -68,7 +68,7 @@ declare const CREEP_SPAWN_TIME: 3;
 declare const CREEP_LIFE_TIME: 1500;
 declare const CREEP_CLAIM_LIFE_TIME: 500;
 declare const CREEP_CORPSE_RATE: 0.2;
-declare const OBSTACLE_OBJECT_TYPES: string[];
+declare const OBSTACLE_OBJECT_TYPES: ["spawn", "creep", "wall", "source", "constructedWall", "extension", "link", "storage", "tower", "observer", "powerSpawn", "powerBank", "lab", "terminal", "nuker"];
 declare const ENERGY_REGEN_TIME: 300;
 declare const ENERGY_DECAY: 1000;
 declare const REPAIR_COST: 0.01;
@@ -137,7 +137,7 @@ declare const RANGED_ATTACK: "ranged_attack";
 declare const TOUGH: "tough";
 declare const HEAL: "heal";
 declare const CLAIM: "claim";
-declare const CONSTRUCTION_COST: Record<StructureConstant, number>;
+declare const CONSTRUCTION_COST: Record<BuildableStructureConstant, number>;
 declare const CONSTRUCTION_COST_ROAD_SWAMP_RATIO: 5;
 declare const STRUCTURE_EXTENSION: "extension";
 declare const STRUCTURE_RAMPART: "rampart";
@@ -206,7 +206,7 @@ declare const SUBSCRIPTION_TOKEN: string;
 declare const CONTROLLER_LEVELS: {
     [level: number]: number;
 };
-declare const CONTROLLER_STRUCTURES: Record<StructureConstant, {
+declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, {
     [level: number]: number;
 }>;
 declare const CONTROLLER_DOWNGRADE: {
@@ -325,7 +325,7 @@ declare const ORDER_BUY: "buy";
 /**
  * A site of a structure which is currently under construction.
  */
-interface ConstructionSite<T extends StructureConstant = StructureConstant> extends RoomObject {
+interface ConstructionSite<T extends BuildableStructureConstant = BuildableStructureConstant> extends RoomObject {
     readonly prototype: ConstructionSite;
     /**
      * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
@@ -1109,7 +1109,8 @@ declare type COLOR_ORANGE = 7;
 declare type COLOR_BROWN = 8;
 declare type COLOR_GREY = 9;
 declare type COLOR_WHITE = 10;
-declare type StructureConstant = STRUCTURE_EXTENSION | STRUCTURE_RAMPART | STRUCTURE_ROAD | STRUCTURE_SPAWN | STRUCTURE_LINK | STRUCTURE_WALL | STRUCTURE_KEEPER_LAIR | STRUCTURE_CONTROLLER | STRUCTURE_STORAGE | STRUCTURE_TOWER | STRUCTURE_OBSERVER | STRUCTURE_POWER_BANK | STRUCTURE_POWER_SPAWN | STRUCTURE_EXTRACTOR | STRUCTURE_LAB | STRUCTURE_TERMINAL | STRUCTURE_CONTAINER | STRUCTURE_NUKER | STRUCTURE_PORTAL;
+declare type BuildableStructureConstant = STRUCTURE_EXTENSION | STRUCTURE_RAMPART | STRUCTURE_ROAD | STRUCTURE_SPAWN | STRUCTURE_LINK | STRUCTURE_WALL | STRUCTURE_STORAGE | STRUCTURE_TOWER | STRUCTURE_OBSERVER | STRUCTURE_POWER_SPAWN | STRUCTURE_EXTRACTOR | STRUCTURE_LAB | STRUCTURE_TERMINAL | STRUCTURE_CONTAINER | STRUCTURE_NUKER;
+declare type StructureConstant = BuildableStructureConstant | STRUCTURE_KEEPER_LAIR | STRUCTURE_CONTROLLER | STRUCTURE_POWER_BANK | STRUCTURE_PORTAL;
 declare type STRUCTURE_EXTENSION = "extension";
 declare type STRUCTURE_RAMPART = "rampart";
 declare type STRUCTURE_ROAD = "road";
@@ -1737,7 +1738,7 @@ interface RoomPosition {
      * Create new ConstructionSite at the specified location.
      * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
      */
-    createConstructionSite(structureType: StructureConstant): ScreepsReturnCode;
+    createConstructionSite(structureType: BuildableStructureConstant): ScreepsReturnCode;
     /**
      * Create new Flag at the specified location.
      * @param name The name of a new flag. It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key). If not defined, a random name will be generated.
@@ -2118,7 +2119,7 @@ interface Room {
      * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
      * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
      */
-    createConstructionSite(x: number, y: number, structureType: StructureConstant): ScreepsReturnCode;
+    createConstructionSite(x: number, y: number, structureType: BuildableStructureConstant): ScreepsReturnCode;
     /**
      * Create new ConstructionSite at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
