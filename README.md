@@ -1,6 +1,8 @@
 # typed-screeps
 
-> Stronger TypeScript declarations for the game Screeps.
+> Strong TypeScript declarations for the game Screeps.
+
+[![Travis](https://img.shields.io/travis/screepers/typed-screeps.svg)](https://travis-ci.org/screepers/typed-screeps)
 
 ## Installation
 
