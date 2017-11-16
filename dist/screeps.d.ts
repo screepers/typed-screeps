@@ -68,7 +68,7 @@ declare const CREEP_SPAWN_TIME: 3;
 declare const CREEP_LIFE_TIME: 1500;
 declare const CREEP_CLAIM_LIFE_TIME: 500;
 declare const CREEP_CORPSE_RATE: 0.2;
-declare const OBSTACLE_OBJECT_TYPES: string[];
+declare const OBSTACLE_OBJECT_TYPES: ["spawn", "creep", "wall", "source", "constructedWall", "extension", "link", "storage", "tower", "observer", "powerSpawn", "powerBank", "lab", "terminal", "nuker"];
 declare const ENERGY_REGEN_TIME: 300;
 declare const ENERGY_DECAY: 1000;
 declare const REPAIR_COST: 0.01;
@@ -137,7 +137,7 @@ declare const RANGED_ATTACK: "ranged_attack";
 declare const TOUGH: "tough";
 declare const HEAL: "heal";
 declare const CLAIM: "claim";
-declare const CONSTRUCTION_COST: Record<StructureConstant, number>;
+declare const CONSTRUCTION_COST: Record<BuildableStructureConstant, number>;
 declare const CONSTRUCTION_COST_ROAD_SWAMP_RATIO: 5;
 declare const STRUCTURE_EXTENSION: "extension";
 declare const STRUCTURE_RAMPART: "rampart";
@@ -206,7 +206,7 @@ declare const SUBSCRIPTION_TOKEN: string;
 declare const CONTROLLER_LEVELS: {
     [level: number]: number;
 };
-declare const CONTROLLER_STRUCTURES: Record<StructureConstant, {
+declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, {
     [level: number]: number;
 }>;
 declare const CONTROLLER_DOWNGRADE: {
@@ -299,14 +299,249 @@ declare const NUKE_DAMAGE: {
     4: number;
 };
 declare const REACTIONS: {
-    [T in ResourceConstant]: {
-        [P in ResourceConstant]: ResourceConstant;
+    H: {
+        O: "OH";
+        L: "LH";
+        K: "KH";
+        U: "UH";
+        Z: "ZH";
+        G: "GH";
+    };
+    O: {
+        H: "OH";
+        L: "LO";
+        K: "KO";
+        U: "UO";
+        Z: "ZO";
+        G: "GO";
+    };
+    Z: {
+        K: "ZK";
+        H: "ZH";
+        O: "ZO";
+    };
+    L: {
+        U: "UL";
+        H: "LH";
+        O: "LO";
+    };
+    K: {
+        Z: "ZK";
+        H: "KH";
+        O: "KO";
+    };
+    G: {
+        H: "GH";
+        O: "GO";
+    };
+    U: {
+        L: "UL";
+        H: "UH";
+        O: "UO";
+    };
+    OH: {
+        UH: "UH2O";
+        UO: "UHO2";
+        ZH: "ZH2O";
+        ZO: "ZHO2";
+        KH: "KH2O";
+        KO: "KHO2";
+        LH: "LH2O";
+        LO: "LHO2";
+        GH: "GH2O";
+        GO: "GHO2";
+    };
+    X: {
+        UH2O: "XUH2O";
+        UHO2: "XUHO2";
+        LH2O: "XLH2O";
+        LHO2: "XLHO2";
+        KH2O: "XKH2O";
+        KHO2: "XKHO2";
+        ZH2O: "XZH2O";
+        ZHO2: "XZHO2";
+        GH2O: "XGH2O";
+        GHO2: "XGHO2";
+    };
+    ZK: {
+        UL: "G";
+    };
+    UL: {
+        ZK: "G";
+    };
+    LH: {
+        OH: "LH2O";
+    };
+    ZH: {
+        OH: "ZH2O";
+    };
+    GH: {
+        OH: "GH2O";
+    };
+    KH: {
+        OH: "KH2O";
+    };
+    UH: {
+        OH: "UH2O";
+    };
+    LO: {
+        OH: "LHO2";
+    };
+    ZO: {
+        OH: "ZHO2";
+    };
+    KO: {
+        OH: "KHO2";
+    };
+    UO: {
+        OH: "UHO2";
+    };
+    GO: {
+        OH: "GHO2";
+    };
+    LH2O: {
+        X: "XLH2O";
+    };
+    KH2O: {
+        X: "XKH2O";
+    };
+    ZH2O: {
+        X: "XZH2O";
+    };
+    UH2O: {
+        X: "XUH2O";
+    };
+    GH2O: {
+        X: "XGH2O";
+    };
+    LHO2: {
+        X: "XLHO2";
+    };
+    UHO2: {
+        X: "XUHO2";
+    };
+    KHO2: {
+        X: "XKHO2";
+    };
+    ZHO2: {
+        X: "XZHO2";
+    };
+    GHO2: {
+        X: "XGHO2";
     };
 };
 declare const BOOSTS: {
-    [P in BodyPartConstant]: {
-        [T in ResourceConstant]: {
-            [action: string]: number;
+    work: {
+        UO: {
+            harvest: 3;
+        };
+        UHO2: {
+            harvest: 5;
+        };
+        XUHO2: {
+            harvest: 7;
+        };
+        LH: {
+            build: 1.5;
+            repair: 1.5;
+        };
+        LH2O: {
+            build: 1.8;
+            repair: 1.8;
+        };
+        XLH2O: {
+            build: 2;
+            repair: 2;
+        };
+        ZH: {
+            dismantle: 2;
+        };
+        ZH2O: {
+            dismantle: 3;
+        };
+        XZH2O: {
+            dismantle: 4;
+        };
+        GH: {
+            upgradeController: 1.5;
+        };
+        GH2O: {
+            upgradeController: 1.8;
+        };
+        XGH2O: {
+            upgradeController: 2;
+        };
+    };
+    attack: {
+        UH: {
+            attack: 2;
+        };
+        UH2O: {
+            attack: 3;
+        };
+        XUH2O: {
+            attack: 4;
+        };
+    };
+    ranged_attack: {
+        KO: {
+            rangedAttack: 2;
+            rangedMassAttack: 2;
+        };
+        KHO2: {
+            rangedAttack: 3;
+            rangedMassAttack: 3;
+        };
+        XKHO2: {
+            rangedAttack: 4;
+            rangedMassAttack: 4;
+        };
+    };
+    heal: {
+        LO: {
+            heal: 2;
+            rangedHeal: 2;
+        };
+        LHO2: {
+            heal: 3;
+            rangedHeal: 3;
+        };
+        XLHO2: {
+            heal: 4;
+            rangedHeal: 4;
+        };
+    };
+    carry: {
+        KH: {
+            capacity: 2;
+        };
+        KH2O: {
+            capacity: 3;
+        };
+        XKH2O: {
+            capacity: 4;
+        };
+    };
+    move: {
+        ZO: {
+            fatigue: 2;
+        };
+        ZHO2: {
+            fatigue: 3;
+        };
+        XZHO2: {
+            fatigue: 4;
+        };
+    };
+    tough: {
+        GO: {
+            damage: .7;
+        };
+        GHO2: {
+            damage: .5;
+        };
+        XGHO2: {
+            damage: .3;
         };
     };
 };
@@ -325,7 +560,7 @@ declare const ORDER_BUY: "buy";
 /**
  * A site of a structure which is currently under construction.
  */
-interface ConstructionSite<T extends StructureConstant = StructureConstant> extends RoomObject {
+interface ConstructionSite<T extends BuildableStructureConstant = BuildableStructureConstant> extends RoomObject {
     readonly prototype: ConstructionSite;
     /**
      * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
@@ -1109,7 +1344,8 @@ declare type COLOR_ORANGE = 7;
 declare type COLOR_BROWN = 8;
 declare type COLOR_GREY = 9;
 declare type COLOR_WHITE = 10;
-declare type StructureConstant = STRUCTURE_EXTENSION | STRUCTURE_RAMPART | STRUCTURE_ROAD | STRUCTURE_SPAWN | STRUCTURE_LINK | STRUCTURE_WALL | STRUCTURE_KEEPER_LAIR | STRUCTURE_CONTROLLER | STRUCTURE_STORAGE | STRUCTURE_TOWER | STRUCTURE_OBSERVER | STRUCTURE_POWER_BANK | STRUCTURE_POWER_SPAWN | STRUCTURE_EXTRACTOR | STRUCTURE_LAB | STRUCTURE_TERMINAL | STRUCTURE_CONTAINER | STRUCTURE_NUKER | STRUCTURE_PORTAL;
+declare type BuildableStructureConstant = STRUCTURE_EXTENSION | STRUCTURE_RAMPART | STRUCTURE_ROAD | STRUCTURE_SPAWN | STRUCTURE_LINK | STRUCTURE_WALL | STRUCTURE_STORAGE | STRUCTURE_TOWER | STRUCTURE_OBSERVER | STRUCTURE_POWER_SPAWN | STRUCTURE_EXTRACTOR | STRUCTURE_LAB | STRUCTURE_TERMINAL | STRUCTURE_CONTAINER | STRUCTURE_NUKER;
+declare type StructureConstant = BuildableStructureConstant | STRUCTURE_KEEPER_LAIR | STRUCTURE_CONTROLLER | STRUCTURE_POWER_BANK | STRUCTURE_PORTAL;
 declare type STRUCTURE_EXTENSION = "extension";
 declare type STRUCTURE_RAMPART = "rampart";
 declare type STRUCTURE_ROAD = "road";
@@ -1737,7 +1973,7 @@ interface RoomPosition {
      * Create new ConstructionSite at the specified location.
      * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
      */
-    createConstructionSite(structureType: StructureConstant): ScreepsReturnCode;
+    createConstructionSite(structureType: BuildableStructureConstant): ScreepsReturnCode;
     /**
      * Create new Flag at the specified location.
      * @param name The name of a new flag. It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key). If not defined, a random name will be generated.
@@ -2118,7 +2354,7 @@ interface Room {
      * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
      * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
      */
-    createConstructionSite(x: number, y: number, structureType: StructureConstant): ScreepsReturnCode;
+    createConstructionSite(x: number, y: number, structureType: BuildableStructureConstant): ScreepsReturnCode;
     /**
      * Create new ConstructionSite at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.

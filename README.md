@@ -55,6 +55,7 @@ Installing through `@types/` will be made available soon. Hang tight!
 
   ```
   BodyPartConstant
+  BuildableStructureConstant (this is a subset of StructureConstant)
   StructureConstant
   FindConstant
   LookConstant
@@ -117,5 +118,3 @@ Due to some unresolved issues in TypeScript, a few parts of the API can't curren
 Below is a list (feel free to open an issue if you have any ideas, or wish to discuss):
 
 - The API returned from `store` or `carry` (ex. `myContainter.store`) returns an object with optional keys for each Resource Type, but is guaranteed to have a key for `RESOURCE_ENERGY`. This is currently not (perfectly) typable in TypeScript (see issues [#13573](https://github.com/Microsoft/TypeScript/issues/13573) and [#12215](https://github.com/Microsoft/TypeScript/issues/12215)). The chosen workaround is to just manually list the types using a fake type `_ResourceConstantSansEnergy`
-
-

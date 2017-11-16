@@ -74,9 +74,23 @@ declare const CREEP_LIFE_TIME: 1500;
 declare const CREEP_CLAIM_LIFE_TIME: 500;
 declare const CREEP_CORPSE_RATE: 0.2;
 
-// TODO figure out best way to type this next line
-//  because it includes "creep"
-declare const OBSTACLE_OBJECT_TYPES: string[];
+declare const OBSTACLE_OBJECT_TYPES: [
+  "spawn",
+  "creep",
+  "wall",
+  "source",
+  "constructedWall",
+  "extension",
+  "link",
+  "storage",
+  "tower",
+  "observer",
+  "powerSpawn",
+  "powerBank",
+  "lab",
+  "terminal",
+  "nuker"
+];
 
 declare const ENERGY_REGEN_TIME: 300;
 declare const ENERGY_DECAY: 1000;
@@ -160,8 +174,7 @@ declare const TOUGH: "tough";
 declare const HEAL: "heal";
 declare const CLAIM: "claim";
 
-// TODO do we care that some structure constants aren't buildable?
-declare const CONSTRUCTION_COST: Record<StructureConstant, number>;
+declare const CONSTRUCTION_COST: Record<BuildableStructureConstant, number>;
 
 declare const CONSTRUCTION_COST_ROAD_SWAMP_RATIO: 5;
 
@@ -233,7 +246,7 @@ declare const RESOURCES_ALL: ResourceConstant[];
 declare const SUBSCRIPTION_TOKEN: string;
 
 declare const CONTROLLER_LEVELS: {[level: number]: number};
-declare const CONTROLLER_STRUCTURES: Record<StructureConstant, {[level: number]: number}>;
+declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, {[level: number]: number}>;
 
 declare const CONTROLLER_DOWNGRADE: {[level: number]: number};
 declare const CONTROLLER_CLAIM_DOWNGRADE: number;
@@ -341,20 +354,253 @@ declare const NUKE_DAMAGE: {
     4: number
 };
 
-// TODO make this more strongly typed
 declare const REACTIONS: {
-    [T in ResourceConstant]: {
-        [P in ResourceConstant]: ResourceConstant
-    }
+  H: {
+      O: "OH",
+      L: "LH",
+      K: "KH",
+      U: "UH",
+      Z: "ZH",
+      G: "GH"
+  },
+  O: {
+      H: "OH",
+      L: "LO",
+      K: "KO",
+      U: "UO",
+      Z: "ZO",
+      G: "GO"
+  },
+  Z: {
+      K: "ZK",
+      H: "ZH",
+      O: "ZO"
+  },
+  L: {
+      U: "UL",
+      H: "LH",
+      O: "LO"
+  },
+  K: {
+      Z: "ZK",
+      H: "KH",
+      O: "KO"
+  },
+  G: {
+      H: "GH",
+      O: "GO"
+  },
+  U: {
+      L: "UL",
+      H: "UH",
+      O: "UO"
+  },
+  OH: {
+      UH: "UH2O",
+      UO: "UHO2",
+      ZH: "ZH2O",
+      ZO: "ZHO2",
+      KH: "KH2O",
+      KO: "KHO2",
+      LH: "LH2O",
+      LO: "LHO2",
+      GH: "GH2O",
+      GO: "GHO2"
+  },
+  X: {
+      UH2O: "XUH2O",
+      UHO2: "XUHO2",
+      LH2O: "XLH2O",
+      LHO2: "XLHO2",
+      KH2O: "XKH2O",
+      KHO2: "XKHO2",
+      ZH2O: "XZH2O",
+      ZHO2: "XZHO2",
+      GH2O: "XGH2O",
+      GHO2: "XGHO2"
+  },
+  ZK: {
+      UL: "G"
+  },
+  UL: {
+      ZK: "G"
+  },
+  LH: {
+      OH: "LH2O"
+  },
+  ZH: {
+      OH: "ZH2O"
+  },
+  GH: {
+      OH: "GH2O"
+  },
+  KH: {
+      OH: "KH2O"
+  },
+  UH: {
+      OH: "UH2O"
+  },
+  LO: {
+      OH: "LHO2"
+  },
+  ZO: {
+      OH: "ZHO2"
+  },
+  KO: {
+      OH: "KHO2"
+  },
+  UO: {
+      OH: "UHO2"
+  },
+  GO: {
+      OH: "GHO2"
+  },
+  LH2O: {
+      X: "XLH2O"
+  },
+  KH2O: {
+      X: "XKH2O"
+  },
+  ZH2O: {
+      X: "XZH2O"
+  },
+  UH2O: {
+      X: "XUH2O"
+  },
+  GH2O: {
+      X: "XGH2O"
+  },
+  LHO2: {
+      X: "XLHO2"
+  },
+  UHO2: {
+      X: "XUHO2"
+  },
+  KHO2: {
+      X: "XKHO2"
+  },
+  ZHO2: {
+      X: "XZHO2"
+  },
+  GHO2: {
+      X: "XGHO2"
+  }
 };
 
-// TODO type "action"
 declare const BOOSTS: {
-    [P in BodyPartConstant]: {
-        [T in ResourceConstant]: {
-            [action: string]: number
-        }
-    }
+  work: {
+      UO: {
+          harvest: 3
+      },
+      UHO2: {
+          harvest: 5
+      },
+      XUHO2: {
+          harvest: 7
+      },
+      LH: {
+          build: 1.5,
+          repair: 1.5
+      },
+      LH2O: {
+          build: 1.8,
+          repair: 1.8
+      },
+      XLH2O: {
+          build: 2,
+          repair: 2
+      },
+      ZH: {
+          dismantle: 2
+      },
+      ZH2O: {
+          dismantle: 3
+      },
+      XZH2O: {
+          dismantle: 4
+      },
+      GH: {
+          upgradeController: 1.5
+      },
+      GH2O: {
+          upgradeController: 1.8
+      },
+      XGH2O: {
+          upgradeController: 2
+      }
+  },
+  attack: {
+      UH: {
+          attack: 2
+      },
+      UH2O: {
+          attack: 3
+      },
+      XUH2O: {
+          attack: 4
+      }
+  },
+  ranged_attack: {
+      KO: {
+          rangedAttack: 2,
+          rangedMassAttack: 2
+      },
+      KHO2: {
+          rangedAttack: 3,
+          rangedMassAttack: 3
+      },
+      XKHO2: {
+          rangedAttack: 4,
+          rangedMassAttack: 4
+      }
+  },
+  heal: {
+      LO: {
+          heal: 2,
+          rangedHeal: 2
+      },
+      LHO2: {
+          heal: 3,
+          rangedHeal: 3
+      },
+      XLHO2: {
+          heal: 4,
+          rangedHeal: 4
+      }
+  },
+  carry: {
+      KH: {
+          capacity: 2
+      },
+      KH2O: {
+          capacity: 3
+      },
+      XKH2O: {
+          capacity: 4
+      }
+  },
+  move: {
+      ZO: {
+          fatigue: 2
+      },
+      ZHO2: {
+          fatigue: 3
+      },
+      XZHO2: {
+          fatigue: 4
+      }
+  },
+  tough: {
+      GO: {
+          damage: .7
+      },
+      GHO2: {
+          damage: .5
+      },
+      XGHO2: {
+          damage: .3
+      }
+  }
 };
 
 declare const LOOK_CREEPS: "creep";
