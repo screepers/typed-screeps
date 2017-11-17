@@ -99,7 +99,7 @@ Installing through `@types/` will be made available soon. Hang tight!
 
 ## Contribute
 
-Issues and Pull Requests are welcom! Please read the [Contributing Guidelines](.github/CONTRIBUTING.md) beforehand.
+Issues and Pull Requests are welcom! Please read the [Contributing Guidelines](.github/CONTRIBUTING.md) and [Code of Conduct](.github/CODE_OF_CONDUCT.md) beforehand.
 
 --------
 
