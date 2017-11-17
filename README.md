@@ -99,15 +99,7 @@ Installing through `@types/` will be made available soon. Hang tight!
 
 ## Contribute
 
-This library will stay up to date only with the help of you! If active players don't update it, it'll get lost.
-
-This codebase uses [husky](https://github.com/typicode/husky) to auto-compile changes on commit.
-
-To get started, just clone this repository, and run `npm install`. After that, make any changes you want in `src/`. When you commit the changes, husky will first automatically run `npm run compile` and compile your changes.
-
-To test your changes, we've included a `test/typed-screeps-tests.ts` file. This file is not meant to be executed. It exists solely to test whether or not the typings actually work.
-
-If you open this file and see no red squiggly lines, then you're good!
+Issues and Pull Requests are welcom! Please read the [Contributing Guidelines](.github/CONTRIBUTING.md) beforehand.
 
 --------
 
