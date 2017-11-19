@@ -1304,6 +1304,10 @@ declare type FIND_MY_CONSTRUCTION_SITES = 114;
 declare type FIND_HOSTILE_CONSTRUCTION_SITES = 115;
 declare type FIND_MINERALS = 116;
 declare type FIND_NUKES = 117;
+declare type FilterOptions<T extends FindConstant> = string | FilterFunction<T> | {
+    filter: FilterFunction<T>;
+};
+declare type FilterFunction<T extends FindConstant> = (object: FindTypes[T]) => boolean;
 declare type BodyPartConstant = MOVE | WORK | CARRY | ATTACK | RANGED_ATTACK | TOUGH | HEAL | CLAIM;
 declare type MOVE = "move";
 declare type WORK = "work";
@@ -2387,15 +2391,10 @@ interface Room {
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
-    find<T extends FindConstant>(type: T, opts?: {
-        filter: Object | Function | string;
-    }): Array<FindTypes[T]>;
+    find<T extends FindTypes[K], K extends FindConstant = K>(type: K, opts?: FilterOptions<K>): T[];
     /**
      * Typing in this way is depracted. find(FIND_CONSTANT) will now return correctly typed output
      */
-    find<T>(type: FindConstant, opts?: {
-        filter: Object | Function | string;
-    }): T[];
     /**
      * Find the exit direction en route to another room.
      * @param room Another room name or room object.

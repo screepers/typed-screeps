@@ -267,6 +267,13 @@ interface CreepMemory {
 
     const creepsHere = room.lookForAt(LOOK_CREEPS, 10, 10);
     creepsHere[0].getActiveBodyparts(ATTACK);
+
+    const towers = room.find<StructureTower>(FIND_MY_STRUCTURES, {
+      filter: (structure) => {
+        return (structure.structureType === STRUCTURE_TOWER);
+      }
+    });
+    towers[0].attack(creeps[0]);
 }
 
 ////////
