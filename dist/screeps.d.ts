@@ -1991,10 +1991,10 @@ interface RoomPosition {
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      * @returns An instance of a RoomObject.
      */
-    findClosestByPath<T extends FindConstant>(type: T, opts?: FindPathOpts & {
-        filter?: any | string;
+    findClosestByPath<T extends FindTypes[K], K extends FindConstant = K>(type: K, opts?: FindPathOpts & {
+        filter?: FilterFunction<K>;
         algorithm?: string;
-    }): FindTypes[T];
+    }): T;
     /**
      * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
      * @param objects An array of RoomPositions or objects with a RoomPosition
@@ -2010,9 +2010,9 @@ interface RoomPosition {
      * @param type Any of the FIND_* constants.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<T extends FindConstant>(type: T, opts?: {
-        filter: any | string;
-    }): FindTypes[T];
+    findClosestByRange<T extends FindTypes[K], K extends FindConstant = K>(type: K, opts?: {
+        filter: FilterFunction<K>;
+    }): T;
     /**
      * Find the object with the shortest linear distance from the given position.
      * @param objects An array of RoomPositions or objects with a RoomPosition.
@@ -2392,9 +2392,6 @@ interface Room {
      * @returns An array with the objects found.
      */
     find<T extends FindTypes[K], K extends FindConstant = K>(type: K, opts?: FilterOptions<K>): T[];
-    /**
-     * Typing in this way is depracted. find(FIND_CONSTANT) will now return correctly typed output
-     */
     /**
      * Find the exit direction en route to another room.
      * @param room Another room name or room object.

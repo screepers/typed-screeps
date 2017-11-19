@@ -285,6 +285,22 @@ interface CreepMemory {
 
     creep.say(hostileCreep.name);
 
+    const tower = creep.pos.findClosestByPath<StructureTower>(FIND_HOSTILE_STRUCTURES, {
+      filter: (structure) => {
+        return structure.structureType === STRUCTURE_TOWER;
+      }
+    });
+
+    tower.attack(creep);
+
+    const rampart = creep.pos.findClosestByRange<StructureRampart>(FIND_HOSTILE_STRUCTURES, {
+      filter: (structure) => {
+        return structure.structureType === STRUCTURE_RAMPART;
+      }
+    });
+
+    rampart.isPublic;
+
     // Should have type Creep[]
     const hostileCreeps = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 10);
     hostileCreeps[0].saying;

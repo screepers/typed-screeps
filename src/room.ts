@@ -80,10 +80,6 @@ interface Room {
      */
     find<T extends FindTypes[K], K extends FindConstant = K>(type: K, opts?: FilterOptions<K>): T[];
     /**
-     * Typing in this way is depracted. find(FIND_CONSTANT) will now return correctly typed output
-     */
-    // find<T>(type: FindConstant, opts?: { filter: Object | Function | string }): T[];
-    /**
      * Find the exit direction en route to another room.
      * @param room Another room name or room object.
      * @returns The room direction constant, one of the following: FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT

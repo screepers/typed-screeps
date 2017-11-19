@@ -34,7 +34,7 @@ interface RoomPosition {
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      * @returns An instance of a RoomObject.
      */
-    findClosestByPath<T extends FindConstant>(type: T, opts?: FindPathOpts & {filter?: any | string, algorithm?: string}): FindTypes[T];
+    findClosestByPath<T extends FindTypes[K], K extends FindConstant = K>(type: K, opts?: FindPathOpts & { filter?: FilterFunction<K>, algorithm?: string }): T;
     /**
      * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
      * @param objects An array of RoomPositions or objects with a RoomPosition
@@ -47,7 +47,7 @@ interface RoomPosition {
      * @param type Any of the FIND_* constants.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<T extends FindConstant>(type: T, opts?: {filter: any | string}): FindTypes[T];
+    findClosestByRange<T extends FindTypes[K], K extends FindConstant = K>(type: K, opts?: {filter: FilterFunction<K>}): T;
     /**
      * Find the object with the shortest linear distance from the given position.
      * @param objects An array of RoomPositions or objects with a RoomPosition.
