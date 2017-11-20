@@ -267,6 +267,13 @@ interface CreepMemory {
 
     const creepsHere = room.lookForAt(LOOK_CREEPS, 10, 10);
     creepsHere[0].getActiveBodyparts(ATTACK);
+
+    const towers = room.find<StructureTower>(FIND_MY_STRUCTURES, {
+      filter: (structure) => {
+        return (structure.structureType === STRUCTURE_TOWER);
+      }
+    });
+    towers[0].attack(creeps[0]);
 }
 
 ////////
@@ -277,6 +284,22 @@ interface CreepMemory {
     const hostileCreep = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
 
     creep.say(hostileCreep.name);
+
+    const tower = creep.pos.findClosestByPath<StructureTower>(FIND_HOSTILE_STRUCTURES, {
+      filter: (structure) => {
+        return structure.structureType === STRUCTURE_TOWER;
+      }
+    });
+
+    tower.attack(creep);
+
+    const rampart = creep.pos.findClosestByRange<StructureRampart>(FIND_HOSTILE_STRUCTURES, {
+      filter: (structure) => {
+        return structure.structureType === STRUCTURE_RAMPART;
+      }
+    });
+
+    rampart.isPublic;
 
     // Should have type Creep[]
     const hostileCreeps = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 10);

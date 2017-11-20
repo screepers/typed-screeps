@@ -119,6 +119,10 @@ type FIND_HOSTILE_CONSTRUCTION_SITES = 115;
 type FIND_MINERALS = 116;
 type FIND_NUKES = 117;
 
+type FilterOptions<T extends FindConstant> = string | FilterFunction<T> | { filter: FilterFunction<T> };
+
+type FilterFunction<T extends FindConstant> = (object: FindTypes[T]) => boolean;
+
 ////////
 // Body Part Constants
 

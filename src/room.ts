@@ -78,11 +78,7 @@ interface Room {
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
-    find<T extends FindConstant>(type: T, opts?: { filter: Object | Function | string }): Array<FindTypes[T]>;
-    /**
-     * Typing in this way is depracted. find(FIND_CONSTANT) will now return correctly typed output
-     */
-    find<T>(type: FindConstant, opts?: { filter: Object | Function | string }): T[];
+    find<T extends FindTypes[K], K extends FindConstant = K>(type: K, opts?: FilterOptions<K>): T[];
     /**
      * Find the exit direction en route to another room.
      * @param room Another room name or room object.
