@@ -1,6 +1,5 @@
 .idea
 node_modules
-dist/screeps.ts
 npm-debug.log
 *.*~
 test/typed-screeps-tests.js
