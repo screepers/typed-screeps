@@ -1,4 +1,4 @@
-/*!
+/*
  * Type definitions for Screeps
  * Project: https://github.com/screeps/screeps
  * Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
