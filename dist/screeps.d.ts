@@ -1,10 +1,13 @@
-/*!
- * Type definitions for Screeps
- * Project: https://github.com/screeps/screeps
- * Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
- *                 Nhan Ho <https://github.com/NhanHo>
- * Definitions: https://github.com/screepers/typed-screeps
- */
+// Type definitions for Screeps
+// Project: https://github.com/screeps/screeps
+// Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
+//                 Nhan Ho <https://github.com/NhanHo>
+//                 Bryan <https://github.com/bryanbecker>
+//                 Resi Respati <https://github.com/resir014>
+//                 Adam Laycock <https://github.com/Arcath>
+//                 Dominic Marcuse <https://github.com/apemanzilla>
+// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
+
 declare const OK: 0;
 declare const ERR_NOT_OWNER: -1;
 declare const ERR_NO_PATH: -2;

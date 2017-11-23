@@ -5,7 +5,7 @@
     "sourceMap": false,
     "declaration": true,
     "strict": true,
-    "outFile": "./dist/screeps.ts",
+    "outFile": "./dist/screeps.js",
     "newLine": "LF",
     "removeComments": false
   },
