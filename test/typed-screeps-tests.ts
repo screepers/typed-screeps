@@ -261,10 +261,6 @@ interface CreepMemory {
     // Should have type (_HasRoomPosition | RoomPosition)[]
     const exits = room.find(FIND_EXIT);
 
-    // Should support the old way
-    const myCreeps = room.find<Creep>(FIND_MY_CREEPS);
-    myCreeps[0].drop(resources[0].resourceType);
-
     const creepsHere = room.lookForAt(LOOK_CREEPS, 10, 10);
     creepsHere[0].getActiveBodyparts(ATTACK);
 
@@ -304,6 +300,14 @@ interface CreepMemory {
     // Should have type Creep[]
     const hostileCreeps = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 10);
     hostileCreeps[0].saying;
+
+    const labs = creep.pos.findInRange<StructureLab>(FIND_MY_STRUCTURES, 4, {
+      filter: (structure) => {
+        return structure.structureType === STRUCTURE_LAB;
+      }
+    });
+
+    labs[0].boostCreep(creep);
 }
 
 ////////

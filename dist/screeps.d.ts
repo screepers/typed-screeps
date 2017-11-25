@@ -1994,8 +1994,12 @@ interface RoomPosition {
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      * @returns An instance of a RoomObject.
      */
-    findClosestByPath<T extends FindTypes[K], K extends FindConstant = K>(type: K, opts?: FindPathOpts & {
+    findClosestByPath<K extends FindConstant>(type: K, opts?: FindPathOpts & {
         filter?: FilterFunction<K>;
+        algorithm?: string;
+    }): FindTypes[K];
+    findClosestByPath<T extends Structure>(type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES, opts?: FindPathOpts & {
+        filter?: FilterFunction<FIND_STRUCTURES>;
         algorithm?: string;
     }): T;
     /**
@@ -2013,8 +2017,11 @@ interface RoomPosition {
      * @param type Any of the FIND_* constants.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<T extends FindTypes[K], K extends FindConstant = K>(type: K, opts?: {
+    findClosestByRange<K extends FindConstant>(type: K, opts?: {
         filter: FilterFunction<K>;
+    }): FindTypes[K];
+    findClosestByRange<T extends Structure>(type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES, opts?: {
+        filter: FilterFunction<FIND_STRUCTURES>;
     }): T;
     /**
      * Find the object with the shortest linear distance from the given position.
@@ -2030,9 +2037,12 @@ interface RoomPosition {
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<T extends FindConstant>(type: T, range: number, opts?: {
+    findInRange<K extends FindConstant>(type: K, range: number, opts?: {
         filter: any | string;
-    }): Array<FindTypes[T]>;
+    }): Array<FindTypes[K]>;
+    findInRange<T extends Structure>(type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES, range: number, opts?: {
+        filter: FilterFunction<FIND_STRUCTURES>;
+    }): T[];
     /**
      * Find all objects in the specified linear range.
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
@@ -2394,7 +2404,8 @@ interface Room {
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
-    find<T extends FindTypes[K], K extends FindConstant = K>(type: K, opts?: FilterOptions<K>): T[];
+    find<K extends FindConstant>(type: K, opts?: FilterOptions<K>): Array<FindTypes[K]>;
+    find<T extends Structure>(type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES, opts?: FilterOptions<FIND_STRUCTURES>): T[];
     /**
      * Find the exit direction en route to another room.
      * @param room Another room name or room object.
