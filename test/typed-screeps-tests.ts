@@ -600,7 +600,7 @@ interface CreepMemory {
 
     // creep.signController(target, text)
     if (creep.room.controller) {
-        if (creep.signController(creep.room.controller, "I'm going to claim this room in a few days. I warned ya!") == ERR_NOT_IN_RANGE) {
+        if (creep.signController(creep.room.controller, "I'm going to claim this room in a few days. I warned ya!") === ERR_NOT_IN_RANGE) {
             creep.moveTo(creep.room.controller);
         }
     }
