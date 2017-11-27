@@ -48,7 +48,7 @@ interface RawMemory {
    * @param username The name of another user. Pass `null` to clear the foreign segment.
    * @param id The ID of the requested segment from 0 to 99. If undefined, the user's default public segment is requested as set by `setDefaultPublicSegment`.
    */
-  setActiveForeignSegment(username: string | null, id: number): void;
+  setActiveForeignSegment(username: string | null, id?: number): void;
   /**
    * Set the specified segment as your default public segment. It will be returned if no id parameter is passed to `setActiveForeignSegment` by another user.
    *
