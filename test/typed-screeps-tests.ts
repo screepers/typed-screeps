@@ -16,6 +16,7 @@
 const creep: Creep = Game.creeps.sampleCreep;
 const room: Room = Game.rooms.W10S10;
 const flag: Flag = Game.flags.Flag1;
+const spawn: Spawn = Game.spawns.Spawn1;
 const body: BodyPartConstant[] = [WORK, WORK, CARRY, MOVE];
 
 // Sample inputs for Game.map.findRoute testing
@@ -25,6 +26,8 @@ const anotherRoomName: Room = Game.rooms.W10S11;
 interface CreepMemory {
     sourceId: string;
     lastHits: number;
+    task: string;
+    role: string;
 }
 
 ////////
@@ -234,6 +237,400 @@ interface CreepMemory {
 }
 
 ////////
+// Game.market
+
+{
+    // Game.market.calcTransactionCost(amount, roomName1, roomName2)
+    const cost = Game.market.calcTransactionCost(1000, "W0N0", "W10N5");
+
+    // Game.market.cancelOrder(orderId)
+    for (const id in Game.market.orders) {
+        Game.market.cancelOrder(id);
+    }
+
+    // Game.market.changeOrderPrice(orderId, newPrice)
+    Game.market.changeOrderPrice("57bec1bf77f4d17c4c011960", 9.95);
+
+    // Game.market.createOrder(type, resourceType, price, totalAmount, [roomName])
+    Game.market.createOrder(ORDER_SELL, RESOURCE_GHODIUM, 9.95, 10000, "W1N1");
+
+    // Game.market.deal(orderId, amount, [yourRoomName])
+    Game.market.deal("57cd2b12cda69a004ae223a3", 1000, "W1N1");
+
+    const amountToBuy = 2000;
+    const maxTransferEnergyCost = 500;
+    const orders = Game.market.getAllOrders({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM });
+
+    for (const i of orders) {
+        const transferEnergyCost = Game.market.calcTransactionCost(amountToBuy, "W1N1", i.roomName);
+
+        if (transferEnergyCost < maxTransferEnergyCost) {
+            Game.market.deal(i.id, amountToBuy, "W1N1");
+            break;
+        }
+    }
+
+    // Game.market.extendOrder(orderId, addAmount)
+    Game.market.extendOrder("57bec1bf77f4d17c4c011960", 10000);
+
+    // Game.market.getAllOrders([filter])
+    Game.market.getAllOrders();
+    Game.market.getAllOrders({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM });
+
+    const targetRoom = "W1N1";
+    Game.market.getAllOrders((currentOrder) => currentOrder.resourceType === RESOURCE_GHODIUM &&
+        currentOrder.type === ORDER_SELL &&
+        Game.market.calcTransactionCost(1000, targetRoom, currentOrder.roomName) < 500);
+
+    // Game.market.getOrderById(id)
+    const order = Game.market.getOrderById("55c34a6b5be41a0a6e80c123");
+}
+
+////////
+// PathFinder
+
+{
+    const pfCreep = Game.creeps.John;
+
+    const goals = pfCreep.room.find(FIND_SOURCES).map((source) => {
+        // We can't actually walk on sources-- set `range` to 1
+        // so we path next to it.
+        return { pos: source.pos, range: 1 };
+    });
+
+    const ret = PathFinder.search(
+        pfCreep.pos, goals,
+        {
+            // We need to set the defaults costs higher so that we
+            // can set the road cost lower in `roomCallback`
+            plainCost: 2,
+            swampCost: 10,
+
+            roomCallback(roomName) {
+
+                const curRoom = Game.rooms[roomName];
+                // In this example `room` will always exist, but since
+                // PathFinder supports searches which span multiple rooms
+                // you should be careful!
+                if (!curRoom) {
+                    return;
+                }
+                const costs = new PathFinder.CostMatrix();
+
+                curRoom.find(FIND_STRUCTURES).forEach((struct) => {
+                    if (struct.structureType === STRUCTURE_ROAD) {
+                        // Favor roads over plain tiles
+                        costs.set(struct.pos.x, struct.pos.y, 1);
+                    } else if (struct.structureType !== STRUCTURE_CONTAINER &&
+                        (struct.structureType !== STRUCTURE_RAMPART ||
+                            !(struct as OwnedStructure).my)) {
+                        // Can't walk through non-walkable buildings
+                        costs.set(struct.pos.x, struct.pos.y, 0xff);
+                    }
+                });
+
+                // Avoid creeps in the room
+                curRoom.find(FIND_CREEPS).forEach((thisCreep) => {
+                    costs.set(thisCreep.pos.x, thisCreep.pos.y, 0xff);
+                });
+
+                return costs;
+            },
+        }
+    );
+
+    const pos = ret.path[0];
+    pfCreep.move(pfCreep.pos.getDirectionTo(pos));
+}
+
+////////
+// RawMemory
+
+{
+    // RawMemory.segments
+
+    RawMemory.setActiveSegments([0, 3]);
+    // on the next tick
+    console.log(RawMemory.segments[0]);
+    console.log(RawMemory.segments[3]);
+    RawMemory.segments[3] = '{"foo": "bar", "counter": 15}';
+
+    // RawMemory.foreignSegment
+
+    RawMemory.setActiveForeignSegment("player");
+    // on the next tick
+    console.log(RawMemory.foreignSegment);
+    // --> {"username": "player", "id": 40, "data": "Hello!"}
+
+    // RawMemory.interShardSegment
+
+    RawMemory.interShardSegment = JSON.stringify({
+        creeps: {
+            Bob: {role: "claimer"}
+        }
+    });
+
+    // on another shard
+    const interShardData = JSON.parse(RawMemory.interShardSegment);
+    if (interShardData.creeps[creep.name]) {
+        creep.memory = interShardData[creep.name];
+        delete interShardData.creeps[creep.name];
+    }
+    RawMemory.interShardSegment = JSON.stringify(interShardData);
+
+    // RawMemory.get()
+    const myMemory = JSON.parse(RawMemory.get());
+
+    // RawMemory.set(value)
+    RawMemory.set(JSON.stringify(myMemory));
+
+    // RawMemory.setActiveSegments(ids)
+    RawMemory.setActiveSegments([0, 3]);
+
+    // RawMemory.setActiveForeignSegment(username, [id])
+    RawMemory.setActiveForeignSegment("player");
+    RawMemory.setActiveForeignSegment("player", 10);
+    RawMemory.setActiveForeignSegment(null);
+
+    // RawMemory.setDefaultPublicSegment(id)
+    RawMemory.setPublicSegments([5, 20, 21]);
+    RawMemory.setDefaultPublicSegment(5);
+    RawMemory.setDefaultPublicSegment(null);
+
+    // RawMemory.setPublicSegments(ids)
+    RawMemory.setPublicSegments([5, 3]);
+    RawMemory.setPublicSegments([]);
+}
+
+////////
+// Creep
+
+{
+    // creep.carry
+    const total = creep.carry;
+
+    // creep.memory
+    creep.memory.task = "building";
+
+    // creep.attack(target)
+    const target = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+    if (target) {
+        if (creep.attack(target) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(target);
+        }
+    }
+
+    // creep.attackController(target)
+    if (creep.room.controller && !creep.room.controller.my) {
+        if (creep.attackController(creep.room.controller) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(creep.room.controller);
+        }
+    }
+
+    // creep.build(target)
+    const buildTarget = creep.pos.findClosestByRange(FIND_CONSTRUCTION_SITES);
+    if (target) {
+        if (creep.build(buildTarget) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(buildTarget);
+        }
+    }
+
+    // creep.cancelOrder(methodName)
+    creep.move(LEFT);
+    creep.cancelOrder("move");
+    // The creep will not move in this game tick
+
+    // creep.claimController(target)
+    if (creep.room.controller) {
+        if (creep.claimController(creep.room.controller) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(creep.room.controller);
+        }
+    }
+
+    // creep.dismantle(target)
+    const dismantleTarget = creep.pos.findClosestByRange<StructureWall>(FIND_STRUCTURES, {
+        filter: (structure) => structure.structureType === STRUCTURE_WALL
+    });
+    if (dismantleTarget) {
+        if (creep.dismantle(dismantleTarget) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(dismantleTarget);
+        }
+    }
+
+    // creep.drop(resourceType, [amount])
+    creep.drop(RESOURCE_ENERGY);
+    for (const resourceType in creep.carry) {
+        creep.drop(resourceType as ResourceConstant);
+    }
+
+    // creep.generateSafeMode(controller)
+    if (creep.generateSafeMode(creep.room.controller) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(creep.room.controller);
+    }
+
+    // creep.getActiveBodyparts(type)
+    const abpTarget = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS, {
+        filter: (object) => object.getActiveBodyparts(ATTACK) === 0
+    });
+    if (abpTarget) {
+        creep.moveTo(abpTarget);
+    }
+
+    // creep.harvest(target)
+    const harvestTarget = creep.pos.findClosestByRange(FIND_SOURCES_ACTIVE);
+    if (harvestTarget) {
+        if (creep.harvest(harvestTarget) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(harvestTarget);
+        }
+    }
+
+    // creep.heal(target)
+    const healTarget = creep.pos.findClosestByRange(FIND_MY_CREEPS, {
+        filter: (object) => {
+            return object.hits < object.hitsMax;
+        }
+    });
+    if (healTarget) {
+        if (creep.heal(healTarget) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(healTarget);
+        }
+    }
+
+    // creep.move(direction)
+    creep.move(RIGHT);
+    const movePath = creep.pos.findPathTo(Game.flags.Flag1);
+    if (movePath.length > 0) {
+        creep.move(movePath[0].direction);
+    }
+
+    // creep.moveByPath(path)
+    const source = room.find(FIND_SOURCES_ACTIVE)[0];
+    const path = spawn.room.findPath(spawn.pos, source.pos);
+    creep.moveByPath(path);
+
+    // creep.moveTo(x, y, [opts])
+    //             (target, [opts])
+    const pos = new RoomPosition(25, 20, "W10N5");
+    creep.moveTo(10, 20);
+    creep.moveTo(Game.flags.Flag1);
+    creep.moveTo(pos);
+    creep.moveTo(pos, {reusePath: 50});
+    // Execute moves by cached paths at first
+    for (const name in Game.creeps) {
+        Game.creeps[name].moveTo(target, {noPathFinding: true});
+    }
+
+    // Perform pathfinding only if we have enough CPU
+    if (Game.cpu.tickLimit - Game.cpu.getUsed() > 20) {
+        for (const name in Game.creeps) {
+            Game.creeps[name].moveTo(target);
+        }
+    }
+
+    // creep.notifyWhenAttacked(enabled)
+    if (creep.memory.role === "scout") {
+        creep.notifyWhenAttacked(false);
+    } else {
+        creep.notifyWhenAttacked(true);
+    }
+
+    // creep.pickup(target)
+    const pickupTarget = creep.pos.findClosestByRange(FIND_DROPPED_ENERGY);
+    if (target) {
+        if (creep.pickup(pickupTarget) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(pickupTarget);
+        }
+    }
+
+    // creep.rangedAttack(target)
+    const rangedAttackTargets = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 3);
+    if (rangedAttackTargets.length > 0) {
+        creep.rangedAttack(rangedAttackTargets[0]);
+    }
+
+    // creep.rangedHeal(target)
+    const rangedHealTarget = creep.pos.findClosestByRange(FIND_MY_CREEPS, {
+        filter: (object) => {
+            return object.hits < object.hitsMax;
+        }
+    });
+    if (rangedHealTarget) {
+        creep.moveTo(rangedHealTarget);
+        if (creep.pos.isNearTo(rangedHealTarget)) {
+            creep.heal(rangedHealTarget);
+        } else {
+            creep.rangedHeal(rangedHealTarget);
+        }
+    }
+
+    creep.rangedMassAttack();
+    const rangedMassAttackTargets = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 3);
+    if (rangedMassAttackTargets.length > 0) {
+        creep.rangedMassAttack();
+    }
+
+    // creep.repair(target)
+    const repairTargets = creep.room.find(FIND_STRUCTURES, {
+        filter: (object) => object.hits < object.hitsMax
+    });
+
+    repairTargets.sort((a, b) => a.hits - b.hits);
+
+    if (repairTargets.length > 0) {
+        if (creep.repair(repairTargets[0]) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(repairTargets[0]);
+        }
+    }
+
+    // creep.reserveController(target)
+    if (creep.room.controller) {
+        if (creep.reserveController(creep.room.controller) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(creep.room.controller);
+        }
+    }
+
+    // creep.say(message, [public])
+    const hostiles = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 10);
+    if (hostiles.length > 0) {
+        creep.say("OMG!😨");
+        creep.moveTo(Game.spawns["Spawn1"]);
+    } else {
+        // noop
+    }
+
+    // creep.signController(target, text)
+    if (creep.room.controller) {
+        if (creep.signController(creep.room.controller, "I'm going to claim this room in a few days. I warned ya!") == ERR_NOT_IN_RANGE) {
+            creep.moveTo(creep.room.controller);
+        }
+    }
+
+    // creep.transfer(target, resourceType, [amount])
+    const storage = room.find<StructureStorage>(FIND_MY_STRUCTURES, {
+        filter: (structure) => structure.structureType === STRUCTURE_STORAGE
+    })[0];
+    if (creep.transfer(storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(storage);
+    }
+
+    for (const resourceType in creep.carry) {
+        creep.transfer(storage, resourceType as ResourceConstant);
+    }
+
+    // creep.upgradeController(target)
+    if (creep.room.controller) {
+        if (creep.upgradeController(creep.room.controller) === ERR_NOT_IN_RANGE) {
+            creep.moveTo(creep.room.controller);
+        }
+    }
+
+    // creep.withdraw(target, resourceType, [amount])
+    if (creep.withdraw(storage, RESOURCE_ENERGY) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(storage);
+    }
+}
+
+////////
 // Find Overloads
 
 {
@@ -265,9 +662,9 @@ interface CreepMemory {
     creepsHere[0].getActiveBodyparts(ATTACK);
 
     const towers = room.find<StructureTower>(FIND_MY_STRUCTURES, {
-      filter: (structure) => {
-        return (structure.structureType === STRUCTURE_TOWER);
-      }
+        filter: (structure) => {
+            return (structure.structureType === STRUCTURE_TOWER);
+        }
     });
     towers[0].attack(creeps[0]);
 }
@@ -282,17 +679,17 @@ interface CreepMemory {
     creep.say(hostileCreep.name);
 
     const tower = creep.pos.findClosestByPath<StructureTower>(FIND_HOSTILE_STRUCTURES, {
-      filter: (structure) => {
-        return structure.structureType === STRUCTURE_TOWER;
-      }
+        filter: (structure) => {
+            return structure.structureType === STRUCTURE_TOWER;
+        }
     });
 
     tower.attack(creep);
 
     const rampart = creep.pos.findClosestByRange<StructureRampart>(FIND_HOSTILE_STRUCTURES, {
-      filter: (structure) => {
-        return structure.structureType === STRUCTURE_RAMPART;
-      }
+        filter: (structure) => {
+            return structure.structureType === STRUCTURE_RAMPART;
+        }
     });
 
     rampart.isPublic;
@@ -302,9 +699,9 @@ interface CreepMemory {
     hostileCreeps[0].saying;
 
     const labs = creep.pos.findInRange<StructureLab>(FIND_MY_STRUCTURES, 4, {
-      filter: (structure) => {
-        return structure.structureType === STRUCTURE_LAB;
-      }
+        filter: (structure) => {
+            return structure.structureType === STRUCTURE_LAB;
+        }
     });
 
     labs[0].boostCreep(creep);
