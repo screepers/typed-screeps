@@ -1,21 +1,4 @@
 ////////
-// Structure Types
-
-declare type Controller = StructureController;
-declare type Extension = StructureExtension;
-declare type KeeperLair = StructureKeeperLair;
-declare type Lab = StructureLab;
-declare type Link = StructureLink;
-declare type Observer = StructureObserver;
-declare type PowerBank = StructurePowerBank;
-declare type PowerSpawn = StructurePowerSpawn;
-declare type Rampart = StructureRampart;
-declare type Terminal = StructureTerminal;
-declare type Container = StructureContainer;
-declare type Tower = StructureTower;
-declare type Spawn = StructureSpawn; // Legacy Alias
-
-////////
 // Structures
 
 /**
@@ -372,9 +355,6 @@ interface StructureStorage extends OwnedStructure<STRUCTURE_STORAGE> {
 
 interface StructureStorageConstructor extends _Constructor<StructureStorage>, _ConstructorById<StructureStorage> {
 }
-
-// legacy alias
-interface Storage extends StructureStorage { }
 
 declare const StructureStorage: StructureStorageConstructor;
 
