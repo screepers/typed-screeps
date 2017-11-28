@@ -3175,3 +3175,11 @@ interface StructurePortal extends Structure<STRUCTURE_PORTAL> {
 interface StructurePortalConstructor extends _Constructor<StructurePortal>, _ConstructorById<StructurePortal> {
 }
 declare const StructurePortal: StructurePortalConstructor;
+/**
+ * A discriminated union on Structure.type of all owned structure types
+ */
+declare type AnyOwnedStructure = StructureController | StructureExtension | StructureExtractor | StructureKeeperLair | StructureLab | StructureLink | StructureNuker | StructureObserver | StructurePowerSpawn | StructureRampart | StructureSpawn | StructureStorage | StructureTerminal | StructureTower;
+/**
+ * A discriminated union on Structure.type of all structure types
+ */
+declare type AnyStructure = AnyOwnedStructure | StructureContainer | StructurePortal | StructurePowerBank | StructureRoad | StructureWall;

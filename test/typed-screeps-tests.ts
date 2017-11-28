@@ -498,3 +498,23 @@ interface CreepMemory {
     creeps[0].y;
     creeps[0].creep.move(TOP);
 }
+
+////////
+// Advanced Structure types
+{
+    const owned = Game.getObjectById<AnyOwnedStructure>("blah");
+    const owner = owned.owner.username;
+    owned.notifyWhenAttacked(false);
+
+    const unowned = Game.getObjectById<AnyStructure>("blah2");
+    const hp = unowned.hits / unowned.hitsMax;
+
+    // test discriminated union
+    if (unowned.structureType === STRUCTURE_TOWER) {
+        unowned.heal(Game.creeps.myCreep);
+    } else if (unowned.structureType === STRUCTURE_CONTAINER || unowned.structureType === STRUCTURE_STORAGE || unowned.structureType === STRUCTURE_TERMINAL) {
+        const energyPercent = unowned.store.energy / unowned.storeCapacity;
+    } else if (unowned.structureType === STRUCTURE_WALL || unowned.structureType === STRUCTURE_RAMPART) {
+        const wallHp = unowned.hits / unowned.hitsMax;
+    }
+}
