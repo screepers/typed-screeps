@@ -1,7 +1,7 @@
 /**
  * A site of a structure which is currently under construction.
  */
-interface ConstructionSite<T extends StructureConstant = StructureConstant> extends RoomObject {
+interface ConstructionSite<T extends BuildableStructureConstant = BuildableStructureConstant> extends RoomObject {
     readonly prototype: ConstructionSite;
     /**
      * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.

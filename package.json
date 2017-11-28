@@ -5,9 +5,14 @@
   "repository": "screepers/typed-screeps",
   "types": "./dist/screeps.d.ts",
   "scripts": {
-    "compile": "node_modules/.bin/tsc",
+    "compile": "tsc",
+    "compile-test": "tsc test/typed-screeps-tests.ts",
     "lint": "tslint 'src/**/*.ts'",
-    "precommit": "npm run compile && git add dist/screeps.d.ts"
+    "lint-test": "tslint 'test/**/*.ts'",
+    "postcompile": "rimraf ./dist/screeps.js && node ./build/prependHeader.js",
+    "precommit": "npm run compile && git add dist/screeps.d.ts",
+    "precompile": "rimraf dist",
+    "test": "npm run compile && npm run lint && npm run lint-test && npm run compile-test"
   },
   "keywords": [
     "Screeps",
@@ -19,6 +24,8 @@
   "license": "MIT",
   "devDependencies": {
     "husky": "^0.13.3",
+    "prepend": "^1.0.2",
+    "rimraf": "^2.6.2",
     "tslint": "^5.8.0",
     "typescript": "^2.1.0"
   }

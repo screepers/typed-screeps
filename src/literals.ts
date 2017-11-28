@@ -81,6 +81,7 @@ type FindConstant =
   FIND_HOSTILE_CREEPS |
   FIND_SOURCES_ACTIVE |
   FIND_SOURCES |
+  FIND_DROPPED_ENERGY |
   FIND_DROPPED_RESOURCES |
   FIND_STRUCTURES |
   FIND_MY_STRUCTURES |
@@ -104,6 +105,7 @@ type FIND_MY_CREEPS = 102;
 type FIND_HOSTILE_CREEPS = 103;
 type FIND_SOURCES_ACTIVE = 104;
 type FIND_SOURCES = 105;
+type FIND_DROPPED_ENERGY = -106;
 type FIND_DROPPED_RESOURCES = 106;
 type FIND_STRUCTURES = 107;
 type FIND_MY_STRUCTURES = 108;
@@ -116,6 +118,10 @@ type FIND_MY_CONSTRUCTION_SITES = 114;
 type FIND_HOSTILE_CONSTRUCTION_SITES = 115;
 type FIND_MINERALS = 116;
 type FIND_NUKES = 117;
+
+type FilterOptions<T extends FindConstant> = string | FilterFunction<T> | { filter: FilterFunction<T> };
+
+type FilterFunction<T extends FindConstant> = (object: FindTypes[T]) => boolean;
 
 ////////
 // Body Part Constants
@@ -216,25 +222,28 @@ type COLOR_WHITE = 10;
 ////////
 // Structure Constants
 
-type StructureConstant =
+type BuildableStructureConstant =
   STRUCTURE_EXTENSION |
   STRUCTURE_RAMPART |
   STRUCTURE_ROAD |
   STRUCTURE_SPAWN |
   STRUCTURE_LINK |
   STRUCTURE_WALL |
-  STRUCTURE_KEEPER_LAIR |
-  STRUCTURE_CONTROLLER |
   STRUCTURE_STORAGE |
   STRUCTURE_TOWER |
   STRUCTURE_OBSERVER |
-  STRUCTURE_POWER_BANK |
   STRUCTURE_POWER_SPAWN |
   STRUCTURE_EXTRACTOR |
   STRUCTURE_LAB |
   STRUCTURE_TERMINAL |
   STRUCTURE_CONTAINER |
-  STRUCTURE_NUKER |
+  STRUCTURE_NUKER;
+
+type StructureConstant =
+  BuildableStructureConstant |
+  STRUCTURE_KEEPER_LAIR |
+  STRUCTURE_CONTROLLER |
+  STRUCTURE_POWER_BANK |
   STRUCTURE_PORTAL;
 
 type STRUCTURE_EXTENSION = "extension";

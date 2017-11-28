@@ -4,9 +4,8 @@
     "target": "es6",
     "sourceMap": false,
     "declaration": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "outFile": "./dist/screeps.ts",
+    "strict": true,
+    "outFile": "./dist/screeps.js",
     "newLine": "LF",
     "removeComments": false
   },
