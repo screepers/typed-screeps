@@ -517,4 +517,9 @@ interface CreepMemory {
     } else if (unowned.structureType === STRUCTURE_WALL || unowned.structureType === STRUCTURE_RAMPART) {
         const wallHp = unowned.hits / unowned.hitsMax;
     }
+
+    // test discriminated union using filter functions on find
+    const from = Game.rooms.myRoom.find(FIND_STRUCTURES, s => (s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_STORAGE) && s.store.energy > 0)[0];
+    const to = from.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: s => (s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION) && s.energy < s.energyCapacity});
+
 }

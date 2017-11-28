@@ -1135,9 +1135,9 @@ interface FindTypes {
     105: Source;
     "-106": Resource<RESOURCE_ENERGY>;
     106: Resource;
-    107: Structure;
-    108: Structure;
-    109: Structure;
+    107: AnyStructure;
+    108: AnyOwnedStructure;
+    109: AnyOwnedStructure;
     110: Flag;
     111: ConstructionSite;
     112: StructureSpawn;
