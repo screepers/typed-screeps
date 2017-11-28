@@ -6,10 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
+- Added contributing guidelines and Issue/PR templates ([#18](https://github.com/screepers/typed-screeps/pull/18))
 - Added CI tests (thanks, [@Arcath](https://github.com/Arcath)!)
+- [Constants] Added `BuildableStructureConstant`, which is a subset of `StructureConstant` ([#17](https://github.com/screepers/typed-screeps/pull/17))
 
 ### Changed
-- Improved generic-based overloads for `.find()` functions ([#14](https://github.com/screepers/typed-screeps/pull/14))
+- Improved build tooling around compiling scripts and running tests.
+- [Room] [RoomPosition] Improved generic-based overloads for `.find*()`, `lookAt()`, and `lookForAt()` functions ([#14](https://github.com/screepers/typed-screeps/pull/14), [#19](https://github.com/screepers/typed-screeps/pull/19))
+- [Constants] `OBSTACLE_OBJECT_TYPES` are now strictly defined ([#17](https://github.com/screepers/typed-screeps/pull/17))
+
+### Fixed
+- [RawMemory] On setActiveForeignSegment, id should be optional. ([commit](https://github.com/screepers/typed-screeps/pull/16/commits/9aa7e3efe457f5500cd0eb6a76804bff657db1db))
 
 ## [1.0.4] - 2017-11-09
 ### Added
