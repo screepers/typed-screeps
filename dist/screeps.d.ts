@@ -2656,6 +2656,7 @@ interface StructureSpawnConstructor extends _Constructor<StructureSpawn>, _Const
 }
 declare const StructureSpawn: StructureSpawnConstructor;
 declare const Spawn: StructureSpawnConstructor;
+declare type Spawn = StructureSpawn;
 /**
  * Parent object for structure classes
  */
