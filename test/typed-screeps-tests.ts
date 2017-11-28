@@ -519,7 +519,8 @@ interface CreepMemory {
     }
 
     // test discriminated union using filter functions on find
-    const from = Game.rooms.myRoom.find(FIND_STRUCTURES, s => (s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_STORAGE) && s.store.energy > 0)[0];
-    const to = from.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: s => (s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION) && s.energy < s.energyCapacity});
+    const from = Game.rooms.myRoom.find(FIND_STRUCTURES, (s) => (s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_STORAGE) && s.store.energy > 0)[0];
+    const to = from.pos.findClosestByPath(FIND_MY_STRUCTURES, {filter: (s) => (s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION) && s.energy < s.energyCapacity});
 
+    Game.rooms.myRoom.find(FIND_MY_STRUCTURES, (s) => s.structureType === STRUCTURE_RAMPART).forEach((r) => r.notifyWhenAttacked(false));
 }
