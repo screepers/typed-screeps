@@ -163,9 +163,9 @@ interface FindTypes {
   105: Source; // FIND_SOURCES
   "-106": Resource<RESOURCE_ENERGY>; // FIND_DROPPED_ENERGY
   106: Resource; // FIND_DROPPED_RESOURCES
-  107: Structure; // FIND_STRUCTURES
-  108: Structure; // FIND_MY_STRUCTURES
-  109: Structure; // FIND_HOSTILE_STRUCTURES
+  107: AnyStructure; // FIND_STRUCTURES
+  108: AnyOwnedStructure; // FIND_MY_STRUCTURES
+  109: AnyOwnedStructure; // FIND_HOSTILE_STRUCTURES
   110: Flag; // FIND_FLAGS
   111: ConstructionSite; // FIND_CONSTRUCTION_SITES
   112: StructureSpawn; // FIND_MY_SPAWNS

@@ -684,7 +684,7 @@ interface Creep extends RoomObject {
      *
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
      */
-    attackController(target: Controller): CreepActionReturnCode;
+    attackController(target: StructureController): CreepActionReturnCode;
     /**
      * Build a structure at the target construction site using carried energy.
      * Needs WORK and CARRY body parts.
@@ -706,7 +706,7 @@ interface Creep extends RoomObject {
      * @param target The target controller object.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_FULL, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_GCL_NOT_ENOUGH
      */
-    claimController(target: Controller): CreepActionReturnCode | ERR_FULL | ERR_RCL_NOT_ENOUGH;
+    claimController(target: StructureController): CreepActionReturnCode | ERR_FULL | ERR_RCL_NOT_ENOUGH;
     /**
      * Dismantles any (even hostile) structure returning 50% of the energy spent on its repair. Requires the WORK body part. If the creep has an empty CARRY body part, the energy is put into it; otherwise it is dropped on the ground. The target has to be at adjacent square to the creep.
      * @param target The target structure.
@@ -723,7 +723,7 @@ interface Creep extends RoomObject {
      * @param target The target room controller.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE
      */
-    generateSafeMode(target: Controller): CreepActionReturnCode;
+    generateSafeMode(target: StructureController): CreepActionReturnCode;
     /**
      * Get the quantity of live body parts of the given type. Fully damaged parts do not count.
      * @param type A body part type, one of the following body part constants: MOVE, WORK, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH, CLAIM
@@ -798,7 +798,7 @@ interface Creep extends RoomObject {
      * @param target The target controller object to be reserved.
      * @return Result code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
      */
-    reserveController(target: Controller): CreepActionReturnCode;
+    reserveController(target: StructureController): CreepActionReturnCode;
     /**
      * Display a visual speech balloon above the creep with the specified message. The message will disappear after a few seconds. Useful for debugging purposes. Only the creep's owner can see the speech message.
      * @param message The message to be displayed. Maximum length is 10 characters.
@@ -812,7 +812,7 @@ interface Creep extends RoomObject {
      * @param text The sign text. The maximum text length is 100 characters.
      * @returns Result Code: OK, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE
      */
-    signController(target: Controller, text: string): OK | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE;
+    signController(target: StructureController, text: string): OK | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE;
     /**
      * Kill the creep immediately.
      */
@@ -828,7 +828,7 @@ interface Creep extends RoomObject {
      * Upgrade your controller to the next level using carried energy. Upgrading controllers raises your Global Control Level in parallel. Needs WORK and CARRY body parts. The target has to be at adjacent square to the creep. A fully upgraded level 8 controller can't be upgraded with the power over 15 energy units per tick regardless of creeps power. The cumulative effect of all the creeps performing upgradeController in the current tick is taken into account.
      * @param target The target controller object to be upgraded.
      */
-    upgradeController(target: Controller): ScreepsReturnCode;
+    upgradeController(target: StructureController): ScreepsReturnCode;
     /**
      * Withdraw resources from a structure. The target has to be at adjacent square to the creep. Multiple creeps can withdraw from the same structure in the same tick. Your creeps can withdraw resources from hostile structures as well, in case if there is no hostile rampart on top of it.
      * @param target The target object.
@@ -943,7 +943,7 @@ interface Game {
      * A hash containing all your spawns with spawn names as hash keys.
      */
     spawns: {
-        [spawnName: string]: Spawn;
+        [spawnName: string]: StructureSpawn;
     };
     /**
      * A hash containing all your structures with structure id as hash keys.
@@ -1135,9 +1135,9 @@ interface FindTypes {
     105: Source;
     "-106": Resource<RESOURCE_ENERGY>;
     106: Resource;
-    107: Structure;
-    108: Structure;
-    109: Structure;
+    107: AnyStructure;
+    108: AnyOwnedStructure;
+    109: AnyOwnedStructure;
     110: Flag;
     111: ConstructionSite;
     112: StructureSpawn;
@@ -2331,7 +2331,7 @@ interface Room {
     /**
      * The Controller structure of this room, if present, otherwise undefined.
      */
-    controller?: Controller;
+    controller?: StructureController;
     /**
      * Total amount of energy available in all spawns and extensions in the room.
      */
@@ -2359,7 +2359,7 @@ interface Room {
     /**
      * The Terminal structure of this room, if present, otherwise undefined.
      */
-    terminal?: Terminal;
+    terminal?: StructureTerminal;
     /**
      * A RoomVisual object for this room. You can use this object to draw simple shapes (lines, circles, text labels) in the room.
      */
@@ -2656,18 +2656,6 @@ interface StructureSpawnConstructor extends _Constructor<StructureSpawn>, _Const
 }
 declare const StructureSpawn: StructureSpawnConstructor;
 declare const Spawn: StructureSpawnConstructor;
-declare type Controller = StructureController;
-declare type Extension = StructureExtension;
-declare type KeeperLair = StructureKeeperLair;
-declare type Lab = StructureLab;
-declare type Link = StructureLink;
-declare type Observer = StructureObserver;
-declare type PowerBank = StructurePowerBank;
-declare type PowerSpawn = StructurePowerSpawn;
-declare type Rampart = StructureRampart;
-declare type Terminal = StructureTerminal;
-declare type Container = StructureContainer;
-declare type Tower = StructureTower;
 declare type Spawn = StructureSpawn;
 /**
  * Parent object for structure classes
@@ -2974,8 +2962,6 @@ interface StructureStorage extends OwnedStructure<STRUCTURE_STORAGE> {
 }
 interface StructureStorageConstructor extends _Constructor<StructureStorage>, _ConstructorById<StructureStorage> {
 }
-interface Storage extends StructureStorage {
-}
 declare const StructureStorage: StructureStorageConstructor;
 /**
  * Remotely attacks or heals creeps, or repairs structures. Can be targeted to
@@ -3190,3 +3176,11 @@ interface StructurePortal extends Structure<STRUCTURE_PORTAL> {
 interface StructurePortalConstructor extends _Constructor<StructurePortal>, _ConstructorById<StructurePortal> {
 }
 declare const StructurePortal: StructurePortalConstructor;
+/**
+ * A discriminated union on Structure.type of all owned structure types
+ */
+declare type AnyOwnedStructure = StructureController | StructureExtension | StructureExtractor | StructureKeeperLair | StructureLab | StructureLink | StructureNuker | StructureObserver | StructurePowerSpawn | StructureRampart | StructureSpawn | StructureStorage | StructureTerminal | StructureTower;
+/**
+ * A discriminated union on Structure.type of all structure types
+ */
+declare type AnyStructure = AnyOwnedStructure | StructureContainer | StructurePortal | StructurePowerBank | StructureRoad | StructureWall;

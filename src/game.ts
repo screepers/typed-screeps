@@ -38,7 +38,7 @@ interface Game {
     /**
      * A hash containing all your spawns with spawn names as hash keys.
      */
-    spawns: {[spawnName: string]: Spawn};
+    spawns: {[spawnName: string]: StructureSpawn};
     /**
      * A hash containing all your structures with structure id as hash keys.
      */

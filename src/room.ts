@@ -7,7 +7,7 @@ interface Room {
     /**
      * The Controller structure of this room, if present, otherwise undefined.
      */
-    controller?: Controller;
+    controller?: StructureController;
     /**
      * Total amount of energy available in all spawns and extensions in the room.
      */
@@ -35,7 +35,7 @@ interface Room {
     /**
      * The Terminal structure of this room, if present, otherwise undefined.
      */
-    terminal?: Terminal;
+    terminal?: StructureTerminal;
     /**
      * A RoomVisual object for this room. You can use this object to draw simple shapes (lines, circles, text labels) in the room.
      */
