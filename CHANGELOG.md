@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.0.0] - 2017-12-05
 ### Added
 - Added contributing guidelines and Issue/PR templates ([#18](https://github.com/screepers/typed-screeps/pull/18))
 - Added CI tests (thanks, [@Arcath](https://github.com/Arcath)!)
@@ -16,7 +18,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - [Constants] `OBSTACLE_OBJECT_TYPES` are now strictly defined ([#17](https://github.com/screepers/typed-screeps/pull/17))
 
 ### Fixed
-- [RawMemory] On setActiveForeignSegment, id should be optional. ([commit](https://github.com/screepers/typed-screeps/pull/16/commits/9aa7e3efe457f5500cd0eb6a76804bff657db1db))
+- [RawMemory] On `setActiveForeignSegment`, id should be optional. ([commit](https://github.com/screepers/typed-screeps/pull/16/commits/9aa7e3efe457f5500cd0eb6a76804bff657db1db))
 
 ## [1.0.4] - 2017-11-09
 ### Added
@@ -50,6 +52,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Initial public `npm` release.
 
 [Unreleased]: https://github.com/screepers/typed-screeps/compare/v1.0.4...HEAD
+[2.0.0]: https://github.com/screepers/typed-screeps/compare/v1.0.4...v2.0.0
 [1.0.4]: https://github.com/screepers/typed-screeps/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/screepers/typed-screeps/compare/v1.0.2...v1.0.3
 [1.0.2]: https://github.com/screepers/typed-screeps/compare/v1.0.1...v1.0.2
