@@ -1,6 +1,3 @@
-////////
-// Structures
-
 /**
  * Parent object for structure classes
  */
@@ -609,7 +606,7 @@ declare const StructurePortal: StructurePortalConstructor;
 /**
  * A discriminated union on Structure.type of all owned structure types
  */
-declare type AnyOwnedStructure =
+type AnyOwnedStructure =
     StructureController |
     StructureExtension |
     StructureExtractor |
@@ -628,7 +625,7 @@ declare type AnyOwnedStructure =
 /**
  * A discriminated union on Structure.type of all structure types
  */
-declare type AnyStructure =
+type AnyStructure =
     AnyOwnedStructure |
     StructureContainer |
     StructurePortal |

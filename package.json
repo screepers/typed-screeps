@@ -26,10 +26,10 @@
     "concat-files": "^0.1.1",
     "copy": "^0.3.1",
     "dtslint": "^0.2.0",
-    "husky": "^0.13.3",
+    "husky": "^0.14.3",
     "prepend": "^1.0.2",
     "rimraf": "^2.6.2",
     "tslint": "^5.8.0",
-    "typescript": "^2.1.0"
+    "typescript": "^2.6.2"
   }
 }

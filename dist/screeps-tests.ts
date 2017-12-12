@@ -7,7 +7,6 @@
 
 // TODO: add more test cases.
 
-////////
 // Sample inputs
 
 const creep: Creep = Game.creeps.sampleCreep;
@@ -25,7 +24,6 @@ interface CreepMemory {
     lastHits: number;
 }
 
-////////
 // Game.creeps
 
 {
@@ -34,14 +32,12 @@ interface CreepMemory {
     }
 }
 
-////////
 // Game.flags
 
 {
     creep.moveTo(Game.flags.Flag1);
 }
 
-////////
 // Game.spawns
 
 {
@@ -50,7 +46,6 @@ interface CreepMemory {
     }
 }
 
-////////
 // Game.time
 
 {
@@ -58,7 +53,6 @@ interface CreepMemory {
     time += 1;
 }
 
-////////
 // Game.cpu.getUsed()
 
 {
@@ -77,14 +71,12 @@ interface CreepMemory {
     }
 }
 
-////////
 // Game.cpu.setShardLimits()
 
 {
     Game.cpu.setShardLimits({ shard0: 20, shard1: 10 });
 }
 
-////////
 // Game.getObjectById(id)
 
 {
@@ -92,7 +84,6 @@ interface CreepMemory {
     const source = Game.getObjectById<Source>(creep.memory.sourceId);
 }
 
-////////
 // Game.notify(message, [groupInterval])
 
 {
@@ -111,14 +102,12 @@ interface CreepMemory {
     }
 }
 
-////////
 // Game.map.describeExits()
 
 {
     const exits = Game.map.describeExits("W8N3");
 }
 
-////////
 // Game.map.findExit()
 
 {
@@ -135,7 +124,6 @@ interface CreepMemory {
     creep.moveTo(new RoomPosition(25, 25, anotherRoomName.name));
 }
 
-////////
 // Game.map.findRoute()
 
 {
@@ -204,7 +192,6 @@ interface CreepMemory {
     });
 }
 
-////////
 // Game.map.getRoomLinearDistance(roomName1, roomName2, [continuous])
 
 {
@@ -213,7 +200,6 @@ interface CreepMemory {
     Game.map.getRoomLinearDistance("E65S55", "W65S55", true); // 11
 }
 
-////////
 // Game.map.getTerrainAt(x, y, roomName)
 // Game.map.getTerrainAt(pos)
 
@@ -225,7 +211,6 @@ interface CreepMemory {
     Game.map.getTerrainAt(new RoomPosition(25, 20, "W10N10"));
 }
 
-////////
 // Game.map.isRoomAvailable(roomName)
 
 {
@@ -234,7 +219,6 @@ interface CreepMemory {
     }
 }
 
-////////
 // Game.market
 
 {
@@ -286,7 +270,6 @@ interface CreepMemory {
     const order = Game.market.getOrderById("55c34a6b5be41a0a6e80c123");
 }
 
-////////
 // PathFinder
 
 {
@@ -342,7 +325,6 @@ interface CreepMemory {
     pfCreep.move(pfCreep.pos.getDirectionTo(pos));
 }
 
-////////
 // RawMemory
 
 {
@@ -400,7 +382,6 @@ interface CreepMemory {
     RawMemory.setPublicSegments([]);
 }
 
-////////
 // Find Overloads
 
 {
@@ -439,7 +420,6 @@ interface CreepMemory {
     towers[0].attack(creeps[0]);
 }
 
-////////
 // RoomPosition Finds
 
 {
@@ -477,7 +457,6 @@ interface CreepMemory {
     labs[0].boostCreep(creep);
 }
 
-////////
 // LookAt Finds
 
 {
@@ -499,7 +478,6 @@ interface CreepMemory {
     creeps[0].creep!.move(TOP);
 }
 
-////////
 // Advanced Structure types
 {
     const owned = Game.getObjectById<AnyOwnedStructure>("blah");

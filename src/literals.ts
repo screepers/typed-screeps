@@ -3,11 +3,10 @@
  * It should be kept in sync with constants.ts
  */
 
-//// Extras
+// Extras
 
 type Terrain = "plain" | "swamp" | "wall";
 
-////////
 // Return Codes
 
 type ScreepsReturnCode =
@@ -61,7 +60,6 @@ type CreepMoveReturnCode =
   ERR_TIRED |
   ERR_NO_BODYPART;
 
-////////
 // Find Constants
 
 type ExitConstant =
@@ -123,7 +121,6 @@ type FilterOptions<T extends FindConstant> = string | FilterFunction<T> | { filt
 
 type FilterFunction<T extends FindConstant> = (object: FindTypes[T]) => boolean;
 
-////////
 // Body Part Constants
 
 type BodyPartConstant =
@@ -145,7 +142,6 @@ type TOUGH = "tough";
 type HEAL = "heal";
 type CLAIM = "claim";
 
-////////
 // Look Constants
 
 type LookConstant =
@@ -171,7 +167,6 @@ type LOOK_SOURCES = "source";
 type LOOK_STRUCTURES = "structure";
 type LOOK_TERRAIN = "terrain";
 
-////////
 // Direction Constants
 
 type DirectionConstant =
@@ -193,7 +188,6 @@ type BOTTOM_LEFT = 6;
 type LEFT = 7;
 type TOP_LEFT = 8;
 
-////////
 // Color Constants
 
 type ColorConstant =
@@ -219,7 +213,6 @@ type COLOR_BROWN = 8;
 type COLOR_GREY = 9;
 type COLOR_WHITE = 10;
 
-////////
 // Structure Constants
 
 type BuildableStructureConstant =
@@ -266,7 +259,6 @@ type STRUCTURE_CONTAINER = "container";
 type STRUCTURE_NUKER = "nuker";
 type STRUCTURE_PORTAL = "portal";
 
-////////
 // Resource Constants
 
 type ResourceConstant =
