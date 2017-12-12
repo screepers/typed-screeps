@@ -67,7 +67,6 @@ interface OwnedStructure<T extends StructureConstant = StructureConstant> extend
      * The link to the Room object. Is always present because owned structures give visibility.
      */
     room: Room;
-
 }
 
 interface OwnedStructureConstructor extends _Constructor<OwnedStructure>, _ConstructorById<OwnedStructure> {
@@ -181,7 +180,13 @@ interface StructureLink extends OwnedStructure<STRUCTURE_LINK> {
      */
     energyCapacity: number;
     /**
-     * Transfer energy from the link to another link or a creep. If the target is a creep, it has to be at adjacent square to the link. If the target is a link, it can be at any location in the same room. Remote transfer process implies 3% energy loss and cooldown delay depending on the distance.
+     * Transfer energy from the link to another link or a creep.
+     *
+     * If the target is a creep, it has to be at adjacent square to the link.
+     *
+     * If the target is a link, it can be at any location in the same room.
+     *
+     * Remote transfer process implies 3% energy loss and cooldown delay depending on the distance.
      * @param target The target object.
      * @param amount The amount of energy to be transferred. If omitted, all the available energy is used.
      */
@@ -310,7 +315,7 @@ interface StructureRampart extends OwnedStructure<STRUCTURE_RAMPART> {
      * Make this rampart public to allow other players' creeps to pass through.
      * @param isPublic Whether this rampart should be public or non-public
      */
-    setPublic(isPublic: boolean): void;
+    setPublic(isPublic: boolean): undefined;
 }
 
 interface StructureRampartConstructor extends _Constructor<StructureRampart>, _ConstructorById<StructureRampart> {
@@ -461,7 +466,11 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
     /**
      * Boosts creep body part using the containing mineral compound. The creep has to be at adjacent square to the lab. Boosting one body part consumes 30 mineral units and 20 energy units.
      * @param creep The target creep.
-     * @param bodyPartsCount The number of body parts of the corresponding type to be boosted. Body parts are always counted left-to-right for TOUGH, and right-to-left for other types. If undefined, all the eligible body parts are boosted.
+     * @param bodyPartsCount The number of body parts of the corresponding type to be boosted.
+     *
+     * Body parts are always counted left-to-right for TOUGH, and right-to-left for other types.
+     *
+     * If undefined, all the eligible body parts are boosted.
      */
     boostCreep(creep: Creep, bodyPartsCount?: number): ScreepsReturnCode;
     /**
@@ -600,9 +609,29 @@ declare const StructurePortal: StructurePortalConstructor;
 /**
  * A discriminated union on Structure.type of all owned structure types
  */
-declare type AnyOwnedStructure = StructureController | StructureExtension | StructureExtractor | StructureKeeperLair | StructureLab | StructureLink | StructureNuker | StructureObserver | StructurePowerSpawn | StructureRampart | StructureSpawn | StructureStorage | StructureTerminal | StructureTower;
+declare type AnyOwnedStructure =
+    StructureController |
+    StructureExtension |
+    StructureExtractor |
+    StructureKeeperLair |
+    StructureLab |
+    StructureLink |
+    StructureNuker |
+    StructureObserver |
+    StructurePowerSpawn |
+    StructureRampart |
+    StructureSpawn |
+    StructureStorage |
+    StructureTerminal |
+    StructureTower;
 
 /**
  * A discriminated union on Structure.type of all structure types
  */
-declare type AnyStructure = AnyOwnedStructure | StructureContainer | StructurePortal | StructurePowerBank | StructureRoad | StructureWall;
+declare type AnyStructure =
+    AnyOwnedStructure |
+    StructureContainer |
+    StructurePortal |
+    StructurePowerBank |
+    StructureRoad |
+    StructureWall;

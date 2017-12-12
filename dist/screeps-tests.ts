@@ -1,6 +1,3 @@
-// tslint:disable:no-reference no-unused-expression
-/// <reference path="../dist/index.d.ts" />
-
 // This file exists solely to test whether or not the typings actually work.
 // After working on your changes, make sure to run `npm run compile` to build
 // the declarations before opening this file.
@@ -57,7 +54,8 @@ interface CreepMemory {
 // Game.time
 
 {
-    console.log(Game.time);
+    let time = Game.time;
+    time += 1;
 }
 
 ////////
@@ -65,7 +63,7 @@ interface CreepMemory {
 
 {
     if (Game.cpu.getUsed() > Game.cpu.tickLimit / 2) {
-        console.log("Used half of CPU already!");
+        // Half CPU Usged
     }
 }
 
@@ -76,7 +74,6 @@ interface CreepMemory {
         // creep logic goes here
 
         const elapsed = Game.cpu.getUsed() - startCpu;
-        console.log(`Creep ${name} has used ${elapsed} CPU time`);
     }
 }
 
@@ -145,7 +142,6 @@ interface CreepMemory {
     const route = Game.map.findRoute(creep.room, anotherRoomName);
 
     if (route !== ERR_NO_PATH && route.length > 0) {
-        console.log(`Now heading to room ${route[0].room}`);
         const exit = creep.pos.findClosestByRange(route[0].exit);
         creep.moveTo(exit);
     }
@@ -173,13 +169,17 @@ interface CreepMemory {
     const route = Game.map.findRoute(from.roomName, to.roomName, {
         routeCallback(roomName) {
             const parsed = /^[WE]([0-9]+)[NS]([0-9]+)$/.exec(roomName);
-            const isHighway = (parseInt(parsed[1], 10) % 10 === 0) ||
+            if (parsed !== null) {
+                const isHighway = (parseInt(parsed[1], 10) % 10 === 0) ||
                 (parseInt(parsed[2], 10) % 10 === 0);
-            const isMyRoom = Game.rooms[roomName] &&
+                const isMyRoom = Game.rooms[roomName] &&
                 Game.rooms[roomName].controller &&
-                Game.rooms[roomName].controller.my;
-            if (isHighway || isMyRoom) {
-                return 1;
+                Game.rooms[roomName].controller!.my;
+                if (isHighway || isMyRoom) {
+                    return 1;
+                } else {
+                    return 2.5;
+                }
             } else {
                 return 2.5;
             }
@@ -193,15 +193,15 @@ interface CreepMemory {
     }
 
     // Invoke PathFinder, allowing access only to rooms from `findRoute`
-    const ret = PathFinder.search(from, to, {
-        roomCallback(roomName) {
+    const ret = PathFinder.search(from, [to], {
+        roomCallback: (roomName) => {
             if (allowedRooms[roomName] === undefined) {
                 return false;
+            } else {
+                return true;
             }
         }
     });
-
-    console.log(ret.path);
 }
 
 ////////
@@ -218,11 +218,11 @@ interface CreepMemory {
 // Game.map.getTerrainAt(pos)
 
 {
-    console.log(Game.map.getTerrainAt(25, 20, "W10N10"));
+    Game.map.getTerrainAt(25, 20, "W10N10");
 }
 
 {
-    console.log(Game.map.getTerrainAt(new RoomPosition(25, 20, "W10N10")));
+    Game.map.getTerrainAt(new RoomPosition(25, 20, "W10N10"));
 }
 
 ////////
@@ -230,7 +230,7 @@ interface CreepMemory {
 
 {
     if (Game.map.isRoomAvailable(room.name)) {
-        creep.moveTo(room.getPositionAt(25, 25));
+        creep.moveTo(room.getPositionAt(25, 25)!);
     }
 }
 
@@ -260,11 +260,13 @@ interface CreepMemory {
     const orders = Game.market.getAllOrders({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM });
 
     for (const i of orders) {
-        const transferEnergyCost = Game.market.calcTransactionCost(amountToBuy, "W1N1", i.roomName);
+        if (i.roomName) {
+            const transferEnergyCost = Game.market.calcTransactionCost(amountToBuy, "W1N1", i.roomName);
 
-        if (transferEnergyCost < maxTransferEnergyCost) {
-            Game.market.deal(i.id, amountToBuy, "W1N1");
-            break;
+            if (transferEnergyCost < maxTransferEnergyCost) {
+                Game.market.deal(i.id, amountToBuy, "W1N1");
+                break;
+            }
         }
     }
 
@@ -278,7 +280,7 @@ interface CreepMemory {
     const targetRoom = "W1N1";
     Game.market.getAllOrders((currentOrder) => currentOrder.resourceType === RESOURCE_GHODIUM &&
         currentOrder.type === ORDER_SELL &&
-        Game.market.calcTransactionCost(1000, targetRoom, currentOrder.roomName) < 500);
+        Game.market.calcTransactionCost(1000, targetRoom, currentOrder.roomName!) < 500);
 
     // Game.market.getOrderById(id)
     const order = Game.market.getOrderById("55c34a6b5be41a0a6e80c123");
@@ -305,13 +307,12 @@ interface CreepMemory {
             swampCost: 10,
 
             roomCallback(roomName) {
-
                 const curRoom = Game.rooms[roomName];
                 // In this example `room` will always exist, but since
                 // PathFinder supports searches which span multiple rooms
                 // you should be careful!
                 if (!curRoom) {
-                    return;
+                    return false;
                 }
                 const costs = new PathFinder.CostMatrix();
 
@@ -349,15 +350,14 @@ interface CreepMemory {
 
     RawMemory.setActiveSegments([0, 3]);
     // on the next tick
-    console.log(RawMemory.segments[0]);
-    console.log(RawMemory.segments[3]);
+    const segmentZero = RawMemory.segments[0];
     RawMemory.segments[3] = '{"foo": "bar", "counter": 15}';
 
     // RawMemory.foreignSegment
 
     RawMemory.setActiveForeignSegment("player");
     // on the next tick
-    console.log(RawMemory.foreignSegment);
+    const playerSegment = RawMemory.foreignSegment;
     // --> {"username": "player", "id": 40, "data": "Hello!"}
 
     // RawMemory.interShardSegment
@@ -429,7 +429,7 @@ interface CreepMemory {
     const exits = room.find(FIND_EXIT);
 
     const creepsHere = room.lookForAt(LOOK_CREEPS, 10, 10);
-    creepsHere[0].getActiveBodyparts(ATTACK);
+    creepsHere[0]!.getActiveBodyparts(ATTACK);
 
     const towers = room.find<StructureTower>(FIND_MY_STRUCTURES, {
         filter: (structure) => {
@@ -483,39 +483,46 @@ interface CreepMemory {
 {
     const nukes = room.lookForAt(LOOK_NUKES, creep.pos);
 
-    nukes[0].launchRoomName;
+    nukes[0]!.launchRoomName;
 
     const flags = room.lookForAtArea(LOOK_FLAGS, 10, 10, 20, 20);
 
     const x = flags[10];
     const y = x[11];
     const entry = y[0];
-    entry.flag.remove();
+    entry.flag!.remove();
 
     const creeps = room.lookForAtArea(LOOK_CREEPS, 10, 10, 20, 20, true);
 
     creeps[0].x;
     creeps[0].y;
-    creeps[0].creep.move(TOP);
+    creeps[0].creep!.move(TOP);
 }
 
 ////////
 // Advanced Structure types
 {
     const owned = Game.getObjectById<AnyOwnedStructure>("blah");
-    const owner = owned.owner.username;
-    owned.notifyWhenAttacked(false);
+    const owner = owned!.owner.username;
+    owned!.notifyWhenAttacked(false);
 
-    const unowned = Game.getObjectById<AnyStructure>("blah2");
+    const unowned = Game.getObjectById<AnyStructure>("blah2")!;
     const hp = unowned.hits / unowned.hitsMax;
 
     // test discriminated union
-    if (unowned.structureType === STRUCTURE_TOWER) {
-        unowned.heal(Game.creeps.myCreep);
-    } else if (unowned.structureType === STRUCTURE_CONTAINER || unowned.structureType === STRUCTURE_STORAGE || unowned.structureType === STRUCTURE_TERMINAL) {
-        const energyPercent = unowned.store.energy / unowned.storeCapacity;
-    } else if (unowned.structureType === STRUCTURE_WALL || unowned.structureType === STRUCTURE_RAMPART) {
-        const wallHp = unowned.hits / unowned.hitsMax;
+    switch (unowned.structureType) {
+        case STRUCTURE_TOWER:
+            unowned.heal(Game.creeps.myCreep);
+        break;
+        case STRUCTURE_CONTAINER:
+        case STRUCTURE_STORAGE:
+        case STRUCTURE_TERMINAL:
+            const energyPercent = unowned.store.energy / unowned.storeCapacity;
+        break;
+        case STRUCTURE_WALL:
+        case STRUCTURE_RAMPART:
+            const wallHp = unowned.hits / unowned.hitsMax;
+        break;
     }
 
     // test discriminated union using filter functions on find
