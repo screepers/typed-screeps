@@ -11,7 +11,7 @@
     "lint-test": "tslint 'test/**/*.ts'",
     "postcompile": "node ./build/prependHeader.js",
     "precommit": "npm run compile && git add dist/index.d.ts",
-    "test": "npm run dtslint && npm run compile-test",
+    "test": "npm run dtslint",
     "dtslint": "npm run compile && dtslint dist"
   },
   "keywords": [
