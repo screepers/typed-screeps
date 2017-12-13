@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.0.1] - 2017-12-13
+### Fixed
+- Reduce package size when installing via npm ([#25](https://github.com/screepers/typed-screeps/pull/25))
+
 ## [2.0.0] - 2017-12-05
 ### Added
 - Added contributing guidelines and Issue/PR templates ([#18](https://github.com/screepers/typed-screeps/pull/18))
@@ -51,7 +55,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Initial public `npm` release.
 
-[Unreleased]: https://github.com/screepers/typed-screeps/compare/v1.0.4...HEAD
+[Unreleased]: https://github.com/screepers/typed-screeps/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/screepers/typed-screeps/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/screepers/typed-screeps/compare/v1.0.4...v2.0.0
 [1.0.4]: https://github.com/screepers/typed-screeps/compare/v1.0.3...v1.0.4
 [1.0.3]: https://github.com/screepers/typed-screeps/compare/v1.0.2...v1.0.3
