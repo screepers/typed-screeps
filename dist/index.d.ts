@@ -2109,8 +2109,6 @@ interface NukeConstructor {
 }
 
 declare const Nuke: NukeConstructor;
-// tslint:disable:unified-signatures
-
 /**
  * Contains powerful methods for pathfinding in the game world. Support exists for custom navigation costs and paths which span multiple rooms.
  * Additionally PathFinder can search for paths through rooms you can't see, although you won't be able to detect any dynamic obstacles like creeps or buildings.
@@ -2125,18 +2123,10 @@ interface PathFinder {
      * Find an optimal path between origin and goal.
      *
      * @param origin The start position.
-     * @param goal goal A RoomPosition or an object containing a RoomPosition and range
+     * @param goal goal A RoomPosition, an object containing a RoomPosition and range or an array of either.
      * @param opts An object containing additional pathfinding flags.
      */
-    search(origin: RoomPosition, goal: RoomPosition | { pos: RoomPosition, range: number }, opts?: PathFinderOpts): PathFinderPath;
-    /**
-     * Find an optimal path between origin and goal.
-     *
-     * @param origin The start position.
-     * @param goal an array of goals, the cheapest path found out of all the goals will be returned.
-     * @param opts An object containing additional pathfinding flags.
-     */
-    search(origin: RoomPosition, goal: RoomPosition[] | Array<{ pos: RoomPosition, range: number }>, opts?: PathFinderOpts): PathFinderPath;
+    search(origin: RoomPosition, goal: RoomPosition | { pos: RoomPosition, range: number } | RoomPosition[] | Array<{ pos: RoomPosition, range: number }>, opts?: PathFinderOpts): PathFinderPath;
     /**
      * Specify whether to use this new experimental pathfinder in game objects methods.
      * This method should be invoked every tick. It affects the following methods behavior:
@@ -2226,8 +2216,6 @@ interface PathFinderOpts {
      */
     roomCallback?(roomName: string): boolean | CostMatrix;
 }
-
-// tslint:disable:no-misused-new
 
 /**
  * Container for custom navigation cost data.
