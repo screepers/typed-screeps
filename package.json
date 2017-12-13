@@ -4,6 +4,9 @@
   "description": "Stronger TypeScript declarations for the game Screeps.",
   "repository": "screepers/typed-screeps",
   "types": "./dist/index.d.ts",
+  "files": [
+    "dist/index.d.ts"
+  ],
   "scripts": {
     "compile": "node ./build/concat.js",
     "compile-test": "tsc dist/screeps-tests.ts",
@@ -11,6 +14,7 @@
     "lint-test": "tslint 'test/**/*.ts'",
     "postcompile": "node ./build/prependHeader.js",
     "precommit": "npm run compile && git add dist/index.d.ts",
+    "prepare": "npm test",
     "test": "npm run dtslint",
     "dtslint": "npm run compile && dtslint dist"
   },
