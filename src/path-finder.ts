@@ -1,5 +1,3 @@
-// tslint:disable:unified-signatures
-
 /**
  * Contains powerful methods for pathfinding in the game world. Support exists for custom navigation costs and paths which span multiple rooms.
  * Additionally PathFinder can search for paths through rooms you can't see, although you won't be able to detect any dynamic obstacles like creeps or buildings.
@@ -14,18 +12,10 @@ interface PathFinder {
      * Find an optimal path between origin and goal.
      *
      * @param origin The start position.
-     * @param goal goal A RoomPosition or an object containing a RoomPosition and range
+     * @param goal goal A RoomPosition, an object containing a RoomPosition and range or an array of either.
      * @param opts An object containing additional pathfinding flags.
      */
-    search(origin: RoomPosition, goal: RoomPosition | { pos: RoomPosition, range: number }, opts?: PathFinderOpts): PathFinderPath;
-    /**
-     * Find an optimal path between origin and goal.
-     *
-     * @param origin The start position.
-     * @param goal an array of goals, the cheapest path found out of all the goals will be returned.
-     * @param opts An object containing additional pathfinding flags.
-     */
-    search(origin: RoomPosition, goal: RoomPosition[] | Array<{ pos: RoomPosition, range: number }>, opts?: PathFinderOpts): PathFinderPath;
+    search(origin: RoomPosition, goal: RoomPosition | { pos: RoomPosition, range: number } | RoomPosition[] | Array<{ pos: RoomPosition, range: number }>, opts?: PathFinderOpts): PathFinderPath;
     /**
      * Specify whether to use this new experimental pathfinder in game objects methods.
      * This method should be invoked every tick. It affects the following methods behavior:
@@ -37,7 +27,7 @@ interface PathFinder {
      * @deprecated This method is deprecated and will be removed soon.
      * @param isEnabled Whether to activate the new pathfinder or deactivate.
      */
-    use(isEnabled: boolean): void;
+    use(isEnabled: boolean): undefined;
 }
 
 /**
@@ -116,8 +106,6 @@ interface PathFinderOpts {
     roomCallback?(roomName: string): boolean | CostMatrix;
 }
 
-// tslint:disable:no-misused-new
-
 /**
  * Container for custom navigation cost data.
  */
@@ -133,7 +121,7 @@ interface CostMatrix {
      * @param y Y position in the room.
      * @param cost Cost of this position. Must be a whole number. A cost of 0 will use the terrain cost for that tile. A cost greater than or equal to 255 will be treated as unwalkable.
      */
-    set(x: number, y: number, cost: number): void;
+    set(x: number, y: number, cost: number): undefined;
     /**
      * Get the cost of a position in this CostMatrix.
      * @param x X position in the room.

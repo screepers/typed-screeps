@@ -3,20 +3,20 @@
   "version": "2.0.1",
   "description": "Stronger TypeScript declarations for the game Screeps.",
   "repository": "screepers/typed-screeps",
-  "types": "./dist/screeps.d.ts",
+  "types": "./dist/index.d.ts",
   "files": [
-    "dist/screeps.d.ts"
+    "dist/index.d.ts"
   ],
   "scripts": {
-    "compile": "tsc",
-    "compile-test": "tsc test/typed-screeps-tests.ts",
+    "compile": "node ./build/concat.js",
+    "compile-test": "tsc dist/screeps-tests.ts",
     "lint": "tslint 'src/**/*.ts'",
     "lint-test": "tslint 'test/**/*.ts'",
-    "postcompile": "rimraf ./dist/screeps.js && node ./build/prependHeader.js",
+    "postcompile": "node ./build/prependHeader.js",
+    "precommit": "npm run compile && git add dist/index.d.ts",
     "prepare": "npm test",
-    "precommit": "npm run compile && git add dist/screeps.d.ts",
-    "precompile": "rimraf dist",
-    "test": "npm run compile && npm run lint && npm run lint-test && npm run compile-test"
+    "test": "npm run dtslint",
+    "dtslint": "npm run compile && dtslint dist"
   },
   "keywords": [
     "Screeps",
@@ -27,10 +27,13 @@
   "author": "Marko Sulamagi <marko.sulamagi@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "husky": "^0.13.3",
+    "concat-files": "^0.1.1",
+    "copy": "^0.3.1",
+    "dtslint": "^0.2.0",
+    "husky": "^0.14.3",
     "prepend": "^1.0.2",
     "rimraf": "^2.6.2",
     "tslint": "^5.8.0",
-    "typescript": "^2.1.0"
+    "typescript": "^2.6.2"
   }
 }

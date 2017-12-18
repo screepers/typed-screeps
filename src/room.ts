@@ -1,5 +1,9 @@
 /**
- * An object representing the room in which your units and structures are in. It can be used to look around, find paths, etc. Every object in the room contains its linked Room instance in the room property.
+ * An object representing the room in which your units and structures are in.
+ *
+ * It can be used to look around, find paths, etc.
+ *
+ * Every object in the room contains its linked Room instance in the room property.
  */
 interface Room {
     readonly prototype: Room;
@@ -59,7 +63,11 @@ interface Room {
      * Create new Flag at the specified location.
      * @param x The X position.
      * @param y The Y position.
-     * @param name (optional) The name of a new flag. It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key). If not defined, a random name will be generated.
+     * @param name (optional) The name of a new flag.
+     *
+     * It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key).
+     *
+     * If not defined, a random name will be generated.
      * @param color The color of a new flag. Should be one of the COLOR_* constants. The default value is COLOR_WHITE.
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      */
@@ -67,14 +75,37 @@ interface Room {
     /**
      * Create new Flag at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
-     * @param name (optional) The name of a new flag. It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key). If not defined, a random name will be generated.
+     * @param name (optional) The name of a new flag.
+     *
+     * It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key).
+     *
+     * If not defined, a random name will be generated.
      * @param color The color of a new flag. Should be one of the COLOR_* constants. The default value is COLOR_WHITE.
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      */
     createFlag(pos: RoomPosition | { pos: RoomPosition }, name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ScreepsReturnCode;
     /**
      * Find all objects of the specified type in the room.
-     * @param type One of the following constants:FIND_CREEPS, FIND_MY_CREEPS, FIND_HOSTILE_CREEPS, FIND_MY_SPAWNS, FIND_HOSTILE_SPAWNS, FIND_SOURCES, FIND_SOURCES_ACTIVE, FIND_DROPPED_RESOURCES, FIND_DROPPED_ENERGY, FIND_STRUCTURES, FIND_MY_STRUCTURES, FIND_HOSTILE_STRUCTURES, FIND_FLAGS, FIND_CONSTRUCTION_SITES, FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT, FIND_EXIT
+     * @param type One of the following constants:
+     *  * FIND_CREEPS
+     *  * FIND_MY_CREEPS
+     *  * FIND_HOSTILE_CREEPS
+     *  * FIND_MY_SPAWNS
+     *  * FIND_HOSTILE_SPAWNS
+     *  * FIND_SOURCES
+     *  * FIND_SOURCES_ACTIVE
+     *  * FIND_DROPPED_RESOURCES
+     *  * FIND_DROPPED_ENERGY
+     *  * FIND_STRUCTURES
+     *  * FIND_MY_STRUCTURES
+     *  * FIND_HOSTILE_STRUCTURES
+     *  * FIND_FLAGS
+     *  * FIND_CONSTRUCTION_SITES
+     *  * FIND_EXIT_TOP
+     *  * FIND_EXIT_RIGHT
+     *  * FIND_EXIT_BOTTOM
+     *  * FIND_EXIT_LEFT
+     *  * FIND_EXIT
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */

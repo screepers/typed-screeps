@@ -1,4 +1,3 @@
-////////
 // Game Constants
 
 declare const OK: 0;

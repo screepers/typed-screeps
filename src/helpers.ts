@@ -1,4 +1,6 @@
-type _HasRoomPosition = { pos: RoomPosition };
+interface _HasRoomPosition {
+    pos: RoomPosition;
+}
 
 interface GlobalControlLevel {
     /**

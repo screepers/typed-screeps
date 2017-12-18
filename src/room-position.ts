@@ -1,5 +1,9 @@
 /**
- * An object representing the specified position in the room. Every object in the room contains RoomPosition as the pos property. The position object of a custom location can be obtained using the Room.getPositionAt() method or using the constructor.
+ * An object representing the specified position in the room.
+ *
+ * Every object in the room contains RoomPosition as the pos property.
+ *
+ * The position object of a custom location can be obtained using the Room.getPositionAt() method or using the constructor.
  */
 interface RoomPosition {
     readonly prototype: RoomPosition;
@@ -18,12 +22,20 @@ interface RoomPosition {
     y: number;
     /**
      * Create new ConstructionSite at the specified location.
-     * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
+     * @param structureType One of the following constants:
+     *  * STRUCTURE_EXTENSION
+     *  * STRUCTURE_RAMPART
+     *  * STRUCTURE_ROAD
+     *  * STRUCTURE_SPAWN
+     *  * STRUCTURE_WALL
+     *  * STRUCTURE_LINK
      */
     createConstructionSite(structureType: BuildableStructureConstant): ScreepsReturnCode;
     /**
      * Create new Flag at the specified location.
-     * @param name The name of a new flag. It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key). If not defined, a random name will be generated.
+     * @param name The name of a new flag.
+     * It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key).
+     * If not defined, a random name will be generated.
      * @param color The color of a new flag. Should be one of the COLOR_* constants
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      */
@@ -35,7 +47,10 @@ interface RoomPosition {
      * @returns An instance of a RoomObject.
      */
     findClosestByPath<K extends FindConstant>(type: K, opts?: FindPathOpts & { filter?: FilterFunction<K>, algorithm?: string }): FindTypes[K];
-    findClosestByPath<T extends Structure>(type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES, opts?: FindPathOpts & { filter?: FilterFunction<FIND_STRUCTURES>, algorithm?: string}): T;
+    findClosestByPath<T extends Structure>(
+        type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
+        opts?: FindPathOpts & { filter?: FilterFunction<FIND_STRUCTURES>, algorithm?: string}
+    ): T;
     /**
      * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
      * @param objects An array of RoomPositions or objects with a RoomPosition
@@ -63,7 +78,7 @@ interface RoomPosition {
      * @param opts See Room.find.
      */
     findInRange<K extends FindConstant>(type: K, range: number, opts?: {filter: any| string}): Array<FindTypes[K]>;
-    findInRange<T extends Structure>(type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES, range: number, opts?: {filter: FilterFunction<FIND_STRUCTURES>} ): T[];
+    findInRange<T extends Structure>(type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES, range: number, opts?: {filter: FilterFunction<FIND_STRUCTURES>}): T[];
     /**
      * Find all objects in the specified linear range.
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
@@ -72,14 +87,18 @@ interface RoomPosition {
      */
     findInRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], range: number, opts?: { filter?: any | string }): T[];
     /**
-     * Find an optimal path to the specified position using A* search algorithm. This method is a shorthand for Room.findPath. If the target is in another room, then the corresponding exit will be used as a target.
+     * Find an optimal path to the specified position using A* search algorithm.
+     *
+     * This method is a shorthand for Room.findPath. If the target is in another room, then the corresponding exit will be used as a target.
      * @param x X position in the room.
      * @param y Y position in the room.
      * @param opts An object containing pathfinding options flags (see Room.findPath for more details).
      */
     findPathTo(x: number, y: number, opts?: FindPathOpts): PathStep[];
     /**
-     * Find an optimal path to the specified position using A* search algorithm. This method is a shorthand for Room.findPath. If the target is in another room, then the corresponding exit will be used as a target.
+     * Find an optimal path to the specified position using A* search algorithm.
+     *
+     * This method is a shorthand for Room.findPath. If the target is in another room, then the corresponding exit will be used as a target.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @param opts An object containing pathfinding options flags (see Room.findPath for more details).
      */

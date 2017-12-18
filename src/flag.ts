@@ -13,7 +13,11 @@ interface Flag extends RoomObject {
      */
     memory: FlagMemory;
     /**
-     * Flag’s name. You can choose the name while creating a new flag, and it cannot be changed later. This name is a hash key to access the spawn via the `Game.flags` object. The maximum name length is 60 characters.
+     * Flag’s name.
+     *
+     * You can choose the name while creating a new flag, and it cannot be changed later.
+     *
+     * This name is a hash key to access the spawn via the `Game.flags` object. The maximum name length is 60 characters.
      */
     name: string;
     /**

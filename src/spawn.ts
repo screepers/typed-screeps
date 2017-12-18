@@ -1,5 +1,3 @@
-// Updated 2017-11-06
-
 /**
  * Spawns are your colony centers. This structure can create, renew, and recycle
  * creeps. All your spawns are accessible through `Game.spawns` hash list.
@@ -42,7 +40,11 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      *
      * @deprecated This method is deprecated and will be removed soon. Please use `StructureSpawn.spawnCreep` with `dryRun` flag instead.
      * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of these constants: WORK, MOVE, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH, CLAIM
-     * @param name The name of a new creep. It should be unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key). If not defined, a random name will be generated.
+     * @param name The name of a new creep.
+     *
+     * It should be unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key).
+     *
+     * If not defined, a random name will be generated.
      */
     canCreateCreep(body: BodyPartConstant[], name?: string): ScreepsReturnCode;
     /**
@@ -50,7 +52,11 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      *
      * @deprecated This method is deprecated and will be removed soon. Please use `StructureSpawn.spawnCreep` instead.
      * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of these constants: WORK, MOVE, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH, CLAIM
-     * @param name The name of a new creep. It should be unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key). If not defined, a random name will be generated.
+     * @param name The name of a new creep.
+     *
+     * It should be unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key).
+     *
+     * If not defined, a random name will be generated.
      * @param memory The memory of a new creep. If provided, it will be immediately stored into Memory.creeps[name].
      * @returns The name of a new creep or one of these error codes:
      * ```
@@ -67,7 +73,15 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
     /**
      * Start the creep spawning process. The required energy amount can be withdrawn from all spawns and extensions in the room.
      *
-     * @param {BodyPartConstant[]} body An array describing the new creep’s body. Should contain 1 to 50 elements with one of these constants:WORK, MOVE, CARRY, ATTACK, RANGED_ATTACK, HEAL, TOUGH, CLAIM
+     * @param {BodyPartConstant[]} body An array describing the new creep’s body. Should contain 1 to 50 elements with one of these constants:
+     *  * WORK
+     *  * MOVE
+     *  * CARRY
+     *  * ATTACK
+     *  * RANGED_ATTACK
+     *  * HEAL
+     *  * TOUGH
+     *  * CLAIM
      * @param {string} name The name of a new creep. It must be a unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key).
      * @param {{memory?: CreepMemory; energyStructures?: (StructureSpawn | StructureExtension)[]; dryRun?: boolean}} opts An object with additional options for the spawning process.
      * @returns {ScreepsReturnCode} One of the following codes:
@@ -97,7 +111,15 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      */
     notifyWhenAttacked(enabled: boolean): ScreepsReturnCode;
     /**
-     * Increase the remaining time to live of the target creep. The target should be at adjacent square. The spawn should not be busy with the spawning process. Each execution increases the creep's timer by amount of ticks according to this formula: floor(500/body_size). Energy required for each execution is determined using this formula: ceil(creep_cost/3/body_size).
+     * Increase the remaining time to live of the target creep.
+     *
+     * The target should be at adjacent square.
+     *
+     * The spawn should not be busy with the spawning process.
+     *
+     * Each execution increases the creep's timer by amount of ticks according to this formula: floor(500/body_size).
+     *
+     * Energy required for each execution is determined using this formula: ceil(creep_cost/3/body_size).
      * @param target The target creep object.
      */
     renewCreep(target: Creep): ScreepsReturnCode;
@@ -113,4 +135,4 @@ interface StructureSpawnConstructor extends _Constructor<StructureSpawn>, _Const
 
 declare const StructureSpawn: StructureSpawnConstructor;
 declare const Spawn: StructureSpawnConstructor; // legacy alias
-declare type Spawn = StructureSpawn;
+// declare type Spawn = StructureSpawn;

@@ -1,5 +1,7 @@
 /**
- * Creeps are your units. Creeps can move, harvest energy, construct structures, attack another creeps, and perform other actions. Each creep consists of up to 50 body parts with the following possible types:
+ * Creeps are your units.
+ * Creeps can move, harvest energy, construct structures, attack another creeps, and perform other actions.
+ * Each creep consists of up to 50 body parts with the following possible types:
  */
 interface Creep extends RoomObject {
     readonly prototype: Creep;
@@ -103,13 +105,22 @@ interface Creep extends RoomObject {
      */
     cancelOrder(methodName: string): OK | ERR_NOT_FOUND;
     /**
-     * Requires the CLAIM body part. If applied to a neutral controller, claims it under your control. If applied to a hostile controller, decreases its downgrade or reservation timer depending on the CLAIM body parts count. The target has to be at adjacent square to the creep.
+     * Requires the CLAIM body part.
+     *
+     * If applied to a neutral controller, claims it under your control.
+     * If applied to a hostile controller, decreases its downgrade or reservation timer depending on the CLAIM body parts count.
+     *
+     * The target has to be at adjacent square to the creep.
      * @param target The target controller object.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_FULL, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_GCL_NOT_ENOUGH
      */
     claimController(target: StructureController): CreepActionReturnCode | ERR_FULL | ERR_RCL_NOT_ENOUGH;
     /**
-     * Dismantles any (even hostile) structure returning 50% of the energy spent on its repair. Requires the WORK body part. If the creep has an empty CARRY body part, the energy is put into it; otherwise it is dropped on the ground. The target has to be at adjacent square to the creep.
+     * Dismantles any (even hostile) structure returning 50% of the energy spent on its repair.
+     *
+     * Requires the WORK body part. If the creep has an empty CARRY body part, the energy is put into it; otherwise it is dropped on the ground.
+     *
+     * The target has to be at adjacent square to the creep.
      * @param target The target structure.
      */
     dismantle(target: Structure): CreepActionReturnCode;
@@ -131,12 +142,22 @@ interface Creep extends RoomObject {
      */
     getActiveBodyparts(type: BodyPartConstant): number;
     /**
-     * Harvest energy from the source. Needs the WORK body part. If the creep has an empty CARRY body part, the harvested energy is put into it; otherwise it is dropped on the ground. The target has to be at an adjacent square to the creep.
+     * Harvest energy from the source.
+     *
+     * Needs the WORK body part.
+     *
+     * If the creep has an empty CARRY body part, the harvested energy is put into it; otherwise it is dropped on the ground.
+     *
+     * The target has to be at an adjacent square to the creep.
      * @param target The source object to be harvested.
      */
     harvest(target: Source | Mineral): CreepActionReturnCode | ERR_NOT_FOUND | ERR_NOT_ENOUGH_RESOURCES;
     /**
-     * Heal self or another creep. It will restore the target creep’s damaged body parts function and increase the hits counter. Needs the HEAL body part. The target has to be at adjacent square to the creep.
+     * Heal self or another creep. It will restore the target creep’s damaged body parts function and increase the hits counter.
+     *
+     * Needs the HEAL body part.
+     *
+     * The target has to be at adjacent square to the creep.
      * @param target The target creep object.
      */
     heal(target: Creep): CreepActionReturnCode;
@@ -151,14 +172,22 @@ interface Creep extends RoomObject {
      */
     moveByPath(path: PathStep[] | RoomPosition[] | string): CreepMoveReturnCode | ERR_NOT_FOUND | ERR_INVALID_ARGS;
     /**
-     * Find the optimal path to the target within the same room and move to it. A shorthand to consequent calls of pos.findPathTo() and move() methods. If the target is in another room, then the corresponding exit will be used as a target. Needs the MOVE body part.
+     * Find the optimal path to the target within the same room and move to it.
+     * A shorthand to consequent calls of pos.findPathTo() and move() methods.
+     * If the target is in another room, then the corresponding exit will be used as a target.
+     *
+     * Needs the MOVE body part.
      * @param x X position of the target in the room.
      * @param y Y position of the target in the room.
      * @param opts An object containing pathfinding options flags (see Room.findPath for more info) or one of the following: reusePath, serializeMemory, noPathFinding
      */
     moveTo(x: number, y: number, opts?: MoveToOpts): CreepMoveReturnCode | ERR_NO_PATH | ERR_INVALID_TARGET;
     /**
-     * Find the optimal path to the target within the same room and move to it. A shorthand to consequent calls of pos.findPathTo() and move() methods. If the target is in another room, then the corresponding exit will be used as a target. Needs the MOVE body part.
+     * Find the optimal path to the target within the same room and move to it.
+     * A shorthand to consequent calls of pos.findPathTo() and move() methods.
+     * If the target is in another room, then the corresponding exit will be used as a target.
+     *
+     * Needs the MOVE body part.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @param opts An object containing pathfinding options flags (see Room.findPath for more info) or one of the following: reusePath, serializeMemory, noPathFinding
      */
@@ -174,17 +203,29 @@ interface Creep extends RoomObject {
      */
     pickup(target: Resource): CreepActionReturnCode | ERR_FULL;
     /**
-     * A ranged attack against another creep or structure. Needs the RANGED_ATTACK body part. If the target is inside a rampart, the rampart is attacked instead. The target has to be within 3 squares range of the creep.
+     * A ranged attack against another creep or structure.
+     *
+     * Needs the RANGED_ATTACK body part. If the target is inside a rampart, the rampart is attacked instead.
+     *
+     * The target has to be within 3 squares range of the creep.
      * @param target The target object to be attacked.
      */
     rangedAttack(target: Creep|Structure): CreepActionReturnCode;
     /**
-     * Heal another creep at a distance. It will restore the target creep’s damaged body parts function and increase the hits counter. Needs the HEAL body part. The target has to be within 3 squares range of the creep.
+     * Heal another creep at a distance.
+     *
+     * It will restore the target creep’s damaged body parts function and increase the hits counter.
+     *
+     * Needs the HEAL body part. The target has to be within 3 squares range of the creep.
      * @param target The target creep object.
      */
     rangedHeal(target: Creep): CreepActionReturnCode;
     /**
-     * A ranged attack against all hostile creeps or structures within 3 squares range. Needs the RANGED_ATTACK body part. The attack power depends on the range to each target. Friendly units are not affected.
+     * A ranged attack against all hostile creeps or structures within 3 squares range.
+     *
+     * Needs the RANGED_ATTACK body part.
+     *
+     * The attack power depends on the range to each target. Friendly units are not affected.
      */
     rangedMassAttack(): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NO_BODYPART;
     /**
@@ -193,13 +234,23 @@ interface Creep extends RoomObject {
      */
     repair(target: Structure): CreepActionReturnCode | ERR_NOT_ENOUGH_RESOURCES;
     /**
-     * Temporarily block a neutral controller from claiming by other players. Each tick, this command increases the counter of the period during which the controller is unavailable by 1 tick per each CLAIM body part. The maximum reservation period to maintain is 5,000 ticks. The target has to be at adjacent square to the creep....
+     * Temporarily block a neutral controller from claiming by other players.
+     *
+     * Each tick, this command increases the counter of the period during which the controller is unavailable by 1 tick per each CLAIM body part.
+     *
+     * The maximum reservation period to maintain is 5,000 ticks.
+     *
+     * The target has to be at adjacent square to the creep....
      * @param target The target controller object to be reserved.
      * @return Result code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
      */
     reserveController(target: StructureController): CreepActionReturnCode;
     /**
-     * Display a visual speech balloon above the creep with the specified message. The message will disappear after a few seconds. Useful for debugging purposes. Only the creep's owner can see the speech message.
+     * Display a visual speech balloon above the creep with the specified message.
+     *
+     * The message will disappear after a few seconds. Useful for debugging purposes.
+     *
+     * Only the creep's owner can see the speech message unless toPublic is true.
      * @param message The message to be displayed. Maximum length is 10 characters.
      * @param set to 'true' to allow other players to see this message. Default is 'false'.
      */
@@ -224,12 +275,28 @@ interface Creep extends RoomObject {
      */
     transfer(target: Creep|Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
     /**
-     * Upgrade your controller to the next level using carried energy. Upgrading controllers raises your Global Control Level in parallel. Needs WORK and CARRY body parts. The target has to be at adjacent square to the creep. A fully upgraded level 8 controller can't be upgraded with the power over 15 energy units per tick regardless of creeps power. The cumulative effect of all the creeps performing upgradeController in the current tick is taken into account.
+     * Upgrade your controller to the next level using carried energy.
+     *
+     * Upgrading controllers raises your Global Control Level in parallel.
+     *
+     * Needs WORK and CARRY body parts.
+     *
+     * The target has to be at adjacent square to the creep.
+     *
+     * A fully upgraded level 8 controller can't be upgraded with the power over 15 energy units per tick regardless of creeps power.
+     *
+     * The cumulative effect of all the creeps performing upgradeController in the current tick is taken into account.
      * @param target The target controller object to be upgraded.
      */
     upgradeController(target: StructureController): ScreepsReturnCode;
     /**
-     * Withdraw resources from a structure. The target has to be at adjacent square to the creep. Multiple creeps can withdraw from the same structure in the same tick. Your creeps can withdraw resources from hostile structures as well, in case if there is no hostile rampart on top of it.
+     * Withdraw resources from a structure.
+     *
+     * The target has to be at adjacent square to the creep.
+     *
+     * Multiple creeps can withdraw from the same structure in the same tick.
+     *
+     * Your creeps can withdraw resources from hostile structures as well, in case if there is no hostile rampart on top of it.
      * @param target The target object.
      * @param resourceType The target One of the RESOURCE_* constants..
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
