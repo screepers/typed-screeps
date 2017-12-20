@@ -3259,7 +3259,7 @@ interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
     /**
      * An object with the controller reservation info if present: username, ticksToEnd
      */
-    reservation: ReservationDefinition;
+    reservation: ReservationDefinition | undefined;
     /**
      * How many ticks of safe mode are remaining, or undefined.
      */
