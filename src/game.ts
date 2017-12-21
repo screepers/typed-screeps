@@ -78,4 +78,4 @@ interface Game {
     notify(message: string, groupInterval?: number): undefined;
 }
 
-declare const Game: Game;
+declare let Game: Game;
