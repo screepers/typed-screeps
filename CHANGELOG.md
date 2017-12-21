@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Fixed
 - Restuctured project for DefinitelyTyped publishing ([#24](https://github.com/screepers/typed-screeps/pull/24))
+- Allow controller sign to be undefined ([#28](https://github.com/screepers/typed-screeps/pull/28))
 
 ## [2.0.1] - 2017-12-13
 ### Fixed
