@@ -6,29 +6,15 @@
 
 ## Installation
 
-*Thanks to [@apemanzilla](https://github.com/apemanzilla) for their help on testing this installation path!*
+The type definitions are published on [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped). To install them, run the following.
 
 ```bash
 # npm
-npm install typed-screeps
+npm install @types/screeps
 
 # yarn
-yarn add typed-screeps
+yarn add @types/screeps
 ```
-
-However, since the typings aren't installed within the `@types/` scope, you'll have to include it in your `tsconfig.json`:
-
-```json
-{
-  "compilerOptions": {
-    "types": ["lodash", "typed-screeps"]
-  }
-}
-```
-
-**Note:** Because `"types"` also works as a whitelist for the declarations used on your project, you will also have to include all other type declarations you're using here.
-
-Installing through `@types/` will be made available soon. Hang tight!
 
 ## Differences from **[Screeps-Typescript-Declarations](https://github.com/screepers/Screeps-Typescript-Declarations)**
 
