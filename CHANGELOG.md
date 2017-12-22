@@ -5,9 +5,13 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
-### Fixed
+
+## [2.1.0] - 2017-12-22
+### Changed
 - Restuctured project for DefinitelyTyped publishing ([#24](https://github.com/screepers/typed-screeps/pull/24))
-- Allow controller sign to be undefined ([#28](https://github.com/screepers/typed-screeps/pull/28))
+### Fixed
+- Allow `Game` interface to be extended ([#29](https://github.com/screepers/typed-screeps/pull/29))
+- Allow controller sign + reservation to be undefined ([#28](https://github.com/screepers/typed-screeps/pull/28))
 
 ## [2.0.1] - 2017-12-13
 ### Fixed
@@ -58,7 +62,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Initial public `npm` release.
 
-[Unreleased]: https://github.com/screepers/typed-screeps/compare/v2.0.1...HEAD
+[Unreleased]: https://github.com/screepers/typed-screeps/compare/v2.1.0...HEAD
+[2.1.0]: https://github.com/screepers/typed-screeps/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/screepers/typed-screeps/compare/v2.0.0...v2.0.1
 [2.0.0]: https://github.com/screepers/typed-screeps/compare/v1.0.4...v2.0.0
 [1.0.4]: https://github.com/screepers/typed-screeps/compare/v1.0.3...v1.0.4
