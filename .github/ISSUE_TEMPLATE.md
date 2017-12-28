@@ -18,3 +18,4 @@
 
 - Node.js version: {Please write here}
 - TypeScript version: {Please write here}
+- {`typed-screeps` or `@types/screeps` delete as appropriate} version: {Please write here}
