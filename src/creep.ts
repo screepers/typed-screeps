@@ -85,9 +85,9 @@ interface Creep extends RoomObject {
      * The controller under attack cannot be upgraded for the next 1,000 ticks.
      * The target has to be at adjacent square to the creep.
      *
-     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
+     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_TIRED
      */
-    attackController(target: StructureController): CreepActionReturnCode;
+    attackController(target: StructureController): CreepActionReturnCode|ERR_TIRED;
     /**
      * Build a structure at the target construction site using carried energy.
      * Needs WORK and CARRY body parts.
