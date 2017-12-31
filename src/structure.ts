@@ -615,6 +615,7 @@ type AnyOwnedStructure =
     StructureLink |
     StructureNuker |
     StructureObserver |
+    StructurePowerBank |
     StructurePowerSpawn |
     StructureRampart |
     StructureSpawn |
@@ -629,6 +630,5 @@ type AnyStructure =
     AnyOwnedStructure |
     StructureContainer |
     StructurePortal |
-    StructurePowerBank |
     StructureRoad |
     StructureWall;
