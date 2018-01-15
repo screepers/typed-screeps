@@ -275,6 +275,7 @@ declare const POWER_SPAWN_POWER_CAPACITY: number;
 declare const POWER_SPAWN_ENERGY_RATIO: number;
 
 declare const EXTRACTOR_HITS: number;
+declare const EXTRACTOR_COOLDOWN: number;
 
 declare const LAB_HITS: number;
 declare const LAB_MINERAL_CAPACITY: number;
@@ -610,3 +611,5 @@ declare const LOOK_TERRAIN: "terrain";
 
 declare const ORDER_SELL: "sell";
 declare const ORDER_BUY: "buy";
+
+declare const SYSTEM_USERNAME: string;

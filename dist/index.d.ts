@@ -286,6 +286,7 @@ declare const POWER_SPAWN_POWER_CAPACITY: number;
 declare const POWER_SPAWN_ENERGY_RATIO: number;
 
 declare const EXTRACTOR_HITS: number;
+declare const EXTRACTOR_COOLDOWN: number;
 
 declare const LAB_HITS: number;
 declare const LAB_MINERAL_CAPACITY: number;
@@ -621,6 +622,8 @@ declare const LOOK_TERRAIN: "terrain";
 
 declare const ORDER_SELL: "sell";
 declare const ORDER_BUY: "buy";
+
+declare const SYSTEM_USERNAME: string;
 /**
  * A site of a structure which is currently under construction.
  */
@@ -727,8 +730,10 @@ interface Creep extends RoomObject {
     saying: string;
     /**
      * The remaining amount of game ticks after which the creep will die.
+     *
+     * Will be `undefined` if the creep is still spawning.
      */
-    ticksToLive: number;
+    ticksToLive: number | undefined;
     /**
      * Attack another creep or structure in a short-ranged attack. Needs the
      * ATTACK body part. If the target is inside a rampart, then the rampart is
@@ -3780,6 +3785,7 @@ type AnyOwnedStructure =
     StructureLink |
     StructureNuker |
     StructureObserver |
+    StructurePowerBank |
     StructurePowerSpawn |
     StructureRampart |
     StructureSpawn |
@@ -3794,6 +3800,5 @@ type AnyStructure =
     AnyOwnedStructure |
     StructureContainer |
     StructurePortal |
-    StructurePowerBank |
     StructureRoad |
     StructureWall;

@@ -64,8 +64,10 @@ interface Creep extends RoomObject {
     saying: string;
     /**
      * The remaining amount of game ticks after which the creep will die.
+     *
+     * Will be `undefined` if the creep is still spawning.
      */
-    ticksToLive: number;
+    ticksToLive: number | undefined;
     /**
      * Attack another creep or structure in a short-ranged attack. Needs the
      * ATTACK body part. If the target is inside a rampart, then the rampart is
