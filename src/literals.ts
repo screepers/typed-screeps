@@ -51,7 +51,8 @@ type CreepActionReturnCode =
   ERR_BUSY |
   ERR_INVALID_TARGET |
   ERR_NOT_IN_RANGE |
-  ERR_NO_BODYPART;
+  ERR_NO_BODYPART |
+  ERR_TIRED;
 
 type CreepMoveReturnCode =
   OK |

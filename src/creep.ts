@@ -89,7 +89,7 @@ interface Creep extends RoomObject {
      *
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_TIRED
      */
-    attackController(target: StructureController): CreepActionReturnCode|ERR_TIRED;
+    attackController(target: StructureController): CreepActionReturnCode;
     /**
      * Build a structure at the target construction site using carried energy.
      * Needs WORK and CARRY body parts.
