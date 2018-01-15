@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Added missing constants: `EXTRACTOR_COOLDOWN`, `SYSTEM_USERNAME` ([#34](https://github.com/screepers/typed-screeps/pull/34))
 ### Fixed
+- `Creep.attackController()` returns `ERR_TIRED` if the controller has upgrade blocked ([#32](https://github.com/screepers/typed-screeps/pull/32))
+- `PowerBank`s are considered to be owned structures (and are owned by "Power Bank") ([#33](https://github.com/screepers/typed-screeps/pull/33))
 - Allow `creep.ticksToLive` to be undefined ([#36](https://github.com/screepers/typed-screeps/pull/36))
 
 ## [2.1.0] - 2017-12-22
