@@ -1,14 +1,19 @@
 {
-  "compilerOptions": {
-    "module": "system",
-    "target": "es6",
-    "sourceMap": false,
-    "declaration": true,
-    "strict": true,
-    "outFile": "./dist/index.js",
-    "newLine": "LF",
-    "removeComments": false
-  },
-  "include": ["./src/**/*.ts"],
-  "exclude": ["node_modules", "dist"]
+    "compilerOptions": {
+        "module": "system",
+        "target": "es6",
+        "sourceMap": false,
+        "declaration": true,
+        "strict": true,
+        "outFile": "./dist/index.js",
+        "newLine": "LF",
+        "removeComments": false
+    },
+    "include": [
+        "./src/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist"
+    ]
 }
