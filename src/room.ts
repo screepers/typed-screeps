@@ -163,14 +163,14 @@ interface Room {
      * @param y The Y position.
      * @returns An array of Creep at the given position.
      */
-    lookForAt<T extends keyof LookAtTypes>(type: T, x: number, y: number): Array<LookAtTypes[T]>;
+    lookForAt<T extends keyof AllLookAtTypes>(type: T, x: number, y: number): Array<AllLookAtTypes[T]>;
     /**
      * Get the objects at the given RoomPosition.
      * @param type One of the LOOK_* constants.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @returns An array of Creeps at the specified position if found.
      */
-    lookForAt<T extends keyof LookAtTypes>(type: T, target: RoomPosition | _HasRoomPosition): Array<LookAtTypes[T]>;
+    lookForAt<T extends keyof AllLookAtTypes>(type: T, target: RoomPosition | _HasRoomPosition): Array<AllLookAtTypes[T]>;
     /**
      * Get the given objets in the supplied area.
      * @param type One of the LOOK_* constants
@@ -181,14 +181,14 @@ interface Room {
      * @param asArray Flatten the results into an array?
      * @returns An object with the sstructure object[X coord][y coord] as an array of found objects.
      */
-    lookForAtArea<T extends keyof LookAtTypes>(
+    lookForAtArea<T extends keyof AllLookAtTypes>(
       type: T,
       top: number,
       left: number,
       bottom: number,
       right: number,
       asArray?: false
-    ): LookForAtAreaResultMatrix<LookAtTypes[T], T>;
+    ): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
     /**
      * Get the given objets in the supplied area.
      * @param type One of the LOOK_* constants
@@ -199,14 +199,14 @@ interface Room {
      * @param asArray Flatten the results into an array?
      * @returns An array of found objects with an x & y property for their position
      */
-    lookForAtArea<T extends keyof LookAtTypes>(
+    lookForAtArea<T extends keyof AllLookAtTypes>(
       type: T,
       top: number,
       left: number,
       bottom: number,
       right: number,
       asArray: true
-    ): LookForAtAreaResultArray<LookAtTypes[T], T>;
+    ): LookForAtAreaResultArray<AllLookAtTypes[T], T>;
 
     /**
      * Serialize a path array into a short string representation, which is suitable to store in memory.
