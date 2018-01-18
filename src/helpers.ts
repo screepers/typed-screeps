@@ -163,7 +163,6 @@ interface FindTypes {
   103: Creep; // FIND_HOSTILE_CREEPS
   104: Source; // FIND_SOURCES_ACTIVE
   105: Source; // FIND_SOURCES
-  "-106": Resource<RESOURCE_ENERGY>; // FIND_DROPPED_ENERGY
   106: Resource; // FIND_DROPPED_RESOURCES
   107: AnyStructure; // FIND_STRUCTURES
   108: AnyOwnedStructure; // FIND_MY_STRUCTURES
