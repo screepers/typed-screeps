@@ -5,3 +5,4 @@ npm-debug.log
 test/typed-screeps-tests.js
 dist/screeps.ts
 dist/screeps.js
+.vscode/tasks.json
