@@ -2512,6 +2512,13 @@ interface RoomPosition {
     getRangeTo(target: RoomPosition | { pos: RoomPosition }): number;
     /**
      * Check whether this position is in the given range of another position.
+     * @param x X position in the room.
+     * @param y Y position in the room.
+     * @param range The range distance.
+     */
+    inRangeTo(x: number, y: number, range: number): boolean;
+    /**
+     * Check whether this position is in the given range of another position.
      * @param toPos The target position.
      * @param range The range distance.
      */
