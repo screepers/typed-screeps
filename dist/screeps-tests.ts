@@ -400,9 +400,6 @@ interface CreepMemory {
     const resources = room.find(FIND_DROPPED_RESOURCES);
     resources[0].resourceType;
 
-    const energy = room.find(FIND_DROPPED_ENERGY);
-    energy[0].resourceType;
-
     const sites = room.find(FIND_CONSTRUCTION_SITES);
     sites[0].remove();
 
