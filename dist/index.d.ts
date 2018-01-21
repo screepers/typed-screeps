@@ -1231,19 +1231,21 @@ type StoreDefinition = Partial<Record<_ResourceConstantSansEnergy, number>> & { 
 //   energy: number;
 // }
 
-interface LookAtTypes {
-    constructionSite?: ConstructionSite;
-    creep?: Creep;
-    energy?: Resource<RESOURCE_ENERGY>;
-    exit?: any;  // TODO what type is this?
-    flag?: Flag;
-    mineral?: Mineral;
-    nuke?: Nuke;
-    resource?: Resource;
-    source?: Source;
-    structure?: Structure;
-    terrain?: Terrain;
+interface AllLookAtTypes {
+    constructionSite: ConstructionSite;
+    creep: Creep;
+    energy: Resource<RESOURCE_ENERGY>;
+    exit: any;  // TODO what type is this?
+    flag: Flag;
+    mineral: Mineral;
+    nuke: Nuke;
+    resource: Resource;
+    source: Source;
+    structure: Structure;
+    terrain: Terrain;
 }
+
+type LookAtTypes = Partial<AllLookAtTypes>;
 
 type LookAtResult<K extends LookConstant = LookConstant> = Pick<LookAtTypes, K> & { type: K };
 
@@ -2545,7 +2547,7 @@ interface RoomPosition {
      * Get an object with the given type at the specified room position.
      * @param type One of the following string constants: constructionSite, creep, exit, flag, resource, source, structure, terrain
      */
-    lookFor<T extends keyof LookAtTypes>(type: T): Array<LookAtTypes[T]>;
+    lookFor<T extends keyof AllLookAtTypes>(type: T): Array<AllLookAtTypes[T]>;
 }
 
 interface RoomPositionConstructor extends _Constructor<RoomPosition> {
@@ -2920,14 +2922,14 @@ interface Room {
      * @param y The Y position.
      * @returns An array of Creep at the given position.
      */
-    lookForAt<T extends keyof LookAtTypes>(type: T, x: number, y: number): Array<LookAtTypes[T]>;
+    lookForAt<T extends keyof AllLookAtTypes>(type: T, x: number, y: number): Array<AllLookAtTypes[T]>;
     /**
      * Get the objects at the given RoomPosition.
      * @param type One of the LOOK_* constants.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @returns An array of Creeps at the specified position if found.
      */
-    lookForAt<T extends keyof LookAtTypes>(type: T, target: RoomPosition | _HasRoomPosition): Array<LookAtTypes[T]>;
+    lookForAt<T extends keyof AllLookAtTypes>(type: T, target: RoomPosition | _HasRoomPosition): Array<AllLookAtTypes[T]>;
     /**
      * Get the given objets in the supplied area.
      * @param type One of the LOOK_* constants
@@ -2938,14 +2940,14 @@ interface Room {
      * @param asArray Flatten the results into an array?
      * @returns An object with the sstructure object[X coord][y coord] as an array of found objects.
      */
-    lookForAtArea<T extends keyof LookAtTypes>(
+    lookForAtArea<T extends keyof AllLookAtTypes>(
       type: T,
       top: number,
       left: number,
       bottom: number,
       right: number,
       asArray?: false
-    ): LookForAtAreaResultMatrix<LookAtTypes[T], T>;
+    ): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
     /**
      * Get the given objets in the supplied area.
      * @param type One of the LOOK_* constants
@@ -2956,14 +2958,14 @@ interface Room {
      * @param asArray Flatten the results into an array?
      * @returns An array of found objects with an x & y property for their position
      */
-    lookForAtArea<T extends keyof LookAtTypes>(
+    lookForAtArea<T extends keyof AllLookAtTypes>(
       type: T,
       top: number,
       left: number,
       bottom: number,
       right: number,
       asArray: true
-    ): LookForAtAreaResultArray<LookAtTypes[T], T>;
+    ): LookForAtAreaResultArray<AllLookAtTypes[T], T>;
 
     /**
      * Serialize a path array into a short string representation, which is suitable to store in memory.

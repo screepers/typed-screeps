@@ -407,7 +407,7 @@ interface CreepMemory {
     const exits = room.find(FIND_EXIT);
 
     const creepsHere = room.lookForAt(LOOK_CREEPS, 10, 10);
-    creepsHere[0]!.getActiveBodyparts(ATTACK);
+    creepsHere[0].getActiveBodyparts(ATTACK);
 
     const towers = room.find<StructureTower>(FIND_MY_STRUCTURES, {
         filter: (structure) => {
@@ -459,20 +459,20 @@ interface CreepMemory {
 {
     const nukes = room.lookForAt(LOOK_NUKES, creep.pos);
 
-    nukes[0]!.launchRoomName;
+    nukes[0].launchRoomName;
 
     const flags = room.lookForAtArea(LOOK_FLAGS, 10, 10, 20, 20);
 
     const x = flags[10];
     const y = x[11];
     const entry = y[0];
-    entry.flag!.remove();
+    entry.flag.remove();
 
     const creeps = room.lookForAtArea(LOOK_CREEPS, 10, 10, 20, 20, true);
 
     creeps[0].x;
     creeps[0].y;
-    creeps[0].creep!.move(TOP);
+    creeps[0].creep.move(TOP);
 }
 
 // Advanced Structure types
