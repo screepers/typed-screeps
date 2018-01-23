@@ -10,3 +10,4 @@
 
 - [ ] Test passed
 - [ ] Coding style (indentation, etc)
+- [ ] Edits have been made to `src/` files not `index.d.ts`
