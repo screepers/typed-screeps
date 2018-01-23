@@ -161,7 +161,7 @@ interface RoomPosition {
      * Get an object with the given type at the specified room position.
      * @param type One of the following string constants: constructionSite, creep, exit, flag, resource, source, structure, terrain
      */
-    lookFor<T extends keyof LookAtTypes>(type: T): Array<LookAtTypes[T]>;
+    lookFor<T extends keyof AllLookAtTypes>(type: T): Array<AllLookAtTypes[T]>;
 }
 
 interface RoomPositionConstructor extends _Constructor<RoomPosition> {
