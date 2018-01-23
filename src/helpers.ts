@@ -112,19 +112,21 @@ type StoreDefinition = Partial<Record<_ResourceConstantSansEnergy, number>> & { 
 //   energy: number;
 // }
 
-interface LookAtTypes {
-    constructionSite?: ConstructionSite;
-    creep?: Creep;
-    energy?: Resource<RESOURCE_ENERGY>;
-    exit?: any;  // TODO what type is this?
-    flag?: Flag;
-    mineral?: Mineral;
-    nuke?: Nuke;
-    resource?: Resource;
-    source?: Source;
-    structure?: Structure;
-    terrain?: Terrain;
+interface AllLookAtTypes {
+    constructionSite: ConstructionSite;
+    creep: Creep;
+    energy: Resource<RESOURCE_ENERGY>;
+    exit: any;  // TODO what type is this?
+    flag: Flag;
+    mineral: Mineral;
+    nuke: Nuke;
+    resource: Resource;
+    source: Source;
+    structure: Structure;
+    terrain: Terrain;
 }
+
+type LookAtTypes = Partial<AllLookAtTypes>;
 
 type LookAtResult<K extends LookConstant = LookConstant> = Pick<LookAtTypes, K> & { type: K };
 
