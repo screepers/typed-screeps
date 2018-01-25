@@ -1451,6 +1451,7 @@ type ScreepsReturnCode =
   ERR_NOT_OWNER |
   ERR_NO_PATH |
   ERR_BUSY |
+  ERR_NAME_EXISTS |
   ERR_NOT_FOUND |
   ERR_NOT_ENOUGH_RESOURCES |
   ERR_NOT_ENOUGH_ENERGY |
@@ -2138,7 +2139,7 @@ interface PathFinder {
      * @param goal goal A RoomPosition, an object containing a RoomPosition and range or an array of either.
      * @param opts An object containing additional pathfinding flags.
      */
-    search(origin: RoomPosition, goal: RoomPosition | { pos: RoomPosition, range: number } | RoomPosition[] | Array<{ pos: RoomPosition, range: number }>, opts?: PathFinderOpts): PathFinderPath;
+    search(origin: RoomPosition, goal: RoomPosition | { pos: RoomPosition, range: number } | Array<RoomPosition | { pos: RoomPosition, range: number }>, opts?: PathFinderOpts): PathFinderPath;
     /**
      * Specify whether to use this new experimental pathfinder in game objects methods.
      * This method should be invoked every tick. It affects the following methods behavior:
@@ -2516,6 +2517,13 @@ interface RoomPosition {
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      */
     getRangeTo(target: RoomPosition | { pos: RoomPosition }): number;
+    /**
+     * Check whether this position is in the given range of another position.
+     * @param x X position in the room.
+     * @param y Y position in the room.
+     * @param range The range distance.
+     */
+    inRangeTo(x: number, y: number, range: number): boolean;
     /**
      * Check whether this position is in the given range of another position.
      * @param toPos The target position.
