@@ -127,6 +127,13 @@ interface RoomPosition {
     getRangeTo(target: RoomPosition | { pos: RoomPosition }): number;
     /**
      * Check whether this position is in the given range of another position.
+     * @param x X position in the room.
+     * @param y Y position in the room.
+     * @param range The range distance.
+     */
+    inRangeTo(x: number, y: number, range: number): boolean;
+    /**
+     * Check whether this position is in the given range of another position.
      * @param toPos The target position.
      * @param range The range distance.
      */
@@ -161,7 +168,7 @@ interface RoomPosition {
      * Get an object with the given type at the specified room position.
      * @param type One of the following string constants: constructionSite, creep, exit, flag, resource, source, structure, terrain
      */
-    lookFor<T extends keyof LookAtTypes>(type: T): Array<LookAtTypes[T]>;
+    lookFor<T extends keyof AllLookAtTypes>(type: T): Array<AllLookAtTypes[T]>;
 }
 
 interface RoomPositionConstructor extends _Constructor<RoomPosition> {
