@@ -506,3 +506,12 @@ interface CreepMemory {
 
     Game.rooms.myRoom.find(FIND_MY_STRUCTURES, (s) => s.structureType === STRUCTURE_RAMPART).forEach((r) => r.notifyWhenAttacked(false));
 }
+
+{
+    // Test that you can use signatures
+    EXTENSION_ENERGY_CAPACITY[Game.rooms.myRoom.controller!.level];
+
+    REACTIONS[Object.keys(creep.carry)[0]];
+
+    BOOSTS[creep.body[0].type];
+}

@@ -367,6 +367,7 @@ declare const NUKE_DAMAGE: {
 };
 
 declare const REACTIONS: {
+  [resource: string]: {[resource: string]: string}
   H: {
       O: "OH",
       L: "LH",
@@ -500,6 +501,7 @@ declare const REACTIONS: {
 };
 
 declare const BOOSTS: {
+  [part: string]: {[boost: string]: {[action: string]: number}}
   work: {
       UO: {
           harvest: 3
