@@ -107,6 +107,7 @@ declare const RAMPART_DECAY_AMOUNT: 300;
 declare const RAMPART_DECAY_TIME: 100;
 declare const RAMPART_HITS: 1;
 declare const RAMPART_HITS_MAX: {
+    [rcl: number]: number
     2: 300000,
     3: 1000000,
     4: 3000000,
@@ -129,6 +130,7 @@ declare const WALL_HITS_MAX: 300000000;
 
 declare const EXTENSION_HITS: 1000;
 declare const EXTENSION_ENERGY_CAPACITY: {
+    [rcl: number]: number
     0: 50,
     1: 50,
     2: 50,
@@ -318,17 +320,19 @@ declare const MINERAL_MIN_AMOUNT: Record<MineralConstant, number>;
 declare const MINERAL_RANDOM_FACTOR: number;
 
 declare const MINERAL_DENSITY: {
-        1: number,
-        2: number,
-        3: number,
-        4: number
+    [level: number]: number
+    1: number,
+    2: number,
+    3: number,
+    4: number
 };
 
 declare const MINERAL_DENSITY_PROBABILITY: {
-        1: number,
-        2: number,
-        3: number,
-        4: number
+    [level: number]: number
+    1: number,
+    2: number,
+    3: number,
+    4: number
 };
 
 declare const MINERAL_DENSITY_CHANGE: number;
@@ -356,12 +360,14 @@ declare const NUKER_GHODIUM_CAPACITY: number;
 declare const NUKE_LAND_TIME: number;
 declare const NUKE_RANGE: number;
 declare const NUKE_DAMAGE: {
+    [range: number]: number
     0: number,
     1: number,
     4: number
 };
 
 declare const REACTIONS: {
+  [resource: string]: {[resource: string]: string}
   H: {
       O: "OH",
       L: "LH",
@@ -495,6 +501,7 @@ declare const REACTIONS: {
 };
 
 declare const BOOSTS: {
+  [part: string]: {[boost: string]: {[action: string]: number}}
   work: {
       UO: {
           harvest: 3
