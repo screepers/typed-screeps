@@ -2134,7 +2134,7 @@ interface PathFinder {
      * @param goal goal A RoomPosition, an object containing a RoomPosition and range or an array of either.
      * @param opts An object containing additional pathfinding flags.
      */
-    search(origin: RoomPosition, goal: RoomPosition | { pos: RoomPosition, range: number } | RoomPosition[] | Array<{ pos: RoomPosition, range: number }>, opts?: PathFinderOpts): PathFinderPath;
+    search(origin: RoomPosition, goal: RoomPosition | { pos: RoomPosition, range: number } | Array<RoomPosition | { pos: RoomPosition, range: number }>, opts?: PathFinderOpts): PathFinderPath;
     /**
      * Specify whether to use this new experimental pathfinder in game objects methods.
      * This method should be invoked every tick. It affects the following methods behavior:
