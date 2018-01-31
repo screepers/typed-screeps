@@ -92,7 +92,8 @@ type FindConstant =
   FIND_MY_CONSTRUCTION_SITES |
   FIND_HOSTILE_CONSTRUCTION_SITES |
   FIND_MINERALS |
-  FIND_NUKES;
+  FIND_NUKES |
+  FIND_TOMBSTONES;
 
 type FIND_EXIT_TOP = 1;
 type FIND_EXIT_RIGHT = 3;
@@ -117,6 +118,7 @@ type FIND_MY_CONSTRUCTION_SITES = 114;
 type FIND_HOSTILE_CONSTRUCTION_SITES = 115;
 type FIND_MINERALS = 116;
 type FIND_NUKES = 117;
+type FIND_TOMBSTONES = 118;
 
 type FilterOptions<T extends FindConstant> = string | FilterFunction<T> | { filter: FilterFunction<T> };
 
@@ -167,6 +169,7 @@ type LOOK_RESOURCES = "resource";
 type LOOK_SOURCES = "source";
 type LOOK_STRUCTURES = "structure";
 type LOOK_TERRAIN = "terrain";
+type LOOK_TOMBSTONES = "tombstone";
 
 // Direction Constants
 
@@ -408,3 +411,5 @@ type RESOURCE_CATALYZED_ZYNTHIUM_ACID = "XZH2O";
 type RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = "ZXHO2";
 type RESOURCE_CATALYZED_GHODIUM_ACID = "XGH2O";
 type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
+
+type TOMBSTONE_DECAY_PER_PART = 5;

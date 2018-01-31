@@ -53,6 +53,7 @@ declare const FIND_MY_CONSTRUCTION_SITES: 114;
 declare const FIND_HOSTILE_CONSTRUCTION_SITES: 115;
 declare const FIND_MINERALS: 116;
 declare const FIND_NUKES: 117;
+declare const FIND_TOMBSTONES: 118;
 
 declare const TOP: 1;
 declare const TOP_RIGHT: 2;
@@ -627,11 +628,14 @@ declare const LOOK_FLAGS: "flag";
 declare const LOOK_CONSTRUCTION_SITES: "constructionSite";
 declare const LOOK_NUKES: "nuke";
 declare const LOOK_TERRAIN: "terrain";
+declare const LOOK_TOMBSTONES: 'tombstone';
 
 declare const ORDER_SELL: "sell";
 declare const ORDER_BUY: "buy";
 
 declare const SYSTEM_USERNAME: string;
+
+declare const TOMBSTONE_DECAY_PER_PART: 5;
 /**
  * A site of a structure which is currently under construction.
  */
@@ -1280,7 +1284,7 @@ type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTyp
 type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<LookForAtAreaResultWithPos<T, K>>;
 
 interface FindTypes {
-  [key: number]: RoomPosition | Creep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke;
+  [key: number]: RoomPosition | Creep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke | Tombstone;
   1: RoomPosition; // FIND_EXIT_TOP
   3: RoomPosition; // FIND_EXIT_RIGHT
   5: RoomPosition; // FIND_EXIT_BOTTOM
@@ -1303,6 +1307,7 @@ interface FindTypes {
   115: ConstructionSite; // FIND_HOSTILE_CONSTRUCTION_SITES
   116: Mineral; // FIND_MINERALS
   117: Nuke; // FIND_NUKES
+  118: Tombstone; // FIND_TOMBSTONES
 }
 
 interface FindPathOpts {
@@ -1531,7 +1536,8 @@ type FindConstant =
   FIND_MY_CONSTRUCTION_SITES |
   FIND_HOSTILE_CONSTRUCTION_SITES |
   FIND_MINERALS |
-  FIND_NUKES;
+  FIND_NUKES |
+  FIND_TOMBSTONES;
 
 type FIND_EXIT_TOP = 1;
 type FIND_EXIT_RIGHT = 3;
@@ -1556,6 +1562,7 @@ type FIND_MY_CONSTRUCTION_SITES = 114;
 type FIND_HOSTILE_CONSTRUCTION_SITES = 115;
 type FIND_MINERALS = 116;
 type FIND_NUKES = 117;
+type FIND_TOMBSTONES = 118;
 
 type FilterOptions<T extends FindConstant> = string | FilterFunction<T> | { filter: FilterFunction<T> };
 
@@ -1606,6 +1613,7 @@ type LOOK_RESOURCES = "resource";
 type LOOK_SOURCES = "source";
 type LOOK_STRUCTURES = "structure";
 type LOOK_TERRAIN = "terrain";
+type LOOK_TOMBSTONES = "tombstone";
 
 // Direction Constants
 
@@ -1847,6 +1855,8 @@ type RESOURCE_CATALYZED_ZYNTHIUM_ACID = "XZH2O";
 type RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = "ZXHO2";
 type RESOURCE_CATALYZED_GHODIUM_ACID = "XGH2O";
 type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
+
+type TOMBSTONE_DECAY_PER_PART = 5;
 /**
  * The options that can be accepted by `findRoute()` and friends.
  */
@@ -3819,3 +3829,14 @@ type AnyStructure =
     StructurePortal |
     StructureRoad |
     StructureWall;
+interface Tombstone extends RoomObject {
+    /** The tick that the creep died. */
+    deathTime: number;
+    store: StoreDefinition;
+    /** How many ticks until this tombstone decays */
+    ticksToDecay: number;
+    /** The creep that died to create this tombstone */
+    creep: Creep;
+}
+
+declare const Tombstone: Tombstone;
