@@ -455,7 +455,7 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
     /**
      * The type of minerals containing in the lab. Labs can contain only one mineral type at the same time.
      */
-    mineralType: MineralConstant;
+    mineralType: _ResourceConstantSansEnergy | undefined;
     /**
      * The total amount of minerals the lab can contain.
      */
