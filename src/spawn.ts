@@ -29,11 +29,8 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
     name: string;
     /**
      * If the spawn is in process of spawning a new creep, this object will contain the new creep’s information, or null otherwise.
-     * @param name The name of a new creep.
-     * @param needTime Time needed in total to complete the spawning.
-     * @param remainingTime Remaining time to go.
      */
-    spawning: { name: string, needTime: number, remainingTime: number };
+    spawning: Spawning | null;
 
     /**
      * Check if a creep can be created.
@@ -131,8 +128,53 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
 }
 
 interface StructureSpawnConstructor extends _Constructor<StructureSpawn>, _ConstructorById<StructureSpawn> {
+    Spawning: SpawningConstructor;
 }
 
 declare const StructureSpawn: StructureSpawnConstructor;
 declare const Spawn: StructureSpawnConstructor; // legacy alias
 // declare type Spawn = StructureSpawn;
+
+interface Spawning {
+    readonly prototype: Spawning;
+
+    /**
+     * An array with the spawn directions
+     * @see http://docs.screeps.com/api/#StructureSpawn.Spawning.setDirections
+     */
+    directions: DirectionConstant[];
+
+    /**
+     * The name of the creep
+     */
+    name: string;
+
+    /**
+     * Time needed in total to complete the spawning.
+     */
+    needTime: number;
+
+    /**
+     * Remaining time to go.
+     */
+    remainingTime: number;
+
+    /**
+     * A link to the spawn
+     */
+    spawn: StructureSpawn;
+
+    /**
+     * Cancel spawning immediately. Energy spent on spawning is not returned.
+     */
+    cancel(): ScreepsReturnCode & (OK | ERR_NOT_OWNER);
+
+    /**
+     * Set desired directions where the creep should move when spawned.
+     * @param directions An array with the spawn directions
+     */
+    setDirections(directions: DirectionConstant[]): ScreepsReturnCode & (OK | ERR_NOT_OWNER | ERR_INVALID_ARGS);
+}
+
+interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {
+}
