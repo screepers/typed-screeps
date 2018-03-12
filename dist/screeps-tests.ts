@@ -519,7 +519,7 @@ interface CreepMemory {
 {
     const tombstone = room.find(FIND_TOMBSTONES)[0];
 
-    Tombstone.creep.my;
+    tombstone.creep.my;
 
-    Tombstone.store.energy;
+    tombstone.store.energy;
 }

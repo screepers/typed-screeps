@@ -8,4 +8,7 @@ interface Tombstone extends RoomObject {
     creep: Creep;
 }
 
-declare const Tombstone: Tombstone;
+interface TombstoneConstructor extends _Constructor<Tombstone>, _ConstructorById<Tombstone> {
+}
+
+declare const Tombstone: TombstoneConstructor;
