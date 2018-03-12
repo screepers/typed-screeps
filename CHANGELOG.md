@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.2.1] - 2018-03-09
+### Added
+- Added `StructureSpawn.Spawning` ([#52](https://github.com/screepers/typed-screeps/pull/52))
+### Changed
+- Changed `StructureLab.mineralType` from `MineralConstant` to `_ResourceConstantSansEnergy | undefined`. ([#49](https://github.com/screepers/typed-screeps/pull/49))
+### Fixed
+- `RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE` has a typo ([#51](https://github.com/screepers/typed-screeps/pull/51))
+
 ## [2.2.0] - 2018-01-26
 ### Added
 - Added missing constants: `EXTRACTOR_COOLDOWN`, `SYSTEM_USERNAME` ([#34](https://github.com/screepers/typed-screeps/pull/34))
@@ -74,7 +82,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Initial public `npm` release.
 
-[Unreleased]: https://github.com/screepers/typed-screeps/compare/v2.2.0...HEAD
+[Unreleased]: https://github.com/screepers/typed-screeps/compare/v2.2.1...HEAD
+[2.2.1]: https://github.com/screepers/typed-screeps/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/screepers/typed-screeps/compare/v2.1.0...v2.2.0
 [2.1.0]: https://github.com/screepers/typed-screeps/compare/v2.0.1...v2.1.0
 [2.0.1]: https://github.com/screepers/typed-screeps/compare/v2.0.0...v2.0.1
