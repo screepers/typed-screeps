@@ -157,7 +157,8 @@ type LookConstant =
   LOOK_FLAGS |
   LOOK_CONSTRUCTION_SITES |
   LOOK_NUKES |
-  LOOK_TERRAIN;
+  LOOK_TERRAIN |
+  LOOK_TOMBSTONES;
 
 type LOOK_CONSTRUCTION_SITES = "constructionSite";
 type LOOK_CREEPS = "creep";
