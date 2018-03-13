@@ -124,7 +124,7 @@ interface AllLookAtTypes {
     source: Source;
     structure: Structure;
     terrain: Terrain;
-    tombstone: Tombstone
+    tombstone: Tombstone;
 }
 
 type LookAtTypes = Partial<AllLookAtTypes>;
