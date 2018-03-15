@@ -542,3 +542,10 @@ interface CreepMemory {
 
     tombstone.store.energy;
 }
+
+{
+    if (Game.cpu.hasOwnProperty('getHeapStatistics')) {
+        const heap = Game.cpu.getHeapStatistics!();
+        heap.total_heap_size;
+    }
+}

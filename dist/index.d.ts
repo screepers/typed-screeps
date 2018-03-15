@@ -1194,6 +1194,31 @@ interface CPU {
      * @memberof CPU
      */
     setShardLimits(limits: CPUShardLimits): OK | ERR_BUSY | ERR_INVALID_ARGS;
+
+    /**
+     * Use this method to get heap statistics for your virtual machine.
+     *
+     * This method will be undefined if you are not using IVM.
+     *
+     * The return value is almost identical to the Node.js function v8.getHeapStatistics().
+     * This function returns one additional property: externally_allocated_size which is the total amount of currently
+     * allocated memory which is not included in the v8 heap but counts against this isolate's memory limit.
+     * ArrayBuffer instances over a certain size are externally allocated and will be counted here.
+     */
+    getHeapStatistics?(): HeapStatistics;
+}
+
+interface HeapStatistics {
+  total_heap_size: number;
+  total_heap_size_executable: number;
+  total_physical_size: number;
+  total_available_size: number;
+  used_heap_size: number;
+  heap_size_limit: number;
+  malloced_memory: number;
+  peak_malloced_memory: number;
+  does_zap_garbage: 0 | 1;
+  externally_allocated_size: number;
 }
 
 /**
