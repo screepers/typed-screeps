@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Added IVM typings ([#55](https://github.com/screepers/typed-screeps/pull/55))
+- Added Tombstone typings ([#48](https://github.com/screepers/typed-screeps/pull/48))
+### Fixed
+- Fixed some DefinitelyTyped linting errors ([#54](https://github.com/screepers/typed-screeps/pull/54))
 
 ## [2.2.1] - 2018-03-09
 ### Added
