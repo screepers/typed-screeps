@@ -1,4 +1,6 @@
 interface Tombstone extends RoomObject {
+    /** The tombstones game objects id. */
+    id: string;
     /** The tick that the creep died. */
     deathTime: number;
     store: StoreDefinition;
