@@ -99,7 +99,7 @@ interface Creep extends RoomObject {
      * @param target The target object to be attacked.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_RCL_NOT_ENOUGH
      */
-    build(target: ConstructionSite): CreepActionReturnCode | ERR_RCL_NOT_ENOUGH;
+    build(target: ConstructionSite): CreepActionReturnCode | ERR_NOT_ENOUGH_RESOURCES | ERR_RCL_NOT_ENOUGH;
     /**
      * Cancel the order given during the current game tick.
      * @param methodName The name of a creep's method to be cancelled.
