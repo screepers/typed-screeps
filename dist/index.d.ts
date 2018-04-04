@@ -344,6 +344,7 @@ declare const DENSITY_HIGH: number;
 declare const DENSITY_ULTRA: number;
 
 declare const TERMINAL_CAPACITY: number;
+declare const TERMINAL_COOLDOWN: number;
 declare const TERMINAL_HITS: number;
 declare const TERMINAL_SEND_COST: number;
 declare const TERMINAL_MIN_SEND: number;
@@ -1127,7 +1128,7 @@ interface Game {
     notify(message: string, groupInterval?: number): undefined;
 }
 
-declare let Game: Game;
+declare var Game: Game;
 interface _HasRoomPosition {
     pos: RoomPosition;
 }
