@@ -28,7 +28,7 @@ yarn add @types/screeps
 
   If you like the idea of typed memory, but aren't ready to just jump fully in, you only need to make sure you define an interface for the above four types. Then you can extend them at a later time.
 
-  Example:
+  Example (this code needs to be in a file with a `.d.ts` extension and the name cannot match any of the other base names in the same directory, i.e. `memory.d.ts` without an adjecent `memory.ts`):
 
   ```TypeScript
   interface CreepMemory { [name: string]: any };
