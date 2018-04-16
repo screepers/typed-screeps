@@ -6,6 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.3.0] - 2018-04-16
+### Added
+- `TERMINAL_COOLDOWN` constant ([#64](https://github.com/screepers/typed-screeps/pull/64))
+- Better tombstone support ([#60](https://github.com/screepers/typed-screeps/pull/60))
+### Fixed
+ - Declare `Game` with `var` instead of `let` ([#62](https://github.com/screepers/typed-screeps/pull/62))
+ - `ERR_NOT_ENOUGH_RESOURCES` missing in return codes for creep build action ([#66](https://github.com/screepers/typed-screeps/pull/66))
+
 ## [2.2.2] - 2018-03-17
 ### Added
 - Added IVM typings ([#55](https://github.com/screepers/typed-screeps/pull/55))
