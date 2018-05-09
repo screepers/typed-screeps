@@ -2741,7 +2741,7 @@ interface LineStyle {
     /**
      * Either undefined (solid line), dashed, or dotted.Default is undefined.
      */
-    lineStyle?: "dashed" | "dotted";
+    lineStyle?: "dashed" | "dotted" | "solid";
 }
 
 interface PolyStyle {
@@ -2764,7 +2764,7 @@ interface PolyStyle {
     /**
      * Either undefined (solid line), dashed, or dotted.Default is undefined.
      */
-    lineStyle?: "dashed" | "dotted";
+    lineStyle?: "dashed" | "dotted" | "solid";
 }
 
 interface CircleStyle extends PolyStyle {
