@@ -221,7 +221,7 @@ interface Room {
      */
 }
 
-interface RoomConstructor {
+interface RoomConstructor extends _Constructor<Room> {
     new (id: string): Room;
     /**
      * Serialize a path array into a short string representation, which is suitable to store in memory.
