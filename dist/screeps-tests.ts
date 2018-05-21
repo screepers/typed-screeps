@@ -283,6 +283,10 @@ interface CreepMemory {
 
     // Game.market.getOrderById(id)
     const order = Game.market.getOrderById("55c34a6b5be41a0a6e80c123");
+
+    // Subscription tokens
+    Game.market.getAllOrders({ type: ORDER_SELL, resourceType: SUBSCRIPTION_TOKEN });
+    Game.market.createOrder(ORDER_BUY, SUBSCRIPTION_TOKEN, 10000000, 1);
 }
 
 // PathFinder

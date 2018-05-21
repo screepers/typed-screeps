@@ -252,7 +252,7 @@ declare const RESOURCE_CATALYZED_GHODIUM_ACID: "XGH2O";
 declare const RESOURCE_CATALYZED_GHODIUM_ALKALIDE: "XGHO2";
 declare const RESOURCES_ALL: ResourceConstant[];
 
-declare const SUBSCRIPTION_TOKEN: string;
+declare const SUBSCRIPTION_TOKEN: "token";
 
 declare const CONTROLLER_LEVELS: {[level: number]: number};
 declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, {[level: number]: number}>;
@@ -1836,6 +1836,10 @@ type MineralConstant =
   RESOURCE_HYDROGEN |
   RESOURCE_CATALYST;
 
+type MarketResourceConstant =
+  ResourceConstant |
+  SUBSCRIPTION_TOKEN;
+
 type RESOURCE_ENERGY = "energy";
 type RESOURCE_POWER = "power";
 
@@ -1883,6 +1887,8 @@ type RESOURCE_CATALYZED_ZYNTHIUM_ACID = "XZH2O";
 type RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = "XZHO2";
 type RESOURCE_CATALYZED_GHODIUM_ACID = "XGH2O";
 type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
+
+type SUBSCRIPTION_TOKEN = "token";
 
 type TOMBSTONE_DECAY_PER_PART = 5;
 /**
@@ -2013,7 +2019,7 @@ interface Market {
      * The maximum orders count is 50 per player. You can create an order at any time with any amount,
      * it will be automatically activated and deactivated depending on the resource/credits availability.
      */
-    createOrder(type: string, resourceType: ResourceConstant, price: number, totalAmount: number, roomName?: string): ScreepsReturnCode;
+    createOrder(type: string, resourceType: MarketResourceConstant, price: number, totalAmount: number, roomName?: string): ScreepsReturnCode;
     /**
      * Execute a trade deal from your Terminal to another player's Terminal using the specified buy/sell order.
      *
@@ -2051,7 +2057,7 @@ interface Transaction {
     time: number;
     sender?: { username: string };
     recipient?: { username: string };
-    resourceType: ResourceConstant;
+    resourceType: MarketResourceConstant;
     amount: number;
     from: string;
     to: string;
@@ -2064,7 +2070,7 @@ interface Order {
     created: number;
     active?: boolean;
     type: string;
-    resourceType: ResourceConstant;
+    resourceType: MarketResourceConstant;
     roomName?: string;
     amount: number;
     remainingAmount: number;
@@ -2082,7 +2088,7 @@ interface OrderFilter {
     id?: string;
     created?: number;
     type?: string;
-    resourceType?: ResourceConstant;
+    resourceType?: MarketResourceConstant;
     roomName?: string;
     amount?: number;
     remainingAmount?: number;
