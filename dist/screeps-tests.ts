@@ -475,6 +475,18 @@ interface CreepMemory {
 // LookAt Finds
 
 {
+    const matrix = room.lookAtArea(10, 10, 20, 20, false);
+    for (const y in matrix) {
+        const row = matrix[y];
+        for (const x in row) {
+            const pos = new RoomPosition(+x, +y, room.name);
+            const objects = row[x];
+            if (objects.length > 0) {
+                objects.map((o) => o.type);
+            }
+        }
+    }
+
     const nukes = room.lookForAt(LOOK_NUKES, creep.pos);
 
     nukes[0].launchRoomName;
