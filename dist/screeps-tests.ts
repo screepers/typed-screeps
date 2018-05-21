@@ -554,3 +554,17 @@ interface CreepMemory {
         heap.total_heap_size;
     }
 }
+
+// StructurePortal
+
+{
+    const portals = room.find<StructurePortal>(FIND_STRUCTURES, {filter: (s) => s.structureType === STRUCTURE_PORTAL});
+    portals.forEach((p: StructurePortal) => {
+        const state = p.ticksToDecay === undefined ? 'stable' : 'unstable';
+        if (p.destination instanceof RoomPosition) {
+            Game.notify(`Found ${state} inter-room portal to ${p.destination}`);
+        } else {
+            Game.notify(`Found ${state} inter-shard portal to ${p.destination.shard} ${p.destination.room}`);
+        }
+    });
+}
