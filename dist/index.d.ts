@@ -3167,7 +3167,7 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      *  * TOUGH
      *  * CLAIM
      * @param {string} name The name of a new creep. It must be a unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key).
-     * @param {{memory?: CreepMemory; energyStructures?: (StructureSpawn | StructureExtension)[]; dryRun?: boolean}} opts An object with additional options for the spawning process.
+     * @param {SpawnOptions} opts An object with additional options for the spawning process.
      * @returns {ScreepsReturnCode} One of the following codes:
      * ```
      * OK                       0   The operation has been scheduled successfully.
@@ -3179,7 +3179,7 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * ERR_RCL_NOT_ENOUGH       -14 Your Room Controller level is insufficient to use this spawn.
      * ```
      */
-    spawnCreep(body: BodyPartConstant[], name: string, opts?: { memory?: CreepMemory, energyStructures?: Array<(StructureSpawn | StructureExtension)>, dryRun?: boolean }): ScreepsReturnCode;
+    spawnCreep(body: BodyPartConstant[], name: string, opts?: SpawnOptions): ScreepsReturnCode;
 
     /**
      * Destroy this spawn immediately.
@@ -3261,6 +3261,25 @@ interface Spawning {
      * @param directions An array with the spawn directions
      */
     setDirections(directions: DirectionConstant[]): ScreepsReturnCode & (OK | ERR_NOT_OWNER | ERR_INVALID_ARGS);
+}
+
+/**
+ * An object with additional options for the spawning process.
+ */
+interface SpawnOptions {
+    /**
+     * Memory of the new creep. If provided, it will be immediately stored into Memory.creeps[name].
+     */
+    memory?: CreepMemory;
+    /**
+     * Array of spawns/extensions from which to draw energy for the spawning process.
+     * Structures will be used according to the array order.
+     */
+    energyStructures?: Array<StructureSpawn | StructureExtension>;
+    /**
+     * If dryRun is <code>true</code>, the operation will only check if it is possible to create a creep.
+     */
+    dryRun?: boolean;
 }
 
 interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {
