@@ -14,7 +14,7 @@ interface GameMap {
      * @param roomName The room name.
      * @returns The exits information or null if the room not found.
      */
-    describeExits(roomName: string): {"1"?: string, "3"?: string, "5"?: string, "7"?: string};
+    describeExits(roomName: string): ExitsInformation;
     /**
      * Find the exit direction from the given room en route to another room.
      * @param fromRoom Start room name or room object.
@@ -25,7 +25,7 @@ interface GameMap {
      * Or one of the following Result codes:
      * ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExit(fromRoom: string|Room, toRoom: string|Room, opts?: RouteOptions): ScreepsReturnCode;
+    findExit(fromRoom: string|Room, toRoom: string|Room, opts?: RouteOptions): ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS;
     /**
      * Find route from the given room to another room.
      * @param fromRoom Start room name or room object.

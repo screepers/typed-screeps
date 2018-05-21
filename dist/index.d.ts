@@ -1268,6 +1268,8 @@ type StoreDefinition = Partial<Record<_ResourceConstantSansEnergy, number>> & { 
 //   energy: number;
 // }
 
+type ExitsInformation = Partial<Record<ExitKey, string>>;
+
 interface AllLookAtTypes {
     constructionSite: ConstructionSite;
     creep: Creep;
@@ -1477,6 +1479,8 @@ interface _ConstructorById<T> extends _Constructor<T> {
 // Extras
 
 type Terrain = "plain" | "swamp" | "wall";
+
+type ExitKey = "1" | "3" | "5" | "7";
 
 // Return Codes
 
@@ -1901,7 +1905,7 @@ interface GameMap {
      * @param roomName The room name.
      * @returns The exits information or null if the room not found.
      */
-    describeExits(roomName: string): {"1"?: string, "3"?: string, "5"?: string, "7"?: string};
+    describeExits(roomName: string): ExitsInformation;
     /**
      * Find the exit direction from the given room en route to another room.
      * @param fromRoom Start room name or room object.
@@ -1912,7 +1916,7 @@ interface GameMap {
      * Or one of the following Result codes:
      * ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExit(fromRoom: string|Room, toRoom: string|Room, opts?: RouteOptions): ScreepsReturnCode;
+    findExit(fromRoom: string|Room, toRoom: string|Room, opts?: RouteOptions): ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS;
     /**
      * Find route from the given room to another room.
      * @param fromRoom Start room name or room object.
@@ -2929,7 +2933,7 @@ interface Room {
      * @returns The room direction constant, one of the following: FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT
      * Or one of the following error codes: ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExitTo(room: string | Room): ScreepsReturnCode | FIND_EXIT_TOP | FIND_EXIT_RIGHT | FIND_EXIT_BOTTOM | FIND_EXIT_LEFT;
+    findExitTo(room: string | Room): ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS;
     /**
      * Find an optimal path inside the room between fromPos and toPos using A* search algorithm.
      * @param fromPos The start position.

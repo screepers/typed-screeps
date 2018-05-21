@@ -7,6 +7,8 @@
 
 type Terrain = "plain" | "swamp" | "wall";
 
+type ExitKey = "1" | "3" | "5" | "7";
+
 // Return Codes
 
 type ScreepsReturnCode =
