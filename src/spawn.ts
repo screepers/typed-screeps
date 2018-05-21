@@ -193,6 +193,11 @@ interface SpawnOptions {
      * If dryRun is <code>true</code>, the operation will only check if it is possible to create a creep.
      */
     dryRun?: boolean;
+    /**
+     * Set desired directions where the creep should move when spawned.
+     * An array with the direction constants.
+     */
+    directions?: DirectionConstant[];
 }
 
 interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {
