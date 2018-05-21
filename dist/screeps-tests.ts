@@ -554,3 +554,16 @@ interface CreepMemory {
         heap.total_heap_size;
     }
 }
+
+// ConstructionSite
+
+{
+    room.createConstructionSite(10, 10, STRUCTURE_EXTENSION);
+    room.createConstructionSite(10, 11, STRUCTURE_SPAWN, "mySpawn");
+
+    const pos = new RoomPosition(10, 10, room.name);
+    room.createConstructionSite(pos, STRUCTURE_EXTENSION);
+    room.createConstructionSite(pos, STRUCTURE_SPAWN, "mySpawn");
+    pos.createConstructionSite(STRUCTURE_EXTENSION);
+    pos.createConstructionSite(STRUCTURE_SPAWN, "mySpawn");
+}
