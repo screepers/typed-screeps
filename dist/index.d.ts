@@ -2464,6 +2464,18 @@ interface RoomPosition {
      */
     createConstructionSite(structureType: BuildableStructureConstant): ScreepsReturnCode;
     /**
+     * Create new ConstructionSite at the specified location.
+     * @param structureType One of the following constants:
+     *  * STRUCTURE_EXTENSION
+     *  * STRUCTURE_RAMPART
+     *  * STRUCTURE_ROAD
+     *  * STRUCTURE_SPAWN
+     *  * STRUCTURE_WALL
+     *  * STRUCTURE_LINK
+     * @param name The name of the structure, for structures that support it (currently only spawns).
+     */
+    createConstructionSite(structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
+    /**
      * Create new Flag at the specified location.
      * @param name The name of a new flag.
      * It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key).
@@ -2871,6 +2883,23 @@ interface Room {
      * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
      */
     createConstructionSite(pos: RoomPosition | _HasRoomPosition, structureType: StructureConstant): ScreepsReturnCode;
+    /**
+     * Create new ConstructionSite at the specified location.
+     * @param x The X position.
+     * @param y The Y position.
+     * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
+     * @param name The name of the structure, for structures that support it (currently only spawns).
+     * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
+     */
+    createConstructionSite(x: number, y: number, structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
+    /**
+     * Create new ConstructionSite at the specified location.
+     * @param pos Can be a RoomPosition object or any object containing RoomPosition.
+     * @param structureType One of the following constants: STRUCTURE_EXTENSION, STRUCTURE_RAMPART, STRUCTURE_ROAD, STRUCTURE_SPAWN, STRUCTURE_WALL, STRUCTURE_LINK
+     * @param name The name of the structure, for structures that support it (currently only spawns).
+     * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
+     */
+    createConstructionSite(pos: RoomPosition | _HasRoomPosition, structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
     /**
      * Create new Flag at the specified location.
      * @param x The X position.
