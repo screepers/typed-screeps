@@ -18,7 +18,7 @@ interface Nuke extends RoomObject {
     timeToLand: number;
 }
 
-interface NukeConstructor {
+interface NukeConstructor extends _Constructor<Nuke>, _ConstructorById<Nuke> {
     new (id: string): Nuke;
 }
 

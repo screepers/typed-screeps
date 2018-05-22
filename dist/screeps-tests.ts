@@ -95,7 +95,7 @@ interface CreepMemory {
 // Game.getObjectById(id)
 
 {
-    creep.memory.sourceId = creep.pos.findClosestByRange(FIND_SOURCES).id;
+    creep.memory.sourceId = creep.pos.findClosestByRange(FIND_SOURCES)!.id;
     const source = Game.getObjectById<Source>(creep.memory.sourceId);
 }
 
@@ -129,7 +129,9 @@ interface CreepMemory {
     if (creep.room !== anotherRoomName) {
         const exitDir = Game.map.findExit(creep.room, anotherRoomName);
         const exit = creep.pos.findClosestByRange(exitDir as FindConstant);
-        creep.moveTo(exit);
+        if (exit !== null) {
+            creep.moveTo(exit);
+        }
     } else {
         // go to some place in another room
     }
@@ -146,7 +148,9 @@ interface CreepMemory {
 
     if (route !== ERR_NO_PATH && route.length > 0) {
         const exit = creep.pos.findClosestByRange(route[0].exit);
-        creep.moveTo(exit);
+        if (exit !== null) {
+            creep.moveTo(exit);
+        }
     }
 }
 
@@ -283,6 +287,10 @@ interface CreepMemory {
 
     // Game.market.getOrderById(id)
     const order = Game.market.getOrderById("55c34a6b5be41a0a6e80c123");
+
+    // Subscription tokens
+    Game.market.getAllOrders({ type: ORDER_SELL, resourceType: SUBSCRIPTION_TOKEN });
+    Game.market.createOrder(ORDER_BUY, SUBSCRIPTION_TOKEN, 10000000, 1);
 }
 
 // PathFinder
@@ -440,24 +448,27 @@ interface CreepMemory {
 {
     // Should have type Creep
     const hostileCreep = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-
-    creep.say(hostileCreep.name);
+    if (hostileCreep !== null) {
+        creep.say(hostileCreep.name);
+    }
 
     const tower = creep.pos.findClosestByPath<StructureTower>(FIND_HOSTILE_STRUCTURES, {
         filter: (structure) => {
             return structure.structureType === STRUCTURE_TOWER;
         }
     });
-
-    tower.attack(creep);
+    if (tower !== null) {
+        tower.attack(creep);
+    }
 
     const rampart = creep.pos.findClosestByRange<StructureRampart>(FIND_HOSTILE_STRUCTURES, {
         filter: (structure) => {
             return structure.structureType === STRUCTURE_RAMPART;
         }
     });
-
-    rampart.isPublic;
+    if (rampart !== null) {
+        rampart.isPublic;
+    }
 
     // Should have type Creep[]
     const hostileCreeps = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 10);
@@ -475,6 +486,18 @@ interface CreepMemory {
 // LookAt Finds
 
 {
+    const matrix = room.lookAtArea(10, 10, 20, 20, false);
+    for (const y in matrix) {
+        const row = matrix[y];
+        for (const x in row) {
+            const pos = new RoomPosition(+x, +y, room.name);
+            const objects = row[x];
+            if (objects.length > 0) {
+                objects.map((o) => o.type);
+            }
+        }
+    }
+
     const nukes = room.lookForAt(LOOK_NUKES, creep.pos);
 
     nukes[0].launchRoomName;
@@ -553,6 +576,19 @@ interface CreepMemory {
         const heap = Game.cpu.getHeapStatistics!();
         heap.total_heap_size;
     }
+}
+
+// ConstructionSite
+
+{
+    room.createConstructionSite(10, 10, STRUCTURE_EXTENSION);
+    room.createConstructionSite(10, 11, STRUCTURE_SPAWN, "mySpawn");
+
+    const pos = new RoomPosition(10, 10, room.name);
+    room.createConstructionSite(pos, STRUCTURE_EXTENSION);
+    room.createConstructionSite(pos, STRUCTURE_SPAWN, "mySpawn");
+    pos.createConstructionSite(STRUCTURE_EXTENSION);
+    pos.createConstructionSite(STRUCTURE_SPAWN, "mySpawn");
 }
 
 // StructureLab

@@ -32,6 +32,18 @@ interface RoomPosition {
      */
     createConstructionSite(structureType: BuildableStructureConstant): ScreepsReturnCode;
     /**
+     * Create new ConstructionSite at the specified location.
+     * @param structureType One of the following constants:
+     *  * STRUCTURE_EXTENSION
+     *  * STRUCTURE_RAMPART
+     *  * STRUCTURE_ROAD
+     *  * STRUCTURE_SPAWN
+     *  * STRUCTURE_WALL
+     *  * STRUCTURE_LINK
+     * @param name The name of the structure, for structures that support it (currently only spawns).
+     */
+    createConstructionSite(structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
+    /**
      * Create new Flag at the specified location.
      * @param name The name of a new flag.
      * It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key).
@@ -46,31 +58,31 @@ interface RoomPosition {
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      * @returns An instance of a RoomObject.
      */
-    findClosestByPath<K extends FindConstant>(type: K, opts?: FindPathOpts & { filter?: FilterFunction<K>, algorithm?: string }): FindTypes[K];
+    findClosestByPath<K extends FindConstant>(type: K, opts?: FindPathOpts & { filter?: FilterFunction<K>, algorithm?: string }): FindTypes[K] | null;
     findClosestByPath<T extends Structure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
         opts?: FindPathOpts & { filter?: FilterFunction<FIND_STRUCTURES>, algorithm?: string}
-    ): T;
+    ): T | null;
     /**
      * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
      * @param objects An array of RoomPositions or objects with a RoomPosition
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      * @returns One of the supplied objects
      */
-    findClosestByPath<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: FindPathOpts & {filter?: any | string, algorithm?: string}): T;
+    findClosestByPath<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: FindPathOpts & {filter?: any | string, algorithm?: string}): T | null;
     /**
      * Find the object with the shortest linear distance from the given position.
      * @param type Any of the FIND_* constants.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<K extends FindConstant>(type: K, opts?: {filter: FilterFunction<K>}): FindTypes[K];
-    findClosestByRange<T extends Structure>(type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES, opts?: {filter: FilterFunction<FIND_STRUCTURES>}): T;
+    findClosestByRange<K extends FindConstant>(type: K, opts?: {filter: FilterFunction<K>}): FindTypes[K] | null;
+    findClosestByRange<T extends Structure>(type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES, opts?: {filter: FilterFunction<FIND_STRUCTURES>}): T | null;
     /**
      * Find the object with the shortest linear distance from the given position.
      * @param objects An array of RoomPositions or objects with a RoomPosition.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: {filter: any | string}): T;
+    findClosestByRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: {filter: any | string}): T | null;
     /**
      * Find all objects in the specified linear range.
      * @param type Any of the FIND_* constants.
