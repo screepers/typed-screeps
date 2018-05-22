@@ -2165,7 +2165,7 @@ interface Nuke extends RoomObject {
     timeToLand: number;
 }
 
-interface NukeConstructor {
+interface NukeConstructor extends _Constructor<Nuke>, _ConstructorById<Nuke> {
     new (id: string): Nuke;
 }
 
@@ -2408,7 +2408,7 @@ interface Resource<T extends ResourceConstant = ResourceConstant> extends RoomOb
     resourceType: T;
 }
 
-interface ResourceConstructor {
+interface ResourceConstructor extends _Constructor<Resource>, _ConstructorById<Resource> {
     new (id: string): Resource;
 }
 
@@ -3086,7 +3086,7 @@ interface Room {
      */
 }
 
-interface RoomConstructor {
+interface RoomConstructor extends _Constructor<Room> {
     new (id: string): Room;
     /**
      * Serialize a path array into a short string representation, which is suitable to store in memory.

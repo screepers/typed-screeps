@@ -19,7 +19,7 @@ interface Resource<T extends ResourceConstant = ResourceConstant> extends RoomOb
     resourceType: T;
 }
 
-interface ResourceConstructor {
+interface ResourceConstructor extends _Constructor<Resource>, _ConstructorById<Resource> {
     new (id: string): Resource;
 }
 
