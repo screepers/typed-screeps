@@ -104,7 +104,7 @@ function keys<T>(o: T): Array<keyof T> {
 // Game.getObjectById(id)
 
 {
-    creep.memory.sourceId = creep.pos.findClosestByRange(FIND_SOURCES).id;
+    creep.memory.sourceId = creep.pos.findClosestByRange(FIND_SOURCES)!.id;
     const source = Game.getObjectById<Source>(creep.memory.sourceId);
 }
 
@@ -146,7 +146,9 @@ function keys<T>(o: T): Array<keyof T> {
         const exitDir = Game.map.findExit(creep.room, anotherRoomName);
         if (exitDir !== ERR_NO_PATH && exitDir !== ERR_INVALID_ARGS) {
             const exit = creep.pos.findClosestByRange(exitDir);
-            creep.moveTo(exit);
+            if (exit !== null) {
+                creep.moveTo(exit);
+            }
         }
     } else {
         // go to some place in another room
@@ -164,7 +166,9 @@ function keys<T>(o: T): Array<keyof T> {
 
     if (route !== ERR_NO_PATH && route.length > 0) {
         const exit = creep.pos.findClosestByRange(route[0].exit);
-        creep.moveTo(exit);
+        if (exit !== null) {
+            creep.moveTo(exit);
+        }
     }
 }
 
@@ -301,6 +305,10 @@ function keys<T>(o: T): Array<keyof T> {
 
     // Game.market.getOrderById(id)
     const order = Game.market.getOrderById("55c34a6b5be41a0a6e80c123");
+
+    // Subscription tokens
+    Game.market.getAllOrders({ type: ORDER_SELL, resourceType: SUBSCRIPTION_TOKEN });
+    Game.market.createOrder(ORDER_BUY, SUBSCRIPTION_TOKEN, 10000000, 1);
 }
 
 // PathFinder
@@ -458,24 +466,27 @@ function keys<T>(o: T): Array<keyof T> {
 {
     // Should have type Creep
     const hostileCreep = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
-
-    creep.say(hostileCreep.name);
+    if (hostileCreep !== null) {
+        creep.say(hostileCreep.name);
+    }
 
     const tower = creep.pos.findClosestByPath<StructureTower>(FIND_HOSTILE_STRUCTURES, {
         filter: (structure) => {
             return structure.structureType === STRUCTURE_TOWER;
         }
     });
-
-    tower.attack(creep);
+    if (tower !== null) {
+        tower.attack(creep);
+    }
 
     const rampart = creep.pos.findClosestByRange<StructureRampart>(FIND_HOSTILE_STRUCTURES, {
         filter: (structure) => {
             return structure.structureType === STRUCTURE_RAMPART;
         }
     });
-
-    rampart.isPublic;
+    if (rampart !== null) {
+        rampart.isPublic;
+    }
 
     // Should have type Creep[]
     const hostileCreeps = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 10);
@@ -493,6 +504,18 @@ function keys<T>(o: T): Array<keyof T> {
 // LookAt Finds
 
 {
+    const matrix = room.lookAtArea(10, 10, 20, 20, false);
+    for (const y in matrix) {
+        const row = matrix[y];
+        for (const x in row) {
+            const pos = new RoomPosition(+x, +y, room.name);
+            const objects = row[x];
+            if (objects.length > 0) {
+                objects.map((o) => o.type);
+            }
+        }
+    }
+
     const nukes = room.lookForAt(LOOK_NUKES, creep.pos);
 
     nukes[0].launchRoomName;
@@ -509,6 +532,15 @@ function keys<T>(o: T): Array<keyof T> {
     creeps[0].x;
     creeps[0].y;
     creeps[0].creep.move(TOP);
+}
+
+// StoreDefinition
+
+{
+    for (const resourceType of keys(creep.carry)) {
+        const amount = creep.carry[resourceType];
+        creep.drop(resourceType, amount);
+    }
 }
 
 // Advanced Structure types
@@ -573,11 +605,15 @@ function keys<T>(o: T): Array<keyof T> {
     }
 }
 
-// StoreDefinition
+// ConstructionSite
 
 {
-    for (const resourceType of keys(creep.carry)) {
-        const amount = creep.carry[resourceType];
-        creep.drop(resourceType, amount);
-    }
+    room.createConstructionSite(10, 10, STRUCTURE_EXTENSION);
+    room.createConstructionSite(10, 11, STRUCTURE_SPAWN, "mySpawn");
+
+    const pos = new RoomPosition(10, 10, room.name);
+    room.createConstructionSite(pos, STRUCTURE_EXTENSION);
+    room.createConstructionSite(pos, STRUCTURE_SPAWN, "mySpawn");
+    pos.createConstructionSite(STRUCTURE_EXTENSION);
+    pos.createConstructionSite(STRUCTURE_SPAWN, "mySpawn");
 }
