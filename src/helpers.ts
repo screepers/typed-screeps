@@ -137,6 +137,8 @@ type StoreDefinition = Partial<Record<_ResourceConstantSansEnergy, number>> & { 
 //   energy: number;
 // }
 
+type ExitsInformation = Partial<Record<ExitKey, string>>;
+
 interface AllLookAtTypes {
     constructionSite: ConstructionSite;
     creep: Creep;

@@ -24,6 +24,15 @@ interface CreepMemory {
     lastHits: number;
 }
 
+// Typescript always uses 'string' as the type of a key inside 'for in' loops.
+// In case of objects with a restricted set of properties (e.g. ResourceConstant as key in StoreDefinition)
+// the type of the key should be narrowed down in order to prevent casting (key as ResourceConstant).
+// This helper function provides strongly typed keys for such objects.
+// See discussion (https://github.com/Microsoft/TypeScript/pull/12253) why Object.keys does not return typed keys.
+function keys<T>(o: T): Array<keyof T> {
+    return Object.keys(o) as Array<keyof T>;
+}
+
 // Game.creeps
 
 {
@@ -121,6 +130,13 @@ interface CreepMemory {
 
 {
     const exits = Game.map.describeExits("W8N3");
+    keys(exits)
+        .map((exitKey) => {
+            const nextRoom = exits[exitKey];
+            const exitDir = +exitKey as ExitConstant;
+            const exitPos = creep.pos.findClosestByRange(exitDir);
+            return {nextRoom, exitPos};
+        });
 }
 
 // Game.map.findExit()
@@ -128,9 +144,11 @@ interface CreepMemory {
 {
     if (creep.room !== anotherRoomName) {
         const exitDir = Game.map.findExit(creep.room, anotherRoomName);
-        const exit = creep.pos.findClosestByRange(exitDir as FindConstant);
-        if (exit !== null) {
-            creep.moveTo(exit);
+        if (exitDir !== ERR_NO_PATH && exitDir !== ERR_INVALID_ARGS) {
+            const exit = creep.pos.findClosestByRange(exitDir);
+            if (exit !== null) {
+                creep.moveTo(exit);
+            }
         }
     } else {
         // go to some place in another room
@@ -514,6 +532,15 @@ interface CreepMemory {
     creeps[0].x;
     creeps[0].y;
     creeps[0].creep.move(TOP);
+}
+
+// StoreDefinition
+
+{
+    for (const resourceType of keys(creep.carry)) {
+        const amount = creep.carry[resourceType];
+        creep.drop(resourceType, amount);
+    }
 }
 
 // Advanced Structure types

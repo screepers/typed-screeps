@@ -140,7 +140,7 @@ interface Room {
      * @returns The room direction constant, one of the following: FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT
      * Or one of the following error codes: ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExitTo(room: string | Room): ScreepsReturnCode | FIND_EXIT_TOP | FIND_EXIT_RIGHT | FIND_EXIT_BOTTOM | FIND_EXIT_LEFT;
+    findExitTo(room: string | Room): ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS;
     /**
      * Find an optimal path inside the room between fromPos and toPos using A* search algorithm.
      * @param fromPos The start position.
