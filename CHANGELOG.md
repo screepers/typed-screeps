@@ -5,6 +5,21 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- Add inter-shard portals ([#74](https://github.com/screepers/typed-screeps/pull/74))
+### Changed
+- The findClosestBy* functions potentially return null ([#69](https://github.com/screepers/typed-screeps/pull/69))
+### Fixed
+- Various improvements by @pmoehl (thank you!)
+  - Fix type of StructureLab.mineralType ([#73](https://github.com/screepers/typed-screeps/pull/73))
+  - Fix result type of Room.lookAtArea ([#75](https://github.com/screepers/typed-screeps/pull/75))
+  - Add subscription token as market resource types ([#76](https://github.com/screepers/typed-screeps/pull/76))
+  - Spawn options +directions ([#77](https://github.com/screepers/typed-screeps/pull/77))
+  - Add createConstructionSite name parameter ([#78](https://github.com/screepers/typed-screeps/pull/78))
+  - Updated Tombstone docs ([#79](https://github.com/screepers/typed-screeps/pull/79))
+  - Improve exit typings ([#80](https://github.com/screepers/typed-screeps/pull/80))
+- Fixed missing Constructor extends declarations ([#71](https://github.com/screepers/typed-screeps/pull/71))
+- Fixed createFlag method return type to include string ([#72](https://github.com/screepers/typed-screeps/pull/72))
 
 ## [2.3.0] - 2018-04-16
 ### Added
