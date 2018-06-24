@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   - Improve exit typings ([#80](https://github.com/screepers/typed-screeps/pull/80))
 - Fixed missing Constructor extends declarations ([#71](https://github.com/screepers/typed-screeps/pull/71))
 - Fixed createFlag method return type to include string ([#72](https://github.com/screepers/typed-screeps/pull/72))
+- claimController() uses GCL, not RCL ([#81](https://github.com/screepers/typed-screeps/pull/81))
 
 ## [2.3.0] - 2018-04-16
 ### Added
