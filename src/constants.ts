@@ -623,6 +623,8 @@ declare const LOOK_TOMBSTONES: 'tombstone';
 declare const ORDER_SELL: "sell";
 declare const ORDER_BUY: "buy";
 
+declare const INVADERS_ENERGY_GOAL: number;
+
 declare const SYSTEM_USERNAME: string;
 
 declare const TOMBSTONE_DECAY_PER_PART: 5;
