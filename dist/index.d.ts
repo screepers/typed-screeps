@@ -78,7 +78,7 @@ declare const COLORS_ALL: ColorConstant[];
 
 declare const CREEP_SPAWN_TIME: 3;
 declare const CREEP_LIFE_TIME: 1500;
-declare const CREEP_CLAIM_LIFE_TIME: 500;
+declare const CREEP_CLAIM_LIFE_TIME: 600;
 declare const CREEP_CORPSE_RATE: 0.2;
 
 declare const OBSTACLE_OBJECT_TYPES: [
