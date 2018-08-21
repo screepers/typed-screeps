@@ -422,3 +422,68 @@ type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
 type SUBSCRIPTION_TOKEN = "token";
 
 type TOMBSTONE_DECAY_PER_PART = 5;
+
+type EventConstant =
+  EVENT_ATTACK |
+  EVENT_HEAL |
+  EVENT_HARVEST |
+  EVENT_REPAIR |
+  EVENT_UPGRADE_CONTROLLER;
+
+type EVENT_ATTACK = 1;
+type EVENT_HEAL = 6;
+type EVENT_HARVEST = 5;
+type EVENT_REPAIR = 7;
+type EVENT_UPGRADE_CONTROLLER = 9;
+
+type EventAttackType =
+  EVENT_ATTACK_TYPE_ATTACK |
+  EVENT_ATTACK_TYPE_RANGED_ATTACK |
+  EVENT_ATTACK_TYPE_MASS_RANGED_ATTACK |
+  EVENT_ATTACK_TYPE_DISMANTLE |
+  EVENT_ATTACK_TYPE_NUKE;
+
+type EVENT_ATTACK_TYPE_ATTACK = "attack";
+type EVENT_ATTACK_TYPE_RANGED_ATTACK = "rangedAttack";
+type EVENT_ATTACK_TYPE_MASS_RANGED_ATTACK = "rangedMassAttack";
+type EVENT_ATTACK_TYPE_DISMANTLE = "dismantle";
+type EVENT_ATTACK_TYPE_NUKE = "nuke";
+
+type EventItem = {
+  type: EVENT_ATTACK;
+  objectId: string;
+  data: {
+    targetId: string;
+    attackType: EventAttackType;
+  }
+} | {
+  type: EVENT_HEAL;
+  objectId: string;
+  data: {
+    targetId: string;
+    healed: number;
+  }
+} | {
+  type: EVENT_HARVEST;
+  objectId: string;
+  data: {
+    targetId: string;
+    harvested: number;
+  }
+} | {
+  type: EVENT_REPAIR;
+  objectId: string;
+  data: {
+    targetId: string;
+    repaired: number;
+    energySpent: number;
+  }
+} | {
+  type: EVENT_UPGRADE_CONTROLLER;
+  objectId: string;
+  data: {
+    targetId: string;
+    upgraded: number;
+    energySpent: number;
+  }
+};
