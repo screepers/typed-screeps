@@ -2249,7 +2249,6 @@ interface OrderFilter {
     price?: number;
 }
 interface Memory {
-    [name: string]: any;
     creeps: { [name: string]: CreepMemory };
     flags: { [name: string]: FlagMemory };
     rooms: { [name: string]: RoomMemory };
