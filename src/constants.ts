@@ -632,9 +632,3 @@ declare const EVENT_HEAL: 6;
 declare const EVENT_HARVEST: 5;
 declare const EVENT_REPAIR: 7;
 declare const EVENT_UPGRADE_CONTROLLER: 9;
-
-declare const EVENT_ATTACK_TYPE_ATTACK: "attack";
-declare const EVENT_ATTACK_TYPE_RANGED_ATTACK: "rangedAttack";
-declare const EVENT_ATTACK_TYPE_MASS_RANGED_ATTACK: "rangedMassAttack";
-declare const EVENT_ATTACK_TYPE_DISMANTLE: "dismantle";
-declare const EVENT_ATTACK_TYPE_NUKE: "nuke";

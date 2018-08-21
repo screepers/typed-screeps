@@ -643,12 +643,6 @@ declare const EVENT_HEAL: 6;
 declare const EVENT_HARVEST: 5;
 declare const EVENT_REPAIR: 7;
 declare const EVENT_UPGRADE_CONTROLLER: 9;
-
-declare const EVENT_ATTACK_TYPE_ATTACK: "attack";
-declare const EVENT_ATTACK_TYPE_RANGED_ATTACK: "rangedAttack";
-declare const EVENT_ATTACK_TYPE_MASS_RANGED_ATTACK: "rangedMassAttack";
-declare const EVENT_ATTACK_TYPE_DISMANTLE: "dismantle";
-declare const EVENT_ATTACK_TYPE_NUKE: "nuke";
 /**
  * A site of a structure which is currently under construction.
  */
@@ -1924,17 +1918,11 @@ type EVENT_REPAIR = 7;
 type EVENT_UPGRADE_CONTROLLER = 9;
 
 type EventAttackType =
-  EVENT_ATTACK_TYPE_ATTACK |
-  EVENT_ATTACK_TYPE_RANGED_ATTACK |
-  EVENT_ATTACK_TYPE_MASS_RANGED_ATTACK |
-  EVENT_ATTACK_TYPE_DISMANTLE |
-  EVENT_ATTACK_TYPE_NUKE;
-
-type EVENT_ATTACK_TYPE_ATTACK = "attack";
-type EVENT_ATTACK_TYPE_RANGED_ATTACK = "rangedAttack";
-type EVENT_ATTACK_TYPE_MASS_RANGED_ATTACK = "rangedMassAttack";
-type EVENT_ATTACK_TYPE_DISMANTLE = "dismantle";
-type EVENT_ATTACK_TYPE_NUKE = "nuke";
+  "attack" |
+  "rangedAttack" |
+  "rangedMassAttack" |
+  "dismantle" |
+  "nuke";
 
 type EventItem = {
   type: EVENT_ATTACK;
