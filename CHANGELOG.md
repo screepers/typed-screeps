@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.4.1] - 2018-08-24
+### Added
+- Added `INVADERS_ENERGY_GOAL` ([#83](https://github.com/screepers/typed-screeps/pull/83))
+### Changed
+- Update CREEP_CLAIM_LIFE_TIME to match with Screeps 2018-03-05 update ([#84](https://github.com/screepers/typed-screeps/pull/84))
+
 ## [2.4.0] - 2018-06-24
 ### Added
 - Add inter-shard portals ([#74](https://github.com/screepers/typed-screeps/pull/74))
@@ -115,7 +121,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Initial public `npm` release.
 
-[Unreleased]: https://github.com/screepers/typed-screeps/compare/v2.2.2...HEAD
+[Unreleased]: https://github.com/screepers/typed-screeps/compare/v2.4.1...HEAD
+[2.4.1]: https://github.com/screepers/typed-screeps/compare/v2.4.0...v2.4.1
+[2.4.0]: https://github.com/screepers/typed-screeps/compare/v2.3.0...v2.4.0
+[2.3.0]: https://github.com/screepers/typed-screeps/compare/v2.2.2...v2.3.0
 [2.2.2]: https://github.com/screepers/typed-screeps/compare/v2.2.1...v2.2.2
 [2.2.1]: https://github.com/screepers/typed-screeps/compare/v2.2.0...v2.2.1
 [2.2.0]: https://github.com/screepers/typed-screeps/compare/v2.1.0...v2.2.0
