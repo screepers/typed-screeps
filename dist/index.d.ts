@@ -1599,9 +1599,11 @@ type FIND_MINERALS = 116;
 type FIND_NUKES = 117;
 type FIND_TOMBSTONES = 118;
 
-type FilterOptions<T extends FindConstant> = string | FilterFunction<T> | { filter: FilterFunction<T> };
+// Filter Options
 
+interface FilterOptions<T extends FindConstant> { filter: FilterFunction<T> | FilterObject | string; }
 type FilterFunction<T extends FindConstant> = (object: FindTypes[T]) => boolean;
+interface FilterObject { [key: string]: any; }
 
 // Body Part Constants
 
