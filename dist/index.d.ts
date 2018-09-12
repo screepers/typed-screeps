@@ -258,11 +258,18 @@ declare const CONTROLLER_LEVELS: {[level: number]: number};
 declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, {[level: number]: number}>;
 
 declare const CONTROLLER_DOWNGRADE: {[level: number]: number};
+declare const CONTROLLER_DOWNGRADE_RESTORE: number;
+declare const CONTROLLER_DOWNGRADE_SAFEMODE_THRESHOLD: number;
 declare const CONTROLLER_CLAIM_DOWNGRADE: number;
 declare const CONTROLLER_RESERVE: number;
 declare const CONTROLLER_RESERVE_MAX: number;
 declare const CONTROLLER_MAX_UPGRADE_PER_TICK: number;
 declare const CONTROLLER_ATTACK_BLOCKED_UPGRADE: number;
+declare const CONTROLLER_NUKE_BLOCKED_UPGRADE: number;
+
+declare const SAFE_MODE_DURATION: 20000;
+declare const SAFE_MODE_COOLDOWN: 50000;
+declare const SAFE_MODE_COST: 1000;
 
 declare const TOWER_HITS: number;
 declare const TOWER_CAPACITY: number;
