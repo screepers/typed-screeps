@@ -56,4 +56,4 @@ We accept almost all pull requests, provided your code passes all of the tests, 
 
 When adding new features, don't forget to add tests for them at the `test/typed-screeps-tests.ts` file.
 
-When making changes that are potentially breaking, careful discussion must be done with the community at large. Generally we do this either on the [#typescript](https://screeps.slack.com/messages/typecript/) channel on the Screeps Slack, or on the corresponding pull request discussion thread.
+When making changes that are potentially breaking, careful discussion must be done with the community at large. Generally we do this either on the [#typescript](https://screeps.slack.com/messages/typescript/) channel on the Screeps Slack, or on the corresponding pull request discussion thread.
