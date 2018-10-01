@@ -32,7 +32,6 @@ interface Tombstone extends RoomObject {
     creep: Creep;
 }
 
-interface TombstoneConstructor extends _Constructor<Tombstone>, _ConstructorById<Tombstone> {
-}
+interface TombstoneConstructor extends _Constructor<Tombstone>, _ConstructorById<Tombstone> {}
 
 declare const Tombstone: TombstoneConstructor;

@@ -79,7 +79,7 @@ interface Creep extends RoomObject {
      *
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
      */
-    attack(target: Creep|Structure): CreepActionReturnCode;
+    attack(target: Creep | Structure): CreepActionReturnCode;
     /**
      * Decreases the controller's downgrade or reservation timer for 1 tick per
      * every 5 `CLAIM` body parts (so the creep must have at least 5x`CLAIM`).
@@ -193,7 +193,7 @@ interface Creep extends RoomObject {
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @param opts An object containing pathfinding options flags (see Room.findPath for more info) or one of the following: reusePath, serializeMemory, noPathFinding
      */
-    moveTo(target: RoomPosition|{pos: RoomPosition}, opts?: MoveToOpts): CreepMoveReturnCode | ERR_NO_PATH | ERR_INVALID_TARGET | ERR_NOT_FOUND;
+    moveTo(target: RoomPosition | { pos: RoomPosition }, opts?: MoveToOpts): CreepMoveReturnCode | ERR_NO_PATH | ERR_INVALID_TARGET | ERR_NOT_FOUND;
     /**
      * Toggle auto notification when the creep is under attack. The notification will be sent to your account email. Turned on by default.
      * @param enabled Whether to enable notification or disable.
@@ -212,7 +212,7 @@ interface Creep extends RoomObject {
      * The target has to be within 3 squares range of the creep.
      * @param target The target object to be attacked.
      */
-    rangedAttack(target: Creep|Structure): CreepActionReturnCode;
+    rangedAttack(target: Creep | Structure): CreepActionReturnCode;
     /**
      * Heal another creep at a distance.
      *
@@ -275,7 +275,7 @@ interface Creep extends RoomObject {
      * @param resourceType One of the RESOURCE_* constants
      * @param amount The amount of resources to be transferred. If omitted, all the available carried amount is used.
      */
-    transfer(target: Creep|Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    transfer(target: Creep | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
     /**
      * Upgrade your controller to the next level using carried energy.
      *
@@ -306,7 +306,6 @@ interface Creep extends RoomObject {
     withdraw(target: Structure | Tombstone, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
 
-interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> {
-}
+interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> {}
 
 declare const Creep: CreepConstructor;

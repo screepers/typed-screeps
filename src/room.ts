@@ -214,14 +214,7 @@ interface Room {
      * @param asArray Flatten the results into an array?
      * @returns An object with the sstructure object[X coord][y coord] as an array of found objects.
      */
-    lookForAtArea<T extends keyof AllLookAtTypes>(
-      type: T,
-      top: number,
-      left: number,
-      bottom: number,
-      right: number,
-      asArray?: false
-    ): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
+    lookForAtArea<T extends keyof AllLookAtTypes>(type: T, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
     /**
      * Get the given objets in the supplied area.
      * @param type One of the LOOK_* constants
@@ -232,14 +225,7 @@ interface Room {
      * @param asArray Flatten the results into an array?
      * @returns An array of found objects with an x & y property for their position
      */
-    lookForAtArea<T extends keyof AllLookAtTypes>(
-      type: T,
-      top: number,
-      left: number,
-      bottom: number,
-      right: number,
-      asArray: true
-    ): LookForAtAreaResultArray<AllLookAtTypes[T], T>;
+    lookForAtArea<T extends keyof AllLookAtTypes>(type: T, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<AllLookAtTypes[T], T>;
 
     /**
      * Serialize a path array into a short string representation, which is suitable to store in memory.

@@ -79,16 +79,16 @@ interface CPU {
 }
 
 interface HeapStatistics {
-  total_heap_size: number;
-  total_heap_size_executable: number;
-  total_physical_size: number;
-  total_available_size: number;
-  used_heap_size: number;
-  heap_size_limit: number;
-  malloced_memory: number;
-  peak_malloced_memory: number;
-  does_zap_garbage: 0 | 1;
-  externally_allocated_size: number;
+    total_heap_size: number;
+    total_heap_size_executable: number;
+    total_physical_size: number;
+    total_available_size: number;
+    used_heap_size: number;
+    heap_size_limit: number;
+    malloced_memory: number;
+    peak_malloced_memory: number;
+    does_zap_garbage: 0 | 1;
+    externally_allocated_size: number;
 }
 
 /**
@@ -143,7 +143,7 @@ interface AllLookAtTypes {
     constructionSite: ConstructionSite;
     creep: Creep;
     energy: Resource<RESOURCE_ENERGY>;
-    exit: any;  // TODO what type is this?
+    exit: any; // TODO what type is this?
     flag: Flag;
     mineral: Mineral;
     nuke: Nuke;
@@ -159,8 +159,8 @@ type LookAtTypes = Partial<AllLookAtTypes>;
 type LookAtResult<K extends LookConstant = LookConstant> = Pick<LookAtTypes, K> & { type: K };
 
 type LookAtResultWithPos<K extends LookConstant = LookConstant> = LookAtResult<K> & {
-    x: number,
-    y: number,
+    x: number;
+    y: number;
 };
 
 interface LookAtResultMatrix<K extends LookConstant = LookConstant> {
@@ -175,39 +175,37 @@ interface LookForAtAreaResultMatrix<T, K extends keyof LookAtTypes = keyof LookA
     };
 }
 
-type LookForAtAreaResult<T, K extends keyof LookAtTypes = keyof LookAtTypes> = {type: K} & {
-    [P in K]: T;
-};
+type LookForAtAreaResult<T, K extends keyof LookAtTypes = keyof LookAtTypes> = { type: K } & { [P in K]: T };
 
-type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTypes> = LookForAtAreaResult<T, K> & {x: number, y: number};
+type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTypes> = LookForAtAreaResult<T, K> & { x: number; y: number };
 
 type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<LookForAtAreaResultWithPos<T, K>>;
 
 interface FindTypes {
-  [key: number]: RoomPosition | Creep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke | Tombstone;
-  1: RoomPosition; // FIND_EXIT_TOP
-  3: RoomPosition; // FIND_EXIT_RIGHT
-  5: RoomPosition; // FIND_EXIT_BOTTOM
-  7: RoomPosition; // FIND_EXIT_LEFT
-  10: RoomPosition; // FIND_EXIT
-  101: Creep; // FIND_CREEPS
-  102: Creep; // FIND_MY_CREEPS
-  103: Creep; // FIND_HOSTILE_CREEPS
-  104: Source; // FIND_SOURCES_ACTIVE
-  105: Source; // FIND_SOURCES
-  106: Resource; // FIND_DROPPED_RESOURCES
-  107: AnyStructure; // FIND_STRUCTURES
-  108: AnyOwnedStructure; // FIND_MY_STRUCTURES
-  109: AnyOwnedStructure; // FIND_HOSTILE_STRUCTURES
-  110: Flag; // FIND_FLAGS
-  111: ConstructionSite; // FIND_CONSTRUCTION_SITES
-  112: StructureSpawn; // FIND_MY_SPAWNS
-  113: StructureSpawn; // FIND_HOSTILE_SPAWNS
-  114: ConstructionSite; // FIND_MY_CONSTRUCTION_SITES
-  115: ConstructionSite; // FIND_HOSTILE_CONSTRUCTION_SITES
-  116: Mineral; // FIND_MINERALS
-  117: Nuke; // FIND_NUKES
-  118: Tombstone; // FIND_TOMBSTONES
+    [key: number]: RoomPosition | Creep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke | Tombstone;
+    1: RoomPosition; // FIND_EXIT_TOP
+    3: RoomPosition; // FIND_EXIT_RIGHT
+    5: RoomPosition; // FIND_EXIT_BOTTOM
+    7: RoomPosition; // FIND_EXIT_LEFT
+    10: RoomPosition; // FIND_EXIT
+    101: Creep; // FIND_CREEPS
+    102: Creep; // FIND_MY_CREEPS
+    103: Creep; // FIND_HOSTILE_CREEPS
+    104: Source; // FIND_SOURCES_ACTIVE
+    105: Source; // FIND_SOURCES
+    106: Resource; // FIND_DROPPED_RESOURCES
+    107: AnyStructure; // FIND_STRUCTURES
+    108: AnyOwnedStructure; // FIND_MY_STRUCTURES
+    109: AnyOwnedStructure; // FIND_HOSTILE_STRUCTURES
+    110: Flag; // FIND_FLAGS
+    111: ConstructionSite; // FIND_CONSTRUCTION_SITES
+    112: StructureSpawn; // FIND_MY_SPAWNS
+    113: StructureSpawn; // FIND_HOSTILE_SPAWNS
+    114: ConstructionSite; // FIND_MY_CONSTRUCTION_SITES
+    115: ConstructionSite; // FIND_HOSTILE_CONSTRUCTION_SITES
+    116: Mineral; // FIND_MINERALS
+    117: Nuke; // FIND_NUKES
+    118: Tombstone; // FIND_TOMBSTONES
 }
 
 interface FindPathOpts {

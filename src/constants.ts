@@ -71,21 +71,21 @@ declare const CREEP_CLAIM_LIFE_TIME: 600;
 declare const CREEP_CORPSE_RATE: 0.2;
 
 declare const OBSTACLE_OBJECT_TYPES: [
-  "spawn",
-  "creep",
-  "wall",
-  "source",
-  "constructedWall",
-  "extension",
-  "link",
-  "storage",
-  "tower",
-  "observer",
-  "powerSpawn",
-  "powerBank",
-  "lab",
-  "terminal",
-  "nuker"
+    "spawn",
+    "creep",
+    "wall",
+    "source",
+    "constructedWall",
+    "extension",
+    "link",
+    "storage",
+    "tower",
+    "observer",
+    "powerSpawn",
+    "powerBank",
+    "lab",
+    "terminal",
+    "nuker"
 ];
 
 declare const ENERGY_REGEN_TIME: 300;
@@ -97,14 +97,14 @@ declare const RAMPART_DECAY_AMOUNT: 300;
 declare const RAMPART_DECAY_TIME: 100;
 declare const RAMPART_HITS: 1;
 declare const RAMPART_HITS_MAX: {
-    [rcl: number]: number
-    2: 300000,
-    3: 1000000,
-    4: 3000000,
-    5: 10000000,
-    6: 30000000,
-    7: 100000000,
-    8: 300000000
+    [rcl: number]: number;
+    2: 300000;
+    3: 1000000;
+    4: 3000000;
+    5: 10000000;
+    6: 30000000;
+    7: 100000000;
+    8: 300000000;
 };
 
 declare const SPAWN_HITS: 5000;
@@ -120,16 +120,16 @@ declare const WALL_HITS_MAX: 300000000;
 
 declare const EXTENSION_HITS: 1000;
 declare const EXTENSION_ENERGY_CAPACITY: {
-    [rcl: number]: number
-    0: 50,
-    1: 50,
-    2: 50,
-    3: 50,
-    4: 50,
-    5: 50,
-    6: 50,
-    7: 100,
-    8: 200
+    [rcl: number]: number;
+    0: 50;
+    1: 50;
+    2: 50;
+    3: 50;
+    4: 50;
+    5: 50;
+    6: 50;
+    7: 100;
+    8: 200;
 };
 
 declare const ROAD_HITS: 5000;
@@ -243,10 +243,10 @@ declare const RESOURCES_ALL: ResourceConstant[];
 
 declare const SUBSCRIPTION_TOKEN: "token";
 
-declare const CONTROLLER_LEVELS: {[level: number]: number};
-declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, {[level: number]: number}>;
+declare const CONTROLLER_LEVELS: { [level: number]: number };
+declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, { [level: number]: number }>;
 
-declare const CONTROLLER_DOWNGRADE: {[level: number]: number};
+declare const CONTROLLER_DOWNGRADE: { [level: number]: number };
 declare const CONTROLLER_DOWNGRADE_RESTORE: number;
 declare const CONTROLLER_DOWNGRADE_SAFEMODE_THRESHOLD: number;
 declare const CONTROLLER_CLAIM_DOWNGRADE: number;
@@ -317,19 +317,19 @@ declare const MINERAL_MIN_AMOUNT: Record<MineralConstant, number>;
 declare const MINERAL_RANDOM_FACTOR: number;
 
 declare const MINERAL_DENSITY: {
-    [level: number]: number
-    1: number,
-    2: number,
-    3: number,
-    4: number
+    [level: number]: number;
+    1: number;
+    2: number;
+    3: number;
+    4: number;
 };
 
 declare const MINERAL_DENSITY_PROBABILITY: {
-    [level: number]: number
-    1: number,
-    2: number,
-    3: number,
-    4: number
+    [level: number]: number;
+    1: number;
+    2: number;
+    3: number;
+    4: number;
 };
 
 declare const MINERAL_DENSITY_CHANGE: number;
@@ -358,261 +358,261 @@ declare const NUKER_GHODIUM_CAPACITY: number;
 declare const NUKE_LAND_TIME: number;
 declare const NUKE_RANGE: number;
 declare const NUKE_DAMAGE: {
-    [range: number]: number
-    0: number,
-    1: number,
-    4: number
+    [range: number]: number;
+    0: number;
+    1: number;
+    4: number;
 };
 
 declare const REACTIONS: {
-  [resource: string]: {[resource: string]: string}
-  H: {
-      O: "OH",
-      L: "LH",
-      K: "KH",
-      U: "UH",
-      Z: "ZH",
-      G: "GH"
-  },
-  O: {
-      H: "OH",
-      L: "LO",
-      K: "KO",
-      U: "UO",
-      Z: "ZO",
-      G: "GO"
-  },
-  Z: {
-      K: "ZK",
-      H: "ZH",
-      O: "ZO"
-  },
-  L: {
-      U: "UL",
-      H: "LH",
-      O: "LO"
-  },
-  K: {
-      Z: "ZK",
-      H: "KH",
-      O: "KO"
-  },
-  G: {
-      H: "GH",
-      O: "GO"
-  },
-  U: {
-      L: "UL",
-      H: "UH",
-      O: "UO"
-  },
-  OH: {
-      UH: "UH2O",
-      UO: "UHO2",
-      ZH: "ZH2O",
-      ZO: "ZHO2",
-      KH: "KH2O",
-      KO: "KHO2",
-      LH: "LH2O",
-      LO: "LHO2",
-      GH: "GH2O",
-      GO: "GHO2"
-  },
-  X: {
-      UH2O: "XUH2O",
-      UHO2: "XUHO2",
-      LH2O: "XLH2O",
-      LHO2: "XLHO2",
-      KH2O: "XKH2O",
-      KHO2: "XKHO2",
-      ZH2O: "XZH2O",
-      ZHO2: "XZHO2",
-      GH2O: "XGH2O",
-      GHO2: "XGHO2"
-  },
-  ZK: {
-      UL: "G"
-  },
-  UL: {
-      ZK: "G"
-  },
-  LH: {
-      OH: "LH2O"
-  },
-  ZH: {
-      OH: "ZH2O"
-  },
-  GH: {
-      OH: "GH2O"
-  },
-  KH: {
-      OH: "KH2O"
-  },
-  UH: {
-      OH: "UH2O"
-  },
-  LO: {
-      OH: "LHO2"
-  },
-  ZO: {
-      OH: "ZHO2"
-  },
-  KO: {
-      OH: "KHO2"
-  },
-  UO: {
-      OH: "UHO2"
-  },
-  GO: {
-      OH: "GHO2"
-  },
-  LH2O: {
-      X: "XLH2O"
-  },
-  KH2O: {
-      X: "XKH2O"
-  },
-  ZH2O: {
-      X: "XZH2O"
-  },
-  UH2O: {
-      X: "XUH2O"
-  },
-  GH2O: {
-      X: "XGH2O"
-  },
-  LHO2: {
-      X: "XLHO2"
-  },
-  UHO2: {
-      X: "XUHO2"
-  },
-  KHO2: {
-      X: "XKHO2"
-  },
-  ZHO2: {
-      X: "XZHO2"
-  },
-  GHO2: {
-      X: "XGHO2"
-  }
+    [resource: string]: { [resource: string]: string };
+    H: {
+        O: "OH";
+        L: "LH";
+        K: "KH";
+        U: "UH";
+        Z: "ZH";
+        G: "GH";
+    };
+    O: {
+        H: "OH";
+        L: "LO";
+        K: "KO";
+        U: "UO";
+        Z: "ZO";
+        G: "GO";
+    };
+    Z: {
+        K: "ZK";
+        H: "ZH";
+        O: "ZO";
+    };
+    L: {
+        U: "UL";
+        H: "LH";
+        O: "LO";
+    };
+    K: {
+        Z: "ZK";
+        H: "KH";
+        O: "KO";
+    };
+    G: {
+        H: "GH";
+        O: "GO";
+    };
+    U: {
+        L: "UL";
+        H: "UH";
+        O: "UO";
+    };
+    OH: {
+        UH: "UH2O";
+        UO: "UHO2";
+        ZH: "ZH2O";
+        ZO: "ZHO2";
+        KH: "KH2O";
+        KO: "KHO2";
+        LH: "LH2O";
+        LO: "LHO2";
+        GH: "GH2O";
+        GO: "GHO2";
+    };
+    X: {
+        UH2O: "XUH2O";
+        UHO2: "XUHO2";
+        LH2O: "XLH2O";
+        LHO2: "XLHO2";
+        KH2O: "XKH2O";
+        KHO2: "XKHO2";
+        ZH2O: "XZH2O";
+        ZHO2: "XZHO2";
+        GH2O: "XGH2O";
+        GHO2: "XGHO2";
+    };
+    ZK: {
+        UL: "G";
+    };
+    UL: {
+        ZK: "G";
+    };
+    LH: {
+        OH: "LH2O";
+    };
+    ZH: {
+        OH: "ZH2O";
+    };
+    GH: {
+        OH: "GH2O";
+    };
+    KH: {
+        OH: "KH2O";
+    };
+    UH: {
+        OH: "UH2O";
+    };
+    LO: {
+        OH: "LHO2";
+    };
+    ZO: {
+        OH: "ZHO2";
+    };
+    KO: {
+        OH: "KHO2";
+    };
+    UO: {
+        OH: "UHO2";
+    };
+    GO: {
+        OH: "GHO2";
+    };
+    LH2O: {
+        X: "XLH2O";
+    };
+    KH2O: {
+        X: "XKH2O";
+    };
+    ZH2O: {
+        X: "XZH2O";
+    };
+    UH2O: {
+        X: "XUH2O";
+    };
+    GH2O: {
+        X: "XGH2O";
+    };
+    LHO2: {
+        X: "XLHO2";
+    };
+    UHO2: {
+        X: "XUHO2";
+    };
+    KHO2: {
+        X: "XKHO2";
+    };
+    ZHO2: {
+        X: "XZHO2";
+    };
+    GHO2: {
+        X: "XGHO2";
+    };
 };
 
 declare const BOOSTS: {
-  [part: string]: {[boost: string]: {[action: string]: number}}
-  work: {
-      UO: {
-          harvest: 3
-      },
-      UHO2: {
-          harvest: 5
-      },
-      XUHO2: {
-          harvest: 7
-      },
-      LH: {
-          build: 1.5,
-          repair: 1.5
-      },
-      LH2O: {
-          build: 1.8,
-          repair: 1.8
-      },
-      XLH2O: {
-          build: 2,
-          repair: 2
-      },
-      ZH: {
-          dismantle: 2
-      },
-      ZH2O: {
-          dismantle: 3
-      },
-      XZH2O: {
-          dismantle: 4
-      },
-      GH: {
-          upgradeController: 1.5
-      },
-      GH2O: {
-          upgradeController: 1.8
-      },
-      XGH2O: {
-          upgradeController: 2
-      }
-  },
-  attack: {
-      UH: {
-          attack: 2
-      },
-      UH2O: {
-          attack: 3
-      },
-      XUH2O: {
-          attack: 4
-      }
-  },
-  ranged_attack: {
-      KO: {
-          rangedAttack: 2,
-          rangedMassAttack: 2
-      },
-      KHO2: {
-          rangedAttack: 3,
-          rangedMassAttack: 3
-      },
-      XKHO2: {
-          rangedAttack: 4,
-          rangedMassAttack: 4
-      }
-  },
-  heal: {
-      LO: {
-          heal: 2,
-          rangedHeal: 2
-      },
-      LHO2: {
-          heal: 3,
-          rangedHeal: 3
-      },
-      XLHO2: {
-          heal: 4,
-          rangedHeal: 4
-      }
-  },
-  carry: {
-      KH: {
-          capacity: 2
-      },
-      KH2O: {
-          capacity: 3
-      },
-      XKH2O: {
-          capacity: 4
-      }
-  },
-  move: {
-      ZO: {
-          fatigue: 2
-      },
-      ZHO2: {
-          fatigue: 3
-      },
-      XZHO2: {
-          fatigue: 4
-      }
-  },
-  tough: {
-      GO: {
-          damage: .7
-      },
-      GHO2: {
-          damage: .5
-      },
-      XGHO2: {
-          damage: .3
-      }
-  }
+    [part: string]: { [boost: string]: { [action: string]: number } };
+    work: {
+        UO: {
+            harvest: 3;
+        };
+        UHO2: {
+            harvest: 5;
+        };
+        XUHO2: {
+            harvest: 7;
+        };
+        LH: {
+            build: 1.5;
+            repair: 1.5;
+        };
+        LH2O: {
+            build: 1.8;
+            repair: 1.8;
+        };
+        XLH2O: {
+            build: 2;
+            repair: 2;
+        };
+        ZH: {
+            dismantle: 2;
+        };
+        ZH2O: {
+            dismantle: 3;
+        };
+        XZH2O: {
+            dismantle: 4;
+        };
+        GH: {
+            upgradeController: 1.5;
+        };
+        GH2O: {
+            upgradeController: 1.8;
+        };
+        XGH2O: {
+            upgradeController: 2;
+        };
+    };
+    attack: {
+        UH: {
+            attack: 2;
+        };
+        UH2O: {
+            attack: 3;
+        };
+        XUH2O: {
+            attack: 4;
+        };
+    };
+    ranged_attack: {
+        KO: {
+            rangedAttack: 2;
+            rangedMassAttack: 2;
+        };
+        KHO2: {
+            rangedAttack: 3;
+            rangedMassAttack: 3;
+        };
+        XKHO2: {
+            rangedAttack: 4;
+            rangedMassAttack: 4;
+        };
+    };
+    heal: {
+        LO: {
+            heal: 2;
+            rangedHeal: 2;
+        };
+        LHO2: {
+            heal: 3;
+            rangedHeal: 3;
+        };
+        XLHO2: {
+            heal: 4;
+            rangedHeal: 4;
+        };
+    };
+    carry: {
+        KH: {
+            capacity: 2;
+        };
+        KH2O: {
+            capacity: 3;
+        };
+        XKH2O: {
+            capacity: 4;
+        };
+    };
+    move: {
+        ZO: {
+            fatigue: 2;
+        };
+        ZHO2: {
+            fatigue: 3;
+        };
+        XZHO2: {
+            fatigue: 4;
+        };
+    };
+    tough: {
+        GO: {
+            damage: 0.7;
+        };
+        GHO2: {
+            damage: 0.5;
+        };
+        XGHO2: {
+            damage: 0.3;
+        };
+    };
 };
 
 declare const LOOK_CREEPS: "creep";
@@ -625,7 +625,7 @@ declare const LOOK_FLAGS: "flag";
 declare const LOOK_CONSTRUCTION_SITES: "constructionSite";
 declare const LOOK_NUKES: "nuke";
 declare const LOOK_TERRAIN: "terrain";
-declare const LOOK_TOMBSTONES: 'tombstone';
+declare const LOOK_TOMBSTONES: "tombstone";
 
 declare const ORDER_SELL: "sell";
 declare const ORDER_BUY: "buy";
