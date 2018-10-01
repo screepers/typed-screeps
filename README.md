@@ -85,7 +85,7 @@ yarn add @types/screeps
 
 ## Contribute
 
-Issues and Pull Requests are welcome! Please read the [Contributing Guidelines](.github/CONTRIBUTING.md) and [Code of Conduct](.github/CODE_OF_CONDUCT.md) beforehand.
+Issues and Pull Requests are welcome! Please read the [Contributing Guidelines](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md) beforehand.
 
 --------
 
