@@ -1,0 +1,16 @@
+{
+    "semi": true,
+    "tabWidth": 4,
+    "printWidth": 200,
+    "useTabs": false,
+    "trailingComma": "all",
+    "overrides": [
+        {
+            "files": "package*.json",
+            "options": {
+                "tabWidth": 2,
+                "trailingComma": "none"
+            }
+        }
+    ]
+}
