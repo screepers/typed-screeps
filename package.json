@@ -13,7 +13,7 @@
     "format": "prettier --write 'src/**/*.ts'",
     "lint": "tslint -p tsconfig.json 'src/**/*.ts'",
     "lint:test": "tslint -p dist/tsconfig.json 'dist/screeps-tests.ts'",
-    "precommit": "npm run format && npm run compile && git add dist/index.d.ts",
+    "precommit": "npm run compile && git add dist/index.d.ts",
     "prepare": "npm test",
     "test": "npm run dtslint"
   },
