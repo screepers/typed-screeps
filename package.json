@@ -10,7 +10,9 @@
   "scripts": {
     "compile": "node ./build/concat.js && node ./build/prependHeader.js",
     "dtslint": "npm run compile && dtslint dist",
-    "format": "prettier --write 'src/**/*.ts'",
+    "format": "npm run format:build && npm run format:src",
+    "format:build": "prettier --write 'build/**/*.js'",
+    "format:src": "prettier --write 'src/**/*.ts'",
     "lint": "tslint -p tsconfig.json 'src/**/*.ts'",
     "lint:test": "tslint -p dist/tsconfig.json 'dist/screeps-tests.ts'",
     "precommit": "npm run compile && git add dist/index.d.ts",
