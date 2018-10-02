@@ -635,3 +635,9 @@ declare const INVADERS_ENERGY_GOAL: number;
 declare const SYSTEM_USERNAME: string;
 
 declare const TOMBSTONE_DECAY_PER_PART: 5;
+
+declare const EVENT_ATTACK: 1;
+declare const EVENT_HEAL: 6;
+declare const EVENT_HARVEST: 5;
+declare const EVENT_REPAIR: 7;
+declare const EVENT_UPGRADE_CONTROLLER: 9;

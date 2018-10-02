@@ -646,6 +646,12 @@ declare const INVADERS_ENERGY_GOAL: number;
 declare const SYSTEM_USERNAME: string;
 
 declare const TOMBSTONE_DECAY_PER_PART: 5;
+
+declare const EVENT_ATTACK: 1;
+declare const EVENT_HEAL: 6;
+declare const EVENT_HARVEST: 5;
+declare const EVENT_REPAIR: 7;
+declare const EVENT_UPGRADE_CONTROLLER: 9;
 /**
  * A site of a structure which is currently under construction.
  */
@@ -1906,6 +1912,65 @@ type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
 type SUBSCRIPTION_TOKEN = "token";
 
 type TOMBSTONE_DECAY_PER_PART = 5;
+
+type EventConstant =
+  EVENT_ATTACK |
+  EVENT_HEAL |
+  EVENT_HARVEST |
+  EVENT_REPAIR |
+  EVENT_UPGRADE_CONTROLLER;
+
+type EVENT_ATTACK = 1;
+type EVENT_HEAL = 6;
+type EVENT_HARVEST = 5;
+type EVENT_REPAIR = 7;
+type EVENT_UPGRADE_CONTROLLER = 9;
+
+type EventAttackType =
+  "attack" |
+  "rangedAttack" |
+  "rangedMassAttack" |
+  "dismantle" |
+  "nuke";
+
+type EventItem = {
+  type: EVENT_ATTACK;
+  objectId: string;
+  data: {
+    targetId: string;
+    attackType: EventAttackType;
+  }
+} | {
+  type: EVENT_HEAL;
+  objectId: string;
+  data: {
+    targetId: string;
+    healed: number;
+  }
+} | {
+  type: EVENT_HARVEST;
+  objectId: string;
+  data: {
+    targetId: string;
+    harvested: number;
+  }
+} | {
+  type: EVENT_REPAIR;
+  objectId: string;
+  data: {
+    targetId: string;
+    repaired: number;
+    energySpent: number;
+  }
+} | {
+  type: EVENT_UPGRADE_CONTROLLER;
+  objectId: string;
+  data: {
+    targetId: string;
+    upgraded: number;
+    energySpent: number;
+  }
+};
 /**
  * The options that can be accepted by `findRoute()` and friends.
  */
@@ -2865,6 +2930,8 @@ interface Room {
      * Total amount of energyCapacity of all spawns and extensions in the room.
      */
     energyCapacityAvailable: number;
+
+    eventLog: EventItem[];
     /**
      * A shorthand to `Memory.rooms[room.name]`. You can use it for quick access the room’s specific memory data object.
      */
@@ -2912,7 +2979,12 @@ interface Room {
      * @param name The name of the structure, for structures that support it (currently only spawns).
      * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
      */
-    createConstructionSite(x: number, y: number, structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
+    createConstructionSite(
+        x: number,
+        y: number,
+        structureType: STRUCTURE_SPAWN,
+        name?: string
+    ): ScreepsReturnCode;
     /**
      * Create new ConstructionSite at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
@@ -3060,12 +3132,12 @@ interface Room {
      * @returns An object with the sstructure object[X coord][y coord] as an array of found objects.
      */
     lookForAtArea<T extends keyof AllLookAtTypes>(
-      type: T,
-      top: number,
-      left: number,
-      bottom: number,
-      right: number,
-      asArray?: false
+        type: T,
+        top: number,
+        left: number,
+        bottom: number,
+        right: number,
+        asArray?: false
     ): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
     /**
      * Get the given objets in the supplied area.
@@ -3078,12 +3150,12 @@ interface Room {
      * @returns An array of found objects with an x & y property for their position
      */
     lookForAtArea<T extends keyof AllLookAtTypes>(
-      type: T,
-      top: number,
-      left: number,
-      bottom: number,
-      right: number,
-      asArray: true
+        type: T,
+        top: number,
+        left: number,
+        bottom: number,
+        right: number,
+        asArray: true
     ): LookForAtAreaResultArray<AllLookAtTypes[T], T>;
 
     /**
