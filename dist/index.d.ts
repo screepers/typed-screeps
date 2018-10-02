@@ -2027,13 +2027,17 @@ interface GameMap {
      */
     getTerrainAt(x: number, y: number, roomName: string): Terrain;
     /**
-     * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
-     * @param pos The position object.
+     * Get room terrain for the specified room. This method works for any room in the world even if you have no access to it.
+     * @param roomName String name of the room.
      */
     getTerrainAt(pos: RoomPosition): Terrain;
-
     /**
      * Returns the world size as a number of rooms between world corners. For example, for a world with rooms from W50N50 to E50S50 this method will return 102.
+     */
+    getRoomTerrain(roomName: string): RoomTerrain;
+    /**
+     * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
+     * @param pos The position object.
      */
     getWorldSize(): number;
 
@@ -2713,6 +2717,18 @@ interface RoomPositionConstructor extends _Constructor<RoomPosition> {
 }
 
 declare const RoomPosition: RoomPositionConstructor;
+/**
+ * Result of Object that contains all terrain for a room
+ */
+interface RoomTerrain {
+    /**
+     * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
+     * @param x X position in the room.
+     * @param y Y position in the room.
+     * @return number Number of terrain mask like: TERRAIN_MASK_SWAMP | TERRAIN_MASK_WALL
+     */
+    get(x: number, y: number): number;
+}
 declare class RoomVisual {
     /**
      * You can create new RoomVisual object using its constructor.
