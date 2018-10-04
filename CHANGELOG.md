@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [2.5.0] - 2018-08-24
 ## Added
 - Added `getRoomTerrain` ([#98](https://github.com/screepers/typed-screeps/pull/98))
 - Added WIP types for `room.eventLog` ([#88](https://github.com/screepers/typed-screeps/pull/88))
@@ -127,7 +129,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Initial public `npm` release.
 
-[Unreleased]: https://github.com/screepers/typed-screeps/compare/v2.4.1...HEAD
+[Unreleased]: https://github.com/screepers/typed-screeps/compare/v2.5.0...HEAD
+[2.4.1]: https://github.com/screepers/typed-screeps/compare/v2.4.1...v2.5.0
 [2.4.1]: https://github.com/screepers/typed-screeps/compare/v2.4.0...v2.4.1
 [2.4.0]: https://github.com/screepers/typed-screeps/compare/v2.3.0...v2.4.0
 [2.3.0]: https://github.com/screepers/typed-screeps/compare/v2.2.2...v2.3.0
