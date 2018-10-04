@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Added `getRoomTerrain` ([#98](https://github.com/screepers/typed-screeps/pull/98))
 - Added WIP types for `room.eventLog` ([#88](https://github.com/screepers/typed-screeps/pull/88))
 - Added missing safemode/downgrade constants ([#96](https://github.com/screepers/typed-screeps/pull/96))
+### Changed
+- `filterOptions` Revamp ([#87](https://github.com/screepers/typed-screeps/pull/87))
 
 ## [2.4.1] - 2018-08-24
 ### Added
