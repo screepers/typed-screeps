@@ -1932,61 +1932,121 @@ type TOMBSTONE_DECAY_PER_PART = 5;
 
 type EventConstant =
   EVENT_ATTACK |
-  EVENT_HEAL |
+  EVENT_OBJECT_DESTROYED |
+  EVENT_ATTACK_CONTROLLER |
+  EVENT_BUILD |
   EVENT_HARVEST |
+  EVENT_HEAL |
   EVENT_REPAIR |
-  EVENT_UPGRADE_CONTROLLER;
+  EVENT_RESERVE_CONTROLLER |
+  EVENT_UPGRADE_CONTROLLER |
+  EVENT_EXIT;
 
 type EVENT_ATTACK = 1;
-type EVENT_HEAL = 6;
+type EVENT_OBJECT_DESTROYED = 2;
+type EVENT_ATTACK_CONTROLLER = 3;
+type EVENT_BUILD = 4;
 type EVENT_HARVEST = 5;
+type EVENT_HEAL = 6;
 type EVENT_REPAIR = 7;
+type EVENT_RESERVE_CONTROLLER = 8;
 type EVENT_UPGRADE_CONTROLLER = 9;
+type EVENT_EXIT = 10;
 
 type EventAttackType =
-  "attack" |
-  "rangedAttack" |
-  "rangedMassAttack" |
-  "dismantle" |
-  "nuke";
+  EVENT_ATTACK_TYPE_MELEE |
+  EVENT_ATTACK_TYPE_RANGED |
+  EVENT_ATTACK_TYPE_RANGED_MASS |
+  EVENT_ATTACK_TYPE_DISMANTLE |
+  EVENT_ATTACK_TYPE_HIT_BACK |
+  EVENT_ATTACK_TYPE_NUKE;
+
+type EVENT_ATTACK_TYPE_MELEE = 1;
+type EVENT_ATTACK_TYPE_RANGED = 2;
+type EVENT_ATTACK_TYPE_RANGED_MASS = 3;
+type EVENT_ATTACK_TYPE_DISMANTLE = 4;
+type EVENT_ATTACK_TYPE_HIT_BACK = 5;
+type EVENT_ATTACK_TYPE_NUKE = 6;
+
+type EventHealType =
+  EVENT_HEAL_TYPE_MELEE |
+  EVENT_HEAL_TYPE_RANGED;
+
+type EVENT_HEAL_TYPE_MELEE = 1;
+type EVENT_HEAL_TYPE_RANGED = 2;
+
+type EventDestroyType =
+  "creep";
 
 type EventItem = {
   type: EVENT_ATTACK;
   objectId: string;
   data: {
     targetId: string;
+    damage: number;
     attackType: EventAttackType;
   }
 } | {
-  type: EVENT_HEAL;
+  type: EVENT_OBJECT_DESTROYED;
+  objectId: string;
+  data: {
+    type: EventDestroyType;
+  }
+} | {
+  type: EVENT_ATTACK_CONTROLLER;
+  objectId: string;
+} | {
+  type: EVENT_BUILD;
   objectId: string;
   data: {
     targetId: string;
-    healed: number;
+    amount: number;
+    energySpent: number;
   }
 } | {
   type: EVENT_HARVEST;
   objectId: string;
   data: {
     targetId: string;
-    harvested: number;
+    amount: number;
+  }
+} | {
+  type: EVENT_HEAL;
+  objectId: string;
+  data: {
+    targetId: string;
+    amount: number;
+    healType: EventHealType;
   }
 } | {
   type: EVENT_REPAIR;
   objectId: string;
   data: {
     targetId: string;
-    repaired: number;
+    amount: number;
     energySpent: number;
+  }
+} | {
+  type: EVENT_RESERVE_CONTROLLER;
+  objectId: string;
+  data: {
+    amount: number;
   }
 } | {
   type: EVENT_UPGRADE_CONTROLLER;
   objectId: string;
   data: {
-    targetId: string;
-    upgraded: number;
+    amount: number;
     energySpent: number;
+} | {
+  type: EVENT_EXIT;
+  objectId: string;
+  data: {
+    room: string;
+    x: number;
+    y: number;
   }
+}
 };
 /**
  * The options that can be accepted by `findRoute()` and friends.
