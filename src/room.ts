@@ -71,12 +71,7 @@ interface Room {
      * @param name The name of the structure, for structures that support it (currently only spawns).
      * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
      */
-    createConstructionSite(
-        x: number,
-        y: number,
-        structureType: STRUCTURE_SPAWN,
-        name?: string
-    ): ScreepsReturnCode;
+    createConstructionSite(x: number, y: number, structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
     /**
      * Create new ConstructionSite at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
@@ -100,7 +95,13 @@ interface Room {
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      * @returns The name of a new flag, or one of the following error codes: ERR_NAME_EXISTS, ERR_INVALID_ARGS
      */
-    createFlag(x: number, y: number, name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
+    createFlag(
+        x: number,
+        y: number,
+        name?: string,
+        color?: ColorConstant,
+        secondaryColor?: ColorConstant,
+    ): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
     /**
      * Create new Flag at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
@@ -115,7 +116,12 @@ interface Room {
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      * @returns The name of a new flag, or one of the following error codes: ERR_NAME_EXISTS, ERR_INVALID_ARGS
      */
-    createFlag(pos: RoomPosition | { pos: RoomPosition }, name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
+    createFlag(
+        pos: RoomPosition | { pos: RoomPosition },
+        name?: string,
+        color?: ColorConstant,
+        secondaryColor?: ColorConstant,
+    ): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
     /**
      * Find all objects of the specified type in the room.
      * @param type One of the following constants:
@@ -142,7 +148,10 @@ interface Room {
      * @returns An array with the objects found.
      */
     find<K extends FindConstant>(type: K, opts?: FilterOptions<K>): Array<FindTypes[K]>;
-    find<T extends Structure>(type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES, opts?: FilterOptions<FIND_STRUCTURES>): T[];
+    find<T extends Structure>(
+        type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
+        opts?: FilterOptions<FIND_STRUCTURES>,
+    ): T[];
     /**
      * Find the exit direction en route to another room.
      * @param room Another room name or room object.
@@ -229,7 +238,7 @@ interface Room {
         left: number,
         bottom: number,
         right: number,
-        asArray?: false
+        asArray?: false,
     ): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
     /**
      * Get the given objets in the supplied area.
@@ -247,7 +256,7 @@ interface Room {
         left: number,
         bottom: number,
         right: number,
-        asArray: true
+        asArray: true,
     ): LookForAtAreaResultArray<AllLookAtTypes[T], T>;
 
     /**

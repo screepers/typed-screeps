@@ -51,7 +51,13 @@ interface Market {
      * The maximum orders count is 50 per player. You can create an order at any time with any amount,
      * it will be automatically activated and deactivated depending on the resource/credits availability.
      */
-    createOrder(type: string, resourceType: MarketResourceConstant, price: number, totalAmount: number, roomName?: string): ScreepsReturnCode;
+    createOrder(
+        type: string,
+        resourceType: MarketResourceConstant,
+        price: number,
+        totalAmount: number,
+        roomName?: string,
+    ): ScreepsReturnCode;
     /**
      * Execute a trade deal from your Terminal to another player's Terminal using the specified buy/sell order.
      *

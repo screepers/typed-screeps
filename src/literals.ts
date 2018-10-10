@@ -108,9 +108,13 @@ type FIND_TOMBSTONES = 118;
 
 // Filter Options
 
-interface FilterOptions<T extends FindConstant> { filter: FilterFunction<T> | FilterObject | string; }
+interface FilterOptions<T extends FindConstant> {
+    filter: FilterFunction<T> | FilterObject | string;
+}
 type FilterFunction<T extends FindConstant> = (object: FindTypes[T]) => boolean;
-interface FilterObject { [key: string]: any; }
+interface FilterObject {
+    [key: string]: any;
+}
 
 // Body Part Constants
 
@@ -127,7 +131,18 @@ type CLAIM = "claim";
 
 // Look Constants
 
-type LookConstant = LOOK_CREEPS | LOOK_ENERGY | LOOK_RESOURCES | LOOK_SOURCES | LOOK_MINERALS | LOOK_STRUCTURES | LOOK_FLAGS | LOOK_CONSTRUCTION_SITES | LOOK_NUKES | LOOK_TERRAIN | LOOK_TOMBSTONES;
+type LookConstant =
+    | LOOK_CREEPS
+    | LOOK_ENERGY
+    | LOOK_RESOURCES
+    | LOOK_SOURCES
+    | LOOK_MINERALS
+    | LOOK_STRUCTURES
+    | LOOK_FLAGS
+    | LOOK_CONSTRUCTION_SITES
+    | LOOK_NUKES
+    | LOOK_TERRAIN
+    | LOOK_TOMBSTONES;
 
 type LOOK_CONSTRUCTION_SITES = "constructionSite";
 type LOOK_CREEPS = "creep";
@@ -156,7 +171,17 @@ type TOP_LEFT = 8;
 
 // Color Constants
 
-type ColorConstant = COLOR_RED | COLOR_PURPLE | COLOR_BLUE | COLOR_CYAN | COLOR_GREEN | COLOR_YELLOW | COLOR_ORANGE | COLOR_BROWN | COLOR_GREY | COLOR_WHITE;
+type ColorConstant =
+    | COLOR_RED
+    | COLOR_PURPLE
+    | COLOR_BLUE
+    | COLOR_CYAN
+    | COLOR_GREEN
+    | COLOR_YELLOW
+    | COLOR_ORANGE
+    | COLOR_BROWN
+    | COLOR_GREY
+    | COLOR_WHITE;
 
 type COLOR_RED = 1;
 type COLOR_PURPLE = 2;
@@ -188,7 +213,12 @@ type BuildableStructureConstant =
     | STRUCTURE_CONTAINER
     | STRUCTURE_NUKER;
 
-type StructureConstant = BuildableStructureConstant | STRUCTURE_KEEPER_LAIR | STRUCTURE_CONTROLLER | STRUCTURE_POWER_BANK | STRUCTURE_PORTAL;
+type StructureConstant =
+    | BuildableStructureConstant
+    | STRUCTURE_KEEPER_LAIR
+    | STRUCTURE_CONTROLLER
+    | STRUCTURE_POWER_BANK
+    | STRUCTURE_PORTAL;
 
 type STRUCTURE_EXTENSION = "extension";
 type STRUCTURE_RAMPART = "rampart";
@@ -301,7 +331,15 @@ type _ResourceConstantSansEnergy =
     | RESOURCE_CATALYZED_GHODIUM_ACID
     | RESOURCE_CATALYZED_GHODIUM_ALKALIDE;
 
-type MineralConstant = RESOURCE_UTRIUM | RESOURCE_LEMERGIUM | RESOURCE_KEANIUM | RESOURCE_GHODIUM | RESOURCE_ZYNTHIUM | RESOURCE_OXYGEN | RESOURCE_HYDROGEN | RESOURCE_CATALYST;
+type MineralConstant =
+    | RESOURCE_UTRIUM
+    | RESOURCE_LEMERGIUM
+    | RESOURCE_KEANIUM
+    | RESOURCE_GHODIUM
+    | RESOURCE_ZYNTHIUM
+    | RESOURCE_OXYGEN
+    | RESOURCE_HYDROGEN
+    | RESOURCE_CATALYST;
 
 type MarketResourceConstant = ResourceConstant | SUBSCRIPTION_TOKEN;
 
@@ -358,16 +396,16 @@ type SUBSCRIPTION_TOKEN = "token";
 type TOMBSTONE_DECAY_PER_PART = 5;
 
 type EventConstant =
-  EVENT_ATTACK |
-  EVENT_OBJECT_DESTROYED |
-  EVENT_ATTACK_CONTROLLER |
-  EVENT_BUILD |
-  EVENT_HARVEST |
-  EVENT_HEAL |
-  EVENT_REPAIR |
-  EVENT_RESERVE_CONTROLLER |
-  EVENT_UPGRADE_CONTROLLER |
-  EVENT_EXIT;
+    | EVENT_ATTACK
+    | EVENT_OBJECT_DESTROYED
+    | EVENT_ATTACK_CONTROLLER
+    | EVENT_BUILD
+    | EVENT_HARVEST
+    | EVENT_HEAL
+    | EVENT_REPAIR
+    | EVENT_RESERVE_CONTROLLER
+    | EVENT_UPGRADE_CONTROLLER
+    | EVENT_EXIT;
 
 type EVENT_ATTACK = 1;
 type EVENT_OBJECT_DESTROYED = 2;
@@ -381,12 +419,12 @@ type EVENT_UPGRADE_CONTROLLER = 9;
 type EVENT_EXIT = 10;
 
 type EventAttackType =
-  EVENT_ATTACK_TYPE_MELEE |
-  EVENT_ATTACK_TYPE_RANGED |
-  EVENT_ATTACK_TYPE_RANGED_MASS |
-  EVENT_ATTACK_TYPE_DISMANTLE |
-  EVENT_ATTACK_TYPE_HIT_BACK |
-  EVENT_ATTACK_TYPE_NUKE;
+    | EVENT_ATTACK_TYPE_MELEE
+    | EVENT_ATTACK_TYPE_RANGED
+    | EVENT_ATTACK_TYPE_RANGED_MASS
+    | EVENT_ATTACK_TYPE_DISMANTLE
+    | EVENT_ATTACK_TYPE_HIT_BACK
+    | EVENT_ATTACK_TYPE_NUKE;
 
 type EVENT_ATTACK_TYPE_MELEE = 1;
 type EVENT_ATTACK_TYPE_RANGED = 2;
@@ -395,84 +433,91 @@ type EVENT_ATTACK_TYPE_DISMANTLE = 4;
 type EVENT_ATTACK_TYPE_HIT_BACK = 5;
 type EVENT_ATTACK_TYPE_NUKE = 6;
 
-type EventHealType =
-  EVENT_HEAL_TYPE_MELEE |
-  EVENT_HEAL_TYPE_RANGED;
+type EventHealType = EVENT_HEAL_TYPE_MELEE | EVENT_HEAL_TYPE_RANGED;
 
 type EVENT_HEAL_TYPE_MELEE = 1;
 type EVENT_HEAL_TYPE_RANGED = 2;
 
-type EventDestroyType =
-  "creep" |
-  StructureConstant;
+type EventDestroyType = "creep" | StructureConstant;
 
-type EventItem = {
-  type: EVENT_ATTACK;
-  objectId: string;
-  data: {
-    targetId: string;
-    damage: number;
-    attackType: EventAttackType;
-  }
-} | {
-  type: EVENT_OBJECT_DESTROYED;
-  objectId: string;
-  data: {
-    type: EventDestroyType;
-  }
-} | {
-  type: EVENT_ATTACK_CONTROLLER;
-  objectId: string;
-} | {
-  type: EVENT_BUILD;
-  objectId: string;
-  data: {
-    targetId: string;
-    amount: number;
-    energySpent: number;
-  }
-} | {
-  type: EVENT_HARVEST;
-  objectId: string;
-  data: {
-    targetId: string;
-    amount: number;
-  }
-} | {
-  type: EVENT_HEAL;
-  objectId: string;
-  data: {
-    targetId: string;
-    amount: number;
-    healType: EventHealType;
-  }
-} | {
-  type: EVENT_REPAIR;
-  objectId: string;
-  data: {
-    targetId: string;
-    amount: number;
-    energySpent: number;
-  }
-} | {
-  type: EVENT_RESERVE_CONTROLLER;
-  objectId: string;
-  data: {
-    amount: number;
-  }
-} | {
-  type: EVENT_UPGRADE_CONTROLLER;
-  objectId: string;
-  data: {
-    amount: number;
-    energySpent: number;
-} | {
-  type: EVENT_EXIT;
-  objectId: string;
-  data: {
-    room: string;
-    x: number;
-    y: number;
-  }
-}
-};
+type EventItem =
+    | {
+          type: EVENT_ATTACK;
+          objectId: string;
+          data: {
+              targetId: string;
+              damage: number;
+              attackType: EventAttackType;
+          };
+      }
+    | {
+          type: EVENT_OBJECT_DESTROYED;
+          objectId: string;
+          data: {
+              type: EventDestroyType;
+          };
+      }
+    | {
+          type: EVENT_ATTACK_CONTROLLER;
+          objectId: string;
+      }
+    | {
+          type: EVENT_BUILD;
+          objectId: string;
+          data: {
+              targetId: string;
+              amount: number;
+              energySpent: number;
+          };
+      }
+    | {
+          type: EVENT_HARVEST;
+          objectId: string;
+          data: {
+              targetId: string;
+              amount: number;
+          };
+      }
+    | {
+          type: EVENT_HEAL;
+          objectId: string;
+          data: {
+              targetId: string;
+              amount: number;
+              healType: EventHealType;
+          };
+      }
+    | {
+          type: EVENT_REPAIR;
+          objectId: string;
+          data: {
+              targetId: string;
+              amount: number;
+              energySpent: number;
+          };
+      }
+    | {
+          type: EVENT_RESERVE_CONTROLLER;
+          objectId: string;
+          data: {
+              amount: number;
+          };
+      }
+    | {
+          type: EVENT_UPGRADE_CONTROLLER;
+          objectId: string;
+          data:
+              | {
+                    amount: number;
+                    energySpent: number;
+                }
+              | {
+                    type: EVENT_EXIT;
+                    objectId: string;
+                    data: {
+                        room: string;
+                        x: number;
+                        y: number;
+                    };
+                };
+      };
