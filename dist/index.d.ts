@@ -901,7 +901,10 @@ interface Creep extends RoomObject {
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
      * @param opts An object containing pathfinding options flags (see Room.findPath for more info) or one of the following: reusePath, serializeMemory, noPathFinding
      */
-    moveTo(target: RoomPosition | { pos: RoomPosition }, opts?: MoveToOpts): CreepMoveReturnCode | ERR_NO_PATH | ERR_INVALID_TARGET | ERR_NOT_FOUND;
+    moveTo(
+        target: RoomPosition | { pos: RoomPosition },
+        opts?: MoveToOpts,
+    ): CreepMoveReturnCode | ERR_NO_PATH | ERR_INVALID_TARGET | ERR_NOT_FOUND;
     /**
      * Toggle auto notification when the creep is under attack. The notification will be sent to your account email. Turned on by default.
      * @param enabled Whether to enable notification or disable.
@@ -1609,9 +1612,13 @@ type FIND_TOMBSTONES = 118;
 
 // Filter Options
 
-interface FilterOptions<T extends FindConstant> { filter: FilterFunction<T> | FilterObject | string; }
+interface FilterOptions<T extends FindConstant> {
+    filter: FilterFunction<T> | FilterObject | string;
+}
 type FilterFunction<T extends FindConstant> = (object: FindTypes[T]) => boolean;
-interface FilterObject { [key: string]: any; }
+interface FilterObject {
+    [key: string]: any;
+}
 
 // Body Part Constants
 
@@ -1628,7 +1635,18 @@ type CLAIM = "claim";
 
 // Look Constants
 
-type LookConstant = LOOK_CREEPS | LOOK_ENERGY | LOOK_RESOURCES | LOOK_SOURCES | LOOK_MINERALS | LOOK_STRUCTURES | LOOK_FLAGS | LOOK_CONSTRUCTION_SITES | LOOK_NUKES | LOOK_TERRAIN | LOOK_TOMBSTONES;
+type LookConstant =
+    | LOOK_CREEPS
+    | LOOK_ENERGY
+    | LOOK_RESOURCES
+    | LOOK_SOURCES
+    | LOOK_MINERALS
+    | LOOK_STRUCTURES
+    | LOOK_FLAGS
+    | LOOK_CONSTRUCTION_SITES
+    | LOOK_NUKES
+    | LOOK_TERRAIN
+    | LOOK_TOMBSTONES;
 
 type LOOK_CONSTRUCTION_SITES = "constructionSite";
 type LOOK_CREEPS = "creep";
@@ -1657,7 +1675,17 @@ type TOP_LEFT = 8;
 
 // Color Constants
 
-type ColorConstant = COLOR_RED | COLOR_PURPLE | COLOR_BLUE | COLOR_CYAN | COLOR_GREEN | COLOR_YELLOW | COLOR_ORANGE | COLOR_BROWN | COLOR_GREY | COLOR_WHITE;
+type ColorConstant =
+    | COLOR_RED
+    | COLOR_PURPLE
+    | COLOR_BLUE
+    | COLOR_CYAN
+    | COLOR_GREEN
+    | COLOR_YELLOW
+    | COLOR_ORANGE
+    | COLOR_BROWN
+    | COLOR_GREY
+    | COLOR_WHITE;
 
 type COLOR_RED = 1;
 type COLOR_PURPLE = 2;
@@ -1689,7 +1717,12 @@ type BuildableStructureConstant =
     | STRUCTURE_CONTAINER
     | STRUCTURE_NUKER;
 
-type StructureConstant = BuildableStructureConstant | STRUCTURE_KEEPER_LAIR | STRUCTURE_CONTROLLER | STRUCTURE_POWER_BANK | STRUCTURE_PORTAL;
+type StructureConstant =
+    | BuildableStructureConstant
+    | STRUCTURE_KEEPER_LAIR
+    | STRUCTURE_CONTROLLER
+    | STRUCTURE_POWER_BANK
+    | STRUCTURE_PORTAL;
 
 type STRUCTURE_EXTENSION = "extension";
 type STRUCTURE_RAMPART = "rampart";
@@ -1802,7 +1835,15 @@ type _ResourceConstantSansEnergy =
     | RESOURCE_CATALYZED_GHODIUM_ACID
     | RESOURCE_CATALYZED_GHODIUM_ALKALIDE;
 
-type MineralConstant = RESOURCE_UTRIUM | RESOURCE_LEMERGIUM | RESOURCE_KEANIUM | RESOURCE_GHODIUM | RESOURCE_ZYNTHIUM | RESOURCE_OXYGEN | RESOURCE_HYDROGEN | RESOURCE_CATALYST;
+type MineralConstant =
+    | RESOURCE_UTRIUM
+    | RESOURCE_LEMERGIUM
+    | RESOURCE_KEANIUM
+    | RESOURCE_GHODIUM
+    | RESOURCE_ZYNTHIUM
+    | RESOURCE_OXYGEN
+    | RESOURCE_HYDROGEN
+    | RESOURCE_CATALYST;
 
 type MarketResourceConstant = ResourceConstant | SUBSCRIPTION_TOKEN;
 
@@ -1859,16 +1900,16 @@ type SUBSCRIPTION_TOKEN = "token";
 type TOMBSTONE_DECAY_PER_PART = 5;
 
 type EventConstant =
-  EVENT_ATTACK |
-  EVENT_OBJECT_DESTROYED |
-  EVENT_ATTACK_CONTROLLER |
-  EVENT_BUILD |
-  EVENT_HARVEST |
-  EVENT_HEAL |
-  EVENT_REPAIR |
-  EVENT_RESERVE_CONTROLLER |
-  EVENT_UPGRADE_CONTROLLER |
-  EVENT_EXIT;
+    | EVENT_ATTACK
+    | EVENT_OBJECT_DESTROYED
+    | EVENT_ATTACK_CONTROLLER
+    | EVENT_BUILD
+    | EVENT_HARVEST
+    | EVENT_HEAL
+    | EVENT_REPAIR
+    | EVENT_RESERVE_CONTROLLER
+    | EVENT_UPGRADE_CONTROLLER
+    | EVENT_EXIT;
 
 type EVENT_ATTACK = 1;
 type EVENT_OBJECT_DESTROYED = 2;
@@ -1882,12 +1923,12 @@ type EVENT_UPGRADE_CONTROLLER = 9;
 type EVENT_EXIT = 10;
 
 type EventAttackType =
-  EVENT_ATTACK_TYPE_MELEE |
-  EVENT_ATTACK_TYPE_RANGED |
-  EVENT_ATTACK_TYPE_RANGED_MASS |
-  EVENT_ATTACK_TYPE_DISMANTLE |
-  EVENT_ATTACK_TYPE_HIT_BACK |
-  EVENT_ATTACK_TYPE_NUKE;
+    | EVENT_ATTACK_TYPE_MELEE
+    | EVENT_ATTACK_TYPE_RANGED
+    | EVENT_ATTACK_TYPE_RANGED_MASS
+    | EVENT_ATTACK_TYPE_DISMANTLE
+    | EVENT_ATTACK_TYPE_HIT_BACK
+    | EVENT_ATTACK_TYPE_NUKE;
 
 type EVENT_ATTACK_TYPE_MELEE = 1;
 type EVENT_ATTACK_TYPE_RANGED = 2;
@@ -1896,87 +1937,94 @@ type EVENT_ATTACK_TYPE_DISMANTLE = 4;
 type EVENT_ATTACK_TYPE_HIT_BACK = 5;
 type EVENT_ATTACK_TYPE_NUKE = 6;
 
-type EventHealType =
-  EVENT_HEAL_TYPE_MELEE |
-  EVENT_HEAL_TYPE_RANGED;
+type EventHealType = EVENT_HEAL_TYPE_MELEE | EVENT_HEAL_TYPE_RANGED;
 
 type EVENT_HEAL_TYPE_MELEE = 1;
 type EVENT_HEAL_TYPE_RANGED = 2;
 
-type EventDestroyType =
-  "creep" |
-  StructureConstant;
+type EventDestroyType = "creep" | StructureConstant;
 
-type EventItem = {
-  type: EVENT_ATTACK;
-  objectId: string;
-  data: {
-    targetId: string;
-    damage: number;
-    attackType: EventAttackType;
-  }
-} | {
-  type: EVENT_OBJECT_DESTROYED;
-  objectId: string;
-  data: {
-    type: EventDestroyType;
-  }
-} | {
-  type: EVENT_ATTACK_CONTROLLER;
-  objectId: string;
-} | {
-  type: EVENT_BUILD;
-  objectId: string;
-  data: {
-    targetId: string;
-    amount: number;
-    energySpent: number;
-  }
-} | {
-  type: EVENT_HARVEST;
-  objectId: string;
-  data: {
-    targetId: string;
-    amount: number;
-  }
-} | {
-  type: EVENT_HEAL;
-  objectId: string;
-  data: {
-    targetId: string;
-    amount: number;
-    healType: EventHealType;
-  }
-} | {
-  type: EVENT_REPAIR;
-  objectId: string;
-  data: {
-    targetId: string;
-    amount: number;
-    energySpent: number;
-  }
-} | {
-  type: EVENT_RESERVE_CONTROLLER;
-  objectId: string;
-  data: {
-    amount: number;
-  }
-} | {
-  type: EVENT_UPGRADE_CONTROLLER;
-  objectId: string;
-  data: {
-    amount: number;
-    energySpent: number;
-} | {
-  type: EVENT_EXIT;
-  objectId: string;
-  data: {
-    room: string;
-    x: number;
-    y: number;
-  }
-}
-};
+type EventItem =
+    | {
+          type: EVENT_ATTACK;
+          objectId: string;
+          data: {
+              targetId: string;
+              damage: number;
+              attackType: EventAttackType;
+          };
+      }
+    | {
+          type: EVENT_OBJECT_DESTROYED;
+          objectId: string;
+          data: {
+              type: EventDestroyType;
+          };
+      }
+    | {
+          type: EVENT_ATTACK_CONTROLLER;
+          objectId: string;
+      }
+    | {
+          type: EVENT_BUILD;
+          objectId: string;
+          data: {
+              targetId: string;
+              amount: number;
+              energySpent: number;
+          };
+      }
+    | {
+          type: EVENT_HARVEST;
+          objectId: string;
+          data: {
+              targetId: string;
+              amount: number;
+          };
+      }
+    | {
+          type: EVENT_HEAL;
+          objectId: string;
+          data: {
+              targetId: string;
+              amount: number;
+              healType: EventHealType;
+          };
+      }
+    | {
+          type: EVENT_REPAIR;
+          objectId: string;
+          data: {
+              targetId: string;
+              amount: number;
+              energySpent: number;
+          };
+      }
+    | {
+          type: EVENT_RESERVE_CONTROLLER;
+          objectId: string;
+          data: {
+              amount: number;
+          };
+      }
+    | {
+          type: EVENT_UPGRADE_CONTROLLER;
+          objectId: string;
+          data:
+              | {
+                    amount: number;
+                    energySpent: number;
+                }
+              | {
+                    type: EVENT_EXIT;
+                    objectId: string;
+                    data: {
+                        room: string;
+                        x: number;
+                        y: number;
+                    };
+                };
+      };
 /**
  * The options that can be accepted by `findRoute()` and friends.
  */
@@ -2115,7 +2163,13 @@ interface Market {
      * The maximum orders count is 50 per player. You can create an order at any time with any amount,
      * it will be automatically activated and deactivated depending on the resource/credits availability.
      */
-    createOrder(type: string, resourceType: MarketResourceConstant, price: number, totalAmount: number, roomName?: string): ScreepsReturnCode;
+    createOrder(
+        type: string,
+        resourceType: MarketResourceConstant,
+        price: number,
+        totalAmount: number,
+        roomName?: string,
+    ): ScreepsReturnCode;
     /**
      * Execute a trade deal from your Terminal to another player's Terminal using the specified buy/sell order.
      *
@@ -2280,7 +2334,11 @@ interface PathFinder {
      * @param goal goal A RoomPosition, an object containing a RoomPosition and range or an array of either.
      * @param opts An object containing additional pathfinding flags.
      */
-    search(origin: RoomPosition, goal: RoomPosition | { pos: RoomPosition; range: number } | Array<RoomPosition | { pos: RoomPosition; range: number }>, opts?: PathFinderOpts): PathFinderPath;
+    search(
+        origin: RoomPosition,
+        goal: RoomPosition | { pos: RoomPosition; range: number } | Array<RoomPosition | { pos: RoomPosition; range: number }>,
+        opts?: PathFinderOpts,
+    ): PathFinderPath;
     /**
      * Specify whether to use this new experimental pathfinder in game objects methods.
      * This method should be invoked every tick. It affects the following methods behavior:
@@ -2413,11 +2471,11 @@ declare const PathFinder: PathFinder;
  * RawMemory object allows to implement your own memory stringifier instead of built-in serializer based on JSON.stringify.
  */
 interface RawMemory {
-  /**
-   * An object with asynchronous memory segments available on this tick. Each object key is the segment ID with data in string values.
-   * Use RawMemory.setActiveSegments to fetch segments on the next tick. Segments data is saved automatically in the end of the tick.
-   */
-  segments: {[segmentId: number]: string};
+    /**
+     * An object with asynchronous memory segments available on this tick. Each object key is the segment ID with data in string values.
+     * Use RawMemory.setActiveSegments to fetch segments on the next tick. Segments data is saved automatically in the end of the tick.
+     */
+    segments: { [segmentId: number]: string };
 
     /**
      * An object with a memory segment of another player available on this tick. Use `setActiveForeignSegment` to fetch segments on the next tick.
@@ -2591,10 +2649,13 @@ interface RoomPosition {
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      * @returns An instance of a RoomObject.
      */
-    findClosestByPath<K extends FindConstant>(type: K, opts?: FindPathOpts & FilterOptions<K> & { algorithm?: string }): FindTypes[K] | null;
+    findClosestByPath<K extends FindConstant>(
+        type: K,
+        opts?: FindPathOpts & FilterOptions<K> & { algorithm?: string },
+    ): FindTypes[K] | null;
     findClosestByPath<T extends Structure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FindPathOpts & FilterOptions<FIND_STRUCTURES> & { algorithm?: string }
+        opts?: FindPathOpts & FilterOptions<FIND_STRUCTURES> & { algorithm?: string },
     ): T | null;
     /**
      * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
@@ -2602,7 +2663,10 @@ interface RoomPosition {
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      * @returns One of the supplied objects
      */
-    findClosestByPath<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: FindPathOpts & { filter?: any | string; algorithm?: string }): T | null;
+    findClosestByPath<T extends _HasRoomPosition | RoomPosition>(
+        objects: T[],
+        opts?: FindPathOpts & { filter?: any | string; algorithm?: string },
+    ): T | null;
     /**
      * Find the object with the shortest linear distance from the given position.
      * @param type Any of the FIND_* constants.
@@ -2611,7 +2675,7 @@ interface RoomPosition {
     findClosestByRange<K extends FindConstant>(type: K, opts?: FilterOptions<K>): FindTypes[K] | null;
     findClosestByRange<T extends Structure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FilterOptions<FIND_STRUCTURES>
+        opts?: FilterOptions<FIND_STRUCTURES>,
     ): T | null;
     /**
      * Find the object with the shortest linear distance from the given position.
@@ -2629,7 +2693,7 @@ interface RoomPosition {
     findInRange<T extends Structure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
         range: number,
-        opts?: FilterOptions<FIND_STRUCTURES>
+        opts?: FilterOptions<FIND_STRUCTURES>,
     ): T[];
     /**
      * Find all objects in the specified linear range.
@@ -3015,12 +3079,7 @@ interface Room {
      * @param name The name of the structure, for structures that support it (currently only spawns).
      * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
      */
-    createConstructionSite(
-        x: number,
-        y: number,
-        structureType: STRUCTURE_SPAWN,
-        name?: string
-    ): ScreepsReturnCode;
+    createConstructionSite(x: number, y: number, structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
     /**
      * Create new ConstructionSite at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
@@ -3044,7 +3103,13 @@ interface Room {
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      * @returns The name of a new flag, or one of the following error codes: ERR_NAME_EXISTS, ERR_INVALID_ARGS
      */
-    createFlag(x: number, y: number, name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
+    createFlag(
+        x: number,
+        y: number,
+        name?: string,
+        color?: ColorConstant,
+        secondaryColor?: ColorConstant,
+    ): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
     /**
      * Create new Flag at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
@@ -3059,7 +3124,12 @@ interface Room {
      * @param secondaryColor The secondary color of a new flag. Should be one of the COLOR_* constants. The default value is equal to color.
      * @returns The name of a new flag, or one of the following error codes: ERR_NAME_EXISTS, ERR_INVALID_ARGS
      */
-    createFlag(pos: RoomPosition | { pos: RoomPosition }, name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
+    createFlag(
+        pos: RoomPosition | { pos: RoomPosition },
+        name?: string,
+        color?: ColorConstant,
+        secondaryColor?: ColorConstant,
+    ): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
     /**
      * Find all objects of the specified type in the room.
      * @param type One of the following constants:
@@ -3086,7 +3156,10 @@ interface Room {
      * @returns An array with the objects found.
      */
     find<K extends FindConstant>(type: K, opts?: FilterOptions<K>): Array<FindTypes[K]>;
-    find<T extends Structure>(type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES, opts?: FilterOptions<FIND_STRUCTURES>): T[];
+    find<T extends Structure>(
+        type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
+        opts?: FilterOptions<FIND_STRUCTURES>,
+    ): T[];
     /**
      * Find the exit direction en route to another room.
      * @param room Another room name or room object.
@@ -3173,7 +3246,7 @@ interface Room {
         left: number,
         bottom: number,
         right: number,
-        asArray?: false
+        asArray?: false,
     ): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
     /**
      * Get the given objets in the supplied area.
@@ -3191,7 +3264,7 @@ interface Room {
         left: number,
         bottom: number,
         right: number,
-        asArray: true
+        asArray: true,
     ): LookForAtAreaResultArray<AllLookAtTypes[T], T>;
 
     /**
