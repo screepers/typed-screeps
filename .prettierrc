@@ -11,6 +11,12 @@
                 "tabWidth": 2,
                 "trailingComma": "none"
             }
+        },
+        {
+            "files": ".travis.yml",
+            "options": {
+                "tabWidth": 2
+            }
         }
     ]
 }
