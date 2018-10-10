@@ -471,7 +471,8 @@ type EVENT_HEAL_TYPE_MELEE = 1;
 type EVENT_HEAL_TYPE_RANGED = 2;
 
 type EventDestroyType =
-  "creep";
+  "creep" |
+  StructureConstant;
 
 type EventItem = {
   type: EVENT_ATTACK;
