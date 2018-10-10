@@ -648,10 +648,25 @@ declare const SYSTEM_USERNAME: string;
 declare const TOMBSTONE_DECAY_PER_PART: 5;
 
 declare const EVENT_ATTACK: 1;
-declare const EVENT_HEAL: 6;
+declare const EVENT_OBJECT_DESTROYED: 2;
+declare const EVENT_ATTACK_CONTROLLER: 3;
+declare const EVENT_BUILD: 4;
 declare const EVENT_HARVEST: 5;
+declare const EVENT_HEAL: 6;
 declare const EVENT_REPAIR: 7;
+declare const EVENT_RESERVE_CONTROLLER: 8;
 declare const EVENT_UPGRADE_CONTROLLER: 9;
+declare const EVENT_EXIT: 10;
+
+declare const EVENT_ATTACK_TYPE_MELEE: 1;
+declare const EVENT_ATTACK_TYPE_RANGED: 2;
+declare const EVENT_ATTACK_TYPE_RANGED_MASS: 3;
+declare const EVENT_ATTACK_TYPE_DISMANTLE: 4;
+declare const EVENT_ATTACK_TYPE_HIT_BACK: 5;
+declare const EVENT_ATTACK_TYPE_NUKE: 6;
+
+declare const EVENT_HEAL_TYPE_MELEE: 1;
+declare const EVENT_HEAL_TYPE_RANGED: 2;
 /**
  * A site of a structure which is currently under construction.
  */
@@ -2955,8 +2970,10 @@ interface Room {
      * Total amount of energyCapacity of all spawns and extensions in the room.
      */
     energyCapacityAvailable: number;
-
-    eventLog: EventItem[];
+    /**
+     * Returns an array of events happened on the previous tick in this room.
+     */
+    getEventLog(raw?: boolean): EventItem[];
     /**
      * A shorthand to `Memory.rooms[room.name]`. You can use it for quick access the room’s specific memory data object.
      */
