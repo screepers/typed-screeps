@@ -1,6 +1,9 @@
 {
-    "extends": "dtslint/dt.json",
+    "rulesDirectory": ["tslint-plugin-prettier"],
+    "extends": ["dtslint/dt.json", "tslint-config-prettier"],
     "rules": {
+        "prettier": true,
+        "file-name-casing": false,
         "no-redundant-jsdoc-2": false,
         "dt-header": false,
         "no-empty-interface": false,

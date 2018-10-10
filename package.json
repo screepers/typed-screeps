@@ -8,15 +8,16 @@
     "dist/index.d.ts"
   ],
   "scripts": {
-    "compile": "node ./build/concat.js",
-    "compile-test": "tsc dist/screeps-tests.ts",
-    "lint": "tslint 'src/**/*.ts'",
-    "lint-test": "tslint 'test/**/*.ts'",
-    "postcompile": "node ./build/prependHeader.js",
+    "compile": "node ./build/concat.js && node ./build/prependHeader.js",
+    "dtslint": "npm run compile && dtslint dist",
+    "format": "npm run format:build && npm run format:src",
+    "format:build": "prettier --write 'build/**/*.js'",
+    "format:src": "prettier --write 'src/**/*.ts'",
+    "lint": "tslint -p tsconfig.json 'src/**/*.ts'",
+    "lint:test": "tslint -p dist/tsconfig.json 'dist/screeps-tests.ts'",
     "precommit": "npm run compile && git add dist/index.d.ts",
     "prepare": "npm test",
-    "test": "npm run dtslint",
-    "dtslint": "npm run compile && dtslint dist"
+    "test": "npm run dtslint"
   },
   "keywords": [
     "Screeps",
@@ -32,8 +33,11 @@
     "dtslint": "^0.2.0",
     "husky": "^0.14.3",
     "prepend": "^1.0.2",
+    "prettier": "^1.14.3",
     "rimraf": "^2.6.2",
     "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-plugin-prettier": "^2.0.0",
     "typescript": "^2.9.2"
   }
 }

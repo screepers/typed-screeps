@@ -29,7 +29,6 @@ interface Source extends RoomObject {
     ticksToRegeneration: number;
 }
 
-interface SourceConstructor extends _Constructor<Source>, _ConstructorById<Source> {
-}
+interface SourceConstructor extends _Constructor<Source>, _ConstructorById<Source> {}
 
 declare const Source: SourceConstructor;

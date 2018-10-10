@@ -1,9 +1,11 @@
 {
-    "editor.tabSize": 4,
+    "editor.formatOnSave": true,
     "editor.insertSpaces": true,
+    "editor.tabSize": 4,
+    "editor.rulers": [140],
     "files.encoding": "utf8",
-    "files.trimTrailingWhitespace": true,
     "files.insertFinalNewline": true,
+    "files.trimTrailingWhitespace": true,
     "search.exclude": {
         "dist/**": true,
         "node_modules/**": true,

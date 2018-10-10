@@ -40,8 +40,7 @@ interface Structure<T extends StructureConstant = StructureConstant> extends Roo
     notifyWhenAttacked(enabled: boolean): ScreepsReturnCode;
 }
 
-interface StructureConstructor extends _Constructor<Structure>, _ConstructorById<Structure> {
-}
+interface StructureConstructor extends _Constructor<Structure>, _ConstructorById<Structure> {}
 
 declare const Structure: StructureConstructor;
 
@@ -66,8 +65,7 @@ interface OwnedStructure<T extends StructureConstant = StructureConstant> extend
     room: Room;
 }
 
-interface OwnedStructureConstructor extends _Constructor<OwnedStructure>, _ConstructorById<OwnedStructure> {
-}
+interface OwnedStructureConstructor extends _Constructor<OwnedStructure>, _ConstructorById<OwnedStructure> {}
 
 declare const OwnedStructure: OwnedStructureConstructor;
 
@@ -130,8 +128,7 @@ interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
     unclaim(): ScreepsReturnCode;
 }
 
-interface StructureControllerConstructor extends _Constructor<StructureController>, _ConstructorById<StructureController> {
-}
+interface StructureControllerConstructor extends _Constructor<StructureController>, _ConstructorById<StructureController> {}
 
 declare const StructureController: StructureControllerConstructor;
 
@@ -153,8 +150,7 @@ interface StructureExtension extends OwnedStructure<STRUCTURE_EXTENSION> {
     energyCapacity: number;
 }
 
-interface StructureExtensionConstructor extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension> {
-}
+interface StructureExtensionConstructor extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension> {}
 
 declare const StructureExtension: StructureExtensionConstructor;
 
@@ -190,8 +186,7 @@ interface StructureLink extends OwnedStructure<STRUCTURE_LINK> {
     transferEnergy(target: Creep | StructureLink, amount?: number): ScreepsReturnCode;
 }
 
-interface StructureLinkConstructor extends _Constructor<StructureLink>, _ConstructorById<StructureLink> {
-}
+interface StructureLinkConstructor extends _Constructor<StructureLink>, _ConstructorById<StructureLink> {}
 
 declare const StructureLink: StructureLinkConstructor;
 
@@ -208,8 +203,7 @@ interface StructureKeeperLair extends OwnedStructure<STRUCTURE_KEEPER_LAIR> {
     ticksToSpawn?: number;
 }
 
-interface StructureKeeperLairConstructor extends _Constructor<StructureKeeperLair>, _ConstructorById<StructureKeeperLair> {
-}
+interface StructureKeeperLairConstructor extends _Constructor<StructureKeeperLair>, _ConstructorById<StructureKeeperLair> {}
 
 declare const StructureKeeperLair: StructureKeeperLairConstructor;
 
@@ -226,8 +220,7 @@ interface StructureObserver extends OwnedStructure<STRUCTURE_OBSERVER> {
     observeRoom(roomName: string): ScreepsReturnCode;
 }
 
-interface StructureObserverConstructor extends _Constructor<StructureObserver>, _ConstructorById<StructureObserver> {
-}
+interface StructureObserverConstructor extends _Constructor<StructureObserver>, _ConstructorById<StructureObserver> {}
 
 declare const StructureObserver: StructureObserverConstructor;
 
@@ -247,8 +240,7 @@ interface StructurePowerBank extends OwnedStructure<STRUCTURE_POWER_BANK> {
     ticksToDecay: number;
 }
 
-interface StructurePowerBankConstructor extends _Constructor<StructurePowerBank>, _ConstructorById<StructurePowerBank> {
-}
+interface StructurePowerBankConstructor extends _Constructor<StructurePowerBank>, _ConstructorById<StructurePowerBank> {}
 
 declare const StructurePowerBank: StructurePowerBankConstructor;
 
@@ -286,8 +278,7 @@ interface StructurePowerSpawn extends OwnedStructure<STRUCTURE_POWER_SPAWN> {
     processPower(): ScreepsReturnCode;
 }
 
-interface StructurePowerSpawnConstructor extends _Constructor<StructurePowerSpawn>, _ConstructorById<StructurePowerSpawn> {
-}
+interface StructurePowerSpawnConstructor extends _Constructor<StructurePowerSpawn>, _ConstructorById<StructurePowerSpawn> {}
 
 declare const StructurePowerSpawn: StructurePowerSpawnConstructor;
 
@@ -315,8 +306,7 @@ interface StructureRampart extends OwnedStructure<STRUCTURE_RAMPART> {
     setPublic(isPublic: boolean): undefined;
 }
 
-interface StructureRampartConstructor extends _Constructor<StructureRampart>, _ConstructorById<StructureRampart> {
-}
+interface StructureRampartConstructor extends _Constructor<StructureRampart>, _ConstructorById<StructureRampart> {}
 
 declare const StructureRampart: StructureRampartConstructor;
 
@@ -333,8 +323,7 @@ interface StructureRoad extends Structure<STRUCTURE_ROAD> {
     ticksToDecay: number;
 }
 
-interface StructureRoadConstructor extends _Constructor<StructureRoad>, _ConstructorById<StructureRoad> {
-}
+interface StructureRoadConstructor extends _Constructor<StructureRoad>, _ConstructorById<StructureRoad> {}
 
 declare const StructureRoad: StructureRoadConstructor;
 
@@ -355,8 +344,7 @@ interface StructureStorage extends OwnedStructure<STRUCTURE_STORAGE> {
     storeCapacity: number;
 }
 
-interface StructureStorageConstructor extends _Constructor<StructureStorage>, _ConstructorById<StructureStorage> {
-}
+interface StructureStorageConstructor extends _Constructor<StructureStorage>, _ConstructorById<StructureStorage> {}
 
 declare const StructureStorage: StructureStorageConstructor;
 
@@ -394,8 +382,7 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
     repair(target: Structure): ScreepsReturnCode;
 }
 
-interface StructureTowerConstructor extends _Constructor<StructureTower>, _ConstructorById<StructureTower> {
-}
+interface StructureTowerConstructor extends _Constructor<StructureTower>, _ConstructorById<StructureTower> {}
 
 declare const StructureTower: StructureTowerConstructor;
 
@@ -410,8 +397,7 @@ interface StructureWall extends Structure<STRUCTURE_WALL> {
     ticksToLive: number;
 }
 
-interface StructureWallConstructor extends _Constructor<StructureWall>, _ConstructorById<StructureWall> {
-}
+interface StructureWallConstructor extends _Constructor<StructureWall>, _ConstructorById<StructureWall> {}
 
 declare const StructureWall: StructureWallConstructor;
 
@@ -426,8 +412,7 @@ interface StructureExtractor extends OwnedStructure<STRUCTURE_EXTRACTOR> {
     cooldown: number;
 }
 
-interface StructureExtractorConstructor extends _Constructor<StructureExtractor>, _ConstructorById<StructureExtractor> {
-}
+interface StructureExtractorConstructor extends _Constructor<StructureExtractor>, _ConstructorById<StructureExtractor> {}
 
 declare const StructureExtractor: StructureExtractorConstructor;
 
@@ -479,8 +464,7 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
     runReaction(lab1: StructureLab, lab2: StructureLab): ScreepsReturnCode;
 }
 
-interface StructureLabConstructor extends _Constructor<StructureLab>, _ConstructorById<StructureLab> {
-}
+interface StructureLabConstructor extends _Constructor<StructureLab>, _ConstructorById<StructureLab> {}
 
 declare const StructureLab: StructureLabConstructor;
 
@@ -511,8 +495,7 @@ interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
     send(resourceType: ResourceConstant, amount: number, destination: string, description?: string): ScreepsReturnCode;
 }
 
-interface StructureTerminalConstructor extends _Constructor<StructureTerminal>, _ConstructorById<StructureTerminal> {
-}
+interface StructureTerminalConstructor extends _Constructor<StructureTerminal>, _ConstructorById<StructureTerminal> {}
 
 declare const StructureTerminal: StructureTerminalConstructor;
 
@@ -536,8 +519,7 @@ interface StructureContainer extends Structure<STRUCTURE_CONTAINER> {
     ticksToDecay: number;
 }
 
-interface StructureContainerConstructor extends _Constructor<StructureContainer>, _ConstructorById<StructureContainer> {
-}
+interface StructureContainerConstructor extends _Constructor<StructureContainer>, _ConstructorById<StructureContainer> {}
 
 declare const StructureContainer: StructureContainerConstructor;
 
@@ -577,8 +559,7 @@ interface StructureNuker extends OwnedStructure<STRUCTURE_NUKER> {
     launchNuke(pos: RoomPosition): ScreepsReturnCode;
 }
 
-interface StructureNukerConstructor extends _Constructor<StructureNuker>, _ConstructorById<StructureNuker> {
-}
+interface StructureNukerConstructor extends _Constructor<StructureNuker>, _ConstructorById<StructureNuker> {}
 
 declare const StructureNuker: StructureNukerConstructor;
 
@@ -594,15 +575,14 @@ interface StructurePortal extends Structure<STRUCTURE_PORTAL> {
      * If this is an inter-shard portal, then this property contains an object with shard and room string properties.
      * Exact coordinates are undetermined, the creep will appear at any free spot in the destination room.
      */
-    destination: RoomPosition | { shard: string, room: string };
+    destination: RoomPosition | { shard: string; room: string };
     /**
      * The amount of game ticks when the portal disappears, or undefined when the portal is stable.
      */
     ticksToDecay: number | undefined;
 }
 
-interface StructurePortalConstructor extends _Constructor<StructurePortal>, _ConstructorById<StructurePortal> {
-}
+interface StructurePortalConstructor extends _Constructor<StructurePortal>, _ConstructorById<StructurePortal> {}
 
 declare const StructurePortal: StructurePortalConstructor;
 
@@ -610,28 +590,23 @@ declare const StructurePortal: StructurePortalConstructor;
  * A discriminated union on Structure.type of all owned structure types
  */
 type AnyOwnedStructure =
-    StructureController |
-    StructureExtension |
-    StructureExtractor |
-    StructureKeeperLair |
-    StructureLab |
-    StructureLink |
-    StructureNuker |
-    StructureObserver |
-    StructurePowerBank |
-    StructurePowerSpawn |
-    StructureRampart |
-    StructureSpawn |
-    StructureStorage |
-    StructureTerminal |
-    StructureTower;
+    | StructureController
+    | StructureExtension
+    | StructureExtractor
+    | StructureKeeperLair
+    | StructureLab
+    | StructureLink
+    | StructureNuker
+    | StructureObserver
+    | StructurePowerBank
+    | StructurePowerSpawn
+    | StructureRampart
+    | StructureSpawn
+    | StructureStorage
+    | StructureTerminal
+    | StructureTower;
 
 /**
  * A discriminated union on Structure.type of all structure types
  */
-type AnyStructure =
-    AnyOwnedStructure |
-    StructureContainer |
-    StructurePortal |
-    StructureRoad |
-    StructureWall;
+type AnyStructure = AnyOwnedStructure | StructureContainer | StructurePortal | StructureRoad | StructureWall;

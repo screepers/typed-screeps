@@ -12,23 +12,23 @@ type ExitKey = "1" | "3" | "5" | "7";
 // Return Codes
 
 type ScreepsReturnCode =
-  OK |
-  ERR_NOT_OWNER |
-  ERR_NO_PATH |
-  ERR_BUSY |
-  ERR_NAME_EXISTS |
-  ERR_NOT_FOUND |
-  ERR_NOT_ENOUGH_RESOURCES |
-  ERR_NOT_ENOUGH_ENERGY |
-  ERR_INVALID_TARGET |
-  ERR_FULL |
-  ERR_NOT_IN_RANGE |
-  ERR_INVALID_ARGS |
-  ERR_TIRED |
-  ERR_NO_BODYPART |
-  ERR_NOT_ENOUGH_EXTENSIONS |
-  ERR_RCL_NOT_ENOUGH |
-  ERR_GCL_NOT_ENOUGH;
+    | OK
+    | ERR_NOT_OWNER
+    | ERR_NO_PATH
+    | ERR_BUSY
+    | ERR_NAME_EXISTS
+    | ERR_NOT_FOUND
+    | ERR_NOT_ENOUGH_RESOURCES
+    | ERR_NOT_ENOUGH_ENERGY
+    | ERR_INVALID_TARGET
+    | ERR_FULL
+    | ERR_NOT_IN_RANGE
+    | ERR_INVALID_ARGS
+    | ERR_TIRED
+    | ERR_NO_BODYPART
+    | ERR_NOT_ENOUGH_EXTENSIONS
+    | ERR_RCL_NOT_ENOUGH
+    | ERR_GCL_NOT_ENOUGH;
 
 type OK = 0;
 type ERR_NOT_OWNER = -1;
@@ -48,54 +48,38 @@ type ERR_NOT_ENOUGH_EXTENSIONS = -6;
 type ERR_RCL_NOT_ENOUGH = -14;
 type ERR_GCL_NOT_ENOUGH = -15;
 
-type CreepActionReturnCode =
-  OK |
-  ERR_NOT_OWNER |
-  ERR_BUSY |
-  ERR_INVALID_TARGET |
-  ERR_NOT_IN_RANGE |
-  ERR_NO_BODYPART |
-  ERR_TIRED;
+type CreepActionReturnCode = OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART | ERR_TIRED;
 
-type CreepMoveReturnCode =
-  OK |
-  ERR_NOT_OWNER |
-  ERR_BUSY |
-  ERR_TIRED |
-  ERR_NO_BODYPART;
+type CreepMoveReturnCode = OK | ERR_NOT_OWNER | ERR_BUSY | ERR_TIRED | ERR_NO_BODYPART;
 
 // Find Constants
 
-type ExitConstant =
-  FIND_EXIT_TOP |
-  FIND_EXIT_RIGHT |
-  FIND_EXIT_BOTTOM |
-  FIND_EXIT_LEFT;
+type ExitConstant = FIND_EXIT_TOP | FIND_EXIT_RIGHT | FIND_EXIT_BOTTOM | FIND_EXIT_LEFT;
 
 type FindConstant =
-  FIND_EXIT_TOP |
-  FIND_EXIT_RIGHT |
-  FIND_EXIT_BOTTOM |
-  FIND_EXIT_LEFT |
-  FIND_EXIT |
-  FIND_CREEPS |
-  FIND_MY_CREEPS |
-  FIND_HOSTILE_CREEPS |
-  FIND_SOURCES_ACTIVE |
-  FIND_SOURCES |
-  FIND_DROPPED_RESOURCES |
-  FIND_STRUCTURES |
-  FIND_MY_STRUCTURES |
-  FIND_HOSTILE_STRUCTURES |
-  FIND_FLAGS |
-  FIND_CONSTRUCTION_SITES |
-  FIND_MY_SPAWNS |
-  FIND_HOSTILE_SPAWNS |
-  FIND_MY_CONSTRUCTION_SITES |
-  FIND_HOSTILE_CONSTRUCTION_SITES |
-  FIND_MINERALS |
-  FIND_NUKES |
-  FIND_TOMBSTONES;
+    | FIND_EXIT_TOP
+    | FIND_EXIT_RIGHT
+    | FIND_EXIT_BOTTOM
+    | FIND_EXIT_LEFT
+    | FIND_EXIT
+    | FIND_CREEPS
+    | FIND_MY_CREEPS
+    | FIND_HOSTILE_CREEPS
+    | FIND_SOURCES_ACTIVE
+    | FIND_SOURCES
+    | FIND_DROPPED_RESOURCES
+    | FIND_STRUCTURES
+    | FIND_MY_STRUCTURES
+    | FIND_HOSTILE_STRUCTURES
+    | FIND_FLAGS
+    | FIND_CONSTRUCTION_SITES
+    | FIND_MY_SPAWNS
+    | FIND_HOSTILE_SPAWNS
+    | FIND_MY_CONSTRUCTION_SITES
+    | FIND_HOSTILE_CONSTRUCTION_SITES
+    | FIND_MINERALS
+    | FIND_NUKES
+    | FIND_TOMBSTONES;
 
 type FIND_EXIT_TOP = 1;
 type FIND_EXIT_RIGHT = 3;
@@ -124,21 +108,17 @@ type FIND_TOMBSTONES = 118;
 
 // Filter Options
 
-interface FilterOptions<T extends FindConstant> { filter: FilterFunction<T> | FilterObject | string; }
+interface FilterOptions<T extends FindConstant> {
+    filter: FilterFunction<T> | FilterObject | string;
+}
 type FilterFunction<T extends FindConstant> = (object: FindTypes[T]) => boolean;
-interface FilterObject { [key: string]: any; }
+interface FilterObject {
+    [key: string]: any;
+}
 
 // Body Part Constants
 
-type BodyPartConstant =
-  MOVE |
-  WORK |
-  CARRY |
-  ATTACK |
-  RANGED_ATTACK |
-  TOUGH |
-  HEAL |
-  CLAIM;
+type BodyPartConstant = MOVE | WORK | CARRY | ATTACK | RANGED_ATTACK | TOUGH | HEAL | CLAIM;
 
 type MOVE = "move";
 type WORK = "work";
@@ -152,17 +132,17 @@ type CLAIM = "claim";
 // Look Constants
 
 type LookConstant =
-  LOOK_CREEPS |
-  LOOK_ENERGY |
-  LOOK_RESOURCES |
-  LOOK_SOURCES |
-  LOOK_MINERALS |
-  LOOK_STRUCTURES |
-  LOOK_FLAGS |
-  LOOK_CONSTRUCTION_SITES |
-  LOOK_NUKES |
-  LOOK_TERRAIN |
-  LOOK_TOMBSTONES;
+    | LOOK_CREEPS
+    | LOOK_ENERGY
+    | LOOK_RESOURCES
+    | LOOK_SOURCES
+    | LOOK_MINERALS
+    | LOOK_STRUCTURES
+    | LOOK_FLAGS
+    | LOOK_CONSTRUCTION_SITES
+    | LOOK_NUKES
+    | LOOK_TERRAIN
+    | LOOK_TOMBSTONES;
 
 type LOOK_CONSTRUCTION_SITES = "constructionSite";
 type LOOK_CREEPS = "creep";
@@ -178,15 +158,7 @@ type LOOK_TOMBSTONES = "tombstone";
 
 // Direction Constants
 
-type DirectionConstant =
-  TOP |
-  TOP_RIGHT |
-  RIGHT |
-  BOTTOM_RIGHT |
-  BOTTOM |
-  BOTTOM_LEFT |
-  LEFT |
-  TOP_LEFT;
+type DirectionConstant = TOP | TOP_RIGHT | RIGHT | BOTTOM_RIGHT | BOTTOM | BOTTOM_LEFT | LEFT | TOP_LEFT;
 
 type TOP = 1;
 type TOP_RIGHT = 2;
@@ -200,16 +172,16 @@ type TOP_LEFT = 8;
 // Color Constants
 
 type ColorConstant =
-  COLOR_RED |
-  COLOR_PURPLE |
-  COLOR_BLUE |
-  COLOR_CYAN |
-  COLOR_GREEN |
-  COLOR_YELLOW |
-  COLOR_ORANGE |
-  COLOR_BROWN |
-  COLOR_GREY |
-  COLOR_WHITE;
+    | COLOR_RED
+    | COLOR_PURPLE
+    | COLOR_BLUE
+    | COLOR_CYAN
+    | COLOR_GREEN
+    | COLOR_YELLOW
+    | COLOR_ORANGE
+    | COLOR_BROWN
+    | COLOR_GREY
+    | COLOR_WHITE;
 
 type COLOR_RED = 1;
 type COLOR_PURPLE = 2;
@@ -225,28 +197,28 @@ type COLOR_WHITE = 10;
 // Structure Constants
 
 type BuildableStructureConstant =
-  STRUCTURE_EXTENSION |
-  STRUCTURE_RAMPART |
-  STRUCTURE_ROAD |
-  STRUCTURE_SPAWN |
-  STRUCTURE_LINK |
-  STRUCTURE_WALL |
-  STRUCTURE_STORAGE |
-  STRUCTURE_TOWER |
-  STRUCTURE_OBSERVER |
-  STRUCTURE_POWER_SPAWN |
-  STRUCTURE_EXTRACTOR |
-  STRUCTURE_LAB |
-  STRUCTURE_TERMINAL |
-  STRUCTURE_CONTAINER |
-  STRUCTURE_NUKER;
+    | STRUCTURE_EXTENSION
+    | STRUCTURE_RAMPART
+    | STRUCTURE_ROAD
+    | STRUCTURE_SPAWN
+    | STRUCTURE_LINK
+    | STRUCTURE_WALL
+    | STRUCTURE_STORAGE
+    | STRUCTURE_TOWER
+    | STRUCTURE_OBSERVER
+    | STRUCTURE_POWER_SPAWN
+    | STRUCTURE_EXTRACTOR
+    | STRUCTURE_LAB
+    | STRUCTURE_TERMINAL
+    | STRUCTURE_CONTAINER
+    | STRUCTURE_NUKER;
 
 type StructureConstant =
-  BuildableStructureConstant |
-  STRUCTURE_KEEPER_LAIR |
-  STRUCTURE_CONTROLLER |
-  STRUCTURE_POWER_BANK |
-  STRUCTURE_PORTAL;
+    | BuildableStructureConstant
+    | STRUCTURE_KEEPER_LAIR
+    | STRUCTURE_CONTROLLER
+    | STRUCTURE_POWER_BANK
+    | STRUCTURE_PORTAL;
 
 type STRUCTURE_EXTENSION = "extension";
 type STRUCTURE_RAMPART = "rampart";
@@ -271,107 +243,105 @@ type STRUCTURE_PORTAL = "portal";
 // Resource Constants
 
 type ResourceConstant =
-  RESOURCE_ENERGY |
-  RESOURCE_POWER |
-  RESOURCE_UTRIUM |
-  RESOURCE_LEMERGIUM |
-  RESOURCE_KEANIUM |
-  RESOURCE_GHODIUM |
-  RESOURCE_ZYNTHIUM |
-  RESOURCE_OXYGEN |
-  RESOURCE_HYDROGEN |
-  RESOURCE_CATALYST |
-  RESOURCE_HYDROXIDE |
-  RESOURCE_ZYNTHIUM_KEANITE |
-  RESOURCE_UTRIUM_LEMERGITE |
-  RESOURCE_UTRIUM_HYDRIDE |
-  RESOURCE_UTRIUM_OXIDE |
-  RESOURCE_KEANIUM_HYDRIDE |
-  RESOURCE_KEANIUM_OXIDE |
-  RESOURCE_LEMERGIUM_HYDRIDE |
-  RESOURCE_LEMERGIUM_OXIDE |
-  RESOURCE_ZYNTHIUM_HYDRIDE |
-  RESOURCE_ZYNTHIUM_OXIDE |
-  RESOURCE_GHODIUM_HYDRIDE |
-  RESOURCE_GHODIUM_OXIDE |
-  RESOURCE_UTRIUM_ACID |
-  RESOURCE_UTRIUM_ALKALIDE |
-  RESOURCE_KEANIUM_ACID |
-  RESOURCE_KEANIUM_ALKALIDE |
-  RESOURCE_LEMERGIUM_ACID |
-  RESOURCE_LEMERGIUM_ALKALIDE |
-  RESOURCE_ZYNTHIUM_ACID |
-  RESOURCE_ZYNTHIUM_ALKALIDE |
-  RESOURCE_GHODIUM_ACID |
-  RESOURCE_GHODIUM_ALKALIDE |
-  RESOURCE_CATALYZED_UTRIUM_ACID |
-  RESOURCE_CATALYZED_UTRIUM_ALKALIDE |
-  RESOURCE_CATALYZED_KEANIUM_ACID |
-  RESOURCE_CATALYZED_KEANIUM_ALKALIDE |
-  RESOURCE_CATALYZED_LEMERGIUM_ACID |
-  RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE |
-  RESOURCE_CATALYZED_ZYNTHIUM_ACID |
-  RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE |
-  RESOURCE_CATALYZED_GHODIUM_ACID |
-  RESOURCE_CATALYZED_GHODIUM_ALKALIDE;
+    | RESOURCE_ENERGY
+    | RESOURCE_POWER
+    | RESOURCE_UTRIUM
+    | RESOURCE_LEMERGIUM
+    | RESOURCE_KEANIUM
+    | RESOURCE_GHODIUM
+    | RESOURCE_ZYNTHIUM
+    | RESOURCE_OXYGEN
+    | RESOURCE_HYDROGEN
+    | RESOURCE_CATALYST
+    | RESOURCE_HYDROXIDE
+    | RESOURCE_ZYNTHIUM_KEANITE
+    | RESOURCE_UTRIUM_LEMERGITE
+    | RESOURCE_UTRIUM_HYDRIDE
+    | RESOURCE_UTRIUM_OXIDE
+    | RESOURCE_KEANIUM_HYDRIDE
+    | RESOURCE_KEANIUM_OXIDE
+    | RESOURCE_LEMERGIUM_HYDRIDE
+    | RESOURCE_LEMERGIUM_OXIDE
+    | RESOURCE_ZYNTHIUM_HYDRIDE
+    | RESOURCE_ZYNTHIUM_OXIDE
+    | RESOURCE_GHODIUM_HYDRIDE
+    | RESOURCE_GHODIUM_OXIDE
+    | RESOURCE_UTRIUM_ACID
+    | RESOURCE_UTRIUM_ALKALIDE
+    | RESOURCE_KEANIUM_ACID
+    | RESOURCE_KEANIUM_ALKALIDE
+    | RESOURCE_LEMERGIUM_ACID
+    | RESOURCE_LEMERGIUM_ALKALIDE
+    | RESOURCE_ZYNTHIUM_ACID
+    | RESOURCE_ZYNTHIUM_ALKALIDE
+    | RESOURCE_GHODIUM_ACID
+    | RESOURCE_GHODIUM_ALKALIDE
+    | RESOURCE_CATALYZED_UTRIUM_ACID
+    | RESOURCE_CATALYZED_UTRIUM_ALKALIDE
+    | RESOURCE_CATALYZED_KEANIUM_ACID
+    | RESOURCE_CATALYZED_KEANIUM_ALKALIDE
+    | RESOURCE_CATALYZED_LEMERGIUM_ACID
+    | RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE
+    | RESOURCE_CATALYZED_ZYNTHIUM_ACID
+    | RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE
+    | RESOURCE_CATALYZED_GHODIUM_ACID
+    | RESOURCE_CATALYZED_GHODIUM_ALKALIDE;
 
 type _ResourceConstantSansEnergy =
-  RESOURCE_POWER |
-  RESOURCE_UTRIUM |
-  RESOURCE_LEMERGIUM |
-  RESOURCE_KEANIUM |
-  RESOURCE_GHODIUM |
-  RESOURCE_ZYNTHIUM |
-  RESOURCE_OXYGEN |
-  RESOURCE_HYDROGEN |
-  RESOURCE_CATALYST |
-  RESOURCE_HYDROXIDE |
-  RESOURCE_ZYNTHIUM_KEANITE |
-  RESOURCE_UTRIUM_LEMERGITE |
-  RESOURCE_UTRIUM_HYDRIDE |
-  RESOURCE_UTRIUM_OXIDE |
-  RESOURCE_KEANIUM_HYDRIDE |
-  RESOURCE_KEANIUM_OXIDE |
-  RESOURCE_LEMERGIUM_HYDRIDE |
-  RESOURCE_LEMERGIUM_OXIDE |
-  RESOURCE_ZYNTHIUM_HYDRIDE |
-  RESOURCE_ZYNTHIUM_OXIDE |
-  RESOURCE_GHODIUM_HYDRIDE |
-  RESOURCE_GHODIUM_OXIDE |
-  RESOURCE_UTRIUM_ACID |
-  RESOURCE_UTRIUM_ALKALIDE |
-  RESOURCE_KEANIUM_ACID |
-  RESOURCE_KEANIUM_ALKALIDE |
-  RESOURCE_LEMERGIUM_ACID |
-  RESOURCE_LEMERGIUM_ALKALIDE |
-  RESOURCE_ZYNTHIUM_ACID |
-  RESOURCE_ZYNTHIUM_ALKALIDE |
-  RESOURCE_GHODIUM_ACID |
-  RESOURCE_GHODIUM_ALKALIDE |
-  RESOURCE_CATALYZED_UTRIUM_ACID |
-  RESOURCE_CATALYZED_UTRIUM_ALKALIDE |
-  RESOURCE_CATALYZED_KEANIUM_ACID |
-  RESOURCE_CATALYZED_KEANIUM_ALKALIDE |
-  RESOURCE_CATALYZED_LEMERGIUM_ACID |
-  RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE |
-  RESOURCE_CATALYZED_ZYNTHIUM_ACID |
-  RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE |
-  RESOURCE_CATALYZED_GHODIUM_ACID |
-  RESOURCE_CATALYZED_GHODIUM_ALKALIDE;
+    | RESOURCE_POWER
+    | RESOURCE_UTRIUM
+    | RESOURCE_LEMERGIUM
+    | RESOURCE_KEANIUM
+    | RESOURCE_GHODIUM
+    | RESOURCE_ZYNTHIUM
+    | RESOURCE_OXYGEN
+    | RESOURCE_HYDROGEN
+    | RESOURCE_CATALYST
+    | RESOURCE_HYDROXIDE
+    | RESOURCE_ZYNTHIUM_KEANITE
+    | RESOURCE_UTRIUM_LEMERGITE
+    | RESOURCE_UTRIUM_HYDRIDE
+    | RESOURCE_UTRIUM_OXIDE
+    | RESOURCE_KEANIUM_HYDRIDE
+    | RESOURCE_KEANIUM_OXIDE
+    | RESOURCE_LEMERGIUM_HYDRIDE
+    | RESOURCE_LEMERGIUM_OXIDE
+    | RESOURCE_ZYNTHIUM_HYDRIDE
+    | RESOURCE_ZYNTHIUM_OXIDE
+    | RESOURCE_GHODIUM_HYDRIDE
+    | RESOURCE_GHODIUM_OXIDE
+    | RESOURCE_UTRIUM_ACID
+    | RESOURCE_UTRIUM_ALKALIDE
+    | RESOURCE_KEANIUM_ACID
+    | RESOURCE_KEANIUM_ALKALIDE
+    | RESOURCE_LEMERGIUM_ACID
+    | RESOURCE_LEMERGIUM_ALKALIDE
+    | RESOURCE_ZYNTHIUM_ACID
+    | RESOURCE_ZYNTHIUM_ALKALIDE
+    | RESOURCE_GHODIUM_ACID
+    | RESOURCE_GHODIUM_ALKALIDE
+    | RESOURCE_CATALYZED_UTRIUM_ACID
+    | RESOURCE_CATALYZED_UTRIUM_ALKALIDE
+    | RESOURCE_CATALYZED_KEANIUM_ACID
+    | RESOURCE_CATALYZED_KEANIUM_ALKALIDE
+    | RESOURCE_CATALYZED_LEMERGIUM_ACID
+    | RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE
+    | RESOURCE_CATALYZED_ZYNTHIUM_ACID
+    | RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE
+    | RESOURCE_CATALYZED_GHODIUM_ACID
+    | RESOURCE_CATALYZED_GHODIUM_ALKALIDE;
 
 type MineralConstant =
-  RESOURCE_UTRIUM |
-  RESOURCE_LEMERGIUM |
-  RESOURCE_KEANIUM |
-  RESOURCE_GHODIUM |
-  RESOURCE_ZYNTHIUM |
-  RESOURCE_OXYGEN |
-  RESOURCE_HYDROGEN |
-  RESOURCE_CATALYST;
+    | RESOURCE_UTRIUM
+    | RESOURCE_LEMERGIUM
+    | RESOURCE_KEANIUM
+    | RESOURCE_GHODIUM
+    | RESOURCE_ZYNTHIUM
+    | RESOURCE_OXYGEN
+    | RESOURCE_HYDROGEN
+    | RESOURCE_CATALYST;
 
-type MarketResourceConstant =
-  ResourceConstant |
-  SUBSCRIPTION_TOKEN;
+type MarketResourceConstant = ResourceConstant | SUBSCRIPTION_TOKEN;
 
 type RESOURCE_ENERGY = "energy";
 type RESOURCE_POWER = "power";
@@ -426,16 +396,16 @@ type SUBSCRIPTION_TOKEN = "token";
 type TOMBSTONE_DECAY_PER_PART = 5;
 
 type EventConstant =
-  EVENT_ATTACK |
-  EVENT_OBJECT_DESTROYED |
-  EVENT_ATTACK_CONTROLLER |
-  EVENT_BUILD |
-  EVENT_HARVEST |
-  EVENT_HEAL |
-  EVENT_REPAIR |
-  EVENT_RESERVE_CONTROLLER |
-  EVENT_UPGRADE_CONTROLLER |
-  EVENT_EXIT;
+    | EVENT_ATTACK
+    | EVENT_OBJECT_DESTROYED
+    | EVENT_ATTACK_CONTROLLER
+    | EVENT_BUILD
+    | EVENT_HARVEST
+    | EVENT_HEAL
+    | EVENT_REPAIR
+    | EVENT_RESERVE_CONTROLLER
+    | EVENT_UPGRADE_CONTROLLER
+    | EVENT_EXIT;
 
 type EVENT_ATTACK = 1;
 type EVENT_OBJECT_DESTROYED = 2;
@@ -449,12 +419,12 @@ type EVENT_UPGRADE_CONTROLLER = 9;
 type EVENT_EXIT = 10;
 
 type EventAttackType =
-  EVENT_ATTACK_TYPE_MELEE |
-  EVENT_ATTACK_TYPE_RANGED |
-  EVENT_ATTACK_TYPE_RANGED_MASS |
-  EVENT_ATTACK_TYPE_DISMANTLE |
-  EVENT_ATTACK_TYPE_HIT_BACK |
-  EVENT_ATTACK_TYPE_NUKE;
+    | EVENT_ATTACK_TYPE_MELEE
+    | EVENT_ATTACK_TYPE_RANGED
+    | EVENT_ATTACK_TYPE_RANGED_MASS
+    | EVENT_ATTACK_TYPE_DISMANTLE
+    | EVENT_ATTACK_TYPE_HIT_BACK
+    | EVENT_ATTACK_TYPE_NUKE;
 
 type EVENT_ATTACK_TYPE_MELEE = 1;
 type EVENT_ATTACK_TYPE_RANGED = 2;
@@ -463,84 +433,91 @@ type EVENT_ATTACK_TYPE_DISMANTLE = 4;
 type EVENT_ATTACK_TYPE_HIT_BACK = 5;
 type EVENT_ATTACK_TYPE_NUKE = 6;
 
-type EventHealType =
-  EVENT_HEAL_TYPE_MELEE |
-  EVENT_HEAL_TYPE_RANGED;
+type EventHealType = EVENT_HEAL_TYPE_MELEE | EVENT_HEAL_TYPE_RANGED;
 
 type EVENT_HEAL_TYPE_MELEE = 1;
 type EVENT_HEAL_TYPE_RANGED = 2;
 
-type EventDestroyType =
-  "creep" |
-  StructureConstant;
+type EventDestroyType = "creep" | StructureConstant;
 
-type EventItem = {
-  type: EVENT_ATTACK;
-  objectId: string;
-  data: {
-    targetId: string;
-    damage: number;
-    attackType: EventAttackType;
-  }
-} | {
-  type: EVENT_OBJECT_DESTROYED;
-  objectId: string;
-  data: {
-    type: EventDestroyType;
-  }
-} | {
-  type: EVENT_ATTACK_CONTROLLER;
-  objectId: string;
-} | {
-  type: EVENT_BUILD;
-  objectId: string;
-  data: {
-    targetId: string;
-    amount: number;
-    energySpent: number;
-  }
-} | {
-  type: EVENT_HARVEST;
-  objectId: string;
-  data: {
-    targetId: string;
-    amount: number;
-  }
-} | {
-  type: EVENT_HEAL;
-  objectId: string;
-  data: {
-    targetId: string;
-    amount: number;
-    healType: EventHealType;
-  }
-} | {
-  type: EVENT_REPAIR;
-  objectId: string;
-  data: {
-    targetId: string;
-    amount: number;
-    energySpent: number;
-  }
-} | {
-  type: EVENT_RESERVE_CONTROLLER;
-  objectId: string;
-  data: {
-    amount: number;
-  }
-} | {
-  type: EVENT_UPGRADE_CONTROLLER;
-  objectId: string;
-  data: {
-    amount: number;
-    energySpent: number;
-} | {
-  type: EVENT_EXIT;
-  objectId: string;
-  data: {
-    room: string;
-    x: number;
-    y: number;
-  }
-}
-};
+type EventItem =
+    | {
+          type: EVENT_ATTACK;
+          objectId: string;
+          data: {
+              targetId: string;
+              damage: number;
+              attackType: EventAttackType;
+          };
+      }
+    | {
+          type: EVENT_OBJECT_DESTROYED;
+          objectId: string;
+          data: {
+              type: EventDestroyType;
+          };
+      }
+    | {
+          type: EVENT_ATTACK_CONTROLLER;
+          objectId: string;
+      }
+    | {
+          type: EVENT_BUILD;
+          objectId: string;
+          data: {
+              targetId: string;
+              amount: number;
+              energySpent: number;
+          };
+      }
+    | {
+          type: EVENT_HARVEST;
+          objectId: string;
+          data: {
+              targetId: string;
+              amount: number;
+          };
+      }
+    | {
+          type: EVENT_HEAL;
+          objectId: string;
+          data: {
+              targetId: string;
+              amount: number;
+              healType: EventHealType;
+          };
+      }
+    | {
+          type: EVENT_REPAIR;
+          objectId: string;
+          data: {
+              targetId: string;
+              amount: number;
+              energySpent: number;
+          };
+      }
+    | {
+          type: EVENT_RESERVE_CONTROLLER;
+          objectId: string;
+          data: {
+              amount: number;
+          };
+      }
+    | {
+          type: EVENT_UPGRADE_CONTROLLER;
+          objectId: string;
+          data:
+              | {
+                    amount: number;
+                    energySpent: number;
+                }
+              | {
+                    type: EVENT_EXIT;
+                    objectId: string;
+                    data: {
+                        room: string;
+                        x: number;
+                        y: number;
+                    };
+                };
+      };

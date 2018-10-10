@@ -29,7 +29,6 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
     ticksToRegeneration: number;
 }
 
-interface MineralConstructor extends _Constructor<Mineral>, _ConstructorById<Mineral> {
-}
+interface MineralConstructor extends _Constructor<Mineral>, _ConstructorById<Mineral> {}
 
 declare const Mineral: MineralConstructor;

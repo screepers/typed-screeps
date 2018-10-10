@@ -200,5 +200,4 @@ interface SpawnOptions {
     directions?: DirectionConstant[];
 }
 
-interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {
-}
+interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {}
