@@ -637,7 +637,22 @@ declare const SYSTEM_USERNAME: string;
 declare const TOMBSTONE_DECAY_PER_PART: 5;
 
 declare const EVENT_ATTACK: 1;
-declare const EVENT_HEAL: 6;
+declare const EVENT_OBJECT_DESTROYED: 2;
+declare const EVENT_ATTACK_CONTROLLER: 3;
+declare const EVENT_BUILD: 4;
 declare const EVENT_HARVEST: 5;
+declare const EVENT_HEAL: 6;
 declare const EVENT_REPAIR: 7;
+declare const EVENT_RESERVE_CONTROLLER: 8;
 declare const EVENT_UPGRADE_CONTROLLER: 9;
+declare const EVENT_EXIT: 10;
+
+declare const EVENT_ATTACK_TYPE_MELEE: 1;
+declare const EVENT_ATTACK_TYPE_RANGED: 2;
+declare const EVENT_ATTACK_TYPE_RANGED_MASS: 3;
+declare const EVENT_ATTACK_TYPE_DISMANTLE: 4;
+declare const EVENT_ATTACK_TYPE_HIT_BACK: 5;
+declare const EVENT_ATTACK_TYPE_NUKE: 6;
+
+declare const EVENT_HEAL_TYPE_MELEE: 1;
+declare const EVENT_HEAL_TYPE_RANGED: 2;
