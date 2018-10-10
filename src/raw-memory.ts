@@ -2,11 +2,11 @@
  * RawMemory object allows to implement your own memory stringifier instead of built-in serializer based on JSON.stringify.
  */
 interface RawMemory {
-    /**
-     * An object with asynchronous memory segments available on this tick. Each object key is the segment ID with data in string values.
-     * Use RawMemory.setActiveSegments to fetch segments on the next tick. Segments data is saved automatically in the end of the tick.
-     */
-    segments: string[];
+  /**
+   * An object with asynchronous memory segments available on this tick. Each object key is the segment ID with data in string values.
+   * Use RawMemory.setActiveSegments to fetch segments on the next tick. Segments data is saved automatically in the end of the tick.
+   */
+  segments: {[segmentId: number]: string};
 
     /**
      * An object with a memory segment of another player available on this tick. Use `setActiveForeignSegment` to fetch segments on the next tick.

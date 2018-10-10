@@ -21,6 +21,10 @@ interface Room {
      */
     energyCapacityAvailable: number;
     /**
+     * Returns an array of events happened on the previous tick in this room.
+     */
+    getEventLog(raw?: boolean): EventItem[];
+    /**
      * A shorthand to `Memory.rooms[room.name]`. You can use it for quick access the room’s specific memory data object.
      */
     memory: RoomMemory;
@@ -67,7 +71,12 @@ interface Room {
      * @param name The name of the structure, for structures that support it (currently only spawns).
      * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
      */
-    createConstructionSite(x: number, y: number, structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
+    createConstructionSite(
+        x: number,
+        y: number,
+        structureType: STRUCTURE_SPAWN,
+        name?: string
+    ): ScreepsReturnCode;
     /**
      * Create new ConstructionSite at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
@@ -214,7 +223,14 @@ interface Room {
      * @param asArray Flatten the results into an array?
      * @returns An object with the sstructure object[X coord][y coord] as an array of found objects.
      */
-    lookForAtArea<T extends keyof AllLookAtTypes>(type: T, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
+    lookForAtArea<T extends keyof AllLookAtTypes>(
+        type: T,
+        top: number,
+        left: number,
+        bottom: number,
+        right: number,
+        asArray?: false
+    ): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
     /**
      * Get the given objets in the supplied area.
      * @param type One of the LOOK_* constants
@@ -225,7 +241,14 @@ interface Room {
      * @param asArray Flatten the results into an array?
      * @returns An array of found objects with an x & y property for their position
      */
-    lookForAtArea<T extends keyof AllLookAtTypes>(type: T, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<AllLookAtTypes[T], T>;
+    lookForAtArea<T extends keyof AllLookAtTypes>(
+        type: T,
+        top: number,
+        left: number,
+        bottom: number,
+        right: number,
+        asArray: true
+    ): LookForAtAreaResultArray<AllLookAtTypes[T], T>;
 
     /**
      * Serialize a path array into a short string representation, which is suitable to store in memory.

@@ -1,11 +1,11 @@
-// Type definitions for Screeps 2.4
+// Type definitions for Screeps 2.5
 // Project: https://github.com/screeps/screeps
 // Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
 //                 Nhan Ho <https://github.com/NhanHo>
 //                 Bryan <https://github.com/bryanbecker>
 //                 Resi Respati <https://github.com/resir014>
 //                 Adam Laycock <https://github.com/Arcath>
-//                 Dominic Marcuse <https://github.com/apemanzilla>
+//                 Dominic Marcuse <https://github.com/dmarcuse>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.6
 
@@ -646,6 +646,27 @@ declare const INVADERS_ENERGY_GOAL: number;
 declare const SYSTEM_USERNAME: string;
 
 declare const TOMBSTONE_DECAY_PER_PART: 5;
+
+declare const EVENT_ATTACK: 1;
+declare const EVENT_OBJECT_DESTROYED: 2;
+declare const EVENT_ATTACK_CONTROLLER: 3;
+declare const EVENT_BUILD: 4;
+declare const EVENT_HARVEST: 5;
+declare const EVENT_HEAL: 6;
+declare const EVENT_REPAIR: 7;
+declare const EVENT_RESERVE_CONTROLLER: 8;
+declare const EVENT_UPGRADE_CONTROLLER: 9;
+declare const EVENT_EXIT: 10;
+
+declare const EVENT_ATTACK_TYPE_MELEE: 1;
+declare const EVENT_ATTACK_TYPE_RANGED: 2;
+declare const EVENT_ATTACK_TYPE_RANGED_MASS: 3;
+declare const EVENT_ATTACK_TYPE_DISMANTLE: 4;
+declare const EVENT_ATTACK_TYPE_HIT_BACK: 5;
+declare const EVENT_ATTACK_TYPE_NUKE: 6;
+
+declare const EVENT_HEAL_TYPE_MELEE: 1;
+declare const EVENT_HEAL_TYPE_RANGED: 2;
 /**
  * A site of a structure which is currently under construction.
  */
@@ -1586,9 +1607,11 @@ type FIND_MINERALS = 116;
 type FIND_NUKES = 117;
 type FIND_TOMBSTONES = 118;
 
-type FilterOptions<T extends FindConstant> = string | FilterFunction<T> | { filter: FilterFunction<T> };
+// Filter Options
 
+interface FilterOptions<T extends FindConstant> { filter: FilterFunction<T> | FilterObject | string; }
 type FilterFunction<T extends FindConstant> = (object: FindTypes[T]) => boolean;
+interface FilterObject { [key: string]: any; }
 
 // Body Part Constants
 
@@ -1834,6 +1857,126 @@ type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
 type SUBSCRIPTION_TOKEN = "token";
 
 type TOMBSTONE_DECAY_PER_PART = 5;
+
+type EventConstant =
+  EVENT_ATTACK |
+  EVENT_OBJECT_DESTROYED |
+  EVENT_ATTACK_CONTROLLER |
+  EVENT_BUILD |
+  EVENT_HARVEST |
+  EVENT_HEAL |
+  EVENT_REPAIR |
+  EVENT_RESERVE_CONTROLLER |
+  EVENT_UPGRADE_CONTROLLER |
+  EVENT_EXIT;
+
+type EVENT_ATTACK = 1;
+type EVENT_OBJECT_DESTROYED = 2;
+type EVENT_ATTACK_CONTROLLER = 3;
+type EVENT_BUILD = 4;
+type EVENT_HARVEST = 5;
+type EVENT_HEAL = 6;
+type EVENT_REPAIR = 7;
+type EVENT_RESERVE_CONTROLLER = 8;
+type EVENT_UPGRADE_CONTROLLER = 9;
+type EVENT_EXIT = 10;
+
+type EventAttackType =
+  EVENT_ATTACK_TYPE_MELEE |
+  EVENT_ATTACK_TYPE_RANGED |
+  EVENT_ATTACK_TYPE_RANGED_MASS |
+  EVENT_ATTACK_TYPE_DISMANTLE |
+  EVENT_ATTACK_TYPE_HIT_BACK |
+  EVENT_ATTACK_TYPE_NUKE;
+
+type EVENT_ATTACK_TYPE_MELEE = 1;
+type EVENT_ATTACK_TYPE_RANGED = 2;
+type EVENT_ATTACK_TYPE_RANGED_MASS = 3;
+type EVENT_ATTACK_TYPE_DISMANTLE = 4;
+type EVENT_ATTACK_TYPE_HIT_BACK = 5;
+type EVENT_ATTACK_TYPE_NUKE = 6;
+
+type EventHealType =
+  EVENT_HEAL_TYPE_MELEE |
+  EVENT_HEAL_TYPE_RANGED;
+
+type EVENT_HEAL_TYPE_MELEE = 1;
+type EVENT_HEAL_TYPE_RANGED = 2;
+
+type EventDestroyType =
+  "creep" |
+  StructureConstant;
+
+type EventItem = {
+  type: EVENT_ATTACK;
+  objectId: string;
+  data: {
+    targetId: string;
+    damage: number;
+    attackType: EventAttackType;
+  }
+} | {
+  type: EVENT_OBJECT_DESTROYED;
+  objectId: string;
+  data: {
+    type: EventDestroyType;
+  }
+} | {
+  type: EVENT_ATTACK_CONTROLLER;
+  objectId: string;
+} | {
+  type: EVENT_BUILD;
+  objectId: string;
+  data: {
+    targetId: string;
+    amount: number;
+    energySpent: number;
+  }
+} | {
+  type: EVENT_HARVEST;
+  objectId: string;
+  data: {
+    targetId: string;
+    amount: number;
+  }
+} | {
+  type: EVENT_HEAL;
+  objectId: string;
+  data: {
+    targetId: string;
+    amount: number;
+    healType: EventHealType;
+  }
+} | {
+  type: EVENT_REPAIR;
+  objectId: string;
+  data: {
+    targetId: string;
+    amount: number;
+    energySpent: number;
+  }
+} | {
+  type: EVENT_RESERVE_CONTROLLER;
+  objectId: string;
+  data: {
+    amount: number;
+  }
+} | {
+  type: EVENT_UPGRADE_CONTROLLER;
+  objectId: string;
+  data: {
+    amount: number;
+    energySpent: number;
+} | {
+  type: EVENT_EXIT;
+  objectId: string;
+  data: {
+    room: string;
+    x: number;
+    y: number;
+  }
+}
+};
 /**
  * The options that can be accepted by `findRoute()` and friends.
  */
@@ -1900,7 +2043,11 @@ interface GameMap {
      * @param pos The position object.
      */
     getTerrainAt(pos: RoomPosition): Terrain;
-
+    /**
+     * Get room terrain for the specified room. This method works for any room in the world even if you have no access to it.
+     * @param roomName String name of the room.
+     */
+    getRoomTerrain(roomName: string): RoomTerrain;
     /**
      * Returns the world size as a number of rooms between world corners. For example, for a world with rooms from W50N50 to E50S50 this method will return 102.
      */
@@ -2266,11 +2413,11 @@ declare const PathFinder: PathFinder;
  * RawMemory object allows to implement your own memory stringifier instead of built-in serializer based on JSON.stringify.
  */
 interface RawMemory {
-    /**
-     * An object with asynchronous memory segments available on this tick. Each object key is the segment ID with data in string values.
-     * Use RawMemory.setActiveSegments to fetch segments on the next tick. Segments data is saved automatically in the end of the tick.
-     */
-    segments: string[];
+  /**
+   * An object with asynchronous memory segments available on this tick. Each object key is the segment ID with data in string values.
+   * Use RawMemory.setActiveSegments to fetch segments on the next tick. Segments data is saved automatically in the end of the tick.
+   */
+  segments: {[segmentId: number]: string};
 
     /**
      * An object with a memory segment of another player available on this tick. Use `setActiveForeignSegment` to fetch segments on the next tick.
@@ -2444,10 +2591,10 @@ interface RoomPosition {
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      * @returns An instance of a RoomObject.
      */
-    findClosestByPath<K extends FindConstant>(type: K, opts?: FindPathOpts & { filter?: FilterFunction<K>; algorithm?: string }): FindTypes[K] | null;
+    findClosestByPath<K extends FindConstant>(type: K, opts?: FindPathOpts & FilterOptions<K> & { algorithm?: string }): FindTypes[K] | null;
     findClosestByPath<T extends Structure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FindPathOpts & { filter?: FilterFunction<FIND_STRUCTURES>; algorithm?: string },
+        opts?: FindPathOpts & FilterOptions<FIND_STRUCTURES> & { algorithm?: string }
     ): T | null;
     /**
      * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
@@ -2461,8 +2608,11 @@ interface RoomPosition {
      * @param type Any of the FIND_* constants.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<K extends FindConstant>(type: K, opts?: { filter: FilterFunction<K> }): FindTypes[K] | null;
-    findClosestByRange<T extends Structure>(type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES, opts?: { filter: FilterFunction<FIND_STRUCTURES> }): T | null;
+    findClosestByRange<K extends FindConstant>(type: K, opts?: FilterOptions<K>): FindTypes[K] | null;
+    findClosestByRange<T extends Structure>(
+        type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
+        opts?: FilterOptions<FIND_STRUCTURES>
+    ): T | null;
     /**
      * Find the object with the shortest linear distance from the given position.
      * @param objects An array of RoomPositions or objects with a RoomPosition.
@@ -2475,8 +2625,12 @@ interface RoomPosition {
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<K extends FindConstant>(type: K, range: number, opts?: { filter: any | string }): Array<FindTypes[K]>;
-    findInRange<T extends Structure>(type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES, range: number, opts?: { filter: FilterFunction<FIND_STRUCTURES> }): T[];
+    findInRange<K extends FindConstant>(type: K, range: number, opts?: FilterOptions<K>): Array<FindTypes[K]>;
+    findInRange<T extends Structure>(
+        type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
+        range: number,
+        opts?: FilterOptions<FIND_STRUCTURES>
+    ): T[];
     /**
      * Find all objects in the specified linear range.
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
@@ -2581,6 +2735,18 @@ interface RoomPositionConstructor extends _Constructor<RoomPosition> {
 }
 
 declare const RoomPosition: RoomPositionConstructor;
+/**
+ * Result of Object that contains all terrain for a room
+ */
+interface RoomTerrain {
+    /**
+     * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
+     * @param x X position in the room.
+     * @param y Y position in the room.
+     * @return number Number of terrain mask like: TERRAIN_MASK_SWAMP | TERRAIN_MASK_WALL
+     */
+    get(x: number, y: number): number;
+}
 declare class RoomVisual {
     /**
      * You can create new RoomVisual object using its constructor.
@@ -2799,6 +2965,10 @@ interface Room {
      */
     energyCapacityAvailable: number;
     /**
+     * Returns an array of events happened on the previous tick in this room.
+     */
+    getEventLog(raw?: boolean): EventItem[];
+    /**
      * A shorthand to `Memory.rooms[room.name]`. You can use it for quick access the room’s specific memory data object.
      */
     memory: RoomMemory;
@@ -2845,7 +3015,12 @@ interface Room {
      * @param name The name of the structure, for structures that support it (currently only spawns).
      * @returns Result Code: OK, ERR_INVALID_TARGET, ERR_INVALID_ARGS, ERR_RCL_NOT_ENOUGH
      */
-    createConstructionSite(x: number, y: number, structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
+    createConstructionSite(
+        x: number,
+        y: number,
+        structureType: STRUCTURE_SPAWN,
+        name?: string
+    ): ScreepsReturnCode;
     /**
      * Create new ConstructionSite at the specified location.
      * @param pos Can be a RoomPosition object or any object containing RoomPosition.
@@ -2992,7 +3167,14 @@ interface Room {
      * @param asArray Flatten the results into an array?
      * @returns An object with the sstructure object[X coord][y coord] as an array of found objects.
      */
-    lookForAtArea<T extends keyof AllLookAtTypes>(type: T, top: number, left: number, bottom: number, right: number, asArray?: false): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
+    lookForAtArea<T extends keyof AllLookAtTypes>(
+        type: T,
+        top: number,
+        left: number,
+        bottom: number,
+        right: number,
+        asArray?: false
+    ): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
     /**
      * Get the given objets in the supplied area.
      * @param type One of the LOOK_* constants
@@ -3003,7 +3185,14 @@ interface Room {
      * @param asArray Flatten the results into an array?
      * @returns An array of found objects with an x & y property for their position
      */
-    lookForAtArea<T extends keyof AllLookAtTypes>(type: T, top: number, left: number, bottom: number, right: number, asArray: true): LookForAtAreaResultArray<AllLookAtTypes[T], T>;
+    lookForAtArea<T extends keyof AllLookAtTypes>(
+        type: T,
+        top: number,
+        left: number,
+        bottom: number,
+        right: number,
+        asArray: true
+    ): LookForAtAreaResultArray<AllLookAtTypes[T], T>;
 
     /**
      * Serialize a path array into a short string representation, which is suitable to store in memory.
