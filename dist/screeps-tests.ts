@@ -130,6 +130,7 @@ function keys<T>(o: T): Array<keyof T> {
 
 {
     const exits = Game.map.describeExits("W8N3");
+    // tslint:disable-next-line:newline-per-chained-call
     keys(exits).map(exitKey => {
         const nextRoom = exits[exitKey];
         const exitDir = +exitKey as ExitConstant;
@@ -315,6 +316,7 @@ function keys<T>(o: T): Array<keyof T> {
 {
     const pfCreep = Game.creeps.John;
 
+    // tslint:disable-next-line:newline-per-chained-call
     const goals = pfCreep.room.find(FIND_SOURCES).map(source => {
         // We can't actually walk on sources-- set `range` to 1
         // so we path next to it.
@@ -337,6 +339,7 @@ function keys<T>(o: T): Array<keyof T> {
             }
             const costs = new PathFinder.CostMatrix();
 
+            // tslint:disable-next-line:newline-per-chained-call
             curRoom.find(FIND_STRUCTURES).forEach(struct => {
                 if (struct.structureType === STRUCTURE_ROAD) {
                     // Favor roads over plain tiles
@@ -351,6 +354,7 @@ function keys<T>(o: T): Array<keyof T> {
             });
 
             // Avoid creeps in the room
+            // tslint:disable-next-line:newline-per-chained-call
             curRoom.find(FIND_CREEPS).forEach(thisCreep => {
                 costs.set(thisCreep.pos.x, thisCreep.pos.y, 0xff);
             });
