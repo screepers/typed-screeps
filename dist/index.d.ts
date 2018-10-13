@@ -3196,8 +3196,8 @@ interface Room {
      */
     getPositionAt(x: number, y: number): RoomPosition | null;
     /**
-     * Get room terrain for the specified room. This method works for any room in the world even if you have no access to it.
-     * @param roomName String name of the room.
+     * Get a Room.Terrain object which provides fast access to static terrain data.
+     * This method works for any room in the world even if you have no access to it.
      */
     getTerrain(): RoomTerrain;
     /**
