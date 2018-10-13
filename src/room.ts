@@ -175,6 +175,11 @@ interface Room {
      */
     getPositionAt(x: number, y: number): RoomPosition | null;
     /**
+     * Get room terrain for the specified room. This method works for any room in the world even if you have no access to it.
+     * @param roomName String name of the room.
+     */
+    getTerrain(): RoomTerrain;
+    /**
      * Get the list of objects at the specified room position.
      * @param x The X position.
      * @param y The Y position.
@@ -274,6 +279,9 @@ interface Room {
 
 interface RoomConstructor extends _Constructor<Room> {
     new (id: string): Room;
+
+    Terrain: RoomTerrainConstructor;
+
     /**
      * Serialize a path array into a short string representation, which is suitable to store in memory.
      * @param path A path array retrieved from `Room.findPath`.

@@ -240,6 +240,11 @@ type STRUCTURE_CONTAINER = "container";
 type STRUCTURE_NUKER = "nuker";
 type STRUCTURE_PORTAL = "portal";
 
+// Terrain mask constants
+type TERRAIN_MASK_WALL = 1;
+type TERRAIN_MASK_SWAMP = 2;
+type TERRAIN_MASK_LAVA = 4;
+
 // Resource Constants
 
 type ResourceConstant =
