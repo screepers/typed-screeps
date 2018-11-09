@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.5.2] - 2018-11-09
+
+### Added
+
+- Implements `Room.Terrain` and `room.getTerrain()` ([#103](https://github.com/screepers/typed-screeps/pull/103))
+
 ## [2.5.1] - 2018-10-11
 
 ### Fixed
