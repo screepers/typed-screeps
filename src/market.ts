@@ -14,7 +14,7 @@ interface Market {
     /**
      * An object with your active and inactive buy/sell orders on the market.
      */
-    orders: { [key: string]: Order };
+    orders: { [key: string]: Order | undefined };
     /**
      * An array of the last 100 outgoing transactions from your terminals
      */

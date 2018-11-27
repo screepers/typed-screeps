@@ -1090,11 +1090,11 @@ interface Game {
     /**
      * A hash containing all your creeps with creep names as hash keys.
      */
-    creeps: { [creepName: string]: Creep };
+    creeps: { [creepName: string]: Creep | undefined };
     /**
      * A hash containing all your flags with flag names as hash keys.
      */
-    flags: { [flagName: string]: Flag };
+    flags: { [flagName: string]: Flag | undefined };
     /**
      * Your Global Control Level.
      */
@@ -1115,20 +1115,20 @@ interface Game {
      * A hash containing all the rooms available to you with room names as hash keys.
      * A room is visible if you have a creep or an owned structure in it.
      */
-    rooms: { [roomName: string]: Room };
+    rooms: { [roomName: string]: Room | undefined };
     /**
      * A hash containing all your spawns with spawn names as hash keys.
      */
-    spawns: { [spawnName: string]: StructureSpawn };
+    spawns: { [spawnName: string]: StructureSpawn | undefined };
     /**
      * A hash containing all your structures with structure id as hash keys.
      */
-    structures: { [structureId: string]: Structure };
+    structures: { [structureId: string]: Structure | undefined };
 
     /**
      * A hash containing all your construction sites with their id as hash keys.
      */
-    constructionSites: { [constructionSiteId: string]: ConstructionSite };
+    constructionSites: { [constructionSiteId: string]: ConstructionSite | undefined };
 
     /**
      * An object describing the world shard where your script is currently being executed in.
@@ -2131,7 +2131,7 @@ interface Market {
     /**
      * An object with your active and inactive buy/sell orders on the market.
      */
-    orders: { [key: string]: Order };
+    orders: { [key: string]: Order | undefined };
     /**
      * An array of the last 100 outgoing transactions from your terminals
      */
@@ -2251,10 +2251,10 @@ interface OrderFilter {
 }
 interface Memory {
     [name: string]: any;
-    creeps: { [name: string]: CreepMemory };
-    flags: { [name: string]: FlagMemory };
-    rooms: { [name: string]: RoomMemory };
-    spawns: { [name: string]: SpawnMemory };
+    creeps: { [name: string]: CreepMemory | undefined };
+    flags: { [name: string]: FlagMemory | undefined };
+    rooms: { [name: string]: RoomMemory | undefined };
+    spawns: { [name: string]: SpawnMemory | undefined };
 }
 
 interface CreepMemory {}
