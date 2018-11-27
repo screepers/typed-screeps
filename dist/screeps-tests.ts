@@ -9,14 +9,14 @@
 
 // Sample inputs
 
-const creep: Creep = Game.creeps.sampleCreep;
-const room: Room = Game.rooms.W10S10;
-const flag: Flag = Game.flags.Flag1;
-const spawn: StructureSpawn = Game.spawns.Spawn1;
+const creep: Creep = Game.creeps.sampleCreep!;
+const room: Room = Game.rooms.W10S10!;
+const flag: Flag = Game.flags.Flag1!;
+const spawn: StructureSpawn = Game.spawns.Spawn1!;
 const body: BodyPartConstant[] = [WORK, WORK, CARRY, MOVE];
 
 // Sample inputs for Game.map.findRoute testing
-const anotherRoomName: Room = Game.rooms.W10S11;
+const anotherRoomName: Room = Game.rooms.W10S11!;
 
 // Sample memory extensions
 interface CreepMemory {
@@ -37,24 +37,24 @@ function keys<T>(o: T): Array<keyof T> {
 
 {
     for (const i in Game.creeps) {
-        Game.creeps[i].moveTo(flag);
+        Game.creeps[i]!.moveTo(flag);
     }
 }
 
 // Game.flags
 
 {
-    creep.moveTo(Game.flags.Flag1);
+    creep.moveTo(Game.flags.Flag1!);
 }
 
 // Game.spawns
 
 {
     for (const i in Game.spawns) {
-        Game.spawns[i].createCreep(body);
+        Game.spawns[i]!.createCreep(body);
 
         // Test StructureSpawn.Spawning
-        let creep: Spawning | null = Game.spawns[i].spawning;
+        let creep: Spawning | null = Game.spawns[i]!.spawning;
         if (creep) {
             const name: string = creep.name;
             const needTime: number = creep.needTime;
@@ -118,7 +118,7 @@ function keys<T>(o: T): Array<keyof T> {
 }
 
 {
-    if (Game.spawns["Spawn1"].energy === 0) {
+    if (Game.spawns["Spawn1"]!.energy === 0) {
         Game.notify(
             "Spawn1 is out of energy",
             180, // group these notifications for 3 hours
@@ -196,7 +196,7 @@ function keys<T>(o: T): Array<keyof T> {
             const parsed = /^[WE]([0-9]+)[NS]([0-9]+)$/.exec(roomName);
             if (parsed !== null) {
                 const isHighway = parseInt(parsed[1], 10) % 10 === 0 || parseInt(parsed[2], 10) % 10 === 0;
-                const isMyRoom = Game.rooms[roomName] && Game.rooms[roomName].controller && Game.rooms[roomName].controller!.my;
+                const isMyRoom = Game.rooms[roomName] && Game.rooms[roomName]!.controller && Game.rooms[roomName]!.controller!.my;
                 if (isHighway || isMyRoom) {
                     return 1;
                 } else {
@@ -314,7 +314,7 @@ function keys<T>(o: T): Array<keyof T> {
 // PathFinder
 
 {
-    const pfCreep = Game.creeps.John;
+    const pfCreep = Game.creeps.John!;
 
     // tslint:disable-next-line:newline-per-chained-call
     const goals = pfCreep.room.find(FIND_SOURCES).map(source => {
@@ -553,7 +553,7 @@ function keys<T>(o: T): Array<keyof T> {
     // test discriminated union
     switch (unowned.structureType) {
         case STRUCTURE_TOWER:
-            unowned.heal(Game.creeps.myCreep);
+            unowned.heal(Game.creeps.myCreep!);
             break;
         case STRUCTURE_CONTAINER:
         case STRUCTURE_STORAGE:
@@ -567,14 +567,14 @@ function keys<T>(o: T): Array<keyof T> {
     }
 
     // test discriminated union using filter functions on find
-    const from = Game.rooms.myRoom.find(FIND_STRUCTURES, {
+    const from = Game.rooms.myRoom!.find(FIND_STRUCTURES, {
         filter: s => (s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_STORAGE) && s.store.energy > 0,
     })[0];
     const to = from.pos.findClosestByPath(FIND_MY_STRUCTURES, {
         filter: s => (s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION) && s.energy < s.energyCapacity,
     });
 
-    Game.rooms.myRoom
+    Game.rooms.myRoom!
         .find(FIND_MY_STRUCTURES, {
             filter: s => s.structureType === STRUCTURE_RAMPART,
         })
@@ -583,7 +583,7 @@ function keys<T>(o: T): Array<keyof T> {
 
 {
     // Test that you can use signatures
-    EXTENSION_ENERGY_CAPACITY[Game.rooms.myRoom.controller!.level];
+    EXTENSION_ENERGY_CAPACITY[Game.rooms.myRoom!.controller!.level];
 
     REACTIONS[Object.keys(creep.carry)[0]];
 
@@ -599,7 +599,7 @@ function keys<T>(o: T): Array<keyof T> {
 
     tombstone.id;
 
-    const creep = Game.creeps["dave"];
+    const creep = Game.creeps["dave"]!;
     creep.withdraw(tombstone, RESOURCE_ENERGY);
 }
 
@@ -660,7 +660,7 @@ function keys<T>(o: T): Array<keyof T> {
 // Room.Terrain
 
 {
-    const room = Game.rooms[""];
+    const room = Game.rooms[""]!;
 
     const myTerrain = room.getTerrain();
 
