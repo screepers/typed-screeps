@@ -1439,6 +1439,16 @@ interface FindPathOpts {
      * Path to within (range) tiles of target tile. The default is to path to the tile that the target is on (0).
      */
     range?: number;
+
+    /**
+     * Cost for walking on plain positions. The default is 1.
+     */
+    plainCost?: number;
+
+    /**
+     * Cost for walking on swamp positions. The default is 5.
+     */
+    swampCost?: number;
 }
 
 interface MoveToOpts extends FindPathOpts {
@@ -1499,7 +1509,7 @@ interface _Constructor<T> {
 }
 
 interface _ConstructorById<T> extends _Constructor<T> {
-    new (id: string): T;
+    new(id: string): T;
     (id: string): T;
 }
 /*
