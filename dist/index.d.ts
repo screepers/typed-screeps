@@ -1956,7 +1956,18 @@ interface EventItem<T extends EventConstant = EventConstant> {
 }
 
 interface EventData {
-    [key: number]: null | object;
+    [key: number]: null | {
+        targetId?: string;
+        damage?: number;
+        attackType?: EventAttackType;
+        amount?: number;
+        energySpent?: number;
+        type?: EventDestroyType;
+        healType?: EventHealType;
+        room?: string;
+        x?: number;
+        y?: number;
+    };
     1: { // EVENT_ATTACK
         targetId: string;
         damage: number;
