@@ -164,8 +164,9 @@ interface Creep extends RoomObject {
      */
     heal(target: Creep): CreepActionReturnCode;
     /**
-     * Move the creep one square in the specified direction. Requires the MOVE body part, or another creep nearby pulling the creep. In case if you call move on a
-     * creep nearby, the ERR_TIRED and the ERR_NO_BODYPART checks will be bypassed; otherwise, the ERR_NOT_IN_RANGE check will be bypassed.
+     * Move the creep one square in the specified direction or towards a creep that is pulling it.
+     *
+     * Requires the MOVE body part if not being pulled.
      * @param direction
      */
     move(direction: DirectionConstant): CreepMoveReturnCode;
@@ -210,8 +211,9 @@ interface Creep extends RoomObject {
      */
     pickup(target: Resource): CreepActionReturnCode | ERR_FULL;
     /**
-     * Help another creep to follow this creep. The fatigue generated for the target's move will be added to the creep instead of the target. Requires the MOVE body
-     * part. The target has to be at adjacent square to the creep. The creep must move elsewhere, and the target must move towards the creep.
+     * Allow another creep to follow this creep. The fatigue generated for the target's move will be added to the creep instead of the target.
+     *
+     * Requires the MOVE body part. The target must be adjacent to the creep. The creep must move elsewhere, and the target must move towards the creep.
      * @param target The target creep to be pulled.
      */
     pull(target: Creep): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
