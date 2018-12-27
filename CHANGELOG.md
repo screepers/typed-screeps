@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.5.3] - 2018-12-27
+
+### Fixed
+
+- Add missing properties to FindPathOpts (#106)
+
+### Changed
+
+- Change `EventType` to an interface with a type argument (#110)
+
 ## [2.5.2] - 2018-11-09
 
 ### Added
@@ -199,7 +209,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Initial public `npm` release.
 
-[unreleased]: https://github.com/screepers/typed-screeps/compare/v2.5.1...HEAD
+[unreleased]: https://github.com/screepers/typed-screeps/compare/v2.5.3...HEAD
+[2.5.3]: https://github.com/screepers/typed-screeps/compare/v2.5.2...v2.5.3
+[2.5.2]: https://github.com/screepers/typed-screeps/compare/v2.5.1...v2.5.2
 [2.5.1]: https://github.com/screepers/typed-screeps/compare/v2.5.0...v2.5.1
 [2.5.0]: https://github.com/screepers/typed-screeps/compare/v2.4.1...v2.5.0
 [2.4.1]: https://github.com/screepers/typed-screeps/compare/v2.4.0...v2.4.1
