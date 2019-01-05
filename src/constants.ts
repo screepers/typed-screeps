@@ -175,6 +175,7 @@ declare const CLAIM: "claim";
 declare const CONSTRUCTION_COST: Record<BuildableStructureConstant, number>;
 
 declare const CONSTRUCTION_COST_ROAD_SWAMP_RATIO: 5;
+declare const CONSTRUCTION_COST_ROAD_WALL_RATIO: 150;
 
 declare const STRUCTURE_EXTENSION: "extension";
 declare const STRUCTURE_RAMPART: "rampart";
