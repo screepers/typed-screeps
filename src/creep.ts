@@ -164,10 +164,13 @@ interface Creep extends RoomObject {
      */
     heal(target: Creep): CreepActionReturnCode;
     /**
-     * Move the creep one square in the specified direction. Needs the MOVE body part.
+     * Move the creep one square in the specified direction or towards a creep that is pulling it.
+     *
+     * Requires the MOVE body part if not being pulled.
      * @param direction
      */
     move(direction: DirectionConstant): CreepMoveReturnCode;
+    move(target: Creep): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
     /**
      * Move the creep using the specified predefined path. Needs the MOVE body part.
      * @param path A path value as returned from Room.findPath or RoomPosition.findPathTo methods. Both array form and serialized string form are accepted.
@@ -207,6 +210,13 @@ interface Creep extends RoomObject {
      * @param target The target object to be picked up.
      */
     pickup(target: Resource): CreepActionReturnCode | ERR_FULL;
+    /**
+     * Allow another creep to follow this creep. The fatigue generated for the target's move will be added to the creep instead of the target.
+     *
+     * Requires the MOVE body part. The target must be adjacent to the creep. The creep must move elsewhere, and the target must move towards the creep.
+     * @param target The target creep to be pulled.
+     */
+    pull(target: Creep): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
     /**
      * A ranged attack against another creep or structure.
      *
