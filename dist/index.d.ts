@@ -873,10 +873,13 @@ interface Creep extends RoomObject {
      */
     heal(target: Creep): CreepActionReturnCode;
     /**
-     * Move the creep one square in the specified direction. Needs the MOVE body part.
-     * @param direction
+     * Move the creep one square in the specified direction or towards a creep that is pulling it.
+     *
+     * Requires the MOVE body part if not being pulled.
+     * @param direction The direction to move in (`TOP`, `TOP_LEFT`...)
      */
     move(direction: DirectionConstant): CreepMoveReturnCode;
+    move(target: Creep): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
     /**
      * Move the creep using the specified predefined path. Needs the MOVE body part.
      * @param path A path value as returned from Room.findPath or RoomPosition.findPathTo methods. Both array form and serialized string form are accepted.
@@ -916,6 +919,13 @@ interface Creep extends RoomObject {
      * @param target The target object to be picked up.
      */
     pickup(target: Resource): CreepActionReturnCode | ERR_FULL;
+    /**
+     * Allow another creep to follow this creep. The fatigue generated for the target's move will be added to the creep instead of the target.
+     *
+     * Requires the MOVE body part. The target must be adjacent to the creep. The creep must move elsewhere, and the target must move towards the creep.
+     * @param target The target creep to be pulled.
+     */
+    pull(target: Creep): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
     /**
      * A ranged attack against another creep or structure.
      *
@@ -1018,7 +1028,7 @@ interface Creep extends RoomObject {
     withdraw(target: Structure | Tombstone, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
 
-interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> {}
+interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> { }
 
 declare const Creep: CreepConstructor;
 /**
@@ -1222,9 +1232,8 @@ interface CPU {
      * Allocate CPU limits to different shards. Total amount of CPU should remain equal to `Game.cpu.shardLimits`.
      * This method can be used only once per 12 hours.
      *
-     * @param {CPUShardLimits} limits An object with CPU values for each shard in the same format as `Game.cpu.shardLimits`.
-     * @returns {(OK | ERR_BUSY | ERR_INVALID_ARGS)} One of the following codes: `OK | ERR_BUSY | ERR_INVALID_ARGS`
-     * @memberof CPU
+     * @param limits An object with CPU values for each shard in the same format as `Game.cpu.shardLimits`.
+     * @returns One of the following codes: `OK | ERR_BUSY | ERR_INVALID_ARGS`
      */
     setShardLimits(limits: CPUShardLimits): OK | ERR_BUSY | ERR_INVALID_ARGS;
 
@@ -2419,7 +2428,7 @@ interface PathFinderOpts {
      * single room and in a single tick you may consider caching your CostMatrix to speed up your code. Please read the
      * CostMatrix documentation below for more information on CostMatrix.
      *
-     * @param roomName
+     * @param roomName The name of the room the pathfinder needs a cost matrix for.
      */
     roomCallback?(roomName: string): boolean | CostMatrix;
 }
@@ -2430,9 +2439,8 @@ interface PathFinderOpts {
 interface CostMatrix {
     /**
      * Creates a new CostMatrix containing 0's for all positions.
-     * @constructor
      */
-    new (): CostMatrix;
+    new(): CostMatrix;
     /**
      * Set the cost of a position in this CostMatrix.
      * @param x X position in the room.
@@ -3414,7 +3422,7 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
     /**
      * Start the creep spawning process. The required energy amount can be withdrawn from all spawns and extensions in the room.
      *
-     * @param {BodyPartConstant[]} body An array describing the new creep’s body. Should contain 1 to 50 elements with one of these constants:
+     * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of these constants:
      *  * WORK
      *  * MOVE
      *  * CARRY
@@ -3423,9 +3431,9 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      *  * HEAL
      *  * TOUGH
      *  * CLAIM
-     * @param {string} name The name of a new creep. It must be a unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key).
-     * @param {SpawnOptions} opts An object with additional options for the spawning process.
-     * @returns {ScreepsReturnCode} One of the following codes:
+     * @param name The name of a new creep. It must be a unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key).
+     * @param opts An object with additional options for the spawning process.
+     * @returns One of the following codes:
      * ```
      * OK                       0   The operation has been scheduled successfully.
      * ERR_NOT_OWNER            -1  You are not the owner of this spawn.
@@ -3544,7 +3552,7 @@ interface SpawnOptions {
     directions?: DirectionConstant[];
 }
 
-interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {}
+interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> { }
 /**
  * Parent object for structure classes
  */
@@ -3587,7 +3595,7 @@ interface Structure<T extends StructureConstant = StructureConstant> extends Roo
     notifyWhenAttacked(enabled: boolean): ScreepsReturnCode;
 }
 
-interface StructureConstructor extends _Constructor<Structure>, _ConstructorById<Structure> {}
+interface StructureConstructor extends _Constructor<Structure>, _ConstructorById<Structure> { }
 
 declare const Structure: StructureConstructor;
 
@@ -3612,7 +3620,7 @@ interface OwnedStructure<T extends StructureConstant = StructureConstant> extend
     room: Room;
 }
 
-interface OwnedStructureConstructor extends _Constructor<OwnedStructure>, _ConstructorById<OwnedStructure> {}
+interface OwnedStructureConstructor extends _Constructor<OwnedStructure>, _ConstructorById<OwnedStructure> { }
 
 declare const OwnedStructure: OwnedStructureConstructor;
 
@@ -3675,7 +3683,7 @@ interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
     unclaim(): ScreepsReturnCode;
 }
 
-interface StructureControllerConstructor extends _Constructor<StructureController>, _ConstructorById<StructureController> {}
+interface StructureControllerConstructor extends _Constructor<StructureController>, _ConstructorById<StructureController> { }
 
 declare const StructureController: StructureControllerConstructor;
 
@@ -3697,7 +3705,7 @@ interface StructureExtension extends OwnedStructure<STRUCTURE_EXTENSION> {
     energyCapacity: number;
 }
 
-interface StructureExtensionConstructor extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension> {}
+interface StructureExtensionConstructor extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension> { }
 
 declare const StructureExtension: StructureExtensionConstructor;
 
@@ -3733,7 +3741,7 @@ interface StructureLink extends OwnedStructure<STRUCTURE_LINK> {
     transferEnergy(target: Creep | StructureLink, amount?: number): ScreepsReturnCode;
 }
 
-interface StructureLinkConstructor extends _Constructor<StructureLink>, _ConstructorById<StructureLink> {}
+interface StructureLinkConstructor extends _Constructor<StructureLink>, _ConstructorById<StructureLink> { }
 
 declare const StructureLink: StructureLinkConstructor;
 
@@ -3750,7 +3758,7 @@ interface StructureKeeperLair extends OwnedStructure<STRUCTURE_KEEPER_LAIR> {
     ticksToSpawn?: number;
 }
 
-interface StructureKeeperLairConstructor extends _Constructor<StructureKeeperLair>, _ConstructorById<StructureKeeperLair> {}
+interface StructureKeeperLairConstructor extends _Constructor<StructureKeeperLair>, _ConstructorById<StructureKeeperLair> { }
 
 declare const StructureKeeperLair: StructureKeeperLairConstructor;
 
@@ -3762,12 +3770,12 @@ interface StructureObserver extends OwnedStructure<STRUCTURE_OBSERVER> {
 
     /**
      * Provide visibility into a distant room from your script. The target room object will be available on the next tick. The maximum range is 5 rooms.
-     * @param roomName
+     * @param roomName The room to observe.
      */
     observeRoom(roomName: string): ScreepsReturnCode;
 }
 
-interface StructureObserverConstructor extends _Constructor<StructureObserver>, _ConstructorById<StructureObserver> {}
+interface StructureObserverConstructor extends _Constructor<StructureObserver>, _ConstructorById<StructureObserver> { }
 
 declare const StructureObserver: StructureObserverConstructor;
 
@@ -3787,7 +3795,7 @@ interface StructurePowerBank extends OwnedStructure<STRUCTURE_POWER_BANK> {
     ticksToDecay: number;
 }
 
-interface StructurePowerBankConstructor extends _Constructor<StructurePowerBank>, _ConstructorById<StructurePowerBank> {}
+interface StructurePowerBankConstructor extends _Constructor<StructurePowerBank>, _ConstructorById<StructurePowerBank> { }
 
 declare const StructurePowerBank: StructurePowerBankConstructor;
 
@@ -3825,7 +3833,7 @@ interface StructurePowerSpawn extends OwnedStructure<STRUCTURE_POWER_SPAWN> {
     processPower(): ScreepsReturnCode;
 }
 
-interface StructurePowerSpawnConstructor extends _Constructor<StructurePowerSpawn>, _ConstructorById<StructurePowerSpawn> {}
+interface StructurePowerSpawnConstructor extends _Constructor<StructurePowerSpawn>, _ConstructorById<StructurePowerSpawn> { }
 
 declare const StructurePowerSpawn: StructurePowerSpawnConstructor;
 
@@ -3853,7 +3861,7 @@ interface StructureRampart extends OwnedStructure<STRUCTURE_RAMPART> {
     setPublic(isPublic: boolean): undefined;
 }
 
-interface StructureRampartConstructor extends _Constructor<StructureRampart>, _ConstructorById<StructureRampart> {}
+interface StructureRampartConstructor extends _Constructor<StructureRampart>, _ConstructorById<StructureRampart> { }
 
 declare const StructureRampart: StructureRampartConstructor;
 
@@ -3870,7 +3878,7 @@ interface StructureRoad extends Structure<STRUCTURE_ROAD> {
     ticksToDecay: number;
 }
 
-interface StructureRoadConstructor extends _Constructor<StructureRoad>, _ConstructorById<StructureRoad> {}
+interface StructureRoadConstructor extends _Constructor<StructureRoad>, _ConstructorById<StructureRoad> { }
 
 declare const StructureRoad: StructureRoadConstructor;
 
@@ -3891,7 +3899,7 @@ interface StructureStorage extends OwnedStructure<STRUCTURE_STORAGE> {
     storeCapacity: number;
 }
 
-interface StructureStorageConstructor extends _Constructor<StructureStorage>, _ConstructorById<StructureStorage> {}
+interface StructureStorageConstructor extends _Constructor<StructureStorage>, _ConstructorById<StructureStorage> { }
 
 declare const StructureStorage: StructureStorageConstructor;
 
@@ -3929,7 +3937,7 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
     repair(target: Structure): ScreepsReturnCode;
 }
 
-interface StructureTowerConstructor extends _Constructor<StructureTower>, _ConstructorById<StructureTower> {}
+interface StructureTowerConstructor extends _Constructor<StructureTower>, _ConstructorById<StructureTower> { }
 
 declare const StructureTower: StructureTowerConstructor;
 
@@ -3944,7 +3952,7 @@ interface StructureWall extends Structure<STRUCTURE_WALL> {
     ticksToLive: number;
 }
 
-interface StructureWallConstructor extends _Constructor<StructureWall>, _ConstructorById<StructureWall> {}
+interface StructureWallConstructor extends _Constructor<StructureWall>, _ConstructorById<StructureWall> { }
 
 declare const StructureWall: StructureWallConstructor;
 
@@ -3959,7 +3967,7 @@ interface StructureExtractor extends OwnedStructure<STRUCTURE_EXTRACTOR> {
     cooldown: number;
 }
 
-interface StructureExtractorConstructor extends _Constructor<StructureExtractor>, _ConstructorById<StructureExtractor> {}
+interface StructureExtractorConstructor extends _Constructor<StructureExtractor>, _ConstructorById<StructureExtractor> { }
 
 declare const StructureExtractor: StructureExtractorConstructor;
 
@@ -4011,7 +4019,7 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
     runReaction(lab1: StructureLab, lab2: StructureLab): ScreepsReturnCode;
 }
 
-interface StructureLabConstructor extends _Constructor<StructureLab>, _ConstructorById<StructureLab> {}
+interface StructureLabConstructor extends _Constructor<StructureLab>, _ConstructorById<StructureLab> { }
 
 declare const StructureLab: StructureLabConstructor;
 
@@ -4042,7 +4050,7 @@ interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
     send(resourceType: ResourceConstant, amount: number, destination: string, description?: string): ScreepsReturnCode;
 }
 
-interface StructureTerminalConstructor extends _Constructor<StructureTerminal>, _ConstructorById<StructureTerminal> {}
+interface StructureTerminalConstructor extends _Constructor<StructureTerminal>, _ConstructorById<StructureTerminal> { }
 
 declare const StructureTerminal: StructureTerminalConstructor;
 
@@ -4066,7 +4074,7 @@ interface StructureContainer extends Structure<STRUCTURE_CONTAINER> {
     ticksToDecay: number;
 }
 
-interface StructureContainerConstructor extends _Constructor<StructureContainer>, _ConstructorById<StructureContainer> {}
+interface StructureContainerConstructor extends _Constructor<StructureContainer>, _ConstructorById<StructureContainer> { }
 
 declare const StructureContainer: StructureContainerConstructor;
 
@@ -4106,7 +4114,7 @@ interface StructureNuker extends OwnedStructure<STRUCTURE_NUKER> {
     launchNuke(pos: RoomPosition): ScreepsReturnCode;
 }
 
-interface StructureNukerConstructor extends _Constructor<StructureNuker>, _ConstructorById<StructureNuker> {}
+interface StructureNukerConstructor extends _Constructor<StructureNuker>, _ConstructorById<StructureNuker> { }
 
 declare const StructureNuker: StructureNukerConstructor;
 
@@ -4129,7 +4137,7 @@ interface StructurePortal extends Structure<STRUCTURE_PORTAL> {
     ticksToDecay: number | undefined;
 }
 
-interface StructurePortalConstructor extends _Constructor<StructurePortal>, _ConstructorById<StructurePortal> {}
+interface StructurePortalConstructor extends _Constructor<StructurePortal>, _ConstructorById<StructurePortal> { }
 
 declare const StructurePortal: StructurePortalConstructor;
 
