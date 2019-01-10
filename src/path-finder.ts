@@ -105,7 +105,7 @@ interface PathFinderOpts {
      * single room and in a single tick you may consider caching your CostMatrix to speed up your code. Please read the
      * CostMatrix documentation below for more information on CostMatrix.
      *
-     * @param roomName
+     * @param roomName The name of the room the pathfinder needs a cost matrix for.
      */
     roomCallback?(roomName: string): boolean | CostMatrix;
 }
@@ -116,9 +116,8 @@ interface PathFinderOpts {
 interface CostMatrix {
     /**
      * Creates a new CostMatrix containing 0's for all positions.
-     * @constructor
      */
-    new (): CostMatrix;
+    new(): CostMatrix;
     /**
      * Set the cost of a position in this CostMatrix.
      * @param x X position in the room.

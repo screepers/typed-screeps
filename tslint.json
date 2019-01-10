@@ -1,6 +1,11 @@
 {
-    "rulesDirectory": ["tslint-plugin-prettier"],
-    "extends": ["dtslint/dt.json", "tslint-config-prettier"],
+    "rulesDirectory": [
+        "tslint-plugin-prettier"
+    ],
+    "extends": [
+        "dtslint/dtslint.json",
+        "tslint-config-prettier"
+    ],
     "rules": {
         "prettier": true,
         "file-name-casing": false,

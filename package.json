@@ -8,8 +8,8 @@
     "dist/index.d.ts"
   ],
   "scripts": {
-    "compile": "node ./build/concat.js && node ./build/prependHeader.js",
-    "dtslint": "npm run compile && dtslint dist",
+    "compile": "node ./build/concat.js && node ./build/prependHeader.js && node ./build/prependDescription.js",
+    "dtslint": "node ./build/concat.js && node ./build/prependHeader.js && dtslint dist",
     "format": "npm run format:build && npm run format:src",
     "format:build": "prettier --write 'build/**/*.js'",
     "format:src": "prettier --write 'src/**/*.ts'",
@@ -30,7 +30,7 @@
   "devDependencies": {
     "concat-files": "^0.1.1",
     "copy": "^0.3.2",
-    "dtslint": "^0.2.0",
+    "dtslint": "^0.4.2",
     "husky": "^0.14.3",
     "prepend": "^1.0.2",
     "prettier": "^1.15.3",

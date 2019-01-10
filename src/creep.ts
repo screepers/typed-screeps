@@ -167,7 +167,7 @@ interface Creep extends RoomObject {
      * Move the creep one square in the specified direction or towards a creep that is pulling it.
      *
      * Requires the MOVE body part if not being pulled.
-     * @param direction
+     * @param direction The direction to move in (`TOP`, `TOP_LEFT`...)
      */
     move(direction: DirectionConstant): CreepMoveReturnCode;
     move(target: Creep): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
@@ -319,6 +319,6 @@ interface Creep extends RoomObject {
     withdraw(target: Structure | Tombstone, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
 
-interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> {}
+interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> { }
 
 declare const Creep: CreepConstructor;
