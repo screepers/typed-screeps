@@ -166,6 +166,7 @@ interface AllLookAtTypes {
     structure: Structure;
     terrain: Terrain;
     tombstone: Tombstone;
+    powerCreep: PowerCreep;
 }
 
 type LookAtTypes = Partial<AllLookAtTypes>;
@@ -196,7 +197,7 @@ type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTyp
 type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<LookForAtAreaResultWithPos<T, K>>;
 
 interface FindTypes {
-    [key: number]: RoomPosition | Creep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke | Tombstone;
+    [key: number]: RoomPosition | Creep | PowerCreep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke | Tombstone;
     1: RoomPosition; // FIND_EXIT_TOP
     3: RoomPosition; // FIND_EXIT_RIGHT
     5: RoomPosition; // FIND_EXIT_BOTTOM
@@ -220,6 +221,9 @@ interface FindTypes {
     116: Mineral; // FIND_MINERALS
     117: Nuke; // FIND_NUKES
     118: Tombstone; // FIND_TOMBSTONES
+    119: PowerCreep; // FIND_POWER_CREEPS
+    120: PowerCreep; // FIND_MY_POWER_CREEPS
+    121: PowerCreep; // FIND_HOSTILE_POWER_CREEPS
 }
 
 interface FindPathOpts {

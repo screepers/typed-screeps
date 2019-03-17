@@ -148,7 +148,8 @@ type LookConstant =
     | LOOK_CONSTRUCTION_SITES
     | LOOK_NUKES
     | LOOK_TERRAIN
-    | LOOK_TOMBSTONES;
+    | LOOK_TOMBSTONES
+    | LOOK_POWER_CREEPS;
 
 type LOOK_CONSTRUCTION_SITES = "constructionSite";
 type LOOK_CREEPS = "creep";
@@ -161,6 +162,7 @@ type LOOK_SOURCES = "source";
 type LOOK_STRUCTURES = "structure";
 type LOOK_TERRAIN = "terrain";
 type LOOK_TOMBSTONES = "tombstone";
+type LOOK_POWER_CREEPS = "powerCreep";
 
 // Direction Constants
 

@@ -642,6 +642,7 @@ declare const LOOK_CONSTRUCTION_SITES: "constructionSite";
 declare const LOOK_NUKES: "nuke";
 declare const LOOK_TERRAIN: "terrain";
 declare const LOOK_TOMBSTONES: "tombstone";
+declare const LOOK_POWER_CREEPS: "powerCreep";
 
 declare const ORDER_SELL: "sell";
 declare const ORDER_BUY: "buy";
@@ -1545,6 +1546,7 @@ interface AllLookAtTypes {
     structure: Structure;
     terrain: Terrain;
     tombstone: Tombstone;
+    powerCreep: PowerCreep;
 }
 
 type LookAtTypes = Partial<AllLookAtTypes>;
@@ -1575,7 +1577,7 @@ type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTyp
 type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<LookForAtAreaResultWithPos<T, K>>;
 
 interface FindTypes {
-    [key: number]: RoomPosition | Creep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke | Tombstone;
+    [key: number]: RoomPosition | Creep | PowerCreep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke | Tombstone;
     1: RoomPosition; // FIND_EXIT_TOP
     3: RoomPosition; // FIND_EXIT_RIGHT
     5: RoomPosition; // FIND_EXIT_BOTTOM
@@ -1599,6 +1601,9 @@ interface FindTypes {
     116: Mineral; // FIND_MINERALS
     117: Nuke; // FIND_NUKES
     118: Tombstone; // FIND_TOMBSTONES
+    119: PowerCreep; // FIND_POWER_CREEPS
+    120: PowerCreep; // FIND_MY_POWER_CREEPS
+    121: PowerCreep; // FIND_HOSTILE_POWER_CREEPS
 }
 
 interface FindPathOpts {
@@ -1911,7 +1916,8 @@ type LookConstant =
     | LOOK_CONSTRUCTION_SITES
     | LOOK_NUKES
     | LOOK_TERRAIN
-    | LOOK_TOMBSTONES;
+    | LOOK_TOMBSTONES
+    | LOOK_POWER_CREEPS;
 
 type LOOK_CONSTRUCTION_SITES = "constructionSite";
 type LOOK_CREEPS = "creep";
@@ -1924,6 +1930,7 @@ type LOOK_SOURCES = "source";
 type LOOK_STRUCTURES = "structure";
 type LOOK_TERRAIN = "terrain";
 type LOOK_TOMBSTONES = "tombstone";
+type LOOK_POWER_CREEPS = "powerCreep";
 
 // Direction Constants
 
@@ -2773,6 +2780,10 @@ interface CostMatrix {
 }
 
 declare const PathFinder: PathFinder;
+/**
+ * Power Creeps are immortal "heroes" that are tied to your account and can be respawned in any PowerSpawn after death.
+ * You can upgrade their abilities ("powers") up to your account Power Level (see `Game.gpl.level`).
+ */
 interface PowerCreep extends RoomObject {
     /**
      * An object with the creep's cargo contents.

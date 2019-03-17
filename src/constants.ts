@@ -630,6 +630,7 @@ declare const LOOK_CONSTRUCTION_SITES: "constructionSite";
 declare const LOOK_NUKES: "nuke";
 declare const LOOK_TERRAIN: "terrain";
 declare const LOOK_TOMBSTONES: "tombstone";
+declare const LOOK_POWER_CREEPS: "powerCreep";
 
 declare const ORDER_SELL: "sell";
 declare const ORDER_BUY: "buy";
