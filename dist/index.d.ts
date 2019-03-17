@@ -1759,10 +1759,12 @@ interface InterShardMemory {
      */
     setLocal(value: string): void;
     /**
-     * Returns the string contents of another shard's data.
+     * Returns the string contents of another shard's data, null if shard exists but data is not set.
+     *
      * @param shard Shard name.
+     * @throws Error if shard name is invalid
      */
-    getRemote(shard: string): string;
+    getRemote(shard: string): string | null;
 }
 
 declare const InterShardMemory: InterShardMemory;

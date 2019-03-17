@@ -461,7 +461,7 @@ function keys<T>(o: T): Array<keyof T> {
     InterShardMemory.setLocal(localShardData);
     localShardData = InterShardMemory.getLocal();
 
-    const remoteShardData: string = InterShardMemory.getRemote("shard2");
+    const remoteShardData: string = InterShardMemory.getRemote("shard2") || "";
 }
 
 // Find Overloads
