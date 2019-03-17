@@ -79,7 +79,10 @@ type FindConstant =
     | FIND_HOSTILE_CONSTRUCTION_SITES
     | FIND_MINERALS
     | FIND_NUKES
-    | FIND_TOMBSTONES;
+    | FIND_TOMBSTONES
+    | FIND_POWER_CREEPS
+    | FIND_MY_POWER_CREEPS
+    | FIND_HOSTILE_POWER_CREEPS;
 
 type FIND_EXIT_TOP = 1;
 type FIND_EXIT_RIGHT = 3;
@@ -105,6 +108,9 @@ type FIND_HOSTILE_CONSTRUCTION_SITES = 115;
 type FIND_MINERALS = 116;
 type FIND_NUKES = 117;
 type FIND_TOMBSTONES = 118;
+type FIND_POWER_CREEPS = 119;
+type FIND_MY_POWER_CREEPS = 120;
+type FIND_HOSTILE_POWER_CREEPS = 121;
 
 // Filter Options
 
@@ -464,44 +470,100 @@ interface EventData {
         x?: number;
         y?: number;
     };
-    1: { // EVENT_ATTACK
+    1: {
+        // EVENT_ATTACK
         targetId: string;
         damage: number;
         attackType: EventAttackType;
     };
-    2: { // EVENT_OBJECT_DESTORYED
+    2: {
+        // EVENT_OBJECT_DESTORYED
         type: EventDestroyType;
     };
     3: null; // EVENT_ATTACK_CONTROLLER
-    4: { // EVENT_BUILD
+    4: {
+        // EVENT_BUILD
         targetId: string;
         amount: number;
         energySpent: number;
     };
-    5: { // EVENT_HARVEST
+    5: {
+        // EVENT_HARVEST
         targetId: string;
         amount: number;
     };
-    6: { // EVENT_HEAL
+    6: {
+        // EVENT_HEAL
         targetId: string;
         amount: number;
         healType: EventHealType;
     };
-    7: { // EVENT_REPAIR
+    7: {
+        // EVENT_REPAIR
         targetId: string;
         amount: number;
         energySpent: number;
     };
-    8: { // EVENT_RESERVE_CONTROLLER
+    8: {
+        // EVENT_RESERVE_CONTROLLER
         amount: number;
     };
-    9: { // EVENT_UPGRADE_CONTROLLER
+    9: {
+        // EVENT_UPGRADE_CONTROLLER
         amount: number;
         energySpent: number;
     };
-    10: { // EVENT_EXIT
+    10: {
+        // EVENT_EXIT
         room: string;
         x: number;
         y: number;
     };
 }
+
+type PowerClassConstant = POWER_CLASS["OPERATOR"];
+
+interface POWER_CLASS {
+    OPERATOR: "operator";
+}
+
+type PowerConstant =
+    | PWR_GENERATE_OPS
+    | PWR_OPERATE_SPAWN
+    | PWR_OPERATE_TOWER
+    | PWR_OPERATE_STORAGE
+    | PWR_OPERATE_LAB
+    | PWR_OPERATE_EXTENSION
+    | PWR_OPERATE_OBSERVER
+    | PWR_OPERATE_TERMINAL
+    | PWR_OPERATE_SPAWN
+    | PWR_OPERATE_TOWER
+    | PWR_DISRUPT_SPAWN
+    | PWR_DISRUPT_TOWER
+    | PWR_DISRUPT_SOURCE
+    | PWR_SHIELD
+    | PWR_REGEN_SOURCE
+    | PWR_REGEN_MINERAL
+    | PWR_DISRUPT_TERMINAL
+    | PWR_OPERATE_POWER
+    | PWR_FORTIFY
+    | PWR_OPERATE_CONTROLLER;
+
+type PWR_GENERATE_OPS = 1;
+type PWR_OPERATE_SPAWN = 2;
+type PWR_OPERATE_TOWER = 3;
+type PWR_OPERATE_STORAGE = 4;
+type PWR_OPERATE_LAB = 5;
+type PWR_OPERATE_EXTENSION = 6;
+type PWR_OPERATE_OBSERVER = 7;
+type PWR_OPERATE_TERMINAL = 8;
+type PWR_DISRUPT_SPAWN = 9;
+type PWR_DISRUPT_TOWER = 10;
+type PWR_DISRUPT_SOURCE = 11;
+type PWR_SHIELD = 12;
+type PWR_REGEN_SOURCE = 13;
+type PWR_REGEN_MINERAL = 14;
+type PWR_DISRUPT_TERMINAL = 15;
+type PWR_OPERATE_POWER = 16;
+type PWR_FORTIFY = 17;
+type PWR_OPERATE_CONTROLLER = 18;

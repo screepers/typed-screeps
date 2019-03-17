@@ -18,12 +18,15 @@ interface RawMemory {
     };
 
     /**
-     * A string with a shared memory segment available on every world shard. Maximum string length is 100 KB.
+     *  @deprecated Use `InterShardMemory` instead.
+     *
+     *  A string with a shared memory segment available on every world shard. Maximum string length is 100 KB.
      *
      * **Warning:** this segment is not safe for concurrent usage! All shards have shared access to the same instance of
      * data. When the segment contents is changed by two shards simultaneously, you may lose some data, since the segment
      * string value is written all at once atomically. You must implement your own system to determine when each shard is
      * allowed to rewrite the inter-shard memory, e.g. based on mutual exclusions.
+     *
      */
     interShardSegment: string;
 

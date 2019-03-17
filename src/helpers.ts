@@ -17,6 +17,21 @@ interface GlobalControlLevel {
     progressTotal: number;
 }
 
+interface GlobalPowerLevel {
+    /**
+     * The current level.
+     */
+    level: number;
+    /**
+     * The current progress to the next level.
+     */
+    progress: number;
+    /**
+     * The progress required to reach the next level.
+     */
+    progressTotal: number;
+}
+
 interface Shard {
     /**
      * The name of the shard.
@@ -346,6 +361,6 @@ interface _Constructor<T> {
 }
 
 interface _ConstructorById<T> extends _Constructor<T> {
-    new(id: string): T;
+    new (id: string): T;
     (id: string): T;
 }

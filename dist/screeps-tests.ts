@@ -12,6 +12,7 @@
 const creep: Creep = Game.creeps.sampleCreep;
 const room: Room = Game.rooms.W10S10;
 const flag: Flag = Game.flags.Flag1;
+const powerCreep: PowerCreep = Game.powerCreeps.samplePowerCreep;
 const spawn: StructureSpawn = Game.spawns.Spawn1;
 const body: BodyPartConstant[] = [WORK, WORK, CARRY, MOVE];
 
@@ -45,6 +46,35 @@ function keys<T>(o: T): Array<keyof T> {
 
 {
     creep.moveTo(Game.flags.Flag1);
+}
+
+// Game.powerCreeps
+
+{
+    PowerCreep.create("steve", POWER_CLASS.OPERATOR);
+
+    for (const i in Game.powerCreeps) {
+        const powerCreep = Game.powerCreeps[i];
+
+        if (powerCreep.ticksToLive === undefined) {
+            // Not spawned in world; spawn creep
+            const spawn = Game.getObjectById("powerSpawnID") as StructurePowerSpawn;
+            powerCreep.spawn(spawn);
+        } else {
+            // Use power
+            const source = Game.getObjectById("") as Source;
+            Game.powerCreeps[i].usePower(PWR_DISRUPT_SOURCE, source);
+        }
+
+        // Upgrading
+        powerCreep.upgrade(PWR_GENERATE_OPS);
+    }
+
+    const myPowaCreeps = Game.rooms.sim.find(FIND_MY_POWER_CREEPS);
+
+    // Constant type checking
+    POWER_INFO[PWR_GENERATE_OPS].className === POWER_CLASS.OPERATOR;
+    typeof POWER_INFO[PWR_GENERATE_OPS].level[0] === "number";
 }
 
 // Game.spawns
@@ -422,6 +452,16 @@ function keys<T>(o: T): Array<keyof T> {
     // RawMemory.setPublicSegments(ids)
     RawMemory.setPublicSegments([5, 3]);
     RawMemory.setPublicSegments([]);
+}
+
+// InterShardMemory
+
+{
+    let localShardData = "";
+    InterShardMemory.setLocal(localShardData);
+    localShardData = InterShardMemory.getLocal();
+
+    const remoteShardData: string = InterShardMemory.getRemote("shard2");
 }
 
 // Find Overloads
