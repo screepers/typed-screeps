@@ -31,7 +31,7 @@ interface Game {
      */
     market: Market;
     /**
-     * A hash containing all your power creeps with creep names as hash keys.
+     * A hash containing all your power creeps with their names as hash keys. Even power creeps not spawned in the world can be accessed here.
      */
     powerCreeps: { [creepName: string]: PowerCreep };
     /**

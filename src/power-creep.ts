@@ -14,7 +14,7 @@ interface PowerCreep extends RoomObject {
     /**
      * The power creep's class, one of the `POWER_CLASS` constants.
      */
-    className: POWER_CLASS;
+    className: PowerClassConstant;
     /**
      * A timestamp when this creeep is marked to be permanently deleted from the account, or undefined otherwise.
      */
@@ -65,6 +65,7 @@ interface PowerCreep extends RoomObject {
     shard: string | undefined;
     /**
      * The timestamp when spawning or deleting this creep will become available. Undefined if the power creep is spawned in the world.
+     * Note: This is a timestamp, not ticks as powerCreeps are not shard dependent.
      */
     spawnCooldownTime: number | undefined;
     /**
@@ -184,7 +185,7 @@ interface PowerCreep extends RoomObject {
     /**
      * Apply one of the creep's powers on the specified target.
      */
-    usePower(power: PowerConstant, target: RoomObject | RoomPosition): ScreepsReturnCode;
+    usePower(power: PowerConstant, target?: RoomObject | RoomPosition): ScreepsReturnCode;
     /**
      * Withdraw resources from a structure.
      *

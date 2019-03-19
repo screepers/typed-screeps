@@ -214,6 +214,7 @@ declare const STRUCTURE_PORTAL: "portal";
 
 declare const RESOURCE_ENERGY: "energy";
 declare const RESOURCE_POWER: "power";
+declare const RESOURCE_OPS: "ops";
 declare const RESOURCE_UTRIUM: "U";
 declare const RESOURCE_LEMERGIUM: "L";
 declare const RESOURCE_KEANIUM: "K";
@@ -1322,7 +1323,7 @@ interface Game {
      */
     market: Market;
     /**
-     * A hash containing all your power creeps with creep names as hash keys.
+     * A hash containing all your power creeps with their names as hash keys. Even power creeps not spawned in the world can be accessed here.
      */
     powerCreeps: { [creepName: string]: PowerCreep };
     /**
@@ -1748,6 +1749,16 @@ interface _ConstructorById<T> extends _Constructor<T> {
     new (id: string): T;
     (id: string): T;
 }
+/**
+ * `InterShardMemory` object provides an interface for communicating between shards.
+ * Your script is executed separatedly on each shard, and their `Memory` objects are isolated from each other.
+ * In order to pass messages and data between shards, you need to use `InterShardMemory` instead.
+ *
+ * Every shard can have its own data string that can be accessed by all other shards.
+ * A shard can write only to its own data, other shards' data is read-only.
+ *
+ * This data has nothing to do with `Memory` contents, it's a separate data container.
+ */
 interface InterShardMemory {
     /**
      * Returns the string contents of the current shard's data.
@@ -2068,7 +2079,8 @@ type ResourceConstant =
     | RESOURCE_CATALYZED_ZYNTHIUM_ACID
     | RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE
     | RESOURCE_CATALYZED_GHODIUM_ACID
-    | RESOURCE_CATALYZED_GHODIUM_ALKALIDE;
+    | RESOURCE_CATALYZED_GHODIUM_ALKALIDE
+    | RESOURCE_OPS;
 
 type _ResourceConstantSansEnergy =
     | RESOURCE_POWER
@@ -2112,7 +2124,8 @@ type _ResourceConstantSansEnergy =
     | RESOURCE_CATALYZED_ZYNTHIUM_ACID
     | RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE
     | RESOURCE_CATALYZED_GHODIUM_ACID
-    | RESOURCE_CATALYZED_GHODIUM_ALKALIDE;
+    | RESOURCE_CATALYZED_GHODIUM_ALKALIDE
+    | RESOURCE_OPS;
 
 type MineralConstant =
     | RESOURCE_UTRIUM
@@ -2128,6 +2141,7 @@ type MarketResourceConstant = ResourceConstant | SUBSCRIPTION_TOKEN;
 
 type RESOURCE_ENERGY = "energy";
 type RESOURCE_POWER = "power";
+type RESOURCE_OPS = "ops";
 
 type RESOURCE_UTRIUM = "U";
 type RESOURCE_LEMERGIUM = "L";
@@ -2798,7 +2812,7 @@ interface PowerCreep extends RoomObject {
     /**
      * The power creep's class, one of the `POWER_CLASS` constants.
      */
-    className: POWER_CLASS;
+    className: PowerClassConstant;
     /**
      * A timestamp when this creeep is marked to be permanently deleted from the account, or undefined otherwise.
      */
@@ -2849,6 +2863,7 @@ interface PowerCreep extends RoomObject {
     shard: string | undefined;
     /**
      * The timestamp when spawning or deleting this creep will become available. Undefined if the power creep is spawned in the world.
+     * Note: This is a timestamp, not ticks as powerCreeps are not shard dependent.
      */
     spawnCooldownTime: number | undefined;
     /**
@@ -2968,7 +2983,7 @@ interface PowerCreep extends RoomObject {
     /**
      * Apply one of the creep's powers on the specified target.
      */
-    usePower(power: PowerConstant, target: RoomObject | RoomPosition): ScreepsReturnCode;
+    usePower(power: PowerConstant, target?: RoomObject | RoomPosition): ScreepsReturnCode;
     /**
      * Withdraw resources from a structure.
      *
@@ -3122,6 +3137,10 @@ declare const Resource: ResourceConstructor;
 interface RoomObject {
     readonly prototype: RoomObject;
     /**
+     * Applied effects, an array of objects with the following properties:
+     */
+    effects: RoomObjectEffect[];
+    /**
      * An object representing the position of this object in the room.
      */
     pos: RoomPosition;
@@ -3139,6 +3158,21 @@ interface RoomObjectConstructor extends _Constructor<RoomObject> {
 }
 
 declare const RoomObject: RoomObjectConstructor;
+
+interface RoomObjectEffect {
+    /**
+     * Power level of the applied effect.
+     */
+    level: number;
+    /**
+     * Power ID of the applied effect. `PWR_*` constant.
+     */
+    power: PowerConstant;
+    /**
+     * How many ticks will the effect last.
+     */
+    ticksRemaining: number;
+}
 /**
  * An object representing the specified position in the room.
  *

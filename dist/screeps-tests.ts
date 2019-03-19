@@ -51,7 +51,7 @@ function keys<T>(o: T): Array<keyof T> {
 // Game.powerCreeps
 
 {
-    PowerCreep.create("steve", POWER_CLASS.OPERATOR);
+    PowerCreep.create("steve", POWER_CLASS.OPERATOR) === OK;
 
     for (const i in Game.powerCreeps) {
         const powerCreep = Game.powerCreeps[i];
@@ -61,9 +61,21 @@ function keys<T>(o: T): Array<keyof T> {
             const spawn = Game.getObjectById("powerSpawnID") as StructurePowerSpawn;
             powerCreep.spawn(spawn);
         } else {
-            // Use power
-            const source = Game.getObjectById("") as Source;
-            Game.powerCreeps[i].usePower(PWR_DISRUPT_SOURCE, source);
+            // Generate Ops
+            if (
+                powerCreep.powers[PWR_GENERATE_OPS] &&
+                powerCreep.powers[PWR_GENERATE_OPS].cooldown === 0 &&
+                (powerCreep.carry.ops || 0) < 10
+            ) {
+                Game.powerCreeps[i].usePower(PWR_GENERATE_OPS);
+            } else {
+                // Boost resource
+                const targetSource = Game.getObjectById("targetSourceID") as Source;
+                const sourceEffect = targetSource.effects.find(effect => effect.power === PWR_REGEN_SOURCE);
+                if (!sourceEffect && powerCreep.powers[PWR_REGEN_SOURCE] && powerCreep.powers[PWR_REGEN_SOURCE].cooldown === 0) {
+                    powerCreep.usePower(PWR_REGEN_SOURCE, targetSource);
+                }
+            }
         }
 
         // Upgrading

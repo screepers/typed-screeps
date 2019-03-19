@@ -6,6 +6,10 @@
 interface RoomObject {
     readonly prototype: RoomObject;
     /**
+     * Applied effects, an array of objects with the following properties:
+     */
+    effects: RoomObjectEffect[];
+    /**
      * An object representing the position of this object in the room.
      */
     pos: RoomPosition;
@@ -23,3 +27,18 @@ interface RoomObjectConstructor extends _Constructor<RoomObject> {
 }
 
 declare const RoomObject: RoomObjectConstructor;
+
+interface RoomObjectEffect {
+    /**
+     * Power level of the applied effect.
+     */
+    level: number;
+    /**
+     * Power ID of the applied effect. `PWR_*` constant.
+     */
+    power: PowerConstant;
+    /**
+     * How many ticks will the effect last.
+     */
+    ticksRemaining: number;
+}

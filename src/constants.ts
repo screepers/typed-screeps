@@ -202,6 +202,7 @@ declare const STRUCTURE_PORTAL: "portal";
 
 declare const RESOURCE_ENERGY: "energy";
 declare const RESOURCE_POWER: "power";
+declare const RESOURCE_OPS: "ops";
 declare const RESOURCE_UTRIUM: "U";
 declare const RESOURCE_LEMERGIUM: "L";
 declare const RESOURCE_KEANIUM: "K";
