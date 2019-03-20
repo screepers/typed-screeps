@@ -1,6 +1,6 @@
 /**
  * Power Creeps are immortal "heroes" that are tied to your account and can be respawned in any PowerSpawn after death.
- * You can upgrade their abilities ("powers") up to your account Power Level (see `Game.gpl.level`).
+ * You can upgrade their abilities ("powers") up to your account Global Power Level (see `Game.gpl`).
  */
 interface PowerCreep extends RoomObject {
     /**
@@ -44,7 +44,7 @@ interface PowerCreep extends RoomObject {
      */
     my: boolean;
     /**
-     * Power creep name. You can choose the name while creating a new power creep, and it cannot be changed later. This name is a hash key to access the creep via the `Game.powerCreeps` object.
+     * Power creep name. You can choose the name while creating a new power creep, and `rename` it while unspawned. This name is a hash key to access the creep via the `Game.powerCreeps` object.
      */
     name: string;
     /**
@@ -69,9 +69,7 @@ interface PowerCreep extends RoomObject {
      */
     spawnCooldownTime: number | undefined;
     /**
-     * The remaining amoutn of game ticks after which the creep will die and become unspawned.
-     * When a power creep dies of old age, its spawn cooldown is not activated, you can respawn it immediately.
-     * Undefined if the creep is not spawned in the world.
+     * The remaining amount of game ticks after which the creep will die and become unspawned. Undefined if the creep is not spawned in the world.
      */
     ticksToLive: number | undefined;
     /**
@@ -185,7 +183,7 @@ interface PowerCreep extends RoomObject {
     /**
      * Apply one of the creep's powers on the specified target.
      */
-    usePower(power: PowerConstant, target?: RoomObject | RoomPosition): ScreepsReturnCode;
+    usePower(power: PowerConstant, target?: RoomObject): ScreepsReturnCode;
     /**
      * Withdraw resources from a structure.
      *

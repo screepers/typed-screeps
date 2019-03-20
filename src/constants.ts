@@ -137,6 +137,7 @@ declare const EXTENSION_ENERGY_CAPACITY: {
 
 declare const ROAD_HITS: 5000;
 declare const ROAD_WEAROUT: 1;
+declare const ROAD_WEAROUT_POWER_CREEP: 100;
 declare const ROAD_DECAY_AMOUNT: 100;
 declare const ROAD_DECAY_TIME: 1000;
 

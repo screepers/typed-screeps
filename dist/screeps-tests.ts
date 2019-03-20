@@ -527,6 +527,7 @@ function keys<T>(o: T): Array<keyof T> {
     });
     if (tower !== null) {
         tower.attack(creep);
+        tower.attack(powerCreep);
     }
 
     const rampart = creep.pos.findClosestByRange<StructureRampart>(FIND_HOSTILE_STRUCTURES, {
@@ -642,10 +643,13 @@ function keys<T>(o: T): Array<keyof T> {
     BOOSTS[creep.body[0].type];
 }
 
+// Tombstones
+
 {
     const tombstone = room.find(FIND_TOMBSTONES)[0];
 
-    tombstone.creep.my;
+    (tombstone.creep as PowerCreep).spawnCooldownTime;
+    (tombstone.creep as Creep).my;
 
     tombstone.store.energy;
 

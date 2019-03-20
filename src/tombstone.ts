@@ -29,7 +29,7 @@ interface Tombstone extends RoomObject {
     /**
      * An object containing the deceased creep.
      */
-    creep: Creep;
+    creep: Creep | PowerCreep;
 }
 
 interface TombstoneConstructor extends _Constructor<Tombstone>, _ConstructorById<Tombstone> {}

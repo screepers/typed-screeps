@@ -149,6 +149,7 @@ declare const EXTENSION_ENERGY_CAPACITY: {
 
 declare const ROAD_HITS: 5000;
 declare const ROAD_WEAROUT: 1;
+declare const ROAD_WEAROUT_POWER_CREEP: 100;
 declare const ROAD_DECAY_AMOUNT: 100;
 declare const ROAD_DECAY_TIME: 1000;
 
@@ -988,7 +989,7 @@ interface Creep extends RoomObject {
      *
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
      */
-    attack(target: Creep | Structure): CreepActionReturnCode;
+    attack(target: Creep | PowerCreep | Structure): CreepActionReturnCode;
     /**
      * Decreases the controller's downgrade or reservation timer for 1 tick per
      * every 5 `CLAIM` body parts (so the creep must have at least 5x`CLAIM`).
@@ -1071,7 +1072,7 @@ interface Creep extends RoomObject {
      * The target has to be at adjacent square to the creep.
      * @param target The target creep object.
      */
-    heal(target: Creep): CreepActionReturnCode;
+    heal(target: Creep | PowerCreep): CreepActionReturnCode;
     /**
      * Move the creep one square in the specified direction or towards a creep that is pulling it.
      *
@@ -1134,7 +1135,7 @@ interface Creep extends RoomObject {
      * The target has to be within 3 squares range of the creep.
      * @param target The target object to be attacked.
      */
-    rangedAttack(target: Creep | Structure): CreepActionReturnCode;
+    rangedAttack(target: Creep | PowerCreep | Structure): CreepActionReturnCode;
     /**
      * Heal another creep at a distance.
      *
@@ -1143,7 +1144,7 @@ interface Creep extends RoomObject {
      * Needs the HEAL body part. The target has to be within 3 squares range of the creep.
      * @param target The target creep object.
      */
-    rangedHeal(target: Creep): CreepActionReturnCode;
+    rangedHeal(target: Creep | PowerCreep): CreepActionReturnCode;
     /**
      * A ranged attack against all hostile creeps or structures within 3 squares range.
      *
@@ -1197,7 +1198,7 @@ interface Creep extends RoomObject {
      * @param resourceType One of the RESOURCE_* constants
      * @param amount The amount of resources to be transferred. If omitted, all the available carried amount is used.
      */
-    transfer(target: Creep | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    transfer(target: Creep | PowerCreep | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
     /**
      * Upgrade your controller to the next level using carried energy.
      *
@@ -1228,7 +1229,7 @@ interface Creep extends RoomObject {
     withdraw(target: Structure | Tombstone, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
 
-interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> { }
+interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> {}
 
 declare const Creep: CreepConstructor;
 /**
@@ -2798,7 +2799,7 @@ interface CostMatrix {
 declare const PathFinder: PathFinder;
 /**
  * Power Creeps are immortal "heroes" that are tied to your account and can be respawned in any PowerSpawn after death.
- * You can upgrade their abilities ("powers") up to your account Power Level (see `Game.gpl.level`).
+ * You can upgrade their abilities ("powers") up to your account Global Power Level (see `Game.gpl`).
  */
 interface PowerCreep extends RoomObject {
     /**
@@ -2842,7 +2843,7 @@ interface PowerCreep extends RoomObject {
      */
     my: boolean;
     /**
-     * Power creep name. You can choose the name while creating a new power creep, and it cannot be changed later. This name is a hash key to access the creep via the `Game.powerCreeps` object.
+     * Power creep name. You can choose the name while creating a new power creep, and `rename` it while unspawned. This name is a hash key to access the creep via the `Game.powerCreeps` object.
      */
     name: string;
     /**
@@ -2867,9 +2868,7 @@ interface PowerCreep extends RoomObject {
      */
     spawnCooldownTime: number | undefined;
     /**
-     * The remaining amoutn of game ticks after which the creep will die and become unspawned.
-     * When a power creep dies of old age, its spawn cooldown is not activated, you can respawn it immediately.
-     * Undefined if the creep is not spawned in the world.
+     * The remaining amount of game ticks after which the creep will die and become unspawned. Undefined if the creep is not spawned in the world.
      */
     ticksToLive: number | undefined;
     /**
@@ -2983,7 +2982,7 @@ interface PowerCreep extends RoomObject {
     /**
      * Apply one of the creep's powers on the specified target.
      */
-    usePower(power: PowerConstant, target?: RoomObject | RoomPosition): ScreepsReturnCode;
+    usePower(power: PowerConstant, target?: RoomObject): ScreepsReturnCode;
     /**
      * Withdraw resources from a structure.
      *
@@ -4506,12 +4505,12 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
      * Remotely attack any creep in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
      * @param target The target creep.
      */
-    attack(target: Creep): ScreepsReturnCode;
+    attack(target: Creep | PowerCreep): ScreepsReturnCode;
     /**
      * Remotely heal any creep in the room. Consumes 10 energy units per tick. Heal power depends on the distance to the target: from 400 hits at range 10 to 200 hits at range 40.
      * @param target The target creep.
      */
-    heal(target: Creep): ScreepsReturnCode;
+    heal(target: Creep | PowerCreep): ScreepsReturnCode;
     /**
      * Remotely repair any structure in the room. Consumes 10 energy units per tick. Repair power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
      * @param target The target structure.
@@ -4778,7 +4777,7 @@ interface Tombstone extends RoomObject {
     /**
      * An object containing the deceased creep.
      */
-    creep: Creep;
+    creep: Creep | PowerCreep;
 }
 
 interface TombstoneConstructor extends _Constructor<Tombstone>, _ConstructorById<Tombstone> {}
