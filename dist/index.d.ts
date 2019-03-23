@@ -678,8 +678,8 @@ declare const EVENT_HEAL_TYPE_RANGED: 2;
 
 declare const POWER_LEVEL_MULTIPLY: 1000;
 declare const POWER_LEVEL_POW: 2;
-declare const POWER_CREEP_SPAWN_COOLDOWN: 0;
-declare const POWER_CREEP_DELETE_COOLDOWN: 60000;
+declare const POWER_CREEP_SPAWN_COOLDOWN: 28800000; // 8 * 3600 * 1000
+declare const POWER_CREEP_DELETE_COOLDOWN: 86400000; // 24 * 3600 * 1000
 declare const POWER_CREEP_MAX_LEVEL: 25;
 declare const POWER_CREEP_LIFE_TIME: 5000;
 
@@ -705,6 +705,7 @@ declare const PWR_DISRUPT_TERMINAL: 15;
 declare const PWR_OPERATE_POWER: 16;
 declare const PWR_FORTIFY: 17;
 declare const PWR_OPERATE_CONTROLLER: 18;
+declare const PWR_OPERATE_FACTORY: 19;
 
 declare const POWER_INFO: {
     [powerID: number]: {
@@ -764,7 +765,7 @@ declare const POWER_INFO: {
         cooldown: 50;
         range: 3;
         ops: 2;
-        effect: [500, 1000, 1500, 2000, 2500];
+        effect: [0.2, 0.4, 0.6, 0.8, 1.0];
     };
     [PWR_OPERATE_OBSERVER]: {
         className: POWER_CLASS["OPERATOR"];
@@ -795,8 +796,8 @@ declare const POWER_INFO: {
         className: POWER_CLASS["OPERATOR"];
         level: [0, 2, 7, 14, 22];
         cooldown: 0;
-        duration: 50;
-        range: 3;
+        duration: 5;
+        range: 50;
         ops: 10;
         effect: [0.9, 0.8, 0.7, 0.6, 0.5];
     };
@@ -853,20 +854,28 @@ declare const POWER_INFO: {
     [PWR_OPERATE_POWER]: {
         className: POWER_CLASS["OPERATOR"];
         level: [10, 11, 12, 14, 22];
-        cooldown: 1000;
+        cooldown: 800;
         range: 3;
-        duration: 800;
+        duration: 1000;
         ops: 200;
         effect: [1, 2, 3, 4, 5];
     };
     [PWR_OPERATE_CONTROLLER]: {
         className: POWER_CLASS["OPERATOR"];
         level: [20, 21, 22, 23, 24];
+        cooldown: 800;
+        range: 3;
+        duration: 1000;
+        ops: 200;
+        effect: [10, 20, 30, 40, 50];
+    };
+    [PWR_OPERATE_FACTORY]: {
+        className: POWER_CLASS["OPERATOR"];
+        level: [0, 2, 7, 14, 22];
         cooldown: 1000;
         range: 3;
         duration: 800;
-        ops: 200;
-        effect: [10, 20, 30, 40, 50];
+        ops: 100;
     };
 };
 /**
