@@ -509,6 +509,8 @@ function keys<T>(o: T): Array<keyof T> {
         },
     });
     towers[0].attack(creeps[0]);
+    const target = creeps[0] as Motile;
+    towers[0].attack(target);
 }
 
 // RoomPosition Finds

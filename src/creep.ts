@@ -79,7 +79,7 @@ interface Creep extends RoomObject {
      *
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
      */
-    attack(target: Creep | PowerCreep | Structure): CreepActionReturnCode;
+    attack(target: Motile | Structure): CreepActionReturnCode;
     /**
      * Decreases the controller's downgrade or reservation timer for 1 tick per
      * every 5 `CLAIM` body parts (so the creep must have at least 5x`CLAIM`).
@@ -162,7 +162,7 @@ interface Creep extends RoomObject {
      * The target has to be at adjacent square to the creep.
      * @param target The target creep object.
      */
-    heal(target: Creep | PowerCreep): CreepActionReturnCode;
+    heal(target: Motile): CreepActionReturnCode;
     /**
      * Move the creep one square in the specified direction or towards a creep that is pulling it.
      *
@@ -225,7 +225,7 @@ interface Creep extends RoomObject {
      * The target has to be within 3 squares range of the creep.
      * @param target The target object to be attacked.
      */
-    rangedAttack(target: Creep | PowerCreep | Structure): CreepActionReturnCode;
+    rangedAttack(target: Motile | Structure): CreepActionReturnCode;
     /**
      * Heal another creep at a distance.
      *
@@ -234,7 +234,7 @@ interface Creep extends RoomObject {
      * Needs the HEAL body part. The target has to be within 3 squares range of the creep.
      * @param target The target creep object.
      */
-    rangedHeal(target: Creep | PowerCreep): CreepActionReturnCode;
+    rangedHeal(target: Motile): CreepActionReturnCode;
     /**
      * A ranged attack against all hostile creeps or structures within 3 squares range.
      *
@@ -288,7 +288,7 @@ interface Creep extends RoomObject {
      * @param resourceType One of the RESOURCE_* constants
      * @param amount The amount of resources to be transferred. If omitted, all the available carried amount is used.
      */
-    transfer(target: Creep | PowerCreep | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    transfer(target: Motile | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
     /**
      * Upgrade your controller to the next level using carried energy.
      *
