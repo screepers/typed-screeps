@@ -37,6 +37,14 @@ yarn add @types/screeps
   interface RoomMemory { [name: string]: any };
   ```
 
+If you don't want to add types to the global `Memory` object, you will need to add the following interface along with the four above.
+
+Example:
+
+```Typescript
+interface Memory { [key: string]: any };
+```
+
 - Any place in code that uses a constant (ex `STRUCTURE_EXTENSION` or `FIND_MY_SPAWNS` is now constrained to use literal types. Here is the list of the new types:
 
   ```
