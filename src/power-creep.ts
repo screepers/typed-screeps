@@ -175,7 +175,7 @@ interface PowerCreep extends RoomObject {
      * @param resourceType One of the RESOURCE_* constants
      * @param amount The amount of resources to be transferred. If omitted, all the available carried amount is used.
      */
-    transfer(target: Motile | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    transfer(target: AnyCreep | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
     /**
      * Upgrade the creep, adding a new power ability to it or increasing the level of the existing power. You need one free Power Level in your account to perform this action.
      */

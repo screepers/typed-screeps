@@ -9,7 +9,7 @@ type Terrain = "plain" | "swamp" | "wall";
 
 type ExitKey = "1" | "3" | "5" | "7";
 
-type Motile = Creep | PowerCreep;
+type AnyCreep = Creep | PowerCreep;
 
 // Return Codes
 

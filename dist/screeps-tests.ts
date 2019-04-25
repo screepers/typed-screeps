@@ -78,6 +78,14 @@ function keys<T>(o: T): Array<keyof T> {
             }
         }
 
+        // AnyCreep type checks
+        creep.attack(powerCreep);
+        creep.heal(powerCreep);
+        creep.rangedAttack(powerCreep);
+        creep.rangedHeal(powerCreep);
+        creep.transfer(powerCreep, RESOURCE_ENERGY);
+        powerCreep.transfer(creep, RESOURCE_ENERGY);
+
         // Upgrading
         powerCreep.upgrade(PWR_GENERATE_OPS);
     }
@@ -509,8 +517,9 @@ function keys<T>(o: T): Array<keyof T> {
         },
     });
     towers[0].attack(creeps[0]);
-    const target = creeps[0] as Motile;
-    towers[0].attack(target);
+    towers[0].attack(creeps[0] as AnyCreep);
+    towers[0].attack(powerCreep);
+    towers[0].heal(powerCreep);
 }
 
 // RoomPosition Finds

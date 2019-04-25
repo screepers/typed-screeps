@@ -370,12 +370,12 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
      * Remotely attack any creep in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
      * @param target The target creep.
      */
-    attack(target: Motile): ScreepsReturnCode;
+    attack(target: AnyCreep): ScreepsReturnCode;
     /**
      * Remotely heal any creep in the room. Consumes 10 energy units per tick. Heal power depends on the distance to the target: from 400 hits at range 10 to 200 hits at range 40.
      * @param target The target creep.
      */
-    heal(target: Motile): ScreepsReturnCode;
+    heal(target: AnyCreep): ScreepsReturnCode;
     /**
      * Remotely repair any structure in the room. Consumes 10 energy units per tick. Repair power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
      * @param target The target structure.
