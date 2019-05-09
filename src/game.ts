@@ -19,6 +19,10 @@ interface Game {
      */
     gcl: GlobalControlLevel;
     /**
+     * Your clobal Power Level
+     */
+    gpl: GlobalPowerLevel;
+    /**
      * A global object representing world GameMap.
      */
     map: GameMap;
@@ -26,6 +30,10 @@ interface Game {
      * A global object representing the in-game market.
      */
     market: Market;
+    /**
+     * A hash containing all your power creeps with their names as hash keys. Even power creeps not spawned in the world can be accessed here.
+     */
+    powerCreeps: { [creepName: string]: PowerCreep };
     /**
      * An object with your global resources that are bound to the account, like subscription tokens. Each object key is a resource constant, values are resources amounts.
      */

@@ -17,6 +17,21 @@ interface GlobalControlLevel {
     progressTotal: number;
 }
 
+interface GlobalPowerLevel {
+    /**
+     * The current level.
+     */
+    level: number;
+    /**
+     * The current progress to the next level.
+     */
+    progress: number;
+    /**
+     * The progress required to reach the next level.
+     */
+    progressTotal: number;
+}
+
 interface Shard {
     /**
      * The name of the shard.
@@ -151,6 +166,7 @@ interface AllLookAtTypes {
     structure: Structure;
     terrain: Terrain;
     tombstone: Tombstone;
+    powerCreep: PowerCreep;
 }
 
 type LookAtTypes = Partial<AllLookAtTypes>;
@@ -181,7 +197,7 @@ type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTyp
 type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<LookForAtAreaResultWithPos<T, K>>;
 
 interface FindTypes {
-    [key: number]: RoomPosition | Creep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke | Tombstone;
+    [key: number]: RoomPosition | AnyCreep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke | Tombstone;
     1: RoomPosition; // FIND_EXIT_TOP
     3: RoomPosition; // FIND_EXIT_RIGHT
     5: RoomPosition; // FIND_EXIT_BOTTOM
@@ -205,6 +221,9 @@ interface FindTypes {
     116: Mineral; // FIND_MINERALS
     117: Nuke; // FIND_NUKES
     118: Tombstone; // FIND_TOMBSTONES
+    119: PowerCreep; // FIND_POWER_CREEPS
+    120: PowerCreep; // FIND_MY_POWER_CREEPS
+    121: PowerCreep; // FIND_HOSTILE_POWER_CREEPS
 }
 
 interface FindPathOpts {
@@ -346,6 +365,6 @@ interface _Constructor<T> {
 }
 
 interface _ConstructorById<T> extends _Constructor<T> {
-    new(id: string): T;
+    new (id: string): T;
     (id: string): T;
 }
