@@ -20,7 +20,8 @@ yarn add @types/screeps
 
 ### Breaking Changes:
 
-- `Memory` is typed by default.  The added typings are:
+- `Memory` is typed by default. The added typings are:
+
   - `CreepMemory`
   - `FlagMemory`
   - `SpawnMemory`
@@ -90,12 +91,13 @@ interface Memory { [key: string]: any };
 - `LookAt` results are now constrained to the type looked for
 - Results from `Find`-type functions are now constrained to have a `RoomPosition`
 - Typings for new RawMemory and RoomVisuals
+- New union type `AnyCreep` to represent `Creep` and `PowerCreep`
 
 ## Contribute
 
 Issues and Pull Requests are welcome! Please read the [Contributing Guidelines](CONTRIBUTING.md) and [Code of Conduct](CODE_OF_CONDUCT.md) beforehand.
 
---------
+---
 
 ### Workarounds / Caveats
 

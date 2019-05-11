@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [2.5.4] - 2019-05-12
+
+### Added
+
+- Add support for `PowerCreep`, `InterShardMemory` and an `AnyCreep` union ([#117](https://github.com/screepers/typed-screeps/pull/118))
+
 ## [2.5.3] - 2018-12-27
 
 ### Fixed
@@ -209,7 +215,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Initial public `npm` release.
 
-[unreleased]: https://github.com/screepers/typed-screeps/compare/v2.5.3...HEAD
+[unreleased]: https://github.com/screepers/typed-screeps/compare/v2.5.4...HEAD
+[2.5.4]: https://github.com/screepers/typed-screeps/compare/v2.5.3...v2.5.4
 [2.5.3]: https://github.com/screepers/typed-screeps/compare/v2.5.2...v2.5.3
 [2.5.2]: https://github.com/screepers/typed-screeps/compare/v2.5.1...v2.5.2
 [2.5.1]: https://github.com/screepers/typed-screeps/compare/v2.5.0...v2.5.1

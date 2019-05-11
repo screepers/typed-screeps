@@ -7,6 +7,7 @@
 //                 Adam Laycock <https://github.com/Arcath>
 //                 Dominic Marcuse <https://github.com/dmarcuse>
 //                 Skyler Kehren <https://github.com/pyrodogg>
+//                 Kieran Carnegie <https://github.com/kotarou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.7
 
