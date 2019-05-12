@@ -1,3 +1,9 @@
+---
+name: "Bug Report 🐛"
+about: For reporting bugs/problems with the definition.
+labels: "bug"
+---
+
 <!-- Please replace {Please write here} with your description. -->
 
 ### Expected Behavior
