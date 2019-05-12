@@ -8,15 +8,15 @@
     "dist/index.d.ts"
   ],
   "scripts": {
-    "compile": "node ./build/concat.js && node ./build/prependHeader.js",
-    "compile:dt": "npm run compile && node ./build/prependDescription.js",
-    "dtslint": "node ./build/concat.js && node ./build/prependHeader.js && dtslint dist",
+    "compile:dtslint": "node ./build/concat.js && node ./build/prependHeader.js",
+    "compile": "npm run compile:dtslint && node ./build/prependDescription.js",
+    "dtslint": "npm run compile:dtslint && dtslint dist",
     "format": "npm run format:build && npm run format:src",
     "format:build": "prettier --write 'build/**/*.js'",
     "format:src": "prettier --write 'src/**/*.ts'",
     "lint": "tslint -p tsconfig.json 'src/**/*.ts'",
     "lint:test": "tslint -p dist/tsconfig.json 'dist/screeps-tests.ts'",
-    "precommit": "npm run compile:dt && git add dist/index.d.ts",
+    "precommit": "npm run compile && git add dist/index.d.ts",
     "prepare": "npm test",
     "test": "npm run dtslint"
   },
