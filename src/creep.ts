@@ -12,10 +12,12 @@ interface Creep extends RoomObject {
     body: BodyPartDefinition[];
     /**
      * An object with the creep's cargo contents.
+     * @deprecated Is an alias for Creep.store
      */
     carry: StoreDefinition;
     /**
      * The total amount of resources the creep can carry.
+     * @deprecated alias for Creep.store.getCapacity
      */
     carryCapacity: number;
     /**
@@ -62,6 +64,10 @@ interface Creep extends RoomObject {
      * The text message that the creep was saying at the last tick.
      */
     saying: string;
+    /**
+     * A Store object that contains cargo of this creep.
+     */
+    store: Store;
     /**
      * The remaining amount of game ticks after which the creep will die.
      *
