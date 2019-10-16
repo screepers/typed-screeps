@@ -271,20 +271,28 @@ interface StructurePowerSpawn extends OwnedStructure<STRUCTURE_POWER_SPAWN> {
     readonly prototype: StructurePowerSpawn;
     /**
      * The amount of energy containing in this structure.
+     * @deprecated An alias for .store[RESOURCE_ENERGY].
      */
     energy: number;
     /**
      * The total amount of energy this structure can contain.
+     * @deprecated An alias for .store.getCapacity(RESOURCE_ENERGY).
      */
     energyCapacity: number;
     /**
      * The amount of power containing in this structure.
+     * @deprecated An alias for .store[RESOURCE_POWER].
      */
     power: number;
     /**
      * The total amount of power this structure can contain.
+     * @deprecated An alias for .store.getCapacity(RESOURCE_POWER).
      */
     powerCapacity: number;
+    /**
+     *
+     */
+    store: Store;
 
     /**
      * Register power resource units into your account. Registered power allows to develop power creeps skills. Consumes 1 power resource unit and 50 energy resource units.
@@ -373,12 +381,18 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
 
     /**
      * The amount of energy containing in this structure.
+     * @deprecated An alias for .store[RESOURCE_ENERGY].
      */
     energy: number;
     /**
      * The total amount of energy this structure can contain.
+     * @deprecated An alias for .store.getCapacity(RESOURCE_ENERGY).
      */
     energyCapacity: number;
+    /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store;
 
     /**
      * Remotely attack any creep in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
@@ -508,11 +522,12 @@ interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
      */
     cooldown: number;
     /**
-     * An object with the storage contents. Each object key is one of the RESOURCE_* constants, values are resources amounts.
+     * A Store object that contains cargo of this structure.
      */
-    store: StoreDefinition;
+    store: Store;
     /**
      * The total amount of resources the storage can contain.
+     * @deprecated An alias for .store.getCapacity().
      */
     storeCapacity: number;
     /**

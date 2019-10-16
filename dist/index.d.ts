@@ -3115,10 +3115,12 @@ declare const PathFinder: PathFinder;
 interface PowerCreep extends RoomObject {
     /**
      * An object with the creep's cargo contents.
+     * @deprecated An alias for Creep.store.
      */
     carry: StoreDefinition;
     /**
      * The total amount of resources the creep can carry.
+     * @deprecated An alias for Creep.store.getCapacity().
      */
     carryCapacity: number;
     /**
@@ -3161,6 +3163,10 @@ interface PowerCreep extends RoomObject {
      * An object with the creep's owner information.
      */
     owner: Owner;
+    /**
+     * A Store object that contains cargo of this creep.
+     */
+    store: Store;
     /**
      * An object with the creep's available powers.
      */

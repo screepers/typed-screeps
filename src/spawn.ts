@@ -8,10 +8,12 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
     readonly prototype: StructureSpawn;
     /**
      * The amount of energy containing in the spawn.
+     * @deprecated An alias for .store[RESOURCE_ENERGY].
      */
     energy: number;
     /**
      * The total amount of energy the spawn can contain
+     * @deprecated An alias for .store.getCapacity(RESOURCE_ENERGY).
      */
     energyCapacity: number;
     /**
@@ -31,7 +33,10 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * If the spawn is in process of spawning a new creep, this object will contain the new creep’s information, or null otherwise.
      */
     spawning: Spawning | null;
-
+    /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store;
     /**
      * Check if a creep can be created.
      *
@@ -200,4 +205,4 @@ interface SpawnOptions {
     directions?: DirectionConstant[];
 }
 
-interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> { }
+interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {}
