@@ -1067,10 +1067,12 @@ interface Creep extends RoomObject {
     body: BodyPartDefinition[];
     /**
      * An object with the creep's cargo contents.
+     * @deprecated Is an alias for Creep.store
      */
     carry: StoreDefinition;
     /**
      * The total amount of resources the creep can carry.
+     * @deprecated alias for Creep.store.getCapacity
      */
     carryCapacity: number;
     /**
@@ -1117,6 +1119,10 @@ interface Creep extends RoomObject {
      * The text message that the creep was saying at the last tick.
      */
     saying: string;
+    /**
+     * A Store object that contains cargo of this creep.
+     */
+    store: Store;
     /**
      * The remaining amount of game ticks after which the creep will die.
      *
@@ -4497,6 +4503,26 @@ interface SpawnOptions {
 }
 
 interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> { }
+interface Store extends Record<ResourceConstant, number> {
+    readonly prototype: Store;
+    /**
+     * Returns capacity of this store for the specified resource, or total capacity if resource is undefined.
+     * @param resource The type of the resource
+     */
+    getCapacity(resource?: ResourceConstant): number | null;
+
+    /**
+     * A shorthand for getCapacity(resource) - getUsedCapacity(resource)
+     * @param resource The type of the resource
+     */
+    getFreeCapacity(resource?: ResourceConstant): number | null;
+
+    /**
+     * Returns the capacity used by the specified resource, or total used capacity for general purpose stores if resource is undefined.
+     * @param resource The type of the resource.
+     */
+    getUsedCapacity(resource?: ResourceConstant): number | null;
+}
 /**
  * Parent object for structure classes
  */
