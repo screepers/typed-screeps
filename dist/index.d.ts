@@ -4310,10 +4310,12 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
     readonly prototype: StructureSpawn;
     /**
      * The amount of energy containing in the spawn.
+     * @deprecated An alias for .store[RESOURCE_ENERGY].
      */
     energy: number;
     /**
      * The total amount of energy the spawn can contain
+     * @deprecated An alias for .store.getCapacity(RESOURCE_ENERGY).
      */
     energyCapacity: number;
     /**
@@ -4333,7 +4335,10 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * If the spawn is in process of spawning a new creep, this object will contain the new creep’s information, or null otherwise.
      */
     spawning: Spawning | null;
-
+    /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store;
     /**
      * Check if a creep can be created.
      *
@@ -4502,7 +4507,7 @@ interface SpawnOptions {
     directions?: DirectionConstant[];
 }
 
-interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> { }
+interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {}
 interface Store extends Record<ResourceConstant, number> {
     readonly prototype: Store;
     /**
@@ -4673,12 +4678,19 @@ interface StructureExtension extends OwnedStructure<STRUCTURE_EXTENSION> {
 
     /**
      * The amount of energy containing in the extension.
+     * @deprecated An alias for .store[RESOURCE_ENERGY].
      */
     energy: number;
     /**
      * The total amount of energy the extension can contain.
+     * @deprecated An alias for .store.getCapacity(RESOURCE_ENERGY).
      */
     energyCapacity: number;
+
+    /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store;
 }
 
 interface StructureExtensionConstructor extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension> {}
@@ -4697,12 +4709,18 @@ interface StructureLink extends OwnedStructure<STRUCTURE_LINK> {
     cooldown: number;
     /**
      * The amount of energy containing in the link.
+     * @deprecated An alias for .store[RESOURCE_ENERGY].
      */
     energy: number;
     /**
      * The total amount of energy the link can contain.
+     * @deprecated An alias for .store.getCapacity(RESOURCE_ENERGY).
      */
     energyCapacity: number;
+    /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store;
     /**
      * Transfer energy from the link to another link or a creep.
      *
@@ -4783,20 +4801,28 @@ interface StructurePowerSpawn extends OwnedStructure<STRUCTURE_POWER_SPAWN> {
     readonly prototype: StructurePowerSpawn;
     /**
      * The amount of energy containing in this structure.
+     * @deprecated An alias for .store[RESOURCE_ENERGY].
      */
     energy: number;
     /**
      * The total amount of energy this structure can contain.
+     * @deprecated An alias for .store.getCapacity(RESOURCE_ENERGY).
      */
     energyCapacity: number;
     /**
      * The amount of power containing in this structure.
+     * @deprecated An alias for .store[RESOURCE_POWER].
      */
     power: number;
     /**
      * The total amount of power this structure can contain.
+     * @deprecated An alias for .store.getCapacity(RESOURCE_POWER).
      */
     powerCapacity: number;
+    /**
+     *
+     */
+    store: Store;
 
     /**
      * Register power resource units into your account. Registered power allows to develop power creeps skills. Consumes 1 power resource unit and 50 energy resource units.
@@ -4863,9 +4889,10 @@ interface StructureStorage extends OwnedStructure<STRUCTURE_STORAGE> {
     /**
      * An object with the storage contents.
      */
-    store: StoreDefinition;
+    store: Store;
     /**
      * The total amount of resources the storage can contain.
+     * @deprecated An alias for .store.getCapacity().
      */
     storeCapacity: number;
 }
@@ -4884,12 +4911,18 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
 
     /**
      * The amount of energy containing in this structure.
+     * @deprecated An alias for .store[RESOURCE_ENERGY].
      */
     energy: number;
     /**
      * The total amount of energy this structure can contain.
+     * @deprecated An alias for .store.getCapacity(RESOURCE_ENERGY).
      */
     energyCapacity: number;
+    /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store;
 
     /**
      * Remotely attack any creep in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
@@ -4953,14 +4986,17 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
     cooldown: number;
     /**
      * The amount of energy containing in the lab. Energy is used for boosting creeps.
+     * @deprecated An alias for .store[RESOURCE_ENERGY].
      */
     energy: number;
     /**
      * The total amount of energy the lab can contain.
+     * @deprecated An alias for .store.getCapacity(RESOURCE_ENERGY).
      */
     energyCapacity: number;
     /**
      * The amount of mineral resources containing in the lab.
+     * @deprecated An alias for lab.store[lab.mineralType].
      */
     mineralAmount: number;
     /**
@@ -4970,8 +5006,13 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
     mineralType: MineralConstant | MineralCompoundConstant | null;
     /**
      * The total amount of minerals the lab can contain.
+     * @deprecated An alias for lab.store.getCapacity(lab.mineralType || yourMineral).
      */
     mineralCapacity: number;
+    /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store;
     /**
      * Boosts creep body part using the containing mineral compound. The creep has to be at adjacent square to the lab. Boosting one body part consumes 30 mineral units and 20 energy units.
      * @param creep The target creep.
@@ -5011,11 +5052,12 @@ interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
      */
     cooldown: number;
     /**
-     * An object with the storage contents. Each object key is one of the RESOURCE_* constants, values are resources amounts.
+     * A Store object that contains cargo of this structure.
      */
-    store: StoreDefinition;
+    store: Store;
     /**
      * The total amount of resources the storage can contain.
+     * @deprecated An alias for .store.getCapacity().
      */
     storeCapacity: number;
     /**
@@ -5041,9 +5083,10 @@ interface StructureContainer extends Structure<STRUCTURE_CONTAINER> {
      * An object with the structure contents. Each object key is one of the RESOURCE_* constants, values are resources
      * amounts. Use _.sum(structure.store) to get the total amount of contents
      */
-    store: StoreDefinition;
+    store: Store;
     /**
      * The total amount of resources the structure can contain.
+     * @deprecated An alias for .store.getCapacity().
      */
     storeCapacity: number;
     /**
@@ -5067,24 +5110,32 @@ interface StructureNuker extends OwnedStructure<STRUCTURE_NUKER> {
     readonly prototype: StructureNuker;
     /**
      * The amount of energy contained in this structure.
+     * @deprecated An alias for .store[RESOURCE_ENERGY].
      */
     energy: number;
     /**
      * The total amount of energy this structure can contain.
+     * @deprecated An alias for .store.getCapacity(RESOURCE_ENERGY).
      */
     energyCapacity: number;
     /**
      * The amount of energy contained in this structure.
+     * @deprecated An alias for .store[RESOURCE_GHODIUM].
      */
     ghodium: number;
     /**
      * The total amount of energy this structure can contain.
+     * @deprecated An alias for .store.getCapacity(RESOURCE_GHODIUM).
      */
     ghodiumCapacity: number;
     /**
      * The amount of game ticks the link has to wait until the next transfer is possible.
      */
     cooldown: number;
+    /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store;
     /**
      * Launch a nuke to the specified position.
      * @param pos The target room position.
