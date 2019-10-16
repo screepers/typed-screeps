@@ -1,4 +1,5 @@
 interface Store extends Record<ResourceConstant, number> {
+    readonly prototype: Store;
     /**
      * Returns capacity of this store for the specified resource, or total capacity if resource is undefined.
      * @param resource The type of the resource
