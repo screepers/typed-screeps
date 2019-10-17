@@ -750,3 +750,22 @@ function keys<T>(o: T): Array<keyof T> {
 
     const enemyTerrain = new Room.Terrain("W2N5");
 }
+
+// Ruin
+{
+    const ruin = room.find(FIND_RUINS)[0];
+
+    const destroyTime: number = ruin.destroyTime;
+    const ticksToDecay: number = ruin.ticksToDecay;
+    const structureType: StructureConstant = ruin.structure.structureType;
+
+    if (ruin.structure instanceof OwnedStructure) {
+        if (ruin.structure.my) {
+            // rip
+        } else {
+            // pillage!
+        }
+    } else {
+        // meh
+    }
+}

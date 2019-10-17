@@ -84,7 +84,8 @@ type FindConstant =
     | FIND_TOMBSTONES
     | FIND_POWER_CREEPS
     | FIND_MY_POWER_CREEPS
-    | FIND_HOSTILE_POWER_CREEPS;
+    | FIND_HOSTILE_POWER_CREEPS
+    | FIND_RUINS;
 
 type FIND_EXIT_TOP = 1;
 type FIND_EXIT_RIGHT = 3;
@@ -113,6 +114,7 @@ type FIND_TOMBSTONES = 118;
 type FIND_POWER_CREEPS = 119;
 type FIND_MY_POWER_CREEPS = 120;
 type FIND_HOSTILE_POWER_CREEPS = 121;
+type FIND_RUINS = 123;
 
 // Filter Options
 
@@ -165,6 +167,7 @@ type LOOK_STRUCTURES = "structure";
 type LOOK_TERRAIN = "terrain";
 type LOOK_TOMBSTONES = "tombstone";
 type LOOK_POWER_CREEPS = "powerCreep";
+type LOOK_RUINS = "ruin";
 
 // Direction Constants
 
@@ -412,6 +415,12 @@ type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
 type SUBSCRIPTION_TOKEN = "token";
 
 type TOMBSTONE_DECAY_PER_PART = 5;
+type TOMBSTONE_DECAY_POWER_CREEP = 500;
+
+type RUIN_DECAY = 500;
+interface RUIN_DECAY_STRUCTURES {
+    powerBank: 10;
+}
 
 type EventConstant =
     | EVENT_ATTACK

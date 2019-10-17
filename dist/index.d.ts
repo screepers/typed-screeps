@@ -59,6 +59,7 @@ declare const FIND_TOMBSTONES: 118;
 declare const FIND_POWER_CREEPS: 119;
 declare const FIND_MY_POWER_CREEPS: 120;
 declare const FIND_HOSTILE_POWER_CREEPS: 121;
+declare const FIND_RUINS: 123;
 
 declare const TOP: 1;
 declare const TOP_RIGHT: 2;
@@ -646,6 +647,7 @@ declare const LOOK_NUKES: "nuke";
 declare const LOOK_TERRAIN: "terrain";
 declare const LOOK_TOMBSTONES: "tombstone";
 declare const LOOK_POWER_CREEPS: "powerCreep";
+declare const LOOK_RUINS: "ruin";
 
 declare const ORDER_SELL: "sell";
 declare const ORDER_BUY: "buy";
@@ -655,6 +657,12 @@ declare const INVADERS_ENERGY_GOAL: number;
 declare const SYSTEM_USERNAME: string;
 
 declare const TOMBSTONE_DECAY_PER_PART: 5;
+declare const TOMBSTONE_DECAY_POWER_CREEP: 500;
+
+declare const RUIN_DECAY: 500;
+declare const RUIN_DECAY_STRUCTURES: {
+    powerBank: 10;
+};
 
 declare const EVENT_ATTACK: 1;
 declare const EVENT_OBJECT_DESTROYED: 2;
@@ -1589,7 +1597,7 @@ type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTyp
 type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<LookForAtAreaResultWithPos<T, K>>;
 
 interface FindTypes {
-    [key: number]: RoomPosition | AnyCreep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke | Tombstone;
+    [key: number]: RoomPosition | AnyCreep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke | Tombstone | Ruin;
     1: RoomPosition; // FIND_EXIT_TOP
     3: RoomPosition; // FIND_EXIT_RIGHT
     5: RoomPosition; // FIND_EXIT_BOTTOM
@@ -1616,6 +1624,7 @@ interface FindTypes {
     119: PowerCreep; // FIND_POWER_CREEPS
     120: PowerCreep; // FIND_MY_POWER_CREEPS
     121: PowerCreep; // FIND_HOSTILE_POWER_CREEPS
+    123: Ruin; // FIND_RUINS
 }
 
 interface FindPathOpts {
@@ -1876,7 +1885,8 @@ type FindConstant =
     | FIND_TOMBSTONES
     | FIND_POWER_CREEPS
     | FIND_MY_POWER_CREEPS
-    | FIND_HOSTILE_POWER_CREEPS;
+    | FIND_HOSTILE_POWER_CREEPS
+    | FIND_RUINS;
 
 type FIND_EXIT_TOP = 1;
 type FIND_EXIT_RIGHT = 3;
@@ -1905,6 +1915,7 @@ type FIND_TOMBSTONES = 118;
 type FIND_POWER_CREEPS = 119;
 type FIND_MY_POWER_CREEPS = 120;
 type FIND_HOSTILE_POWER_CREEPS = 121;
+type FIND_RUINS = 123;
 
 // Filter Options
 
@@ -1957,6 +1968,7 @@ type LOOK_STRUCTURES = "structure";
 type LOOK_TERRAIN = "terrain";
 type LOOK_TOMBSTONES = "tombstone";
 type LOOK_POWER_CREEPS = "powerCreep";
+type LOOK_RUINS = "ruin";
 
 // Direction Constants
 
@@ -2204,6 +2216,12 @@ type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
 type SUBSCRIPTION_TOKEN = "token";
 
 type TOMBSTONE_DECAY_PER_PART = 5;
+type TOMBSTONE_DECAY_POWER_CREEP = 500;
+
+type RUIN_DECAY = 500;
+interface RUIN_DECAY_STRUCTURES {
+    powerBank: 10;
+}
 
 type EventConstant =
     | EVENT_ATTACK
@@ -3908,6 +3926,42 @@ interface RoomConstructor extends _Constructor<Room> {
 }
 
 declare const Room: RoomConstructor;
+/**
+ * A destroyed structure. This is a walkable object.
+ */
+interface Ruin<T = AnyStructure> extends RoomObject {
+    readonly prototype: Ruin;
+
+    /**
+     * The time when the structure has been destroyed.
+     */
+    destroyTime: number;
+
+    /**
+     * A unique object identificator. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
+     */
+    id: string;
+
+    /**
+     * A Store object that contains resources of this structure
+     */
+    store: StoreDefinition;
+
+    /**
+     * An object containing basic data of the destroyed structure.
+     */
+    structure: T;
+
+    /**
+     * The amount of game ticks before this ruin decays.
+     * 500 ticks except some special cases
+     */
+    ticksToDecay: number;
+}
+
+interface RuinConstructor extends _Constructor<Ruin>, _ConstructorById<Ruin> {}
+
+declare const Ruin: RuinConstructor;
 /**
  * An energy source object. Can be harvested by creeps with a WORK body part.
  */

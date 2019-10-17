@@ -197,7 +197,7 @@ type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTyp
 type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<LookForAtAreaResultWithPos<T, K>>;
 
 interface FindTypes {
-    [key: number]: RoomPosition | AnyCreep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke | Tombstone;
+    [key: number]: RoomPosition | AnyCreep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke | Tombstone | Ruin;
     1: RoomPosition; // FIND_EXIT_TOP
     3: RoomPosition; // FIND_EXIT_RIGHT
     5: RoomPosition; // FIND_EXIT_BOTTOM
@@ -224,6 +224,7 @@ interface FindTypes {
     119: PowerCreep; // FIND_POWER_CREEPS
     120: PowerCreep; // FIND_MY_POWER_CREEPS
     121: PowerCreep; // FIND_HOSTILE_POWER_CREEPS
+    123: Ruin; // FIND_RUINS
 }
 
 interface FindPathOpts {

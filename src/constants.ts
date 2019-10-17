@@ -46,6 +46,7 @@ declare const FIND_TOMBSTONES: 118;
 declare const FIND_POWER_CREEPS: 119;
 declare const FIND_MY_POWER_CREEPS: 120;
 declare const FIND_HOSTILE_POWER_CREEPS: 121;
+declare const FIND_RUINS: 123;
 
 declare const TOP: 1;
 declare const TOP_RIGHT: 2;
@@ -633,6 +634,7 @@ declare const LOOK_NUKES: "nuke";
 declare const LOOK_TERRAIN: "terrain";
 declare const LOOK_TOMBSTONES: "tombstone";
 declare const LOOK_POWER_CREEPS: "powerCreep";
+declare const LOOK_RUINS: "ruin";
 
 declare const ORDER_SELL: "sell";
 declare const ORDER_BUY: "buy";
@@ -642,6 +644,12 @@ declare const INVADERS_ENERGY_GOAL: number;
 declare const SYSTEM_USERNAME: string;
 
 declare const TOMBSTONE_DECAY_PER_PART: 5;
+declare const TOMBSTONE_DECAY_POWER_CREEP: 500;
+
+declare const RUIN_DECAY: 500;
+declare const RUIN_DECAY_STRUCTURES: {
+    powerBank: 10;
+};
 
 declare const EVENT_ATTACK: 1;
 declare const EVENT_OBJECT_DESTROYED: 2;
