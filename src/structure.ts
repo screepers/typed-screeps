@@ -442,7 +442,7 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
      * The type of minerals containing in the lab. Labs can contain only one mineral type at the same time.
      * Null in case there is no mineral resource in the lab.
      */
-    mineralType: _ResourceConstantSansEnergy | null;
+    mineralType: MineralConstant | MineralCompoundConstant | null;
     /**
      * The total amount of minerals the lab can contain.
      */
@@ -457,6 +457,13 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
      * If undefined, all the eligible body parts are boosted.
      */
     boostCreep(creep: Creep, bodyPartsCount?: number): ScreepsReturnCode;
+    /**
+     * Immediately remove boosts from the creep and drop 50% of the mineral compounds used to boost it onto the ground regardless of the creep's remaining time to live.
+     * The creep has to be at adjacent square to the lab.
+     * Unboosting requires cooldown time equal to the total sum of the reactions needed to produce all the compounds applied to the creep.
+     * @param creep The target creep.
+     */
+    unboostCreep(creep: Creep): ScreepsReturnCode;
     /**
      * Produce mineral compounds using reagents from two another labs. Each lab has to be within 2 squares range. The same input labs can be used by many output labs
      * @param lab1 The first source lab.
@@ -588,12 +595,63 @@ interface StructurePortalConstructor extends _Constructor<StructurePortal>, _Con
 declare const StructurePortal: StructurePortalConstructor;
 
 /**
+ * A structure which produces trade commodities from base minerals and other commodities.
+ */
+interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
+    readonly prototype: StructureFactory;
+    /**
+     * The amount of game ticks the factory has to wait until the next produce is possible.
+     */
+    cooldown: number;
+    /**
+     * The level of the factory.
+     * Can be set by applying the PWR_OPERATE_FACTORY power to a newly built factory.
+     * Once set, the level cannot be changed.
+     */
+    level: number;
+    /**
+     * An object with the structure contents.
+     */
+    store: StoreDefinition;
+    /**
+     * Produces the specified commodity.
+     * All ingredients should be available in the factory store.
+     */
+    produce(resource: CommodityConstant | MineralConstant | RESOURCE_GHODIUM): ScreepsReturnCode;
+}
+
+interface StructureFactoryConstructor extends _Constructor<StructureFactory>, _ConstructorById<StructureFactory> {}
+
+declare const StructureFactory: StructureFactoryConstructor;
+
+/**
+ * A structure which is a control center of NPC Strongholds, and also rules all invaders in the sector.
+ */
+interface StructureInvaderCore extends OwnedStructure<STRUCTURE_INVADER_CORE> {
+    readonly prototype: StructureInvaderCore;
+    /**
+     * The level of the stronghold. The amount and quality of the loot depends on the level.
+     */
+    level: number;
+    /**
+     * Shows the timer for a not yet deployed stronghold, undefined otherwise.
+     */
+    ticksToDeploy: number;
+}
+
+interface StructureInvaderCoreConstructor extends _Constructor<StructureInvaderCore>, _ConstructorById<StructureInvaderCore> {}
+
+declare const StructureInvaderCore: StructureInvaderCoreConstructor;
+
+/**
  * A discriminated union on Structure.type of all owned structure types
  */
 type AnyOwnedStructure =
     | StructureController
     | StructureExtension
     | StructureExtractor
+    | StructureFactory
+    | StructureInvaderCore
     | StructureKeeperLair
     | StructureLab
     | StructureLink
