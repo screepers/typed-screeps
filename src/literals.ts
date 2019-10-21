@@ -153,7 +153,8 @@ type LookConstant =
     | LOOK_NUKES
     | LOOK_TERRAIN
     | LOOK_TOMBSTONES
-    | LOOK_POWER_CREEPS;
+    | LOOK_POWER_CREEPS
+    | LOOK_RUINS;
 
 type LOOK_CONSTRUCTION_SITES = "constructionSite";
 type LOOK_CREEPS = "creep";

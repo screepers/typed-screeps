@@ -167,6 +167,7 @@ interface AllLookAtTypes {
     terrain: Terrain;
     tombstone: Tombstone;
     powerCreep: PowerCreep;
+    ruin: Ruin;
 }
 
 type LookAtTypes = Partial<AllLookAtTypes>;

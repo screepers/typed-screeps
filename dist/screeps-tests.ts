@@ -764,6 +764,8 @@ function keys<T>(o: T): Array<keyof T> {
             // rip
         } else {
             // pillage!
+            creep.withdraw(ruin, RESOURCE_ENERGY);
+            powerCreep.withdraw(ruin, RESOURCE_GHODIUM);
         }
     } else {
         // meh

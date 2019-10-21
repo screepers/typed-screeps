@@ -1244,7 +1244,7 @@ interface Creep extends RoomObject {
      * @param resourceType The target One of the RESOURCE_* constants..
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    withdraw(target: Structure | Tombstone, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
 
 interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> {}
@@ -1567,6 +1567,7 @@ interface AllLookAtTypes {
     terrain: Terrain;
     tombstone: Tombstone;
     powerCreep: PowerCreep;
+    ruin: Ruin;
 }
 
 type LookAtTypes = Partial<AllLookAtTypes>;
@@ -1954,7 +1955,8 @@ type LookConstant =
     | LOOK_NUKES
     | LOOK_TERRAIN
     | LOOK_TOMBSTONES
-    | LOOK_POWER_CREEPS;
+    | LOOK_POWER_CREEPS
+    | LOOK_RUINS;
 
 type LOOK_CONSTRUCTION_SITES = "constructionSite";
 type LOOK_CREEPS = "creep";
@@ -3024,7 +3026,7 @@ interface PowerCreep extends RoomObject {
      * @param resourceType The target One of the RESOURCE_* constants..
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    withdraw(target: Structure | Tombstone, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
 
 interface PowerCreepConstructor extends _Constructor<PowerCreep>, _ConstructorById<PowerCreep> {
