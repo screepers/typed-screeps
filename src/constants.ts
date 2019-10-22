@@ -695,6 +695,9 @@ declare const PWR_FORTIFY: 17;
 declare const PWR_OPERATE_CONTROLLER: 18;
 declare const PWR_OPERATE_FACTORY: 19;
 
+declare const EFFECT_INVULNERABILITY = 1001;
+declare const EFFECT_COLLAPSE_TIMER = 1002;
+
 declare const POWER_INFO: {
     [powerID: number]: {
         className: PowerClassConstant;
