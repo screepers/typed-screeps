@@ -9,7 +9,7 @@
 //                 Skyler Kehren <https://github.com/pyrodogg>
 //                 Kieran Carnegie <https://github.com/kotarou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.7
+// TypeScript Version: 2.8
 
 // Game Constants
 
@@ -57,6 +57,8 @@ declare const FIND_TOMBSTONES: 118;
 declare const FIND_POWER_CREEPS: 119;
 declare const FIND_MY_POWER_CREEPS: 120;
 declare const FIND_HOSTILE_POWER_CREEPS: 121;
+declare const FIND_DEPOSITS: 122;
+declare const FIND_RUINS: 123;
 
 declare const TOP: 1;
 declare const TOP_RIGHT: 2;
@@ -87,8 +89,11 @@ declare const CREEP_CORPSE_RATE: 0.2;
 declare const OBSTACLE_OBJECT_TYPES: [
     "spawn",
     "creep",
-    "wall",
+    "powerCreep",
     "source",
+    "mineral",
+    "deposit",
+    "controller",
     "constructedWall",
     "extension",
     "link",
@@ -99,7 +104,9 @@ declare const OBSTACLE_OBJECT_TYPES: [
     "powerBank",
     "lab",
     "terminal",
-    "nuker"
+    "nuker",
+    "factory",
+    "invaderCore"
 ];
 
 declare const ENERGY_REGEN_TIME: 300;
@@ -161,6 +168,9 @@ declare const LINK_LOSS_RATIO: 0.03;
 declare const STORAGE_CAPACITY: 1000000;
 declare const STORAGE_HITS: 10000;
 
+declare const FACTORY_HITS: 1000;
+declare const FACTORY_CAPACITY: 50000;
+
 declare const BODYPART_COST: Record<BodyPartConstant, number>;
 
 declare const BODYPARTS_ALL: BodyPartConstant[];
@@ -168,6 +178,7 @@ declare const BODYPARTS_ALL: BodyPartConstant[];
 declare const CARRY_CAPACITY: 50;
 declare const HARVEST_POWER: 2;
 declare const HARVEST_MINERAL_POWER: 1;
+declare const HARVEST_DEPOSIT_POWER: 1;
 declare const REPAIR_POWER: 100;
 declare const DISMANTLE_POWER: 50;
 declare const BUILD_POWER: 5;
@@ -210,6 +221,8 @@ declare const STRUCTURE_LAB: "lab";
 declare const STRUCTURE_TERMINAL: "terminal";
 declare const STRUCTURE_CONTAINER: "container";
 declare const STRUCTURE_NUKER: "nuker";
+declare const STRUCTURE_FACTORY: "factory";
+declare const STRUCTURE_INVADER_CORE: "invaderCore";
 declare const STRUCTURE_PORTAL: "portal";
 
 declare const RESOURCE_ENERGY: "energy";
@@ -256,6 +269,54 @@ declare const RESOURCE_CATALYZED_ZYNTHIUM_ACID: "XZH2O";
 declare const RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: "XZHO2";
 declare const RESOURCE_CATALYZED_GHODIUM_ACID: "XGH2O";
 declare const RESOURCE_CATALYZED_GHODIUM_ALKALIDE: "XGHO2";
+
+declare const RESOURCE_BIOMASS = "biomass";
+declare const RESOURCE_METAL = "metal";
+declare const RESOURCE_MIST = "mist";
+declare const RESOURCE_SILICON = "silicon";
+
+declare const RESOURCE_UTRIUM_BAR = "utrium_bar";
+declare const RESOURCE_LEMERGIUM_BAR = "lemergium_bar";
+declare const RESOURCE_ZYNTHIUM_BAR = "zynthium_bar";
+declare const RESOURCE_KEANIUM_BAR = "keanium_bar";
+declare const RESOURCE_GHODIUM_MELT = "ghodium_melt";
+declare const RESOURCE_OXIDANT = "oxidant";
+declare const RESOURCE_REDUCTANT = "reductant";
+declare const RESOURCE_PURIFIER = "purifier";
+declare const RESOURCE_BATTERY = "battery";
+
+declare const RESOURCE_COMPOSITE = "composite";
+declare const RESOURCE_CRYSTAL = "crystal";
+declare const RESOURCE_LIQUID = "liquid";
+
+declare const RESOURCE_WIRE = "wire";
+declare const RESOURCE_SWITCH = "switch";
+declare const RESOURCE_TRANSISTOR = "transistor";
+declare const RESOURCE_MICROCHIP = "microchip";
+declare const RESOURCE_CIRCUIT = "circuit";
+declare const RESOURCE_DEVICE = "device";
+
+declare const RESOURCE_CELL = "cell";
+declare const RESOURCE_PHLEGM = "phlegm";
+declare const RESOURCE_TISSUE = "tissue";
+declare const RESOURCE_MUSCLE = "muscle";
+declare const RESOURCE_ORGANOID = "organoid";
+declare const RESOURCE_ORGANISM = "organism";
+
+declare const RESOURCE_ALLOY = "alloy";
+declare const RESOURCE_TUBE = "tube";
+declare const RESOURCE_FIXTURES = "fixtures";
+declare const RESOURCE_FRAME = "frame";
+declare const RESOURCE_HYDRAULICS = "hydraulics";
+declare const RESOURCE_MACHINE = "machine";
+
+declare const RESOURCE_CONDENSATE = "condensate";
+declare const RESOURCE_CONCENTRATE = "concentrate";
+declare const RESOURCE_EXTRACT = "extract";
+declare const RESOURCE_SPIRIT = "spirit";
+declare const RESOURCE_EMANATION = "emanation";
+declare const RESOURCE_ESSENCE = "essence";
+
 declare const RESOURCES_ALL: ResourceConstant[];
 
 declare const SUBSCRIPTION_TOKEN: "token";
@@ -355,6 +416,10 @@ declare const DENSITY_LOW: number;
 declare const DENSITY_MODERATE: number;
 declare const DENSITY_HIGH: number;
 declare const DENSITY_ULTRA: number;
+
+declare const DEPOSIT_EXHAUST_MULTIPLY: number;
+declare const DEPOSIT_EXHAUST_POW: number;
+declare const DEPOSIT_DECAY_TIME: number;
 
 declare const TERMINAL_CAPACITY: number;
 declare const TERMINAL_COOLDOWN: number;
@@ -515,6 +580,43 @@ declare const REACTIONS: {
     };
 };
 
+declare const REACTION_TIME: {
+    OH: 20;
+    ZK: 5;
+    UL: 5;
+    G: 5;
+    UH: 10;
+    UH2O: 5;
+    XUH2O: 60;
+    UO: 10;
+    UHO2: 5;
+    XUHO2: 60;
+    KH: 10;
+    KH2O: 5;
+    XKH2O: 60;
+    KO: 10;
+    KHO2: 5;
+    XKHO2: 60;
+    LH: 15;
+    LH2O: 10;
+    XLH2O: 65;
+    LO: 10;
+    LHO2: 5;
+    XLHO2: 60;
+    ZH: 20;
+    ZH2O: 40;
+    XZH2O: 160;
+    ZO: 10;
+    ZHO2: 5;
+    XZHO2: 60;
+    GH: 10;
+    GH2O: 15;
+    XGH2O: 80;
+    GO: 10;
+    GHO2: 30;
+    XGHO2: 150;
+};
+
 declare const BOOSTS: {
     [part: string]: { [boost: string]: { [action: string]: number } };
     work: {
@@ -632,11 +734,21 @@ declare const BOOSTS: {
     };
 };
 
+declare const COMMODITIES: Record<
+    CommodityConstant | MineralConstant | RESOURCE_GHODIUM,
+    {
+        amount: number;
+        cooldown: number;
+        components: Record<DepositConstant | CommodityConstant | MineralConstant | RESOURCE_GHODIUM, number>;
+    }
+>;
+
 declare const LOOK_CREEPS: "creep";
 declare const LOOK_ENERGY: "energy";
 declare const LOOK_RESOURCES: "resource";
 declare const LOOK_SOURCES: "source";
 declare const LOOK_MINERALS: "mineral";
+declare const LOOK_DEPOSITS: "deposit";
 declare const LOOK_STRUCTURES: "structure";
 declare const LOOK_FLAGS: "flag";
 declare const LOOK_CONSTRUCTION_SITES: "constructionSite";
@@ -644,6 +756,7 @@ declare const LOOK_NUKES: "nuke";
 declare const LOOK_TERRAIN: "terrain";
 declare const LOOK_TOMBSTONES: "tombstone";
 declare const LOOK_POWER_CREEPS: "powerCreep";
+declare const LOOK_RUINS: "ruin";
 
 declare const ORDER_SELL: "sell";
 declare const ORDER_BUY: "buy";
@@ -653,6 +766,12 @@ declare const INVADERS_ENERGY_GOAL: number;
 declare const SYSTEM_USERNAME: string;
 
 declare const TOMBSTONE_DECAY_PER_PART: 5;
+declare const TOMBSTONE_DECAY_POWER_CREEP: 500;
+
+declare const RUIN_DECAY: 500;
+declare const RUIN_DECAY_STRUCTURES: {
+    powerBank: 10;
+};
 
 declare const EVENT_ATTACK: 1;
 declare const EVENT_OBJECT_DESTROYED: 2;
@@ -705,6 +824,24 @@ declare const PWR_OPERATE_POWER: 16;
 declare const PWR_FORTIFY: 17;
 declare const PWR_OPERATE_CONTROLLER: 18;
 declare const PWR_OPERATE_FACTORY: 19;
+
+declare const EFFECT_INVULNERABILITY: 1001;
+declare const EFFECT_COLLAPSE_TIMER: 1002;
+
+declare const INVADER_CORE_HITS: 1000000;
+declare const INVADER_CORE_CREEP_SPAWN_TIME: {
+    0: 0;
+    1: 0;
+    2: 6;
+    3: 3;
+    4: 2;
+    5: 1;
+};
+declare const INVADER_CORE_EXPAND_TIME: 15000;
+declare const INVADER_CORE_CONTROLLER_POWER: 100;
+declare const INVADER_CORE_CONTROLLER_DOWNGRADE: 5000;
+declare const STRONGHOLD_RAMPART_HITS: { 0: 0; 1: 50000; 2: 200000; 3: 500000; 4: 1000000; 5: 2000000 };
+declare const STRONGHOLD_DECAY_TICKS: 150000;
 
 declare const POWER_INFO: {
     [powerID: number]: {
@@ -1062,16 +1199,16 @@ interface Creep extends RoomObject {
      */
     getActiveBodyparts(type: BodyPartConstant): number;
     /**
-     * Harvest energy from the source.
+     * Harvest energy from the source or resource from minerals or deposits.
      *
      * Needs the WORK body part.
      *
-     * If the creep has an empty CARRY body part, the harvested energy is put into it; otherwise it is dropped on the ground.
+     * If the creep has an empty CARRY body part, the harvested resource is put into it; otherwise it is dropped on the ground.
      *
      * The target has to be at an adjacent square to the creep.
      * @param target The source object to be harvested.
      */
-    harvest(target: Source | Mineral): CreepActionReturnCode | ERR_NOT_FOUND | ERR_NOT_ENOUGH_RESOURCES;
+    harvest(target: Source | Mineral | Deposit): CreepActionReturnCode | ERR_NOT_FOUND | ERR_NOT_ENOUGH_RESOURCES;
     /**
      * Heal self or another creep. It will restore the target creep’s damaged body parts function and increase the hits counter.
      *
@@ -1223,7 +1360,7 @@ interface Creep extends RoomObject {
      */
     upgradeController(target: StructureController): ScreepsReturnCode;
     /**
-     * Withdraw resources from a structure.
+     * Withdraw resources from a structure, a tombstone or a ruin.
      *
      * The target has to be at adjacent square to the creep.
      *
@@ -1234,12 +1371,44 @@ interface Creep extends RoomObject {
      * @param resourceType The target One of the RESOURCE_* constants..
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    withdraw(target: Structure | Tombstone, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
 
 interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> {}
 
 declare const Creep: CreepConstructor;
+/**
+ * A rare resource deposit needed for producing commodities.
+ * Can be harvested by creeps with a WORK body part.
+ * Each harvest operation triggers a cooldown period, which becomes longer and longer over time.
+ */
+interface Deposit extends RoomObject {
+    /**
+     * A unique object identificator.
+     * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
+     */
+    id: string;
+    /**
+     * The amount of game ticks until the next harvest action is possible.
+     */
+    depositType: DepositConstant;
+    /**
+     * The amount of game ticks until the next harvest action is possible.
+     */
+    cooldown: number;
+    /**
+     * The cooldown of the last harvest operation on this deposit.
+     */
+    lastCooldown: number;
+    /**
+     * The amount of game ticks when this deposit will disappear.
+     */
+    ticksToDecay: number;
+}
+
+interface DepositConstructor extends _Constructor<Deposit>, _ConstructorById<Deposit> {}
+
+declare const Deposit: DepositConstructor;
 /**
  * A flag. Flags can be used to mark particular spots in a room. Flags are visible to their owners only.
  */
@@ -1504,7 +1673,7 @@ interface BodyPartDefinition {
      *
      * If the body part is boosted, this property specifies the mineral type which is used for boosting.
      */
-    boost?: ResourceConstant;
+    boost?: MineralBoostConstant;
     /**
      * One of the body part types constants.
      */
@@ -1550,6 +1719,7 @@ interface AllLookAtTypes {
     exit: any; // TODO what type is this?
     flag: Flag;
     mineral: Mineral;
+    deposit: Deposit;
     nuke: Nuke;
     resource: Resource;
     source: Source;
@@ -1557,6 +1727,7 @@ interface AllLookAtTypes {
     terrain: Terrain;
     tombstone: Tombstone;
     powerCreep: PowerCreep;
+    ruin: Ruin;
 }
 
 type LookAtTypes = Partial<AllLookAtTypes>;
@@ -1587,7 +1758,19 @@ type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTyp
 type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<LookForAtAreaResultWithPos<T, K>>;
 
 interface FindTypes {
-    [key: number]: RoomPosition | AnyCreep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke | Tombstone;
+    [key: number]:
+        | RoomPosition
+        | AnyCreep
+        | Source
+        | Resource
+        | Structure
+        | Flag
+        | ConstructionSite
+        | Mineral
+        | Nuke
+        | Tombstone
+        | Deposit
+        | Ruin;
     1: RoomPosition; // FIND_EXIT_TOP
     3: RoomPosition; // FIND_EXIT_RIGHT
     5: RoomPosition; // FIND_EXIT_BOTTOM
@@ -1614,6 +1797,8 @@ interface FindTypes {
     119: PowerCreep; // FIND_POWER_CREEPS
     120: PowerCreep; // FIND_MY_POWER_CREEPS
     121: PowerCreep; // FIND_HOSTILE_POWER_CREEPS
+    122: Deposit; // FIND_DEPOSITS
+    123: Ruin; // FIND_RUINS
 }
 
 interface FindPathOpts {
@@ -1874,7 +2059,9 @@ type FindConstant =
     | FIND_TOMBSTONES
     | FIND_POWER_CREEPS
     | FIND_MY_POWER_CREEPS
-    | FIND_HOSTILE_POWER_CREEPS;
+    | FIND_HOSTILE_POWER_CREEPS
+    | FIND_DEPOSITS
+    | FIND_RUINS;
 
 type FIND_EXIT_TOP = 1;
 type FIND_EXIT_RIGHT = 3;
@@ -1902,6 +2089,8 @@ type FIND_TOMBSTONES = 118;
 type FIND_POWER_CREEPS = 119;
 type FIND_MY_POWER_CREEPS = 120;
 type FIND_HOSTILE_POWER_CREEPS = 121;
+type FIND_DEPOSITS = 122;
+type FIND_RUINS = 123;
 
 // Filter Options
 
@@ -1934,19 +2123,22 @@ type LookConstant =
     | LOOK_RESOURCES
     | LOOK_SOURCES
     | LOOK_MINERALS
+    | LOOK_DEPOSITS
     | LOOK_STRUCTURES
     | LOOK_FLAGS
     | LOOK_CONSTRUCTION_SITES
     | LOOK_NUKES
     | LOOK_TERRAIN
     | LOOK_TOMBSTONES
-    | LOOK_POWER_CREEPS;
+    | LOOK_POWER_CREEPS
+    | LOOK_RUINS;
 
 type LOOK_CONSTRUCTION_SITES = "constructionSite";
 type LOOK_CREEPS = "creep";
 type LOOK_ENERGY = "energy";
 type LOOK_FLAGS = "flag";
 type LOOK_MINERALS = "mineral";
+type LOOK_DEPOSITS = "deposit";
 type LOOK_NUKES = "nuke";
 type LOOK_RESOURCES = "resource";
 type LOOK_SOURCES = "source";
@@ -1954,6 +2146,7 @@ type LOOK_STRUCTURES = "structure";
 type LOOK_TERRAIN = "terrain";
 type LOOK_TOMBSTONES = "tombstone";
 type LOOK_POWER_CREEPS = "powerCreep";
+type LOOK_RUINS = "ruin";
 
 // Direction Constants
 
@@ -2010,14 +2203,16 @@ type BuildableStructureConstant =
     | STRUCTURE_LAB
     | STRUCTURE_TERMINAL
     | STRUCTURE_CONTAINER
-    | STRUCTURE_NUKER;
+    | STRUCTURE_NUKER
+    | STRUCTURE_FACTORY;
 
 type StructureConstant =
     | BuildableStructureConstant
     | STRUCTURE_KEEPER_LAIR
     | STRUCTURE_CONTROLLER
     | STRUCTURE_POWER_BANK
-    | STRUCTURE_PORTAL;
+    | STRUCTURE_PORTAL
+    | STRUCTURE_INVADER_CORE;
 
 type STRUCTURE_EXTENSION = "extension";
 type STRUCTURE_RAMPART = "rampart";
@@ -2037,6 +2232,8 @@ type STRUCTURE_LAB = "lab";
 type STRUCTURE_TERMINAL = "terminal";
 type STRUCTURE_CONTAINER = "container";
 type STRUCTURE_NUKER = "nuker";
+type STRUCTURE_FACTORY = "factory";
+type STRUCTURE_INVADER_CORE = "invaderCore";
 type STRUCTURE_PORTAL = "portal";
 
 // Terrain mask constants
@@ -2049,103 +2246,104 @@ type TERRAIN_MASK_LAVA = 4;
 type ResourceConstant =
     | RESOURCE_ENERGY
     | RESOURCE_POWER
-    | RESOURCE_UTRIUM
-    | RESOURCE_LEMERGIUM
-    | RESOURCE_KEANIUM
-    | RESOURCE_GHODIUM
-    | RESOURCE_ZYNTHIUM
-    | RESOURCE_OXYGEN
-    | RESOURCE_HYDROGEN
-    | RESOURCE_CATALYST
-    | RESOURCE_HYDROXIDE
-    | RESOURCE_ZYNTHIUM_KEANITE
-    | RESOURCE_UTRIUM_LEMERGITE
-    | RESOURCE_UTRIUM_HYDRIDE
-    | RESOURCE_UTRIUM_OXIDE
-    | RESOURCE_KEANIUM_HYDRIDE
-    | RESOURCE_KEANIUM_OXIDE
-    | RESOURCE_LEMERGIUM_HYDRIDE
-    | RESOURCE_LEMERGIUM_OXIDE
-    | RESOURCE_ZYNTHIUM_HYDRIDE
-    | RESOURCE_ZYNTHIUM_OXIDE
-    | RESOURCE_GHODIUM_HYDRIDE
-    | RESOURCE_GHODIUM_OXIDE
-    | RESOURCE_UTRIUM_ACID
-    | RESOURCE_UTRIUM_ALKALIDE
-    | RESOURCE_KEANIUM_ACID
-    | RESOURCE_KEANIUM_ALKALIDE
-    | RESOURCE_LEMERGIUM_ACID
-    | RESOURCE_LEMERGIUM_ALKALIDE
-    | RESOURCE_ZYNTHIUM_ACID
-    | RESOURCE_ZYNTHIUM_ALKALIDE
-    | RESOURCE_GHODIUM_ACID
-    | RESOURCE_GHODIUM_ALKALIDE
-    | RESOURCE_CATALYZED_UTRIUM_ACID
-    | RESOURCE_CATALYZED_UTRIUM_ALKALIDE
-    | RESOURCE_CATALYZED_KEANIUM_ACID
-    | RESOURCE_CATALYZED_KEANIUM_ALKALIDE
-    | RESOURCE_CATALYZED_LEMERGIUM_ACID
-    | RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE
-    | RESOURCE_CATALYZED_ZYNTHIUM_ACID
-    | RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE
-    | RESOURCE_CATALYZED_GHODIUM_ACID
-    | RESOURCE_CATALYZED_GHODIUM_ALKALIDE
-    | RESOURCE_OPS;
+    | RESOURCE_OPS
+    | MineralConstant
+    | MineralCompoundConstant
+    | DepositConstant
+    | CommodityConstant;
 
-type _ResourceConstantSansEnergy =
-    | RESOURCE_POWER
-    | RESOURCE_UTRIUM
-    | RESOURCE_LEMERGIUM
-    | RESOURCE_KEANIUM
-    | RESOURCE_GHODIUM
-    | RESOURCE_ZYNTHIUM
-    | RESOURCE_OXYGEN
-    | RESOURCE_HYDROGEN
-    | RESOURCE_CATALYST
-    | RESOURCE_HYDROXIDE
-    | RESOURCE_ZYNTHIUM_KEANITE
-    | RESOURCE_UTRIUM_LEMERGITE
-    | RESOURCE_UTRIUM_HYDRIDE
-    | RESOURCE_UTRIUM_OXIDE
-    | RESOURCE_KEANIUM_HYDRIDE
-    | RESOURCE_KEANIUM_OXIDE
-    | RESOURCE_LEMERGIUM_HYDRIDE
-    | RESOURCE_LEMERGIUM_OXIDE
-    | RESOURCE_ZYNTHIUM_HYDRIDE
-    | RESOURCE_ZYNTHIUM_OXIDE
-    | RESOURCE_GHODIUM_HYDRIDE
-    | RESOURCE_GHODIUM_OXIDE
-    | RESOURCE_UTRIUM_ACID
-    | RESOURCE_UTRIUM_ALKALIDE
-    | RESOURCE_KEANIUM_ACID
-    | RESOURCE_KEANIUM_ALKALIDE
-    | RESOURCE_LEMERGIUM_ACID
-    | RESOURCE_LEMERGIUM_ALKALIDE
-    | RESOURCE_ZYNTHIUM_ACID
-    | RESOURCE_ZYNTHIUM_ALKALIDE
-    | RESOURCE_GHODIUM_ACID
-    | RESOURCE_GHODIUM_ALKALIDE
-    | RESOURCE_CATALYZED_UTRIUM_ACID
-    | RESOURCE_CATALYZED_UTRIUM_ALKALIDE
-    | RESOURCE_CATALYZED_KEANIUM_ACID
-    | RESOURCE_CATALYZED_KEANIUM_ALKALIDE
-    | RESOURCE_CATALYZED_LEMERGIUM_ACID
-    | RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE
-    | RESOURCE_CATALYZED_ZYNTHIUM_ACID
-    | RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE
-    | RESOURCE_CATALYZED_GHODIUM_ACID
-    | RESOURCE_CATALYZED_GHODIUM_ALKALIDE
-    | RESOURCE_OPS;
+type _ResourceConstantSansEnergy = Exclude<ResourceConstant, RESOURCE_ENERGY>;
 
+/** The raw harvestable minerals */
 type MineralConstant =
     | RESOURCE_UTRIUM
     | RESOURCE_LEMERGIUM
     | RESOURCE_KEANIUM
-    | RESOURCE_GHODIUM
     | RESOURCE_ZYNTHIUM
     | RESOURCE_OXYGEN
     | RESOURCE_HYDROGEN
     | RESOURCE_CATALYST;
+
+/** The compounds which can't boost */
+type MineralBaseCompoundsConstant = RESOURCE_HYDROXIDE | RESOURCE_ZYNTHIUM_KEANITE | RESOURCE_UTRIUM_LEMERGITE | RESOURCE_GHODIUM;
+
+/** The boosts (from tier 1 to tier 3) */
+type MineralBoostConstant =
+    | RESOURCE_UTRIUM_HYDRIDE
+    | RESOURCE_UTRIUM_OXIDE
+    | RESOURCE_KEANIUM_HYDRIDE
+    | RESOURCE_KEANIUM_OXIDE
+    | RESOURCE_LEMERGIUM_HYDRIDE
+    | RESOURCE_LEMERGIUM_OXIDE
+    | RESOURCE_ZYNTHIUM_HYDRIDE
+    | RESOURCE_ZYNTHIUM_OXIDE
+    | RESOURCE_GHODIUM_HYDRIDE
+    | RESOURCE_GHODIUM_OXIDE
+    | RESOURCE_UTRIUM_ACID
+    | RESOURCE_UTRIUM_ALKALIDE
+    | RESOURCE_KEANIUM_ACID
+    | RESOURCE_KEANIUM_ALKALIDE
+    | RESOURCE_LEMERGIUM_ACID
+    | RESOURCE_LEMERGIUM_ALKALIDE
+    | RESOURCE_ZYNTHIUM_ACID
+    | RESOURCE_ZYNTHIUM_ALKALIDE
+    | RESOURCE_GHODIUM_ACID
+    | RESOURCE_GHODIUM_ALKALIDE
+    | RESOURCE_CATALYZED_UTRIUM_ACID
+    | RESOURCE_CATALYZED_UTRIUM_ALKALIDE
+    | RESOURCE_CATALYZED_KEANIUM_ACID
+    | RESOURCE_CATALYZED_KEANIUM_ALKALIDE
+    | RESOURCE_CATALYZED_LEMERGIUM_ACID
+    | RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE
+    | RESOURCE_CATALYZED_ZYNTHIUM_ACID
+    | RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE
+    | RESOURCE_CATALYZED_GHODIUM_ACID
+    | RESOURCE_CATALYZED_GHODIUM_ALKALIDE;
+
+/** All the mineral compounds */
+type MineralCompoundConstant = MineralBaseCompoundsConstant | MineralBoostConstant;
+
+/** The raw deposits */
+type DepositConstant = RESOURCE_MIST | RESOURCE_BIOMASS | RESOURCE_METAL | RESOURCE_SILICON;
+
+/** The commodities, produced by the Factory */
+type CommodityConstant =
+    | RESOURCE_UTRIUM_BAR
+    | RESOURCE_LEMERGIUM_BAR
+    | RESOURCE_ZYNTHIUM_BAR
+    | RESOURCE_KEANIUM_BAR
+    | RESOURCE_GHODIUM_MELT
+    | RESOURCE_OXIDANT
+    | RESOURCE_REDUCTANT
+    | RESOURCE_PURIFIER
+    | RESOURCE_BATTERY
+    | RESOURCE_COMPOSITE
+    | RESOURCE_CRYSTAL
+    | RESOURCE_LIQUID
+    | RESOURCE_WIRE
+    | RESOURCE_SWITCH
+    | RESOURCE_TRANSISTOR
+    | RESOURCE_MICROCHIP
+    | RESOURCE_CIRCUIT
+    | RESOURCE_DEVICE
+    | RESOURCE_CELL
+    | RESOURCE_PHLEGM
+    | RESOURCE_TISSUE
+    | RESOURCE_MUSCLE
+    | RESOURCE_ORGANOID
+    | RESOURCE_ORGANISM
+    | RESOURCE_ALLOY
+    | RESOURCE_TUBE
+    | RESOURCE_FIXTURES
+    | RESOURCE_FRAME
+    | RESOURCE_HYDRAULICS
+    | RESOURCE_MACHINE
+    | RESOURCE_CONDENSATE
+    | RESOURCE_CONCENTRATE
+    | RESOURCE_EXTRACT
+    | RESOURCE_SPIRIT
+    | RESOURCE_EMANATION
+    | RESOURCE_ESSENCE;
 
 type MarketResourceConstant = ResourceConstant | SUBSCRIPTION_TOKEN;
 
@@ -2153,10 +2351,14 @@ type RESOURCE_ENERGY = "energy";
 type RESOURCE_POWER = "power";
 type RESOURCE_OPS = "ops";
 
+type RESOURCE_BIOMASS = "biomass";
+type RESOURCE_METAL = "metal";
+type RESOURCE_MIST = "mist";
+type RESOURCE_SILICON = "silicon";
+
 type RESOURCE_UTRIUM = "U";
 type RESOURCE_LEMERGIUM = "L";
 type RESOURCE_KEANIUM = "K";
-type RESOURCE_GHODIUM = "G";
 type RESOURCE_ZYNTHIUM = "Z";
 type RESOURCE_OXYGEN = "O";
 type RESOURCE_HYDROGEN = "H";
@@ -2165,6 +2367,8 @@ type RESOURCE_CATALYST = "X";
 type RESOURCE_HYDROXIDE = "OH";
 type RESOURCE_ZYNTHIUM_KEANITE = "ZK";
 type RESOURCE_UTRIUM_LEMERGITE = "UL";
+type RESOURCE_GHODIUM = "G";
+
 type RESOURCE_UTRIUM_HYDRIDE = "UH";
 type RESOURCE_UTRIUM_OXIDE = "UO";
 type RESOURCE_KEANIUM_HYDRIDE = "KH";
@@ -2197,6 +2401,48 @@ type RESOURCE_CATALYZED_ZYNTHIUM_ACID = "XZH2O";
 type RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = "XZHO2";
 type RESOURCE_CATALYZED_GHODIUM_ACID = "XGH2O";
 type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
+
+type RESOURCE_UTRIUM_BAR = "utrium_bar";
+type RESOURCE_LEMERGIUM_BAR = "lemergium_bar";
+type RESOURCE_ZYNTHIUM_BAR = "zynthium_bar";
+type RESOURCE_KEANIUM_BAR = "keanium_bar";
+type RESOURCE_GHODIUM_MELT = "ghodium_melt";
+type RESOURCE_OXIDANT = "oxidant";
+type RESOURCE_REDUCTANT = "reductant";
+type RESOURCE_PURIFIER = "purifier";
+type RESOURCE_BATTERY = "battery";
+
+type RESOURCE_COMPOSITE = "composite";
+type RESOURCE_CRYSTAL = "crystal";
+type RESOURCE_LIQUID = "liquid";
+
+type RESOURCE_WIRE = "wire";
+type RESOURCE_SWITCH = "switch";
+type RESOURCE_TRANSISTOR = "transistor";
+type RESOURCE_MICROCHIP = "microchip";
+type RESOURCE_CIRCUIT = "circuit";
+type RESOURCE_DEVICE = "device";
+
+type RESOURCE_CELL = "cell";
+type RESOURCE_PHLEGM = "phlegm";
+type RESOURCE_TISSUE = "tissue";
+type RESOURCE_MUSCLE = "muscle";
+type RESOURCE_ORGANOID = "organoid";
+type RESOURCE_ORGANISM = "organism";
+
+type RESOURCE_ALLOY = "alloy";
+type RESOURCE_TUBE = "tube";
+type RESOURCE_FIXTURES = "fixtures";
+type RESOURCE_FRAME = "frame";
+type RESOURCE_HYDRAULICS = "hydraulics";
+type RESOURCE_MACHINE = "machine";
+
+type RESOURCE_CONDENSATE = "condensate";
+type RESOURCE_CONCENTRATE = "concentrate";
+type RESOURCE_EXTRACT = "extract";
+type RESOURCE_SPIRIT = "spirit";
+type RESOURCE_EMANATION = "emanation";
+type RESOURCE_ESSENCE = "essence";
 
 type SUBSCRIPTION_TOKEN = "token";
 
@@ -2247,11 +2493,57 @@ type EVENT_HEAL_TYPE_RANGED = 2;
 
 type EventDestroyType = "creep" | StructureConstant;
 
-interface EventItem<T extends EventConstant = EventConstant> {
-    event: T;
-    objectId: string;
-    data: EventData[T];
-}
+type EventItem =
+    | {
+          event: EVENT_ATTACK;
+          objectId: string;
+          data: EventData[EVENT_ATTACK];
+      }
+    | {
+          event: EVENT_OBJECT_DESTROYED;
+          objectId: string;
+          data: EventData[EVENT_OBJECT_DESTROYED];
+      }
+    | {
+          event: EVENT_ATTACK_CONTROLLER;
+          objectId: string;
+          data: EventData[EVENT_ATTACK_CONTROLLER];
+      }
+    | {
+          event: EVENT_BUILD;
+          objectId: string;
+          data: EventData[EVENT_BUILD];
+      }
+    | {
+          event: EVENT_HARVEST;
+          objectId: string;
+          data: EventData[EVENT_HARVEST];
+      }
+    | {
+          event: EVENT_HEAL;
+          objectId: string;
+          data: EventData[EVENT_HEAL];
+      }
+    | {
+          event: EVENT_REPAIR;
+          objectId: string;
+          data: EventData[EVENT_REPAIR];
+      }
+    | {
+          event: EVENT_RESERVE_CONTROLLER;
+          objectId: string;
+          data: EventData[EVENT_RESERVE_CONTROLLER];
+      }
+    | {
+          event: EVENT_UPGRADE_CONTROLLER;
+          objectId: string;
+          data: EventData[EVENT_UPGRADE_CONTROLLER];
+      }
+    | {
+          event: EVENT_EXIT;
+          objectId: string;
+          data: EventData[EVENT_EXIT];
+      };
 
 interface EventData {
     [key: number]: null | {
@@ -2273,7 +2565,7 @@ interface EventData {
         attackType: EventAttackType;
     };
     2: {
-        // EVENT_OBJECT_DESTORYED
+        // EVENT_OBJECT_DESTROYED
         type: EventDestroyType;
     };
     3: null; // EVENT_ATTACK_CONTROLLER
@@ -3905,6 +4197,39 @@ interface RoomConstructor extends _Constructor<Room> {
 
 declare const Room: RoomConstructor;
 /**
+ * A destroyed structure. This is a walkable object.
+ * <ul>
+ *     <li>Decay: 500 ticks except some special cases</li>
+ * </ul>
+ */
+interface Ruin extends RoomObject {
+    /**
+     * A unique object identificator.
+     * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
+     */
+    id: string;
+    /**
+     * Time of destruction.
+     */
+    destroyTime: number;
+    /**
+     * An object with the ruin contents.
+     */
+    store: StoreDefinition;
+    /**
+     * The amount of game ticks before this ruin decays.
+     */
+    ticksToDecay: number;
+    /**
+     * An object containing the destroyed structure.
+     */
+    structure: AnyStructure;
+}
+
+interface RuinConstructor extends _Constructor<Ruin>, _ConstructorById<Ruin> {}
+
+declare const Ruin: RuinConstructor;
+/**
  * An energy source object. Can be harvested by creeps with a WORK body part.
  */
 interface Source extends RoomObject {
@@ -4585,7 +4910,7 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
      * The type of minerals containing in the lab. Labs can contain only one mineral type at the same time.
      * Null in case there is no mineral resource in the lab.
      */
-    mineralType: _ResourceConstantSansEnergy | null;
+    mineralType: MineralConstant | MineralCompoundConstant | null;
     /**
      * The total amount of minerals the lab can contain.
      */
@@ -4600,6 +4925,13 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
      * If undefined, all the eligible body parts are boosted.
      */
     boostCreep(creep: Creep, bodyPartsCount?: number): ScreepsReturnCode;
+    /**
+     * Immediately remove boosts from the creep and drop 50% of the mineral compounds used to boost it onto the ground regardless of the creep's remaining time to live.
+     * The creep has to be at adjacent square to the lab.
+     * Unboosting requires cooldown time equal to the total sum of the reactions needed to produce all the compounds applied to the creep.
+     * @param creep The target creep.
+     */
+    unboostCreep(creep: Creep): ScreepsReturnCode;
     /**
      * Produce mineral compounds using reagents from two another labs. Each lab has to be within 2 squares range. The same input labs can be used by many output labs
      * @param lab1 The first source lab.
@@ -4731,12 +5063,63 @@ interface StructurePortalConstructor extends _Constructor<StructurePortal>, _Con
 declare const StructurePortal: StructurePortalConstructor;
 
 /**
+ * A structure which produces trade commodities from base minerals and other commodities.
+ */
+interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
+    readonly prototype: StructureFactory;
+    /**
+     * The amount of game ticks the factory has to wait until the next produce is possible.
+     */
+    cooldown: number;
+    /**
+     * The level of the factory.
+     * Can be set by applying the PWR_OPERATE_FACTORY power to a newly built factory.
+     * Once set, the level cannot be changed.
+     */
+    level: number;
+    /**
+     * An object with the structure contents.
+     */
+    store: StoreDefinition;
+    /**
+     * Produces the specified commodity.
+     * All ingredients should be available in the factory store.
+     */
+    produce(resource: CommodityConstant | MineralConstant | RESOURCE_GHODIUM): ScreepsReturnCode;
+}
+
+interface StructureFactoryConstructor extends _Constructor<StructureFactory>, _ConstructorById<StructureFactory> {}
+
+declare const StructureFactory: StructureFactoryConstructor;
+
+/**
+ * A structure which is a control center of NPC Strongholds, and also rules all invaders in the sector.
+ */
+interface StructureInvaderCore extends OwnedStructure<STRUCTURE_INVADER_CORE> {
+    readonly prototype: StructureInvaderCore;
+    /**
+     * The level of the stronghold. The amount and quality of the loot depends on the level.
+     */
+    level: number;
+    /**
+     * Shows the timer for a not yet deployed stronghold, undefined otherwise.
+     */
+    ticksToDeploy: number;
+}
+
+interface StructureInvaderCoreConstructor extends _Constructor<StructureInvaderCore>, _ConstructorById<StructureInvaderCore> {}
+
+declare const StructureInvaderCore: StructureInvaderCoreConstructor;
+
+/**
  * A discriminated union on Structure.type of all owned structure types
  */
 type AnyOwnedStructure =
     | StructureController
     | StructureExtension
     | StructureExtractor
+    | StructureFactory
+    | StructureInvaderCore
     | StructureKeeperLair
     | StructureLab
     | StructureLink
