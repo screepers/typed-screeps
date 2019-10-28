@@ -28,8 +28,6 @@ declare const FIND_MY_CREEPS: 102;
 declare const FIND_HOSTILE_CREEPS: 103;
 declare const FIND_SOURCES_ACTIVE: 104;
 declare const FIND_SOURCES: 105;
-/** `FIND_DROPPED_ENERGY` is deprecated the return value is the same as `FIND_DROPPED_RESOURCES` */
-declare const FIND_DROPPED_ENERGY: -106;
 declare const FIND_DROPPED_RESOURCES: 106;
 declare const FIND_STRUCTURES: 107;
 declare const FIND_MY_STRUCTURES: 108;
@@ -46,6 +44,8 @@ declare const FIND_TOMBSTONES: 118;
 declare const FIND_POWER_CREEPS: 119;
 declare const FIND_MY_POWER_CREEPS: 120;
 declare const FIND_HOSTILE_POWER_CREEPS: 121;
+declare const FIND_DEPOSITS: 122;
+declare const FIND_RUINS: 123;
 
 declare const TOP: 1;
 declare const TOP_RIGHT: 2;
@@ -76,8 +76,11 @@ declare const CREEP_CORPSE_RATE: 0.2;
 declare const OBSTACLE_OBJECT_TYPES: [
     "spawn",
     "creep",
-    "wall",
+    "powerCreep",
     "source",
+    "mineral",
+    "deposit",
+    "controller",
     "constructedWall",
     "extension",
     "link",
@@ -88,7 +91,9 @@ declare const OBSTACLE_OBJECT_TYPES: [
     "powerBank",
     "lab",
     "terminal",
-    "nuker"
+    "nuker",
+    "factory",
+    "invaderCore"
 ];
 
 declare const ENERGY_REGEN_TIME: 300;
@@ -150,6 +155,9 @@ declare const LINK_LOSS_RATIO: 0.03;
 declare const STORAGE_CAPACITY: 1000000;
 declare const STORAGE_HITS: 10000;
 
+declare const FACTORY_HITS: 1000;
+declare const FACTORY_CAPACITY: 50000;
+
 declare const BODYPART_COST: Record<BodyPartConstant, number>;
 
 declare const BODYPARTS_ALL: BodyPartConstant[];
@@ -157,6 +165,7 @@ declare const BODYPARTS_ALL: BodyPartConstant[];
 declare const CARRY_CAPACITY: 50;
 declare const HARVEST_POWER: 2;
 declare const HARVEST_MINERAL_POWER: 1;
+declare const HARVEST_DEPOSIT_POWER: 1;
 declare const REPAIR_POWER: 100;
 declare const DISMANTLE_POWER: 50;
 declare const BUILD_POWER: 5;
@@ -199,6 +208,8 @@ declare const STRUCTURE_LAB: "lab";
 declare const STRUCTURE_TERMINAL: "terminal";
 declare const STRUCTURE_CONTAINER: "container";
 declare const STRUCTURE_NUKER: "nuker";
+declare const STRUCTURE_FACTORY: "factory";
+declare const STRUCTURE_INVADER_CORE: "invaderCore";
 declare const STRUCTURE_PORTAL: "portal";
 
 declare const RESOURCE_ENERGY: "energy";
@@ -245,6 +256,54 @@ declare const RESOURCE_CATALYZED_ZYNTHIUM_ACID: "XZH2O";
 declare const RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE: "XZHO2";
 declare const RESOURCE_CATALYZED_GHODIUM_ACID: "XGH2O";
 declare const RESOURCE_CATALYZED_GHODIUM_ALKALIDE: "XGHO2";
+
+declare const RESOURCE_BIOMASS = "biomass";
+declare const RESOURCE_METAL = "metal";
+declare const RESOURCE_MIST = "mist";
+declare const RESOURCE_SILICON = "silicon";
+
+declare const RESOURCE_UTRIUM_BAR = "utrium_bar";
+declare const RESOURCE_LEMERGIUM_BAR = "lemergium_bar";
+declare const RESOURCE_ZYNTHIUM_BAR = "zynthium_bar";
+declare const RESOURCE_KEANIUM_BAR = "keanium_bar";
+declare const RESOURCE_GHODIUM_MELT = "ghodium_melt";
+declare const RESOURCE_OXIDANT = "oxidant";
+declare const RESOURCE_REDUCTANT = "reductant";
+declare const RESOURCE_PURIFIER = "purifier";
+declare const RESOURCE_BATTERY = "battery";
+
+declare const RESOURCE_COMPOSITE = "composite";
+declare const RESOURCE_CRYSTAL = "crystal";
+declare const RESOURCE_LIQUID = "liquid";
+
+declare const RESOURCE_WIRE = "wire";
+declare const RESOURCE_SWITCH = "switch";
+declare const RESOURCE_TRANSISTOR = "transistor";
+declare const RESOURCE_MICROCHIP = "microchip";
+declare const RESOURCE_CIRCUIT = "circuit";
+declare const RESOURCE_DEVICE = "device";
+
+declare const RESOURCE_CELL = "cell";
+declare const RESOURCE_PHLEGM = "phlegm";
+declare const RESOURCE_TISSUE = "tissue";
+declare const RESOURCE_MUSCLE = "muscle";
+declare const RESOURCE_ORGANOID = "organoid";
+declare const RESOURCE_ORGANISM = "organism";
+
+declare const RESOURCE_ALLOY = "alloy";
+declare const RESOURCE_TUBE = "tube";
+declare const RESOURCE_FIXTURES = "fixtures";
+declare const RESOURCE_FRAME = "frame";
+declare const RESOURCE_HYDRAULICS = "hydraulics";
+declare const RESOURCE_MACHINE = "machine";
+
+declare const RESOURCE_CONDENSATE = "condensate";
+declare const RESOURCE_CONCENTRATE = "concentrate";
+declare const RESOURCE_EXTRACT = "extract";
+declare const RESOURCE_SPIRIT = "spirit";
+declare const RESOURCE_EMANATION = "emanation";
+declare const RESOURCE_ESSENCE = "essence";
+
 declare const RESOURCES_ALL: ResourceConstant[];
 
 declare const SUBSCRIPTION_TOKEN: "token";
@@ -344,6 +403,10 @@ declare const DENSITY_LOW: number;
 declare const DENSITY_MODERATE: number;
 declare const DENSITY_HIGH: number;
 declare const DENSITY_ULTRA: number;
+
+declare const DEPOSIT_EXHAUST_MULTIPLY: number;
+declare const DEPOSIT_EXHAUST_POW: number;
+declare const DEPOSIT_DECAY_TIME: number;
 
 declare const TERMINAL_CAPACITY: number;
 declare const TERMINAL_COOLDOWN: number;
@@ -504,6 +567,43 @@ declare const REACTIONS: {
     };
 };
 
+declare const REACTION_TIME: {
+    OH: 20;
+    ZK: 5;
+    UL: 5;
+    G: 5;
+    UH: 10;
+    UH2O: 5;
+    XUH2O: 60;
+    UO: 10;
+    UHO2: 5;
+    XUHO2: 60;
+    KH: 10;
+    KH2O: 5;
+    XKH2O: 60;
+    KO: 10;
+    KHO2: 5;
+    XKHO2: 60;
+    LH: 15;
+    LH2O: 10;
+    XLH2O: 65;
+    LO: 10;
+    LHO2: 5;
+    XLHO2: 60;
+    ZH: 20;
+    ZH2O: 40;
+    XZH2O: 160;
+    ZO: 10;
+    ZHO2: 5;
+    XZHO2: 60;
+    GH: 10;
+    GH2O: 15;
+    XGH2O: 80;
+    GO: 10;
+    GHO2: 30;
+    XGHO2: 150;
+};
+
 declare const BOOSTS: {
     [part: string]: { [boost: string]: { [action: string]: number } };
     work: {
@@ -621,11 +721,21 @@ declare const BOOSTS: {
     };
 };
 
+declare const COMMODITIES: Record<
+    CommodityConstant | MineralConstant | RESOURCE_GHODIUM,
+    {
+        amount: number;
+        cooldown: number;
+        components: Record<DepositConstant | CommodityConstant | MineralConstant | RESOURCE_GHODIUM, number>;
+    }
+>;
+
 declare const LOOK_CREEPS: "creep";
 declare const LOOK_ENERGY: "energy";
 declare const LOOK_RESOURCES: "resource";
 declare const LOOK_SOURCES: "source";
 declare const LOOK_MINERALS: "mineral";
+declare const LOOK_DEPOSITS: "deposit";
 declare const LOOK_STRUCTURES: "structure";
 declare const LOOK_FLAGS: "flag";
 declare const LOOK_CONSTRUCTION_SITES: "constructionSite";
@@ -633,6 +743,7 @@ declare const LOOK_NUKES: "nuke";
 declare const LOOK_TERRAIN: "terrain";
 declare const LOOK_TOMBSTONES: "tombstone";
 declare const LOOK_POWER_CREEPS: "powerCreep";
+declare const LOOK_RUINS: "ruin";
 
 declare const ORDER_SELL: "sell";
 declare const ORDER_BUY: "buy";
@@ -642,6 +753,12 @@ declare const INVADERS_ENERGY_GOAL: number;
 declare const SYSTEM_USERNAME: string;
 
 declare const TOMBSTONE_DECAY_PER_PART: 5;
+declare const TOMBSTONE_DECAY_POWER_CREEP: 500;
+
+declare const RUIN_DECAY: 500;
+declare const RUIN_DECAY_STRUCTURES: {
+    powerBank: 10;
+};
 
 declare const EVENT_ATTACK: 1;
 declare const EVENT_OBJECT_DESTROYED: 2;
@@ -695,8 +812,23 @@ declare const PWR_FORTIFY: 17;
 declare const PWR_OPERATE_CONTROLLER: 18;
 declare const PWR_OPERATE_FACTORY: 19;
 
-declare const EFFECT_INVULNERABILITY = 1001;
-declare const EFFECT_COLLAPSE_TIMER = 1002;
+declare const EFFECT_INVULNERABILITY: 1001;
+declare const EFFECT_COLLAPSE_TIMER: 1002;
+
+declare const INVADER_CORE_HITS: 1000000;
+declare const INVADER_CORE_CREEP_SPAWN_TIME: {
+    0: 0;
+    1: 0;
+    2: 6;
+    3: 3;
+    4: 2;
+    5: 1;
+};
+declare const INVADER_CORE_EXPAND_TIME: 15000;
+declare const INVADER_CORE_CONTROLLER_POWER: 100;
+declare const INVADER_CORE_CONTROLLER_DOWNGRADE: 5000;
+declare const STRONGHOLD_RAMPART_HITS: { 0: 0; 1: 50000; 2: 200000; 3: 500000; 4: 1000000; 5: 2000000 };
+declare const STRONGHOLD_DECAY_TICKS: 150000;
 
 declare const POWER_INFO: {
     [powerID: number]: {

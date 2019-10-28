@@ -144,16 +144,16 @@ interface Creep extends RoomObject {
      */
     getActiveBodyparts(type: BodyPartConstant): number;
     /**
-     * Harvest energy from the source.
+     * Harvest energy from the source or resource from minerals or deposits.
      *
      * Needs the WORK body part.
      *
-     * If the creep has an empty CARRY body part, the harvested energy is put into it; otherwise it is dropped on the ground.
+     * If the creep has an empty CARRY body part, the harvested resource is put into it; otherwise it is dropped on the ground.
      *
      * The target has to be at an adjacent square to the creep.
      * @param target The source object to be harvested.
      */
-    harvest(target: Source | Mineral): CreepActionReturnCode | ERR_NOT_FOUND | ERR_NOT_ENOUGH_RESOURCES;
+    harvest(target: Source | Mineral | Deposit): CreepActionReturnCode | ERR_NOT_FOUND | ERR_NOT_ENOUGH_RESOURCES;
     /**
      * Heal self or another creep. It will restore the target creep’s damaged body parts function and increase the hits counter.
      *
@@ -305,7 +305,7 @@ interface Creep extends RoomObject {
      */
     upgradeController(target: StructureController): ScreepsReturnCode;
     /**
-     * Withdraw resources from a structure.
+     * Withdraw resources from a structure, a tombstone or a ruin.
      *
      * The target has to be at adjacent square to the creep.
      *
@@ -316,7 +316,7 @@ interface Creep extends RoomObject {
      * @param resourceType The target One of the RESOURCE_* constants..
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    withdraw(target: Structure | Tombstone, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
 
 interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> {}

@@ -84,7 +84,9 @@ type FindConstant =
     | FIND_TOMBSTONES
     | FIND_POWER_CREEPS
     | FIND_MY_POWER_CREEPS
-    | FIND_HOSTILE_POWER_CREEPS;
+    | FIND_HOSTILE_POWER_CREEPS
+    | FIND_DEPOSITS
+    | FIND_RUINS;
 
 type FIND_EXIT_TOP = 1;
 type FIND_EXIT_RIGHT = 3;
@@ -96,7 +98,6 @@ type FIND_MY_CREEPS = 102;
 type FIND_HOSTILE_CREEPS = 103;
 type FIND_SOURCES_ACTIVE = 104;
 type FIND_SOURCES = 105;
-type FIND_DROPPED_ENERGY = -106;
 type FIND_DROPPED_RESOURCES = 106;
 type FIND_STRUCTURES = 107;
 type FIND_MY_STRUCTURES = 108;
@@ -113,6 +114,8 @@ type FIND_TOMBSTONES = 118;
 type FIND_POWER_CREEPS = 119;
 type FIND_MY_POWER_CREEPS = 120;
 type FIND_HOSTILE_POWER_CREEPS = 121;
+type FIND_DEPOSITS = 122;
+type FIND_RUINS = 123;
 
 // Filter Options
 
@@ -145,19 +148,22 @@ type LookConstant =
     | LOOK_RESOURCES
     | LOOK_SOURCES
     | LOOK_MINERALS
+    | LOOK_DEPOSITS
     | LOOK_STRUCTURES
     | LOOK_FLAGS
     | LOOK_CONSTRUCTION_SITES
     | LOOK_NUKES
     | LOOK_TERRAIN
     | LOOK_TOMBSTONES
-    | LOOK_POWER_CREEPS;
+    | LOOK_POWER_CREEPS
+    | LOOK_RUINS;
 
 type LOOK_CONSTRUCTION_SITES = "constructionSite";
 type LOOK_CREEPS = "creep";
 type LOOK_ENERGY = "energy";
 type LOOK_FLAGS = "flag";
 type LOOK_MINERALS = "mineral";
+type LOOK_DEPOSITS = "deposit";
 type LOOK_NUKES = "nuke";
 type LOOK_RESOURCES = "resource";
 type LOOK_SOURCES = "source";
@@ -165,6 +171,7 @@ type LOOK_STRUCTURES = "structure";
 type LOOK_TERRAIN = "terrain";
 type LOOK_TOMBSTONES = "tombstone";
 type LOOK_POWER_CREEPS = "powerCreep";
+type LOOK_RUINS = "ruin";
 
 // Direction Constants
 
@@ -221,14 +228,16 @@ type BuildableStructureConstant =
     | STRUCTURE_LAB
     | STRUCTURE_TERMINAL
     | STRUCTURE_CONTAINER
-    | STRUCTURE_NUKER;
+    | STRUCTURE_NUKER
+    | STRUCTURE_FACTORY;
 
 type StructureConstant =
     | BuildableStructureConstant
     | STRUCTURE_KEEPER_LAIR
     | STRUCTURE_CONTROLLER
     | STRUCTURE_POWER_BANK
-    | STRUCTURE_PORTAL;
+    | STRUCTURE_PORTAL
+    | STRUCTURE_INVADER_CORE;
 
 type STRUCTURE_EXTENSION = "extension";
 type STRUCTURE_RAMPART = "rampart";
@@ -248,6 +257,8 @@ type STRUCTURE_LAB = "lab";
 type STRUCTURE_TERMINAL = "terminal";
 type STRUCTURE_CONTAINER = "container";
 type STRUCTURE_NUKER = "nuker";
+type STRUCTURE_FACTORY = "factory";
+type STRUCTURE_INVADER_CORE = "invaderCore";
 type STRUCTURE_PORTAL = "portal";
 
 // Terrain mask constants
@@ -260,103 +271,104 @@ type TERRAIN_MASK_LAVA = 4;
 type ResourceConstant =
     | RESOURCE_ENERGY
     | RESOURCE_POWER
-    | RESOURCE_UTRIUM
-    | RESOURCE_LEMERGIUM
-    | RESOURCE_KEANIUM
-    | RESOURCE_GHODIUM
-    | RESOURCE_ZYNTHIUM
-    | RESOURCE_OXYGEN
-    | RESOURCE_HYDROGEN
-    | RESOURCE_CATALYST
-    | RESOURCE_HYDROXIDE
-    | RESOURCE_ZYNTHIUM_KEANITE
-    | RESOURCE_UTRIUM_LEMERGITE
-    | RESOURCE_UTRIUM_HYDRIDE
-    | RESOURCE_UTRIUM_OXIDE
-    | RESOURCE_KEANIUM_HYDRIDE
-    | RESOURCE_KEANIUM_OXIDE
-    | RESOURCE_LEMERGIUM_HYDRIDE
-    | RESOURCE_LEMERGIUM_OXIDE
-    | RESOURCE_ZYNTHIUM_HYDRIDE
-    | RESOURCE_ZYNTHIUM_OXIDE
-    | RESOURCE_GHODIUM_HYDRIDE
-    | RESOURCE_GHODIUM_OXIDE
-    | RESOURCE_UTRIUM_ACID
-    | RESOURCE_UTRIUM_ALKALIDE
-    | RESOURCE_KEANIUM_ACID
-    | RESOURCE_KEANIUM_ALKALIDE
-    | RESOURCE_LEMERGIUM_ACID
-    | RESOURCE_LEMERGIUM_ALKALIDE
-    | RESOURCE_ZYNTHIUM_ACID
-    | RESOURCE_ZYNTHIUM_ALKALIDE
-    | RESOURCE_GHODIUM_ACID
-    | RESOURCE_GHODIUM_ALKALIDE
-    | RESOURCE_CATALYZED_UTRIUM_ACID
-    | RESOURCE_CATALYZED_UTRIUM_ALKALIDE
-    | RESOURCE_CATALYZED_KEANIUM_ACID
-    | RESOURCE_CATALYZED_KEANIUM_ALKALIDE
-    | RESOURCE_CATALYZED_LEMERGIUM_ACID
-    | RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE
-    | RESOURCE_CATALYZED_ZYNTHIUM_ACID
-    | RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE
-    | RESOURCE_CATALYZED_GHODIUM_ACID
-    | RESOURCE_CATALYZED_GHODIUM_ALKALIDE
-    | RESOURCE_OPS;
+    | RESOURCE_OPS
+    | MineralConstant
+    | MineralCompoundConstant
+    | DepositConstant
+    | CommodityConstant;
 
-type _ResourceConstantSansEnergy =
-    | RESOURCE_POWER
-    | RESOURCE_UTRIUM
-    | RESOURCE_LEMERGIUM
-    | RESOURCE_KEANIUM
-    | RESOURCE_GHODIUM
-    | RESOURCE_ZYNTHIUM
-    | RESOURCE_OXYGEN
-    | RESOURCE_HYDROGEN
-    | RESOURCE_CATALYST
-    | RESOURCE_HYDROXIDE
-    | RESOURCE_ZYNTHIUM_KEANITE
-    | RESOURCE_UTRIUM_LEMERGITE
-    | RESOURCE_UTRIUM_HYDRIDE
-    | RESOURCE_UTRIUM_OXIDE
-    | RESOURCE_KEANIUM_HYDRIDE
-    | RESOURCE_KEANIUM_OXIDE
-    | RESOURCE_LEMERGIUM_HYDRIDE
-    | RESOURCE_LEMERGIUM_OXIDE
-    | RESOURCE_ZYNTHIUM_HYDRIDE
-    | RESOURCE_ZYNTHIUM_OXIDE
-    | RESOURCE_GHODIUM_HYDRIDE
-    | RESOURCE_GHODIUM_OXIDE
-    | RESOURCE_UTRIUM_ACID
-    | RESOURCE_UTRIUM_ALKALIDE
-    | RESOURCE_KEANIUM_ACID
-    | RESOURCE_KEANIUM_ALKALIDE
-    | RESOURCE_LEMERGIUM_ACID
-    | RESOURCE_LEMERGIUM_ALKALIDE
-    | RESOURCE_ZYNTHIUM_ACID
-    | RESOURCE_ZYNTHIUM_ALKALIDE
-    | RESOURCE_GHODIUM_ACID
-    | RESOURCE_GHODIUM_ALKALIDE
-    | RESOURCE_CATALYZED_UTRIUM_ACID
-    | RESOURCE_CATALYZED_UTRIUM_ALKALIDE
-    | RESOURCE_CATALYZED_KEANIUM_ACID
-    | RESOURCE_CATALYZED_KEANIUM_ALKALIDE
-    | RESOURCE_CATALYZED_LEMERGIUM_ACID
-    | RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE
-    | RESOURCE_CATALYZED_ZYNTHIUM_ACID
-    | RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE
-    | RESOURCE_CATALYZED_GHODIUM_ACID
-    | RESOURCE_CATALYZED_GHODIUM_ALKALIDE
-    | RESOURCE_OPS;
+type _ResourceConstantSansEnergy = Exclude<ResourceConstant, RESOURCE_ENERGY>;
 
+/** The raw harvestable minerals */
 type MineralConstant =
     | RESOURCE_UTRIUM
     | RESOURCE_LEMERGIUM
     | RESOURCE_KEANIUM
-    | RESOURCE_GHODIUM
     | RESOURCE_ZYNTHIUM
     | RESOURCE_OXYGEN
     | RESOURCE_HYDROGEN
     | RESOURCE_CATALYST;
+
+/** The compounds which can't boost */
+type MineralBaseCompoundsConstant = RESOURCE_HYDROXIDE | RESOURCE_ZYNTHIUM_KEANITE | RESOURCE_UTRIUM_LEMERGITE | RESOURCE_GHODIUM;
+
+/** The boosts (from tier 1 to tier 3) */
+type MineralBoostConstant =
+    | RESOURCE_UTRIUM_HYDRIDE
+    | RESOURCE_UTRIUM_OXIDE
+    | RESOURCE_KEANIUM_HYDRIDE
+    | RESOURCE_KEANIUM_OXIDE
+    | RESOURCE_LEMERGIUM_HYDRIDE
+    | RESOURCE_LEMERGIUM_OXIDE
+    | RESOURCE_ZYNTHIUM_HYDRIDE
+    | RESOURCE_ZYNTHIUM_OXIDE
+    | RESOURCE_GHODIUM_HYDRIDE
+    | RESOURCE_GHODIUM_OXIDE
+    | RESOURCE_UTRIUM_ACID
+    | RESOURCE_UTRIUM_ALKALIDE
+    | RESOURCE_KEANIUM_ACID
+    | RESOURCE_KEANIUM_ALKALIDE
+    | RESOURCE_LEMERGIUM_ACID
+    | RESOURCE_LEMERGIUM_ALKALIDE
+    | RESOURCE_ZYNTHIUM_ACID
+    | RESOURCE_ZYNTHIUM_ALKALIDE
+    | RESOURCE_GHODIUM_ACID
+    | RESOURCE_GHODIUM_ALKALIDE
+    | RESOURCE_CATALYZED_UTRIUM_ACID
+    | RESOURCE_CATALYZED_UTRIUM_ALKALIDE
+    | RESOURCE_CATALYZED_KEANIUM_ACID
+    | RESOURCE_CATALYZED_KEANIUM_ALKALIDE
+    | RESOURCE_CATALYZED_LEMERGIUM_ACID
+    | RESOURCE_CATALYZED_LEMERGIUM_ALKALIDE
+    | RESOURCE_CATALYZED_ZYNTHIUM_ACID
+    | RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE
+    | RESOURCE_CATALYZED_GHODIUM_ACID
+    | RESOURCE_CATALYZED_GHODIUM_ALKALIDE;
+
+/** All the mineral compounds */
+type MineralCompoundConstant = MineralBaseCompoundsConstant | MineralBoostConstant;
+
+/** The raw deposits */
+type DepositConstant = RESOURCE_MIST | RESOURCE_BIOMASS | RESOURCE_METAL | RESOURCE_SILICON;
+
+/** The commodities, produced by the Factory */
+type CommodityConstant =
+    | RESOURCE_UTRIUM_BAR
+    | RESOURCE_LEMERGIUM_BAR
+    | RESOURCE_ZYNTHIUM_BAR
+    | RESOURCE_KEANIUM_BAR
+    | RESOURCE_GHODIUM_MELT
+    | RESOURCE_OXIDANT
+    | RESOURCE_REDUCTANT
+    | RESOURCE_PURIFIER
+    | RESOURCE_BATTERY
+    | RESOURCE_COMPOSITE
+    | RESOURCE_CRYSTAL
+    | RESOURCE_LIQUID
+    | RESOURCE_WIRE
+    | RESOURCE_SWITCH
+    | RESOURCE_TRANSISTOR
+    | RESOURCE_MICROCHIP
+    | RESOURCE_CIRCUIT
+    | RESOURCE_DEVICE
+    | RESOURCE_CELL
+    | RESOURCE_PHLEGM
+    | RESOURCE_TISSUE
+    | RESOURCE_MUSCLE
+    | RESOURCE_ORGANOID
+    | RESOURCE_ORGANISM
+    | RESOURCE_ALLOY
+    | RESOURCE_TUBE
+    | RESOURCE_FIXTURES
+    | RESOURCE_FRAME
+    | RESOURCE_HYDRAULICS
+    | RESOURCE_MACHINE
+    | RESOURCE_CONDENSATE
+    | RESOURCE_CONCENTRATE
+    | RESOURCE_EXTRACT
+    | RESOURCE_SPIRIT
+    | RESOURCE_EMANATION
+    | RESOURCE_ESSENCE;
 
 type MarketResourceConstant = ResourceConstant | SUBSCRIPTION_TOKEN;
 
@@ -364,10 +376,14 @@ type RESOURCE_ENERGY = "energy";
 type RESOURCE_POWER = "power";
 type RESOURCE_OPS = "ops";
 
+type RESOURCE_BIOMASS = "biomass";
+type RESOURCE_METAL = "metal";
+type RESOURCE_MIST = "mist";
+type RESOURCE_SILICON = "silicon";
+
 type RESOURCE_UTRIUM = "U";
 type RESOURCE_LEMERGIUM = "L";
 type RESOURCE_KEANIUM = "K";
-type RESOURCE_GHODIUM = "G";
 type RESOURCE_ZYNTHIUM = "Z";
 type RESOURCE_OXYGEN = "O";
 type RESOURCE_HYDROGEN = "H";
@@ -376,6 +392,8 @@ type RESOURCE_CATALYST = "X";
 type RESOURCE_HYDROXIDE = "OH";
 type RESOURCE_ZYNTHIUM_KEANITE = "ZK";
 type RESOURCE_UTRIUM_LEMERGITE = "UL";
+type RESOURCE_GHODIUM = "G";
+
 type RESOURCE_UTRIUM_HYDRIDE = "UH";
 type RESOURCE_UTRIUM_OXIDE = "UO";
 type RESOURCE_KEANIUM_HYDRIDE = "KH";
@@ -408,6 +426,48 @@ type RESOURCE_CATALYZED_ZYNTHIUM_ACID = "XZH2O";
 type RESOURCE_CATALYZED_ZYNTHIUM_ALKALIDE = "XZHO2";
 type RESOURCE_CATALYZED_GHODIUM_ACID = "XGH2O";
 type RESOURCE_CATALYZED_GHODIUM_ALKALIDE = "XGHO2";
+
+type RESOURCE_UTRIUM_BAR = "utrium_bar";
+type RESOURCE_LEMERGIUM_BAR = "lemergium_bar";
+type RESOURCE_ZYNTHIUM_BAR = "zynthium_bar";
+type RESOURCE_KEANIUM_BAR = "keanium_bar";
+type RESOURCE_GHODIUM_MELT = "ghodium_melt";
+type RESOURCE_OXIDANT = "oxidant";
+type RESOURCE_REDUCTANT = "reductant";
+type RESOURCE_PURIFIER = "purifier";
+type RESOURCE_BATTERY = "battery";
+
+type RESOURCE_COMPOSITE = "composite";
+type RESOURCE_CRYSTAL = "crystal";
+type RESOURCE_LIQUID = "liquid";
+
+type RESOURCE_WIRE = "wire";
+type RESOURCE_SWITCH = "switch";
+type RESOURCE_TRANSISTOR = "transistor";
+type RESOURCE_MICROCHIP = "microchip";
+type RESOURCE_CIRCUIT = "circuit";
+type RESOURCE_DEVICE = "device";
+
+type RESOURCE_CELL = "cell";
+type RESOURCE_PHLEGM = "phlegm";
+type RESOURCE_TISSUE = "tissue";
+type RESOURCE_MUSCLE = "muscle";
+type RESOURCE_ORGANOID = "organoid";
+type RESOURCE_ORGANISM = "organism";
+
+type RESOURCE_ALLOY = "alloy";
+type RESOURCE_TUBE = "tube";
+type RESOURCE_FIXTURES = "fixtures";
+type RESOURCE_FRAME = "frame";
+type RESOURCE_HYDRAULICS = "hydraulics";
+type RESOURCE_MACHINE = "machine";
+
+type RESOURCE_CONDENSATE = "condensate";
+type RESOURCE_CONCENTRATE = "concentrate";
+type RESOURCE_EXTRACT = "extract";
+type RESOURCE_SPIRIT = "spirit";
+type RESOURCE_EMANATION = "emanation";
+type RESOURCE_ESSENCE = "essence";
 
 type SUBSCRIPTION_TOKEN = "token";
 
@@ -458,11 +518,57 @@ type EVENT_HEAL_TYPE_RANGED = 2;
 
 type EventDestroyType = "creep" | StructureConstant;
 
-interface EventItem<T extends EventConstant = EventConstant> {
-    event: T;
-    objectId: string;
-    data: EventData[T];
-}
+type EventItem =
+    | {
+          event: EVENT_ATTACK;
+          objectId: string;
+          data: EventData[EVENT_ATTACK];
+      }
+    | {
+          event: EVENT_OBJECT_DESTROYED;
+          objectId: string;
+          data: EventData[EVENT_OBJECT_DESTROYED];
+      }
+    | {
+          event: EVENT_ATTACK_CONTROLLER;
+          objectId: string;
+          data: EventData[EVENT_ATTACK_CONTROLLER];
+      }
+    | {
+          event: EVENT_BUILD;
+          objectId: string;
+          data: EventData[EVENT_BUILD];
+      }
+    | {
+          event: EVENT_HARVEST;
+          objectId: string;
+          data: EventData[EVENT_HARVEST];
+      }
+    | {
+          event: EVENT_HEAL;
+          objectId: string;
+          data: EventData[EVENT_HEAL];
+      }
+    | {
+          event: EVENT_REPAIR;
+          objectId: string;
+          data: EventData[EVENT_REPAIR];
+      }
+    | {
+          event: EVENT_RESERVE_CONTROLLER;
+          objectId: string;
+          data: EventData[EVENT_RESERVE_CONTROLLER];
+      }
+    | {
+          event: EVENT_UPGRADE_CONTROLLER;
+          objectId: string;
+          data: EventData[EVENT_UPGRADE_CONTROLLER];
+      }
+    | {
+          event: EVENT_EXIT;
+          objectId: string;
+          data: EventData[EVENT_EXIT];
+      };
 
 interface EventData {
     [key: number]: null | {
@@ -484,7 +590,7 @@ interface EventData {
         attackType: EventAttackType;
     };
     2: {
-        // EVENT_OBJECT_DESTORYED
+        // EVENT_OBJECT_DESTROYED
         type: EventDestroyType;
     };
     3: null; // EVENT_ATTACK_CONTROLLER

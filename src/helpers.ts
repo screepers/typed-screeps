@@ -114,7 +114,7 @@ interface BodyPartDefinition {
      *
      * If the body part is boosted, this property specifies the mineral type which is used for boosting.
      */
-    boost?: ResourceConstant;
+    boost?: MineralBoostConstant;
     /**
      * One of the body part types constants.
      */
@@ -160,6 +160,7 @@ interface AllLookAtTypes {
     exit: any; // TODO what type is this?
     flag: Flag;
     mineral: Mineral;
+    deposit: Deposit;
     nuke: Nuke;
     resource: Resource;
     source: Source;
@@ -167,6 +168,7 @@ interface AllLookAtTypes {
     terrain: Terrain;
     tombstone: Tombstone;
     powerCreep: PowerCreep;
+    ruin: Ruin;
 }
 
 type LookAtTypes = Partial<AllLookAtTypes>;
@@ -197,7 +199,19 @@ type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTyp
 type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<LookForAtAreaResultWithPos<T, K>>;
 
 interface FindTypes {
-    [key: number]: RoomPosition | AnyCreep | Source | Resource | Structure | Flag | ConstructionSite | Mineral | Nuke | Tombstone;
+    [key: number]:
+        | RoomPosition
+        | AnyCreep
+        | Source
+        | Resource
+        | Structure
+        | Flag
+        | ConstructionSite
+        | Mineral
+        | Nuke
+        | Tombstone
+        | Deposit
+        | Ruin;
     1: RoomPosition; // FIND_EXIT_TOP
     3: RoomPosition; // FIND_EXIT_RIGHT
     5: RoomPosition; // FIND_EXIT_BOTTOM
@@ -224,6 +238,8 @@ interface FindTypes {
     119: PowerCreep; // FIND_POWER_CREEPS
     120: PowerCreep; // FIND_MY_POWER_CREEPS
     121: PowerCreep; // FIND_HOSTILE_POWER_CREEPS
+    122: Deposit; // FIND_DEPOSITS
+    123: Ruin; // FIND_RUINS
 }
 
 interface FindPathOpts {
