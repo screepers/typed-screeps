@@ -28,13 +28,39 @@ interface RoomObjectConstructor extends _Constructor<RoomObject> {
 
 declare const RoomObject: RoomObjectConstructor;
 
-interface RoomObjectEffect {
+/**
+ * Discriminated union of possible effects on `effect`
+ */
+type RoomObjectEffect = NaturalEffect | PowerEffect;
+
+/**
+ * Natural effect applied to room object
+ */
+interface NaturalEffect {
+    /**
+     * Effect ID of the applied effect. `EFFECT_*` constant.
+     */
+    effect: EffectConstant;
+    /**
+     * How many ticks will the effect last.
+     */
+    ticksRemaining: number;
+}
+
+/**
+ * Effect applied to room object as result of a `PowerCreep.usePower`.
+ */
+interface PowerEffect {
     /**
      * Power level of the applied effect.
      */
     level: number;
     /**
-     * Power ID of the applied effect. `PWR_*` constant.
+     * Effect ID of the applied effect. `PWR_*` constant.
+     */
+    effect: PowerConstant;
+    /**
+     * @deprecated Power ID of the applied effect. `PWR_*` constant. No longer documented, will be removed.
      */
     power: PowerConstant;
     /**

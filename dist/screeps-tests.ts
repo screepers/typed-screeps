@@ -71,7 +71,7 @@ function keys<T>(o: T): Array<keyof T> {
             } else {
                 // Boost resource
                 const targetSource = Game.getObjectById("targetSourceID") as Source;
-                const sourceEffect = targetSource.effects.find(effect => effect.power === PWR_REGEN_SOURCE);
+                const sourceEffect = targetSource.effects.find(effect => effect.effect === PWR_REGEN_SOURCE && effect.level > 0);
                 if (!sourceEffect && powerCreep.powers[PWR_REGEN_SOURCE] && powerCreep.powers[PWR_REGEN_SOURCE].cooldown === 0) {
                     powerCreep.usePower(PWR_REGEN_SOURCE, targetSource);
                 }

@@ -2655,6 +2655,11 @@ type PWR_DISRUPT_TERMINAL = 15;
 type PWR_OPERATE_POWER = 16;
 type PWR_FORTIFY = 17;
 type PWR_OPERATE_CONTROLLER = 18;
+
+type EffectConstant = EFFECT_INVULNERABILITY | EFFECT_COLLAPSE_TIMER;
+
+type EFFECT_INVULNERABILITY = 1001;
+type EFFECT_COLLAPSE_TIMER = 1002;
 /**
  * The options that can be accepted by `findRoute()` and friends.
  */
@@ -3458,13 +3463,39 @@ interface RoomObjectConstructor extends _Constructor<RoomObject> {
 
 declare const RoomObject: RoomObjectConstructor;
 
-interface RoomObjectEffect {
+/**
+ * Discriminated union of possible effects on `effect`
+ */
+type RoomObjectEffect = NaturalEffect | PowerEffect;
+
+/**
+ * Natural effect applied to room object
+ */
+interface NaturalEffect {
+    /**
+     * Effect ID of the applied effect. `EFFECT_*` constant.
+     */
+    effect: EffectConstant;
+    /**
+     * How many ticks will the effect last.
+     */
+    ticksRemaining: number;
+}
+
+/**
+ * Effect applied to room object as result of a `PowerCreep.usePower`.
+ */
+interface PowerEffect {
     /**
      * Power level of the applied effect.
      */
     level: number;
     /**
-     * Power ID of the applied effect. `PWR_*` constant.
+     * Effect ID of the applied effect. `PWR_*` constant.
+     */
+    effect: PowerConstant;
+    /**
+     * @deprecated Power ID of the applied effect. `PWR_*` constant. No longer documented, will be removed.
      */
     power: PowerConstant;
     /**
