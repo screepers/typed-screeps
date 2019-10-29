@@ -36,7 +36,7 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store;
+    store: Store<RESOURCE_ENERGY, false>;
     /**
      * Check if a creep can be created.
      *

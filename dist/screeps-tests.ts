@@ -601,7 +601,7 @@ function keys<T>(o: T): Array<keyof T> {
 {
     for (const resourceType of keys(creep.carry)) {
         const amount = creep.carry[resourceType];
-        creep.drop(resourceType, amount);
+        // creep.drop(resourceType, amount);
     }
 }
 
