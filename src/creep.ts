@@ -67,7 +67,7 @@ interface Creep extends RoomObject {
     /**
      * A Store object that contains cargo of this creep.
      */
-    store: Store;
+    store: GenericStore;
     /**
      * The remaining amount of game ticks after which the creep will die.
      *

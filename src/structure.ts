@@ -160,7 +160,7 @@ interface StructureExtension extends OwnedStructure<STRUCTURE_EXTENSION> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store;
+    store: Store<RESOURCE_ENERGY, false>;
 }
 
 interface StructureExtensionConstructor extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension> {}
@@ -190,7 +190,7 @@ interface StructureLink extends OwnedStructure<STRUCTURE_LINK> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store;
+    store: Store<RESOURCE_ENERGY, false>;
     /**
      * Transfer energy from the link to another link or a creep.
      *
@@ -292,7 +292,7 @@ interface StructurePowerSpawn extends OwnedStructure<STRUCTURE_POWER_SPAWN> {
     /**
      *
      */
-    store: Store;
+    store: Store<RESOURCE_ENERGY | RESOURCE_POWER, false>;
 
     /**
      * Register power resource units into your account. Registered power allows to develop power creeps skills. Consumes 1 power resource unit and 50 energy resource units.
@@ -359,7 +359,7 @@ interface StructureStorage extends OwnedStructure<STRUCTURE_STORAGE> {
     /**
      * An object with the storage contents.
      */
-    store: Store;
+    store: GenericStore;
     /**
      * The total amount of resources the storage can contain.
      * @deprecated An alias for .store.getCapacity().
@@ -392,7 +392,7 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store;
+    store: Store<RESOURCE_ENERGY, false>;
 
     /**
      * Remotely attack any creep in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
@@ -482,7 +482,7 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store;
+    store: GenericStore;
     /**
      * Boosts creep body part using the containing mineral compound. The creep has to be at adjacent square to the lab. Boosting one body part consumes 30 mineral units and 20 energy units.
      * @param creep The target creep.
@@ -524,7 +524,7 @@ interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store;
+    store: GenericStore;
     /**
      * The total amount of resources the storage can contain.
      * @deprecated An alias for .store.getCapacity().
@@ -553,7 +553,7 @@ interface StructureContainer extends Structure<STRUCTURE_CONTAINER> {
      * An object with the structure contents. Each object key is one of the RESOURCE_* constants, values are resources
      * amounts. Use _.sum(structure.store) to get the total amount of contents
      */
-    store: Store;
+    store: GenericStore;
     /**
      * The total amount of resources the structure can contain.
      * @deprecated An alias for .store.getCapacity().
@@ -605,7 +605,7 @@ interface StructureNuker extends OwnedStructure<STRUCTURE_NUKER> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store;
+    store: Store<RESOURCE_ENERGY | RESOURCE_GHODIUM, false>;
     /**
      * Launch a nuke to the specified position.
      * @param pos The target room position.

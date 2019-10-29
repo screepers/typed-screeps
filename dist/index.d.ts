@@ -1122,7 +1122,7 @@ interface Creep extends RoomObject {
     /**
      * A Store object that contains cargo of this creep.
      */
-    store: Store;
+    store: GenericStore;
     /**
      * The remaining amount of game ticks after which the creep will die.
      *
@@ -1710,7 +1710,12 @@ interface CPUShardLimits {
     [shard: string]: number;
 }
 
-type StoreDefinition = Partial<Record<_ResourceConstantSansEnergy, number>> & { energy: number };
+/** A general purpose Store, which has a limited capacity */
+type StoreDefinition = Store<ResourceConstant, false>;
+
+/** A general purpose Store, which has an unlimited capacity */
+type StoreDefinitionUnlimited = Store<ResourceConstant, true>;
+
 // type SD<K extends ResourceConstant> = {
 //   [P in K]: number;
 //   energy: number;
@@ -3166,7 +3171,7 @@ interface PowerCreep extends RoomObject {
     /**
      * A Store object that contains cargo of this creep.
      */
-    store: Store;
+    store: GenericStore;
     /**
      * An object with the creep's available powers.
      */
@@ -4344,7 +4349,7 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store;
+    store: Store<RESOURCE_ENERGY, false>;
     /**
      * Check if a creep can be created.
      *
@@ -4514,26 +4519,34 @@ interface SpawnOptions {
 }
 
 interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {}
-interface Store extends Record<ResourceConstant, number> {
-    readonly prototype: Store;
-    /**
-     * Returns capacity of this store for the specified resource, or total capacity if resource is undefined.
-     * @param resource The type of the resource
-     */
+// TypeScript Version: 2.8
+
+type Store<POSSIBLE_RESSOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> = {
+    /** Returns capacity of this store for the specified resource, or total capacity if resource is undefined. */
+    getCapacity<R extends ResourceConstant | undefined>(
+        resource?: R,
+    ): UNLIMITED_STORE extends true
+        ? null
+        : (undefined extends R
+              ? (ResourceConstant extends POSSIBLE_RESSOURCES ? number : null)
+              : (R extends POSSIBLE_RESSOURCES ? number : null));
+    /** Returns the capacity used by the specified resource, or total used capacity for general purpose stores if resource is undefined. */
+    getUsedCapacity<R extends ResourceConstant | undefined>(
+        resource?: R,
+    ): undefined extends R ? (ResourceConstant extends POSSIBLE_RESSOURCES ? number : null) : (R extends POSSIBLE_RESSOURCES ? number : 0);
+    /** A shorthand for getCapacity(resource) - getUsedCapacity(resource). */
+    getFreeCapacity(resource?: ResourceConstant): number;
+} & { [P in POSSIBLE_RESSOURCES]: number } &
+    { [P in Exclude<ResourceConstant, POSSIBLE_RESSOURCES>]: 0 };
+
+type GenericStore = {
+    /** Returns capacity of this store for the specified resource, or total capacity if resource is undefined. */
     getCapacity(resource?: ResourceConstant): number | null;
-
-    /**
-     * A shorthand for getCapacity(resource) - getUsedCapacity(resource)
-     * @param resource The type of the resource
-     */
-    getFreeCapacity(resource?: ResourceConstant): number | null;
-
-    /**
-     * Returns the capacity used by the specified resource, or total used capacity for general purpose stores if resource is undefined.
-     * @param resource The type of the resource.
-     */
+    /** Returns the capacity used by the specified resource, or total used capacity for general purpose stores if resource is undefined. */
     getUsedCapacity(resource?: ResourceConstant): number | null;
-}
+    /** A shorthand for getCapacity(resource) - getUsedCapacity(resource). */
+    getFreeCapacity(resource?: ResourceConstant): number;
+} & { [P in ResourceConstant]: number };
 /**
  * Parent object for structure classes
  */
@@ -4696,7 +4709,7 @@ interface StructureExtension extends OwnedStructure<STRUCTURE_EXTENSION> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store;
+    store: Store<RESOURCE_ENERGY, false>;
 }
 
 interface StructureExtensionConstructor extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension> {}
@@ -4726,7 +4739,7 @@ interface StructureLink extends OwnedStructure<STRUCTURE_LINK> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store;
+    store: Store<RESOURCE_ENERGY, false>;
     /**
      * Transfer energy from the link to another link or a creep.
      *
@@ -4828,7 +4841,7 @@ interface StructurePowerSpawn extends OwnedStructure<STRUCTURE_POWER_SPAWN> {
     /**
      *
      */
-    store: Store;
+    store: Store<RESOURCE_ENERGY | RESOURCE_POWER, false>;
 
     /**
      * Register power resource units into your account. Registered power allows to develop power creeps skills. Consumes 1 power resource unit and 50 energy resource units.
@@ -4895,7 +4908,7 @@ interface StructureStorage extends OwnedStructure<STRUCTURE_STORAGE> {
     /**
      * An object with the storage contents.
      */
-    store: Store;
+    store: GenericStore;
     /**
      * The total amount of resources the storage can contain.
      * @deprecated An alias for .store.getCapacity().
@@ -4928,7 +4941,7 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store;
+    store: Store<RESOURCE_ENERGY, false>;
 
     /**
      * Remotely attack any creep in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
@@ -5018,7 +5031,7 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store;
+    store: GenericStore;
     /**
      * Boosts creep body part using the containing mineral compound. The creep has to be at adjacent square to the lab. Boosting one body part consumes 30 mineral units and 20 energy units.
      * @param creep The target creep.
@@ -5060,7 +5073,7 @@ interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store;
+    store: GenericStore;
     /**
      * The total amount of resources the storage can contain.
      * @deprecated An alias for .store.getCapacity().
@@ -5089,7 +5102,7 @@ interface StructureContainer extends Structure<STRUCTURE_CONTAINER> {
      * An object with the structure contents. Each object key is one of the RESOURCE_* constants, values are resources
      * amounts. Use _.sum(structure.store) to get the total amount of contents
      */
-    store: Store;
+    store: GenericStore;
     /**
      * The total amount of resources the structure can contain.
      * @deprecated An alias for .store.getCapacity().
@@ -5141,7 +5154,7 @@ interface StructureNuker extends OwnedStructure<STRUCTURE_NUKER> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store;
+    store: Store<RESOURCE_ENERGY | RESOURCE_GHODIUM, false>;
     /**
      * Launch a nuke to the specified position.
      * @param pos The target room position.
@@ -5274,7 +5287,7 @@ interface Tombstone extends RoomObject {
      * other resources are undefined when empty.
      * You can use lodash.sum to get the total amount of contents.
      */
-    store: StoreDefinition;
+    store: GenericStore;
     /**
      * The amount of game ticks before this tombstone decays.
      */
