@@ -16,7 +16,11 @@ npm install @types/screeps
 yarn add @types/screeps
 ```
 
+As of 29 Oct 19, the published version on [npm](https://www.npmjs.com/package/typed-screeps) is out of date, and the project is currently updating to reflect the [latest](https://screeps.com/forum/topic/2814/factories-new-resources-npc-strongholds) Screeps changes. If you wish to use these types, it is currently recommended that you copy the current [typings](dist/index.d.ts) manually.
+
 ## Differences from **[Screeps-Typescript-Declarations](https://github.com/screepers/Screeps-Typescript-Declarations)**
+
+This repo has more activity and is considerably more up-to-date.
 
 ### Breaking Changes:
 

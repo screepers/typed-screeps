@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+The next release will be #3.0.0
+
+### Pending
+
+- Add support for Store and StoreDefinition changes
+- Various enhancements
+
+### Added
+
+- Add support for 'Natural Effects' on RoomObjects ([#135](https://github.com/screepers/typed-screeps/pull/135))
+- Add support for Factories, Ruins, Deposits, and Strongholds ([#132](https://github.com/screepers/typed-screeps/pull/132))
+
+### Changed
+
+- Remove deprecated FIND_DROPPED_ENERGY constant ([#129](https://github.com/screepers/typed-screeps/pull/129))
+
+### Fixed
+
+- Updated dependencies ([#133](https://github.com/screepers/typed-screeps/pull/133)),([#134](https://github.com/screepers/typed-screeps/pull/134))
+
 ## [2.5.4] - 2019-05-12
 
 ### Added
