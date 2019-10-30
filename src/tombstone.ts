@@ -21,7 +21,7 @@ interface Tombstone extends RoomObject {
      * other resources are undefined when empty.
      * You can use lodash.sum to get the total amount of contents.
      */
-    store: StoreDefinition;
+    store: StoreDefinitionUnlimited;
     /**
      * The amount of game ticks before this tombstone decays.
      */
