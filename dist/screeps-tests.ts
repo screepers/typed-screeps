@@ -34,6 +34,10 @@ function keys<T>(o: T): Array<keyof T> {
     return Object.keys(o) as Array<keyof T>;
 }
 
+function resources(o: GenericStore): ResourceConstant[] {
+    return Object.keys(o) as ResourceConstant[];
+}
+
 // Game.creeps
 
 {
@@ -599,9 +603,9 @@ function keys<T>(o: T): Array<keyof T> {
 // StoreDefinition
 
 {
-    for (const resourceType of keys(creep.carry)) {
+    for (const resourceType of resources(creep.carry)) {
         const amount = creep.carry[resourceType];
-        // creep.drop(resourceType, amount);
+        creep.drop(resourceType, amount);
     }
 }
 
