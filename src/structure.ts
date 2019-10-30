@@ -359,7 +359,7 @@ interface StructureStorage extends OwnedStructure<STRUCTURE_STORAGE> {
     /**
      * An object with the storage contents.
      */
-    store: GenericStore;
+    store: StoreDefinition;
     /**
      * The total amount of resources the storage can contain.
      * @deprecated An alias for .store.getCapacity().
@@ -482,7 +482,7 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: GenericStore;
+    store: Store<RESOURCE_ENERGY | MineralConstant | MineralCompoundConstant, false>;
     /**
      * Boosts creep body part using the containing mineral compound. The creep has to be at adjacent square to the lab. Boosting one body part consumes 30 mineral units and 20 energy units.
      * @param creep The target creep.
@@ -524,7 +524,7 @@ interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: GenericStore;
+    store: StoreDefinition;
     /**
      * The total amount of resources the storage can contain.
      * @deprecated An alias for .store.getCapacity().
@@ -553,7 +553,7 @@ interface StructureContainer extends Structure<STRUCTURE_CONTAINER> {
      * An object with the structure contents. Each object key is one of the RESOURCE_* constants, values are resources
      * amounts. Use _.sum(structure.store) to get the total amount of contents
      */
-    store: GenericStore;
+    store: StoreDefinition;
     /**
      * The total amount of resources the structure can contain.
      * @deprecated An alias for .store.getCapacity().
@@ -710,6 +710,19 @@ type AnyOwnedStructure =
     | StructureStorage
     | StructureTerminal
     | StructureTower;
+
+type AnyStoreStructure =
+    | StructureExtension
+    | StructureFactory
+    | StructureLab
+    | StructureLink
+    | StructureNuker
+    | StructurePowerSpawn
+    | StructureSpawn
+    | StructureStorage
+    | StructureTerminal
+    | StructureTower
+    | StructureContainer;
 
 /**
  * A discriminated union on Structure.type of all structure types

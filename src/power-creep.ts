@@ -56,7 +56,7 @@ interface PowerCreep extends RoomObject {
     /**
      * A Store object that contains cargo of this creep.
      */
-    store: GenericStore;
+    store: StoreDefinition;
     /**
      * An object with the creep's available powers.
      */

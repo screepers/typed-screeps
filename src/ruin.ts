@@ -17,7 +17,7 @@ interface Ruin extends RoomObject {
     /**
      * An object with the ruin contents.
      */
-    store: StoreDefinition;
+    store: StoreDefinitionUnlimited;
     /**
      * The amount of game ticks before this ruin decays.
      */
