@@ -7,7 +7,7 @@ interface Nuke extends RoomObject {
     /**
      * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
-    id: string;
+    id: Id<this>;
     /**
      * The name of the room where this nuke has been launched from.
      */
@@ -18,8 +18,6 @@ interface Nuke extends RoomObject {
     timeToLand: number;
 }
 
-interface NukeConstructor extends _Constructor<Nuke>, _ConstructorById<Nuke> {
-    new (id: string): Nuke;
-}
+interface NukeConstructor extends _Constructor<Nuke>, _ConstructorById<Nuke> {}
 
 declare const Nuke: NukeConstructor;

@@ -32,7 +32,7 @@ interface PowerCreep extends RoomObject {
     /**
      * A unique identifier. You can use `Game.getObjectById` method to retrieve an object instance by its id.
      */
-    id: string;
+    id: Id<this>;
     /**
      * The power creep's level.
      */

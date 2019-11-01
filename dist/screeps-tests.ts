@@ -21,7 +21,7 @@ const anotherRoomName: Room = Game.rooms.W10S11;
 
 // Sample memory extensions
 interface CreepMemory {
-    sourceId: string;
+    sourceId: Id<Source>;
     lastHits: number;
 }
 
@@ -36,6 +36,38 @@ function keys<T>(o: T): Array<keyof T> {
 
 function resources(o: GenericStore): ResourceConstant[] {
     return Object.keys(o) as ResourceConstant[];
+}
+
+// Game object Id types
+{
+    const creepId: Id<Creep> = "1";
+    const creepOne: Creep | null = Game.getObjectById(creepId);
+    const creepTwo: Creep | null = Game.getObjectById<Creep>("2");
+    const creepThree: Creep = new Creep(creepId); // Works with typed ID
+    const creepFour: Creep = new Creep("plainoldstring"); // Works with plain old string
+
+    if (creepOne) {
+        creepOne.hits;
+        const recycle = Game.getObjectById(creepOne.id);
+    }
+
+    type StoreStructure = StructureContainer | StructureStorage | StructureLink;
+    const storeID: Id<StoreStructure> = "1234"; // String assignable to Id<T>
+    // const foo: string = storeID; // Id<T> not assignable to string
+    const storeObject = Game.getObjectById(storeID)!;
+
+    // Object recognized
+    switch (storeObject.structureType) {
+        case STRUCTURE_CONTAINER:
+            storeObject.structureType === "container";
+        case STRUCTURE_STORAGE:
+            storeObject.structureType === "storage";
+        default:
+            storeObject.structureType === "link";
+    }
+
+    // Default type is unknown
+    const untyped = Game.getObjectById("untyped");
 }
 
 // Game.creeps

@@ -386,6 +386,15 @@ interface _Constructor<T> {
 }
 
 interface _ConstructorById<T> extends _Constructor<T> {
-    new (id: string): T;
-    (id: string): T;
+    new (id: Id<T>): T;
+    (id: Id<T>): T;
+}
+
+interface Id<T> extends String {
+    /**
+     * This exists only to introduce constraints on T so that differently
+     * paramterized Id types are not assignable to each other
+     * @deprecated
+     */
+    readonly __ignoreme?: T;
 }

@@ -1022,7 +1022,7 @@ interface ConstructionSite<T extends BuildableStructureConstant = BuildableStruc
     /**
      * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
      */
-    id: string;
+    id: Id<this>;
     /**
      * Whether this is your own construction site.
      */
@@ -1090,7 +1090,7 @@ interface Creep extends RoomObject {
     /**
      * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
      */
-    id: string;
+    id: Id<this>;
     /**
      * A shorthand to `Memory.creeps[creep.name]`. You can use it for quick access the creep’s specific memory data object.
      */
@@ -1393,7 +1393,7 @@ interface Deposit extends RoomObject {
      * A unique object identificator.
      * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
      */
-    id: string;
+    id: Id<this>;
     /**
      * The amount of game ticks until the next harvest action is possible.
      */
@@ -1548,7 +1548,7 @@ interface Game {
      * @param id The unique identifier.
      * @returns an object instance or null if it cannot be found.
      */
-    getObjectById<T>(id: string | undefined): T | null;
+    getObjectById<T>(id: Id<T>): T | null;
     /**
      * Send a custom message at your profile email.
      *
@@ -1951,8 +1951,17 @@ interface _Constructor<T> {
 }
 
 interface _ConstructorById<T> extends _Constructor<T> {
-    new (id: string): T;
-    (id: string): T;
+    new (id: Id<T>): T;
+    (id: Id<T>): T;
+}
+
+interface Id<T> extends String {
+    /**
+     * This exists only to introduce constraints on T so that differently
+     * paramterized Id types are not assignable to each other
+     * @deprecated
+     */
+    readonly __ignoreme?: T;
 }
 /**
  * `InterShardMemory` object provides an interface for communicating between shards.
@@ -2929,7 +2938,7 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
     /**
      * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
      */
-    id: string;
+    id: Id<this>;
     /**
      * The remaining time after which the deposit will be refilled.
      */
@@ -2948,7 +2957,7 @@ interface Nuke extends RoomObject {
     /**
      * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
-    id: string;
+    id: Id<this>;
     /**
      * The name of the room where this nuke has been launched from.
      */
@@ -2959,9 +2968,7 @@ interface Nuke extends RoomObject {
     timeToLand: number;
 }
 
-interface NukeConstructor extends _Constructor<Nuke>, _ConstructorById<Nuke> {
-    new (id: string): Nuke;
-}
+interface NukeConstructor extends _Constructor<Nuke>, _ConstructorById<Nuke> {}
 
 declare const Nuke: NukeConstructor;
 /**
@@ -3147,7 +3154,7 @@ interface PowerCreep extends RoomObject {
     /**
      * A unique identifier. You can use `Game.getObjectById` method to retrieve an object instance by its id.
      */
-    id: string;
+    id: Id<this>;
     /**
      * The power creep's level.
      */
@@ -3438,16 +3445,14 @@ interface Resource<T extends ResourceConstant = ResourceConstant> extends RoomOb
     /**
      * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
      */
-    id: string;
+    id: Id<this>;
     /**
      * One of the `RESOURCE_*` constants.
      */
     resourceType: T;
 }
 
-interface ResourceConstructor extends _Constructor<Resource>, _ConstructorById<Resource> {
-    new (id: string): Resource;
-}
+interface ResourceConstructor extends _Constructor<Resource>, _ConstructorById<Resource> {}
 
 declare const Resource: ResourceConstructor;
 /**
@@ -4255,7 +4260,7 @@ interface Ruin extends RoomObject {
      * A unique object identificator.
      * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
      */
-    id: string;
+    id: Id<this>;
     /**
      * Time of destruction.
      */
@@ -4296,7 +4301,7 @@ interface Source extends RoomObject {
     /**
      * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
-    id: string;
+    id: Id<this>;
     /**
      * If you can get an instance of Source, you can see it.
      * If you can see a Source, you can see the room it's in.
@@ -4564,7 +4569,7 @@ interface Structure<T extends StructureConstant = StructureConstant> extends Roo
     /**
      * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
-    id: string;
+    id: Id<this>;
     /**
      * If you can get an instance of a Structure, you can see it.
      * If you can see the Structure, you can see the room it's in.
@@ -5288,7 +5293,7 @@ interface Tombstone extends RoomObject {
      * A unique object identificator.
      * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
      */
-    id: string;
+    id: Id<this>;
     /**
      * Time of death.
      */

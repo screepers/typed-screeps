@@ -8,7 +8,7 @@ interface Deposit extends RoomObject {
      * A unique object identificator.
      * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
      */
-    id: string;
+    id: Id<this>;
     /**
      * The amount of game ticks until the next harvest action is possible.
      */
