@@ -321,8 +321,9 @@ function resources(o: GenericStore): ResourceConstant[] {
     // Game.market.changeOrderPrice(orderId, newPrice)
     Game.market.changeOrderPrice("57bec1bf77f4d17c4c011960", 9.95);
 
-    // Game.market.createOrder(type, resourceType, price, totalAmount, [roomName])
-    Game.market.createOrder(ORDER_SELL, RESOURCE_GHODIUM, 9.95, 10000, "W1N1");
+    // Game.market.createOrder({type, resourceType, price, totalAmount, [roomName]})
+    Game.market.createOrder({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM, price: 9.95, totalAmount: 10000, roomName: "W1N1" });
+    Game.market.createOrder({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM, price: 9.95, totalAmount: 10000 });
 
     // Game.market.deal(orderId, amount, [yourRoomName])
     Game.market.deal("57cd2b12cda69a004ae223a3", 1000, "W1N1");
@@ -362,7 +363,13 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     // Subscription tokens
     Game.market.getAllOrders({ type: ORDER_SELL, resourceType: SUBSCRIPTION_TOKEN });
-    Game.market.createOrder(ORDER_BUY, SUBSCRIPTION_TOKEN, 10000000, 1);
+    Game.market.createOrder({ type: ORDER_BUY, resourceType: SUBSCRIPTION_TOKEN, totalAmount: 10000000, price: 1 });
+
+    const priceHistory = Game.market.getHistory(RESOURCE_FIXTURES);
+
+    const avgPrice: number = priceHistory[0].avgPrice;
+    const stddevPrice: number = priceHistory[0].stddevPrice;
+    const volume: number = priceHistory[0].volume;
 }
 
 // PathFinder

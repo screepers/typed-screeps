@@ -48,16 +48,18 @@ interface Market {
     /**
      * Create a market order in your terminal. You will be charged `price*amount*0.05` credits when the order is placed.
      *
-     * The maximum orders count is 50 per player. You can create an order at any time with any amount,
+     * The maximum orders count is 300 per player. You can create an order at any time with any amount,
      * it will be automatically activated and deactivated depending on the resource/credits availability.
+     *
+     * An order expires in 30 days after its creation, and the remaining market fee is returned.
      */
-    createOrder(
-        type: string,
-        resourceType: MarketResourceConstant,
-        price: number,
-        totalAmount: number,
-        roomName?: string,
-    ): ScreepsReturnCode;
+    createOrder(params: {
+        type: ORDER_BUY | ORDER_SELL;
+        resourceType: MarketResourceConstant;
+        price: number;
+        totalAmount: number;
+        roomName?: string;
+    }): ScreepsReturnCode;
     /**
      * Execute a trade deal from your Terminal to another player's Terminal using the specified buy/sell order.
      *
@@ -69,6 +71,7 @@ interface Market {
     deal(orderId: string, amount: number, targetRoomName?: string): ScreepsReturnCode;
     /**
      * Add more capacity to an existing order. It will affect `remainingAmount` and `totalAmount` properties. You will be charged `price*addAmount*0.05` credits.
+     * Extending the order doesn't update its expiration time.
      * @param orderId The order ID as provided in Game.market.orders
      * @param addAmount How much capacity to add. Cannot be a negative value.
      * @returns One of the following codes: `OK`, `ERR_NOT_ENOUGH_RESOURCES`, `ERR_INVALID_ARGS`
@@ -80,6 +83,12 @@ interface Market {
      * @returns An array of objects containing order information.
      */
     getAllOrders(filter?: OrderFilter | ((o: Order) => boolean)): Order[];
+    /**
+     * Get daily price history of the specified resource on the market for the last 14 days.
+     * @param resource One of the RESOURCE_* constants. If undefined, returns history data for all resources. Optional
+     * @returns An array of objects with resource info.
+     */
+    getHistory(resource?: ResourceConstant): PriceHistory[];
     /**
      * Retrieve info for specific market order.
      * @param orderId The order ID.
@@ -131,4 +140,13 @@ interface OrderFilter {
     amount?: number;
     remainingAmount?: number;
     price?: number;
+}
+
+interface PriceHistory {
+    resourceType: MarketResourceConstant;
+    date: string;
+    transactions: number;
+    volume: number;
+    avgPrice: number;
+    stddevPrice: number;
 }

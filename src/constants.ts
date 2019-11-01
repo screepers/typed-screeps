@@ -748,6 +748,9 @@ declare const LOOK_RUINS: "ruin";
 declare const ORDER_SELL: "sell";
 declare const ORDER_BUY: "buy";
 
+declare const MARKET_MAX_ORDERS: 300;
+declare const MARKET_ORDER_LIFE_TIME: 2592000000; // 1000*60*60*24*30
+
 declare const INVADERS_ENERGY_GOAL: number;
 
 declare const SYSTEM_USERNAME: string;

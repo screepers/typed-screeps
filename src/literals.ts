@@ -173,6 +173,9 @@ type LOOK_TOMBSTONES = "tombstone";
 type LOOK_POWER_CREEPS = "powerCreep";
 type LOOK_RUINS = "ruin";
 
+type ORDER_SELL = "sell";
+type ORDER_BUY = "buy";
+
 // Direction Constants
 
 type DirectionConstant = TOP | TOP_RIGHT | RIGHT | BOTTOM_RIGHT | BOTTOM | BOTTOM_LEFT | LEFT | TOP_LEFT;

@@ -761,6 +761,9 @@ declare const LOOK_RUINS: "ruin";
 declare const ORDER_SELL: "sell";
 declare const ORDER_BUY: "buy";
 
+declare const MARKET_MAX_ORDERS: 300;
+declare const MARKET_ORDER_LIFE_TIME: 2592000000; // 1000*60*60*24*30
+
 declare const INVADERS_ENERGY_GOAL: number;
 
 declare const SYSTEM_USERNAME: string;
@@ -2159,6 +2162,9 @@ type LOOK_TOMBSTONES = "tombstone";
 type LOOK_POWER_CREEPS = "powerCreep";
 type LOOK_RUINS = "ruin";
 
+type ORDER_SELL = "sell";
+type ORDER_BUY = "buy";
+
 // Direction Constants
 
 type DirectionConstant = TOP | TOP_RIGHT | RIGHT | BOTTOM_RIGHT | BOTTOM | BOTTOM_LEFT | LEFT | TOP_LEFT;
@@ -2806,16 +2812,18 @@ interface Market {
     /**
      * Create a market order in your terminal. You will be charged `price*amount*0.05` credits when the order is placed.
      *
-     * The maximum orders count is 50 per player. You can create an order at any time with any amount,
+     * The maximum orders count is 300 per player. You can create an order at any time with any amount,
      * it will be automatically activated and deactivated depending on the resource/credits availability.
+     *
+     * An order expires in 30 days after its creation, and the remaining market fee is returned.
      */
-    createOrder(
-        type: string,
-        resourceType: MarketResourceConstant,
-        price: number,
-        totalAmount: number,
-        roomName?: string,
-    ): ScreepsReturnCode;
+    createOrder(params: {
+        type: ORDER_BUY | ORDER_SELL;
+        resourceType: MarketResourceConstant;
+        price: number;
+        totalAmount: number;
+        roomName?: string;
+    }): ScreepsReturnCode;
     /**
      * Execute a trade deal from your Terminal to another player's Terminal using the specified buy/sell order.
      *
@@ -2827,6 +2835,7 @@ interface Market {
     deal(orderId: string, amount: number, targetRoomName?: string): ScreepsReturnCode;
     /**
      * Add more capacity to an existing order. It will affect `remainingAmount` and `totalAmount` properties. You will be charged `price*addAmount*0.05` credits.
+     * Extending the order doesn't update its expiration time.
      * @param orderId The order ID as provided in Game.market.orders
      * @param addAmount How much capacity to add. Cannot be a negative value.
      * @returns One of the following codes: `OK`, `ERR_NOT_ENOUGH_RESOURCES`, `ERR_INVALID_ARGS`
@@ -2838,6 +2847,12 @@ interface Market {
      * @returns An array of objects containing order information.
      */
     getAllOrders(filter?: OrderFilter | ((o: Order) => boolean)): Order[];
+    /**
+     * Get daily price history of the specified resource on the market for the last 14 days.
+     * @param resource One of the RESOURCE_* constants. If undefined, returns history data for all resources. Optional
+     * @returns An array of objects with resource info.
+     */
+    getHistory(resource?: ResourceConstant): PriceHistory[];
     /**
      * Retrieve info for specific market order.
      * @param orderId The order ID.
@@ -2889,6 +2904,15 @@ interface OrderFilter {
     amount?: number;
     remainingAmount?: number;
     price?: number;
+}
+
+interface PriceHistory {
+    resourceType: MarketResourceConstant;
+    date: string;
+    transactions: number;
+    volume: number;
+    avgPrice: number;
+    stddevPrice: number;
 }
 interface Memory {
     creeps: {[name: string]: CreepMemory};
@@ -5082,7 +5106,7 @@ interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
     /**
      * Sends resource to a Terminal in another room with the specified name.
      * @param resourceType One of the RESOURCE_* constants.
-     * @param amount The amount of resources to be sent. The minimum amount is 100.
+     * @param amount The amount of resources to be sent.
      * @param destination The name of the target room. You don't have to gain visibility in this room.
      * @param description The description of the transaction. It is visible to the recipient. The maximum length is 100 characters.
      */
