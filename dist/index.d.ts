@@ -1563,6 +1563,10 @@ interface Game {
 }
 
 declare var Game: Game;
+interface _HasId {
+    id: Id<this>;
+}
+
 interface _HasRoomPosition {
     pos: RoomPosition;
 }

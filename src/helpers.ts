@@ -1,3 +1,7 @@
+interface _HasId {
+    id: Id<this>;
+}
+
 interface _HasRoomPosition {
     pos: RoomPosition;
 }
