@@ -42,13 +42,13 @@ This repo has more activity and is considerably more up-to-date.
   interface RoomMemory { [name: string]: any };
   ```
 
-If you don't want to add types to the global `Memory` object, you will need to add the following interface along with the four above.
+  If you don't want to add types to the global `Memory` object, you will need to add the following interface along with the four above.
 
-Example:
+  Example:
 
-```Typescript
-interface Memory { [key: string]: any };
-```
+  ```Typescript
+  interface Memory { [key: string]: any };
+  ```
 
 - Any place in code that uses a constant (ex `STRUCTURE_EXTENSION` or `FIND_MY_SPAWNS` is now constrained to use literal types. Here is the list of the new types:
 
@@ -84,6 +84,61 @@ interface Memory { [key: string]: any };
   ```
 
 - Some original functions were incorrectly typed to not include `null` as a possible return. You may need to update your code to reflect this update (ex. `findClosestByPath` or `findClosestByRange`)
+- `Game.getObjectById()` now returns typed objects if given a typed Id (ex. `Id<StructureTower>`) would return a typed object according to the type of the Id.
+
+  If given a `string` typed id, the type of the returned game object is `unknown` forcing manual type assertion. Previously this returned `any` typed objects which could accidently be left untyped;
+
+  If you have code like this (un-type-asserted use of `Game.getObjectById`)
+
+  ```TypeScript
+  Interface Memory{
+    towerIds: string[];
+  }
+
+  Memory.towerIds.forEach((towerId) => {
+    const tower = Game.getObjectById(towerId); // type of returned tower is 'unknown' instead of 'any'
+    tower.attack(targetCreep); // Error Object is of type unknown ts(2571)
+  })
+  ```
+
+  Change it to:
+
+  ```TypeScript
+  Interface Memory{
+    towerIds: Array<Id<StructureTower>>;
+  }
+
+  Memory.towerIds.forEach((towerId) => {
+    const tower = Game.getObjectById(towerId); // type of returned tower is StructureTower
+    tower.attack(targetCreep);
+  })
+  ```
+
+  If you're already manually asserting the type of the game object, you're not required to change anything.
+
+  ```TypeScript
+  tower = Game.getObjectById<StructureTower>("") // previously possible, returns StructureTower type
+  tower = Game.getObjectById("") as StructureTower // previously possible, returns StructureTower type
+  const towerId: Id<StructureTower> = "";
+  tower = Game.getObjectById(towerId); // new option, returns StructureTower type
+  tower = Game.getObjectById(tower.id); // new option, returns StructureTower type
+  ```
+
+  Strings are assignable to `Id<T>` types but the reverse is not allowed implicitly. To assign an `Id<T>` type to a `string` type, you must explicitly assert the type.
+
+  ```TypeScript
+  const typedId: Id<Creep> = "123"; // valid
+  const untypedId: string = typedId; // Type 'Id<Creep>' is not assignable to type 'string'.ts(2322)
+  const untypedId: string = typedId as string; // valid
+  ```
+
+- Game objects have typed id properties `id: Id<this>`. These typed ids can by passed to `Game.getObjectById()` to receive typed game objects matching the type of the Id. See above bullet for more details.
+
+  ```TypeScript
+  creep.id // has type Id<Creep>
+  copy = Game.getObjectById(creep.id) // has type Creep
+  tower.id // has type Id<StructureTower>
+  ```
 
 ### Additional (non-breaking) Features:
 
