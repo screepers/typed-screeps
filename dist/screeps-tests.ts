@@ -155,6 +155,13 @@ function resources(o: GenericStore): ResourceConstant[] {
     Game.cpu.setShardLimits({ shard0: 20, shard1: 10 });
 }
 
+// Game.cpu.halt()
+{
+    if (Game.cpu.hasOwnProperty("halt")) {
+        Game.cpu.halt!();
+    }
+}
+
 // Game.getObjectById(id)
 
 {

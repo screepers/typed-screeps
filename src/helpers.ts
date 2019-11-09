@@ -90,6 +90,14 @@ interface CPU {
      * ArrayBuffer instances over a certain size are externally allocated and will be counted here.
      */
     getHeapStatistics?(): HeapStatistics;
+
+    /**
+     * This method will be undefined if you are not using IVM.
+     *
+     * Reset your runtime environment and wipe all data in heap memory.
+     * Player code execution stops immediately.
+     */
+    halt?(): never;
 }
 
 interface HeapStatistics {
