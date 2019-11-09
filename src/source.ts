@@ -17,7 +17,7 @@ interface Source extends RoomObject {
     /**
      * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
      */
-    id: string;
+    id: Id<this>;
     /**
      * If you can get an instance of Source, you can see it.
      * If you can see a Source, you can see the room it's in.

@@ -35,7 +35,7 @@ interface Creep extends RoomObject {
     /**
      * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
      */
-    id: string;
+    id: Id<this>;
     /**
      * A shorthand to `Memory.creeps[creep.name]`. You can use it for quick access the creep’s specific memory data object.
      */

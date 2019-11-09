@@ -6,7 +6,7 @@ interface ConstructionSite<T extends BuildableStructureConstant = BuildableStruc
     /**
      * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
      */
-    id: string;
+    id: Id<this>;
     /**
      * Whether this is your own construction site.
      */

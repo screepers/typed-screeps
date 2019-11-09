@@ -22,7 +22,7 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
     /**
      * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
      */
-    id: string;
+    id: Id<this>;
     /**
      * The remaining time after which the deposit will be refilled.
      */
