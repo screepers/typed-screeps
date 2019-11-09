@@ -653,6 +653,18 @@ function resources(o: GenericStore): ResourceConstant[] {
         const amount = creep.carry[resourceType];
         creep.drop(resourceType, amount);
     }
+
+    const extension = new StructureExtension("");
+
+    const e1: number = extension.store.getUsedCapacity(RESOURCE_ENERGY);
+    const e2: number = extension.store[RESOURCE_ENERGY];
+
+    const g1: 0 = extension.store.getUsedCapacity(RESOURCE_GHODIUM);
+    const g2: 0 = extension.store.getUsedCapacity(RESOURCE_GHODIUM);
+
+    const storage = new StructureStorage("");
+
+    const g3: number = storage.store.getUsedCapacity(RESOURCE_GHODIUM);
 }
 
 // Advanced Structure types
