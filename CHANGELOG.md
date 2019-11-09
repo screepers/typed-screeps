@@ -11,21 +11,31 @@ The next release will be #3.0.0
 
 ### Pending
 
-- Add support for Store and StoreDefinition changes
 - Various enhancements
 
 ### Added
 
+- Add missing halt command to CPU ([#141](https://github.com/screepers/typed-screeps/pull/141))
+- Add market price history and other updates ([#138](https://github.com/screepers/typed-screeps/pull/138))
 - Add support for 'Natural Effects' on RoomObjects ([#135](https://github.com/screepers/typed-screeps/pull/135))
 - Add support for Factories, Ruins, Deposits, and Strongholds ([#132](https://github.com/screepers/typed-screeps/pull/132))
 
 ### Changed
 
-- Remove deprecated FIND_DROPPED_ENERGY constant ([#129](https://github.com/screepers/typed-screeps/pull/129))
+- Update StoreDefinition ([#130](https://github.com/screepers/typed-screeps/pull/130))
+- Explicitly type game object Ids ([#139](https://github.com/screepers/typed-screeps/pull/139))
 
 ### Fixed
 
 - Updated dependencies ([#133](https://github.com/screepers/typed-screeps/pull/133)),([#134](https://github.com/screepers/typed-screeps/pull/134))
+
+### Deprecated
+
+- Deprecated `creep.carry` ([#130](https://github.com/screepers/typed-screeps/pull/130))
+
+### Removed
+
+- Remove deprecated FIND_DROPPED_ENERGY constant ([#129](https://github.com/screepers/typed-screeps/pull/129))
 
 ## [2.5.4] - 2019-05-12
 
