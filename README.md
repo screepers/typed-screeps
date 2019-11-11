@@ -91,7 +91,7 @@ This repo has more activity and is considerably more up-to-date.
   If you have code like this (un-type-asserted use of `Game.getObjectById`)
 
   ```TypeScript
-  Interface Memory{
+  interface Memory{
     towerIds: string[];
   }
 
@@ -104,7 +104,7 @@ This repo has more activity and is considerably more up-to-date.
   Change it to:
 
   ```TypeScript
-  Interface Memory{
+  interface Memory{
     towerIds: Array<Id<StructureTower>>;
   }
 
