@@ -776,26 +776,28 @@ declare const RUIN_DECAY_STRUCTURES: {
     powerBank: 10;
 };
 
-declare const EVENT_ATTACK: 1;
-declare const EVENT_OBJECT_DESTROYED: 2;
-declare const EVENT_ATTACK_CONTROLLER: 3;
-declare const EVENT_BUILD: 4;
-declare const EVENT_HARVEST: 5;
-declare const EVENT_HEAL: 6;
-declare const EVENT_REPAIR: 7;
-declare const EVENT_RESERVE_CONTROLLER: 8;
-declare const EVENT_UPGRADE_CONTROLLER: 9;
-declare const EVENT_EXIT: 10;
+declare const EVENT_ATTACK: EVENT_ATTACK;
+declare const EVENT_OBJECT_DESTROYED: EVENT_OBJECT_DESTROYED;
+declare const EVENT_ATTACK_CONTROLLER: EVENT_ATTACK_CONTROLLER;
+declare const EVENT_BUILD: EVENT_BUILD;
+declare const EVENT_HARVEST: EVENT_HARVEST;
+declare const EVENT_HEAL: EVENT_HEAL;
+declare const EVENT_REPAIR: EVENT_REPAIR;
+declare const EVENT_RESERVE_CONTROLLER: EVENT_RESERVE_CONTROLLER;
+declare const EVENT_UPGRADE_CONTROLLER: EVENT_UPGRADE_CONTROLLER;
+declare const EVENT_EXIT: EVENT_EXIT;
+declare const EVENT_POWER: EVENT_POWER;
+declare const EVENT_TRANSFER: EVENT_TRANSFER;
 
-declare const EVENT_ATTACK_TYPE_MELEE: 1;
-declare const EVENT_ATTACK_TYPE_RANGED: 2;
-declare const EVENT_ATTACK_TYPE_RANGED_MASS: 3;
-declare const EVENT_ATTACK_TYPE_DISMANTLE: 4;
-declare const EVENT_ATTACK_TYPE_HIT_BACK: 5;
-declare const EVENT_ATTACK_TYPE_NUKE: 6;
+declare const EVENT_ATTACK_TYPE_MELEE: EVENT_ATTACK_TYPE_MELEE;
+declare const EVENT_ATTACK_TYPE_RANGED: EVENT_ATTACK_TYPE_RANGED;
+declare const EVENT_ATTACK_TYPE_RANGED_MASS: EVENT_ATTACK_TYPE_RANGED_MASS;
+declare const EVENT_ATTACK_TYPE_DISMANTLE: EVENT_ATTACK_TYPE_DISMANTLE;
+declare const EVENT_ATTACK_TYPE_HIT_BACK: EVENT_ATTACK_TYPE_HIT_BACK;
+declare const EVENT_ATTACK_TYPE_NUKE: EVENT_ATTACK_TYPE_NUKE;
 
-declare const EVENT_HEAL_TYPE_MELEE: 1;
-declare const EVENT_HEAL_TYPE_RANGED: 2;
+declare const EVENT_HEAL_TYPE_MELEE: EVENT_HEAL_TYPE_MELEE;
+declare const EVENT_HEAL_TYPE_RANGED: EVENT_HEAL_TYPE_RANGED;
 
 declare const POWER_LEVEL_MULTIPLY: 1000;
 declare const POWER_LEVEL_POW: 2;
@@ -2496,7 +2498,9 @@ type EventConstant =
     | EVENT_REPAIR
     | EVENT_RESERVE_CONTROLLER
     | EVENT_UPGRADE_CONTROLLER
-    | EVENT_EXIT;
+    | EVENT_EXIT
+    | EVENT_POWER
+    | EVENT_TRANSFER;
 
 type EVENT_ATTACK = 1;
 type EVENT_OBJECT_DESTROYED = 2;
@@ -2508,6 +2512,8 @@ type EVENT_REPAIR = 7;
 type EVENT_RESERVE_CONTROLLER = 8;
 type EVENT_UPGRADE_CONTROLLER = 9;
 type EVENT_EXIT = 10;
+type EVENT_POWER = 11;
+type EVENT_TRANSFER = 12;
 
 type EventAttackType =
     | EVENT_ATTACK_TYPE_MELEE
@@ -2581,69 +2587,67 @@ type EventItem =
           event: EVENT_EXIT;
           objectId: string;
           data: EventData[EVENT_EXIT];
+      }
+    | {
+          event: EVENT_POWER;
+          objectId: string;
+          data: EventData[EVENT_POWER];
+      }
+    | {
+          event: EVENT_TRANSFER;
+          objectId: string;
+          data: EventData[EVENT_TRANSFER];
       };
 
 interface EventData {
-    [key: number]: null | {
-        targetId?: string;
-        damage?: number;
-        attackType?: EventAttackType;
-        amount?: number;
-        energySpent?: number;
-        type?: EventDestroyType;
-        healType?: EventHealType;
-        room?: string;
-        x?: number;
-        y?: number;
-    };
-    1: {
-        // EVENT_ATTACK
+    [EVENT_ATTACK]: {
         targetId: string;
         damage: number;
         attackType: EventAttackType;
     };
-    2: {
-        // EVENT_OBJECT_DESTROYED
+    [EVENT_OBJECT_DESTROYED]: {
         type: EventDestroyType;
     };
-    3: null; // EVENT_ATTACK_CONTROLLER
-    4: {
-        // EVENT_BUILD
+    [EVENT_ATTACK_CONTROLLER]: null;
+    [EVENT_BUILD]: {
         targetId: string;
         amount: number;
         energySpent: number;
     };
-    5: {
-        // EVENT_HARVEST
+    [EVENT_HARVEST]: {
         targetId: string;
         amount: number;
     };
-    6: {
-        // EVENT_HEAL
+    [EVENT_HEAL]: {
         targetId: string;
         amount: number;
         healType: EventHealType;
     };
-    7: {
-        // EVENT_REPAIR
+    [EVENT_REPAIR]: {
         targetId: string;
         amount: number;
         energySpent: number;
     };
-    8: {
-        // EVENT_RESERVE_CONTROLLER
+    [EVENT_RESERVE_CONTROLLER]: {
         amount: number;
     };
-    9: {
-        // EVENT_UPGRADE_CONTROLLER
+    [EVENT_UPGRADE_CONTROLLER]: {
         amount: number;
         energySpent: number;
     };
-    10: {
-        // EVENT_EXIT
+    [EVENT_EXIT]: {
         room: string;
         x: number;
         y: number;
+    };
+    [EVENT_POWER]: {
+        targetId: string;
+        power: PowerConstant;
+    };
+    [EVENT_TRANSFER]: {
+        targetId: string;
+        resourceType: ResourceConstant;
+        amount: number;
     };
 }
 
