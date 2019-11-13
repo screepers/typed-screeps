@@ -486,7 +486,9 @@ type EventConstant =
     | EVENT_REPAIR
     | EVENT_RESERVE_CONTROLLER
     | EVENT_UPGRADE_CONTROLLER
-    | EVENT_EXIT;
+    | EVENT_EXIT
+    | EVENT_POWER
+    | EVENT_TRANSFER;
 
 type EVENT_ATTACK = 1;
 type EVENT_OBJECT_DESTROYED = 2;
@@ -498,6 +500,8 @@ type EVENT_REPAIR = 7;
 type EVENT_RESERVE_CONTROLLER = 8;
 type EVENT_UPGRADE_CONTROLLER = 9;
 type EVENT_EXIT = 10;
+type EVENT_POWER = 11;
+type EVENT_TRANSFER = 12;
 
 type EventAttackType =
     | EVENT_ATTACK_TYPE_MELEE
@@ -571,69 +575,67 @@ type EventItem =
           event: EVENT_EXIT;
           objectId: string;
           data: EventData[EVENT_EXIT];
+      }
+    | {
+          event: EVENT_POWER;
+          objectId: string;
+          data: EventData[EVENT_POWER];
+      }
+    | {
+          event: EVENT_TRANSFER;
+          objectId: string;
+          data: EventData[EVENT_TRANSFER];
       };
 
 interface EventData {
-    [key: number]: null | {
-        targetId?: string;
-        damage?: number;
-        attackType?: EventAttackType;
-        amount?: number;
-        energySpent?: number;
-        type?: EventDestroyType;
-        healType?: EventHealType;
-        room?: string;
-        x?: number;
-        y?: number;
-    };
-    1: {
-        // EVENT_ATTACK
+    [EVENT_ATTACK]: {
         targetId: string;
         damage: number;
         attackType: EventAttackType;
     };
-    2: {
-        // EVENT_OBJECT_DESTROYED
+    [EVENT_OBJECT_DESTROYED]: {
         type: EventDestroyType;
     };
-    3: null; // EVENT_ATTACK_CONTROLLER
-    4: {
-        // EVENT_BUILD
+    [EVENT_ATTACK_CONTROLLER]: null;
+    [EVENT_BUILD]: {
         targetId: string;
         amount: number;
         energySpent: number;
     };
-    5: {
-        // EVENT_HARVEST
+    [EVENT_HARVEST]: {
         targetId: string;
         amount: number;
     };
-    6: {
-        // EVENT_HEAL
+    [EVENT_HEAL]: {
         targetId: string;
         amount: number;
         healType: EventHealType;
     };
-    7: {
-        // EVENT_REPAIR
+    [EVENT_REPAIR]: {
         targetId: string;
         amount: number;
         energySpent: number;
     };
-    8: {
-        // EVENT_RESERVE_CONTROLLER
+    [EVENT_RESERVE_CONTROLLER]: {
         amount: number;
     };
-    9: {
-        // EVENT_UPGRADE_CONTROLLER
+    [EVENT_UPGRADE_CONTROLLER]: {
         amount: number;
         energySpent: number;
     };
-    10: {
-        // EVENT_EXIT
+    [EVENT_EXIT]: {
         room: string;
         x: number;
         y: number;
+    };
+    [EVENT_POWER]: {
+        targetId: string;
+        power: PowerConstant;
+    };
+    [EVENT_TRANSFER]: {
+        targetId: string;
+        resourceType: ResourceConstant;
+        amount: number;
     };
 }
 

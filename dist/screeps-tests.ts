@@ -796,6 +796,9 @@ function resources(o: GenericStore): ResourceConstant[] {
         case EVENT_BUILD:
             const energySpent: number = event.data.energySpent;
             break;
+        case EVENT_POWER:
+            const power = event.data.power;
+            break;
     }
 }
 
