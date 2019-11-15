@@ -40,11 +40,10 @@ function resources(o: GenericStore): ResourceConstant[] {
 
 // Game object Id types
 {
-    const creepId: Id<Creep> = "1";
+    const creepId: Id<Creep> = "1" as Id<Creep>;
     const creepOne: Creep | null = Game.getObjectById(creepId);
     const creepTwo: Creep | null = Game.getObjectById<Creep>("2");
     const creepThree: Creep = new Creep(creepId); // Works with typed ID
-    const creepFour: Creep = new Creep("plainoldstring"); // Works with plain old string
 
     if (creepOne) {
         creepOne.hits;
@@ -52,8 +51,8 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     type StoreStructure = StructureContainer | StructureStorage | StructureLink;
-    const storeID: Id<StoreStructure> = "1234"; // String assignable to Id<T>
-    // const foo: string = storeID; // Id<T> not assignable to string
+    const storeID: Id<StoreStructure> = "1234" as Id<StoreStructure>; // Strict assertion required
+    const stringID: string = storeID; // Id<T> assignable implicitly to string
     const storeObject = Game.getObjectById(storeID)!;
 
     // Object recognized
@@ -66,7 +65,7 @@ function resources(o: GenericStore): ResourceConstant[] {
             storeObject.structureType === "link";
     }
 
-    // Default type is unknown
+    // Default type is unknown if untyped Id provided
     const untyped = Game.getObjectById("untyped");
 }
 
@@ -151,8 +150,8 @@ function resources(o: GenericStore): ResourceConstant[] {
             const setDirectionStatus: OK | ERR_NOT_OWNER | ERR_INVALID_ARGS = creep.setDirections([TOP, BOTTOM, LEFT, RIGHT]);
         }
 
-        creep = new StructureSpawn.Spawning("");
-        creep = StructureSpawn.Spawning("");
+        creep = new StructureSpawn.Spawning("" as Id<Spawning>);
+        creep = StructureSpawn.Spawning("" as Id<Spawning>);
     }
 }
 
@@ -654,7 +653,7 @@ function resources(o: GenericStore): ResourceConstant[] {
         creep.drop(resourceType, amount);
     }
 
-    const extension = new StructureExtension("");
+    const extension = new StructureExtension("" as Id<StructureExtension>);
 
     const e1: number = extension.store.getUsedCapacity(RESOURCE_ENERGY);
     const e2: number = extension.store[RESOURCE_ENERGY];
@@ -662,7 +661,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     const g1: 0 = extension.store.getUsedCapacity(RESOURCE_GHODIUM);
     const g2: 0 = extension.store.getUsedCapacity(RESOURCE_GHODIUM);
 
-    const storage = new StructureStorage("");
+    const storage = new StructureStorage("" as Id<StructureStorage>);
 
     const g3: number = storage.store.getUsedCapacity(RESOURCE_GHODIUM);
 }

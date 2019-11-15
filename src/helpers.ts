@@ -402,11 +402,12 @@ interface _ConstructorById<T> extends _Constructor<T> {
     (id: Id<T>): T;
 }
 
-interface Id<T> extends String {
-    /**
-     * This exists only to introduce constraints on T so that differently
-     * paramterized Id types are not assignable to each other
-     * @deprecated
-     */
-    readonly __ignoreme?: T;
+// tslint:disable-next-line: no-namespace
+declare namespace Tag {
+    const OpaqueTagSymbol: unique symbol;
+    // tslint:disable-next-line: strict-export-declare-modifiers
+    export class OpaqueTag<T> {
+        private [OpaqueTagSymbol]: T;
+    }
 }
+type Id<T> = string & Tag.OpaqueTag<T>;

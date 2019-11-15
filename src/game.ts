@@ -72,7 +72,7 @@ interface Game {
      * @param id The unique identifier.
      * @returns an object instance or null if it cannot be found.
      */
-    getObjectById<T>(id: Id<T>): T | null;
+    getObjectById<T>(id: Id<T> | string): T | null;
     /**
      * Send a custom message at your profile email.
      *

@@ -84,7 +84,7 @@ This repo has more activity and is considerably more up-to-date.
   ```
 
 - Some original functions were incorrectly typed to not include `null` as a possible return. You may need to update your code to reflect this update (ex. `findClosestByPath` or `findClosestByRange`)
-- `Game.getObjectById()` now returns typed objects if given a typed Id (ex. `Id<StructureTower>`) would return a typed object according to the type of the Id.
+- `Game.getObjectById()` now returns typed objects if given a typed Id (ex. `Id<StructureTower>`) according to the type of the Id.
 
   If given a `string` typed id, the type of the returned game object is `unknown` forcing manual type assertion. Previously this returned `any` typed objects which could accidently be left untyped;
 
@@ -117,19 +117,18 @@ This repo has more activity and is considerably more up-to-date.
   If you're already manually asserting the type of the game object, you're not required to change anything.
 
   ```TypeScript
-  tower = Game.getObjectById<StructureTower>("") // previously possible, returns StructureTower type
-  tower = Game.getObjectById("") as StructureTower // previously possible, returns StructureTower type
-  const towerId: Id<StructureTower> = "";
-  tower = Game.getObjectById(towerId); // new option, returns StructureTower type
-  tower = Game.getObjectById(tower.id); // new option, returns StructureTower type
+  const tower1 = Game.getObjectById<StructureTower>(""); // previously possible, returns StructureTower type
+  const tower2 = Game.getObjectById("") as StructureTower; // previously possible, returns StructureTower type
+  const towerId: Id<StructureTower> = ""  as Id<StructureTower>;
+  const tower3 = Game.getObjectById(towerId); // new option, returns StructureTower type
+  const tower4 = Game.getObjectById(tower1!.id); // new option, returns StructureTower type
   ```
 
-  Strings are assignable to `Id<T>` types but the reverse is not allowed implicitly. To assign an `Id<T>` type to a `string` type, you must explicitly assert the type.
+  `Id<T>` types are assignable to `string` but the reverse is not allowed implicitly. To assign a `string` type to an `Id<T>` type, you must explicitly assert the type.
 
   ```TypeScript
-  const typedId: Id<Creep> = "123"; // valid
-  const untypedId: string = typedId; // Type 'Id<Creep>' is not assignable to type 'string'.ts(2322)
-  const untypedId: string = typedId as string; // valid
+  const typedId: Id<Creep> = "123" as Id<Creep>; // assertion required
+  const untypedId1: string = typedId; // no assertion required
   ```
 
 - Game objects have typed id properties `id: Id<this>`. These typed ids can by passed to `Game.getObjectById()` to receive typed game objects matching the type of the Id. See above bullet for more details.
