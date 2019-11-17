@@ -42,7 +42,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 {
     const creepId: Id<Creep> = "1" as Id<Creep>;
     const creepOne: Creep | null = Game.getObjectById(creepId);
-    const creepTwo: Creep | null = Game.getObjectById<Creep>("2");
+    const creepTwo: Creep | null = Game.getObjectById<Creep>("2"); // deprecated
     const creepThree: Creep = new Creep(creepId); // Works with typed ID
 
     if (creepOne) {
