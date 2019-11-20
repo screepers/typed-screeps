@@ -1554,6 +1554,16 @@ interface Game {
      * @returns an object instance or null if it cannot be found.
      */
     getObjectById<T>(id: Id<T>): T | null;
+
+    /**
+     * Get an object with the specified unique ID. It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.
+     * @param id The unique identifier.
+     * @returns an object instance or null if it cannot be found.
+     * @deprecated Use Id<T>, instead of strings, to increase type safety
+     */
+    // tslint:disable-next-line:unified-signatures
+    getObjectById<T>(id: string): T | null;
+
     /**
      * Send a custom message at your profile email.
      *
@@ -1972,14 +1982,15 @@ interface _ConstructorById<T> extends _Constructor<T> {
     (id: Id<T>): T;
 }
 
-interface Id<T> extends String {
-    /**
-     * This exists only to introduce constraints on T so that differently
-     * paramterized Id types are not assignable to each other
-     * @deprecated
-     */
-    readonly __ignoreme?: T;
+// tslint:disable-next-line: no-namespace
+declare namespace Tag {
+    const OpaqueTagSymbol: unique symbol;
+    // tslint:disable-next-line: strict-export-declare-modifiers
+    export class OpaqueTag<T> {
+        private [OpaqueTagSymbol]: T;
+    }
 }
+type Id<T> = string & Tag.OpaqueTag<T>;
 /**
  * `InterShardMemory` object provides an interface for communicating between shards.
  * Your script is executed separatedly on each shard, and their `Memory` objects are isolated from each other.
