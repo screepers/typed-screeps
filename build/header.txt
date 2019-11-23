@@ -9,3 +9,5 @@
 //                 Kieran Carnegie <https://github.com/kotarou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
+
+// Please contribute types to https://github.com/screepers/typed-screeps

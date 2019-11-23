@@ -7,11 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-The next release will be #3.0.0
-
-### Pending
-
-- Various enhancements
+## [3.0.0] - 2019-11-23
 
 ### Added
 
@@ -22,15 +18,17 @@ The next release will be #3.0.0
 
 ### Changed
 
+- Retype constants with same named types ([#143](https://github.com/screepers/typed-screeps/pull/143)), ([#147](https://github.com/screepers/typed-screeps/pull/147))
 - Update StoreDefinition ([#130](https://github.com/screepers/typed-screeps/pull/130))
 - Explicitly type game object Ids ([#139](https://github.com/screepers/typed-screeps/pull/139))
 
 ### Fixed
 
-- Updated dependencies ([#133](https://github.com/screepers/typed-screeps/pull/133)),([#134](https://github.com/screepers/typed-screeps/pull/134))
+- Updated dependencies ([#133](https://github.com/screepers/typed-screeps/pull/133)), ([#134](https://github.com/screepers/typed-screeps/pull/134))
 
 ### Deprecated
 
+- Deprecated use of string typed ids to get game objects ([#144](https://github.com/screepers/typed-screeps/pull/144))
 - Deprecated `creep.carry` ([#130](https://github.com/screepers/typed-screeps/pull/130))
 
 ### Removed
