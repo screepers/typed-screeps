@@ -11,6 +11,8 @@
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 2.8
 
+// Please contribute types to https://github.com/screepers/typed-screeps
+
 // Game Constants
 
 declare const OK: OK;
