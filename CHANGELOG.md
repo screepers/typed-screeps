@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.0.1] - 2019-11-27
+
+- Fix POSSIBLE_RESSOURCES typo in store definition ([#151](https://github.com/screepers/typed-screeps/pull/151))
+- Remove unecessary tslint:disable rules in OpaqueTag definition ([#151](https://github.com/screepers/typed-screeps/pull/151))
+
 ## [3.0.0] - 2019-11-23
 
 ### Added
@@ -243,7 +248,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Initial public `npm` release.
 
-[unreleased]: https://github.com/screepers/typed-screeps/compare/v2.5.4...HEAD
+[unreleased]: https://github.com/screepers/typed-screeps/compare/v3.0.0...HEAD
+[3.0.1]: https://github.com/screepers/typed-screeps/compare/v3.0.0...v3.0.1
+[3.0.0]: https://github.com/screepers/typed-screeps/compare/v2.5.4...v3.0.0
 [2.5.4]: https://github.com/screepers/typed-screeps/compare/v2.5.3...v2.5.4
 [2.5.3]: https://github.com/screepers/typed-screeps/compare/v2.5.2...v2.5.3
 [2.5.2]: https://github.com/screepers/typed-screeps/compare/v2.5.1...v2.5.2

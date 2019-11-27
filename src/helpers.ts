@@ -402,11 +402,10 @@ interface _ConstructorById<T> extends _Constructor<T> {
     (id: Id<T>): T;
 }
 
-// tslint:disable-next-line: no-namespace
 declare namespace Tag {
     const OpaqueTagSymbol: unique symbol;
-    // tslint:disable-next-line: strict-export-declare-modifiers
-    export class OpaqueTag<T> {
+
+    class OpaqueTag<T> {
         private [OpaqueTagSymbol]: T;
     }
 }
