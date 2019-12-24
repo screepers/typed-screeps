@@ -337,10 +337,11 @@ function resources(o: GenericStore): ResourceConstant[] {
     Game.map.getTerrainAt(new RoomPosition(25, 20, "W10N10"));
 }
 
-// Game.map.isRoomAvailable(roomName)
+// Game.map.getRoomStatus(roomName)
 
 {
-    if (Game.map.isRoomAvailable(room.name)) {
+    const roomStatus = Game.map.getRoomStatus(room.name);
+    if (roomStatus.status === "normal") {
         creep.moveTo(room.getPositionAt(25, 25)!);
     }
 }
@@ -775,6 +776,8 @@ function resources(o: GenericStore): ResourceConstant[] {
         if (lab1.mineralAmount >= LAB_REACTION_AMOUNT && lab2.mineralAmount >= LAB_REACTION_AMOUNT && lab0.mineralType === null) {
             lab0.runReaction(lab1, lab2);
         }
+        // nevermind, reverse that
+        lab0.reverseReaction(lab1, lab2);
     }
 }
 

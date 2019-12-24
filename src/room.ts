@@ -35,7 +35,7 @@ interface Room {
     /**
      * The name of the room.
      */
-    name: string;
+    readonly name: string;
     /**
      * The Storage structure of this room, if present, otherwise undefined.
      */
