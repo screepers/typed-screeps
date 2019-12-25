@@ -5,6 +5,18 @@ interface RouteOptions {
     routeCallback: (roomName: string, fromRoomName: string) => any;
 }
 
+interface RoomSatusPermanent {
+    status: "normal" | "closed";
+    timestamp: null;
+}
+
+interface RoomStatusTemporary {
+    status: "novice" | "respawn";
+    timestamp: number;
+}
+
+type RoomStatus = RoomSatusPermanent | RoomStatusTemporary;
+
 /**
  * A global object representing world map. Use it to navigate between rooms. The object is accessible via Game.map property.
  */
@@ -57,11 +69,13 @@ interface GameMap {
      * @param x X position in the room.
      * @param y Y position in the room.
      * @param roomName The room name.
+     * @deprecated use `Game.map.getRoomTerrain` instead
      */
     getTerrainAt(x: number, y: number, roomName: string): Terrain;
     /**
      * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
      * @param pos The position object.
+     * @deprecated use `Game.map.getRoomTerrain` instead
      */
     getTerrainAt(pos: RoomPosition): Terrain;
     /**
@@ -78,8 +92,16 @@ interface GameMap {
      * Check if the room is available to move into.
      * @param roomName The room name.
      * @returns A boolean value.
+     * @deprecated Use `Game.map.getRoomStatus` instead
      */
     isRoomAvailable(roomName: string): boolean;
+
+    /**
+     * Get the room status to determine if it's available, or in a reserved area.
+     * @param roomName The room name.
+     * @returns An object with the following properties {status: "normal" | "closed" | "novice" | "respawn", timestamp: number}
+     */
+    getRoomStatus(roomName: string): RoomStatus;
 }
 
 // No static is available
