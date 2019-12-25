@@ -659,12 +659,17 @@ function resources(o: GenericStore): ResourceConstant[] {
     const e1: number = extension.store.getUsedCapacity(RESOURCE_ENERGY);
     const e2: number = extension.store[RESOURCE_ENERGY];
 
-    const g1: 0 = extension.store.getUsedCapacity(RESOURCE_GHODIUM);
-    const g2: 0 = extension.store.getUsedCapacity(RESOURCE_GHODIUM);
+    // Invalid resource type for extension
+    const eg1: null = extension.store.getUsedCapacity(RESOURCE_GHODIUM);
+    const eg2: null = extension.store.getFreeCapacity(RESOURCE_GHODIUM);
+    const eg3: null = extension.store.getCapacity(RESOURCE_GHODIUM);
+    const eg4: 0 = extension.store.G;
 
     const storage = new StructureStorage("" as Id<StructureStorage>);
 
-    const g3: number = storage.store.getUsedCapacity(RESOURCE_GHODIUM);
+    const sg1: number = storage.store.getUsedCapacity(RESOURCE_GHODIUM);
+    const sg2: number = storage.store.getFreeCapacity(RESOURCE_GHODIUM);
+    const sg3: number = storage.store.getCapacity(RESOURCE_GHODIUM);
 }
 
 // Advanced Structure types
