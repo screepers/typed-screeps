@@ -54,7 +54,7 @@ We've created [a handy template](ISSUE_TEMPLATE.md) for you to submit any issues
 
 We accept almost all pull requests, provided your code passes all of the tests, and your pull request description follows the [template](PULL_REQUEST_TEMPLATE.md) we've set up for you.
 
-When adding new features, don't forget to add tests for them at the `test/typed-screeps-tests.ts` file. Likewise, don't forget to edit the [readme](README.md) if you are introducing any major changes or updates.
+When adding new features, don't forget to add tests for them at the `dist/screeps-tests.ts` file. Likewise, don't forget to edit the [readme](README.md) if you are introducing any major changes or updates.
 
 When making changes that are potentially breaking, careful discussion must be done with the community at large. Generally we do this either on the [#typescript](https://screeps.slack.com/messages/typescript/) channel on the Screeps Slack, or on the corresponding pull request discussion thread.
 
