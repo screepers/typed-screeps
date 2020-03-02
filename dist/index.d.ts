@@ -1700,24 +1700,27 @@ interface HeapStatistics {
 }
 
 /**
- * An array describing the creep’s body. Each element contains the following properties:
+ * Describes one part of a creep’s body.
  */
-interface BodyPartDefinition {
-    /**
-     * One of the `RESOURCE_*` constants.
-     *
-     * If the body part is boosted, this property specifies the mineral type which is used for boosting.
-     */
-    boost?: MineralBoostConstant;
-    /**
-     * One of the body part types constants.
-     */
-    type: BodyPartConstant;
-    /**
-     * The remaining amount of hit points of this body part.
-     */
-    hits: number;
-}
+type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = T extends any
+    ? {
+          /**
+           * One of the `RESOURCE_*` constants.
+           *
+           * If the body part is boosted, this property specifies the mineral type which is used for boosting.
+           */
+          boost?: keyof typeof BOOSTS[T];
+          /**
+           * One of the body part types constants.
+           */
+          type: T;
+          /**
+           * The remaining amount of hit points of this body part.
+           */
+          hits: number;
+      }
+    : never;
+
 interface Owner {
     /**
      * The name of the owner user.
@@ -2689,7 +2692,8 @@ type PowerConstant =
     | PWR_DISRUPT_TERMINAL
     | PWR_OPERATE_POWER
     | PWR_FORTIFY
-    | PWR_OPERATE_CONTROLLER;
+    | PWR_OPERATE_CONTROLLER
+    | PWR_OPERATE_FACTORY;
 
 type PWR_GENERATE_OPS = 1;
 type PWR_OPERATE_SPAWN = 2;
@@ -4512,9 +4516,9 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      *
      * The spawn should not be busy with the spawning process.
      *
-     * Each execution increases the creep's timer by amount of ticks according to this formula: floor(500/body_size).
+     * Each execution increases the creep's timer by amount of ticks according to this formula: floor(600/body_size).
      *
-     * Energy required for each execution is determined using this formula: ceil(creep_cost/3/body_size).
+     * Energy required for each execution is determined using this formula: ceil(creep_cost/2.5/body_size).
      * @param target The target creep object.
      */
     renewCreep(target: Creep): ScreepsReturnCode;
@@ -5392,6 +5396,54 @@ type AnyStoreStructure =
  * A discriminated union on Structure.type of all structure types
  */
 type AnyStructure = AnyOwnedStructure | StructureContainer | StructurePortal | StructureRoad | StructureWall;
+
+/**
+ * Conditional type for all concrete implementations of Structure.
+ * Unlike Structure<T>, ConcreteStructure<T> gives you the actual concrete class that extends Structure<T>.
+ */
+type ConcreteStructure<T extends StructureConstant> = T extends STRUCTURE_EXTENSION
+    ? StructureExtension
+    : T extends STRUCTURE_RAMPART
+    ? StructureRampart
+    : T extends STRUCTURE_ROAD
+    ? StructureRoad
+    : T extends STRUCTURE_SPAWN
+    ? StructureSpawn
+    : T extends STRUCTURE_LINK
+    ? StructureLink
+    : T extends STRUCTURE_WALL
+    ? StructureWall
+    : T extends STRUCTURE_STORAGE
+    ? StructureStorage
+    : T extends STRUCTURE_TOWER
+    ? StructureTower
+    : T extends STRUCTURE_OBSERVER
+    ? StructureObserver
+    : T extends STRUCTURE_POWER_SPAWN
+    ? StructurePowerSpawn
+    : T extends STRUCTURE_EXTRACTOR
+    ? StructureExtractor
+    : T extends STRUCTURE_LAB
+    ? StructureLab
+    : T extends STRUCTURE_TERMINAL
+    ? StructureTerminal
+    : T extends STRUCTURE_CONTAINER
+    ? StructureContainer
+    : T extends STRUCTURE_NUKER
+    ? StructureNuker
+    : T extends STRUCTURE_FACTORY
+    ? StructureFactory
+    : T extends STRUCTURE_KEEPER_LAIR
+    ? StructureKeeperLair
+    : T extends STRUCTURE_CONTROLLER
+    ? StructureController
+    : T extends STRUCTURE_POWER_BANK
+    ? StructurePowerBank
+    : T extends STRUCTURE_PORTAL
+    ? StructurePortal
+    : T extends STRUCTURE_INVADER_CORE
+    ? StructureInvaderCore
+    : never;
 /**
  * A remnant of dead creeps. This is a walkable structure.
  * <ul>

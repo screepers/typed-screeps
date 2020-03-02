@@ -829,3 +829,16 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     const enemyTerrain = new Room.Terrain("W2N5");
 }
+
+// Creep.body
+function atackPower(creep: Creep) {
+    return creep.body
+        .map(part => {
+            if (part.type === ATTACK) {
+                const multiplier = part.boost ? BOOSTS[part.type][part.boost].attack : 1;
+                return multiplier * ATTACK_POWER;
+            }
+            return 0;
+        })
+        .reduce((a, b) => a + b);
+}

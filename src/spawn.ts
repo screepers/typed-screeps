@@ -119,9 +119,9 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      *
      * The spawn should not be busy with the spawning process.
      *
-     * Each execution increases the creep's timer by amount of ticks according to this formula: floor(500/body_size).
+     * Each execution increases the creep's timer by amount of ticks according to this formula: floor(600/body_size).
      *
-     * Energy required for each execution is determined using this formula: ceil(creep_cost/3/body_size).
+     * Energy required for each execution is determined using this formula: ceil(creep_cost/2.5/body_size).
      * @param target The target creep object.
      */
     renewCreep(target: Creep): ScreepsReturnCode;

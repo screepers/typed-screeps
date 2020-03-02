@@ -118,24 +118,27 @@ interface HeapStatistics {
 }
 
 /**
- * An array describing the creep’s body. Each element contains the following properties:
+ * Describes one part of a creep’s body.
  */
-interface BodyPartDefinition {
-    /**
-     * One of the `RESOURCE_*` constants.
-     *
-     * If the body part is boosted, this property specifies the mineral type which is used for boosting.
-     */
-    boost?: MineralBoostConstant;
-    /**
-     * One of the body part types constants.
-     */
-    type: BodyPartConstant;
-    /**
-     * The remaining amount of hit points of this body part.
-     */
-    hits: number;
-}
+type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = T extends any
+    ? {
+          /**
+           * One of the `RESOURCE_*` constants.
+           *
+           * If the body part is boosted, this property specifies the mineral type which is used for boosting.
+           */
+          boost?: keyof typeof BOOSTS[T];
+          /**
+           * One of the body part types constants.
+           */
+          type: T;
+          /**
+           * The remaining amount of hit points of this body part.
+           */
+          hits: number;
+      }
+    : never;
+
 interface Owner {
     /**
      * The name of the owner user.
