@@ -728,3 +728,51 @@ type AnyStoreStructure =
  * A discriminated union on Structure.type of all structure types
  */
 type AnyStructure = AnyOwnedStructure | StructureContainer | StructurePortal | StructureRoad | StructureWall;
+
+/**
+ * Conditional type for all concrete implementations of Structure.
+ * Unlike Structure<T>, ConcreteStructure<T> gives you the actual concrete class that extends Structure<T>.
+ */
+type ConcreteStructure<T extends StructureConstant> = T extends STRUCTURE_EXTENSION
+    ? StructureExtension
+    : T extends STRUCTURE_RAMPART
+    ? StructureRampart
+    : T extends STRUCTURE_ROAD
+    ? StructureRoad
+    : T extends STRUCTURE_SPAWN
+    ? StructureSpawn
+    : T extends STRUCTURE_LINK
+    ? StructureLink
+    : T extends STRUCTURE_WALL
+    ? StructureWall
+    : T extends STRUCTURE_STORAGE
+    ? StructureStorage
+    : T extends STRUCTURE_TOWER
+    ? StructureTower
+    : T extends STRUCTURE_OBSERVER
+    ? StructureObserver
+    : T extends STRUCTURE_POWER_SPAWN
+    ? StructurePowerSpawn
+    : T extends STRUCTURE_EXTRACTOR
+    ? StructureExtractor
+    : T extends STRUCTURE_LAB
+    ? StructureLab
+    : T extends STRUCTURE_TERMINAL
+    ? StructureTerminal
+    : T extends STRUCTURE_CONTAINER
+    ? StructureContainer
+    : T extends STRUCTURE_NUKER
+    ? StructureNuker
+    : T extends STRUCTURE_FACTORY
+    ? StructureFactory
+    : T extends STRUCTURE_KEEPER_LAIR
+    ? StructureKeeperLair
+    : T extends STRUCTURE_CONTROLLER
+    ? StructureController
+    : T extends STRUCTURE_POWER_BANK
+    ? StructurePowerBank
+    : T extends STRUCTURE_PORTAL
+    ? StructurePortal
+    : T extends STRUCTURE_INVADER_CORE
+    ? StructureInvaderCore
+    : never;
