@@ -5,7 +5,7 @@ interface RouteOptions {
     routeCallback: (roomName: string, fromRoomName: string) => any;
 }
 
-interface RoomSatusPermanent {
+interface RoomStatusPermanent {
     status: "normal" | "closed";
     timestamp: null;
 }
@@ -15,7 +15,7 @@ interface RoomStatusTemporary {
     timestamp: number;
 }
 
-type RoomStatus = RoomSatusPermanent | RoomStatusTemporary;
+type RoomStatus = RoomStatusPermanent | RoomStatusTemporary;
 
 /**
  * A global object representing world map. Use it to navigate between rooms. The object is accessible via Game.map property.
