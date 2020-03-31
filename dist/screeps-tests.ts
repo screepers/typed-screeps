@@ -668,9 +668,21 @@ function resources(o: GenericStore): ResourceConstant[] {
 
 // Advanced Structure types
 {
-    const owned = Game.getObjectById<AnyOwnedStructure>("blah");
-    const owner = owned!.owner.username;
-    owned!.notifyWhenAttacked(false);
+    const owned = Game.getObjectById<AnyOwnedStructure>("blah")!;
+    const owner = owned.owner && owned.owner.username;
+    owned.notifyWhenAttacked(false);
+
+    const structs = room.find(FIND_MY_STRUCTURES);
+    structs.forEach(struct => {
+        switch (struct.structureType) {
+            case STRUCTURE_CONTROLLER:
+                const usernameOptional: string | undefined = struct.owner && struct.owner.username;
+                break;
+            default:
+                const usernameRequired: string = struct.owner.username;
+                break;
+        }
+    });
 
     const unowned = Game.getObjectById<AnyStructure>("blah2")!;
     const hp = unowned.hits / unowned.hitsMax;
