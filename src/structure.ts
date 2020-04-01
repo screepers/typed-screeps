@@ -501,6 +501,12 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
      */
     unboostCreep(creep: Creep): ScreepsReturnCode;
     /**
+     * Breaks mineral compounds back into reagents. The same output labs can be used by many source labs.
+     * @param lab1 The first result lab.
+     * @param lab2 The second result lab.
+     */
+    reverseReaction(lab1: StructureLab, lab2: StructureLab): ScreepsReturnCode;
+    /**
      * Produce mineral compounds using reagents from two another labs. Each lab has to be within 2 squares range. The same input labs can be used by many output labs
      * @param lab1 The first source lab.
      * @param lab2 The second source lab.

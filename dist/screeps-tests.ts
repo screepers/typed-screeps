@@ -337,10 +337,11 @@ function resources(o: GenericStore): ResourceConstant[] {
     Game.map.getTerrainAt(new RoomPosition(25, 20, "W10N10"));
 }
 
-// Game.map.isRoomAvailable(roomName)
+// Game.map.getRoomStatus(roomName)
 
 {
-    if (Game.map.isRoomAvailable(room.name)) {
+    const roomStatus = Game.map.getRoomStatus(room.name);
+    if (roomStatus.status === "normal") {
         creep.moveTo(room.getPositionAt(25, 25)!);
     }
 }
@@ -658,12 +659,17 @@ function resources(o: GenericStore): ResourceConstant[] {
     const e1: number = extension.store.getUsedCapacity(RESOURCE_ENERGY);
     const e2: number = extension.store[RESOURCE_ENERGY];
 
-    const g1: 0 = extension.store.getUsedCapacity(RESOURCE_GHODIUM);
-    const g2: 0 = extension.store.getUsedCapacity(RESOURCE_GHODIUM);
+    // Invalid resource type for extension
+    const eg1: null = extension.store.getUsedCapacity(RESOURCE_GHODIUM);
+    const eg2: null = extension.store.getFreeCapacity(RESOURCE_GHODIUM);
+    const eg3: null = extension.store.getCapacity(RESOURCE_GHODIUM);
+    const eg4: 0 = extension.store.G;
 
     const storage = new StructureStorage("" as Id<StructureStorage>);
 
-    const g3: number = storage.store.getUsedCapacity(RESOURCE_GHODIUM);
+    const sg1: number = storage.store.getUsedCapacity(RESOURCE_GHODIUM);
+    const sg2: number = storage.store.getFreeCapacity(RESOURCE_GHODIUM);
+    const sg3: number = storage.store.getCapacity(RESOURCE_GHODIUM);
 }
 
 // Advanced Structure types
@@ -787,6 +793,8 @@ function resources(o: GenericStore): ResourceConstant[] {
         if (lab1.mineralAmount >= LAB_REACTION_AMOUNT && lab2.mineralAmount >= LAB_REACTION_AMOUNT && lab0.mineralType === null) {
             lab0.runReaction(lab1, lab2);
         }
+        // nevermind, reverse that
+        lab0.reverseReaction(lab1, lab2);
     }
 }
 

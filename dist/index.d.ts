@@ -1,4 +1,4 @@
-// Type definitions for Screeps 3.0.1
+// Type definitions for Screeps 3.1.0-beta
 // Project: https://github.com/screeps/screeps
 // Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
 //                 Nhan Ho <https://github.com/NhanHo>
@@ -2726,6 +2726,18 @@ interface RouteOptions {
     routeCallback: (roomName: string, fromRoomName: string) => any;
 }
 
+interface RoomStatusPermanent {
+    status: "normal" | "closed";
+    timestamp: null;
+}
+
+interface RoomStatusTemporary {
+    status: "novice" | "respawn";
+    timestamp: number;
+}
+
+type RoomStatus = RoomStatusPermanent | RoomStatusTemporary;
+
 /**
  * A global object representing world map. Use it to navigate between rooms. The object is accessible via Game.map property.
  */
@@ -2778,11 +2790,13 @@ interface GameMap {
      * @param x X position in the room.
      * @param y Y position in the room.
      * @param roomName The room name.
+     * @deprecated use `Game.map.getRoomTerrain` instead
      */
     getTerrainAt(x: number, y: number, roomName: string): Terrain;
     /**
      * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
      * @param pos The position object.
+     * @deprecated use `Game.map.getRoomTerrain` instead
      */
     getTerrainAt(pos: RoomPosition): Terrain;
     /**
@@ -2799,8 +2813,16 @@ interface GameMap {
      * Check if the room is available to move into.
      * @param roomName The room name.
      * @returns A boolean value.
+     * @deprecated Use `Game.map.getRoomStatus` instead
      */
     isRoomAvailable(roomName: string): boolean;
+
+    /**
+     * Get the room status to determine if it's available, or in a reserved area.
+     * @param roomName The room name.
+     * @returns An object with the following properties {status: "normal" | "closed" | "novice" | "respawn", timestamp: number}
+     */
+    getRoomStatus(roomName: string): RoomStatus;
 }
 
 // No static is available
@@ -4045,7 +4067,7 @@ interface Room {
     /**
      * The name of the room.
      */
-    name: string;
+    readonly name: string;
     /**
      * The Storage structure of this room, if present, otherwise undefined.
      */
@@ -4582,7 +4604,11 @@ interface SpawnOptions {
 
 interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {}
 interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> {
-    /** Returns capacity of this store for the specified resource, or total capacity if resource is undefined. */
+    /**
+     * Returns capacity of this store for the specified resource. For a general purpose store, it returns total capacity if `resource` is undefined.
+     * @param resource The type of the resource.
+     * @returns Returns capacity number, or `null` in case of an invalid `resource` for this store type.
+     */
     getCapacity<R extends ResourceConstant | undefined>(
         resource?: R,
     ): UNLIMITED_STORE extends true
@@ -4590,12 +4616,22 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
         : (undefined extends R
               ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null)
               : (R extends POSSIBLE_RESOURCES ? number : null));
-    /** Returns the capacity used by the specified resource, or total used capacity for general purpose stores if resource is undefined. */
+    /**
+     * Returns the capacity used by the specified resource, or total used capacity for general purpose stores if `resource` is undefined.
+     * @param resource The type of the resource.
+     * @returns Returns used capacity number, or `null` in case of a not valid `resource` for this store type.
+     */
     getUsedCapacity<R extends ResourceConstant | undefined>(
         resource?: R,
-    ): undefined extends R ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : 0);
-    /** A shorthand for getCapacity(resource) - getUsedCapacity(resource). */
-    getFreeCapacity(resource?: ResourceConstant): number;
+    ): undefined extends R ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
+    /**
+     * Returns free capacity for the store. For a limited store, it returns the capacity available for the specified resource if `resource` is defined and valid for this store.
+     * @param resource The type of the resource.
+     * @returns Returns available capacity number, or `null` in case of an invalid `resource` for this store type.
+     */
+    getFreeCapacity<R extends ResourceConstant | undefined>(
+        resource?: R,
+    ): undefined extends R ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
 }
 
 type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> = StoreBase<POSSIBLE_RESOURCES, UNLIMITED_STORE> &
@@ -4603,12 +4639,24 @@ type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends 
     { [P in Exclude<ResourceConstant, POSSIBLE_RESOURCES>]: 0 };
 
 interface GenericStoreBase {
-    /** Returns capacity of this store for the specified resource, or total capacity if resource is undefined. */
+    /**
+     * Returns capacity of this store for the specified resource. For a general purpose store, it returns total capacity if `resource` is undefined.
+     * @param resource The type of the resource.
+     * @returns Returns capacity number, or `null` in case of an invalid `resource` for this store type.
+     */
     getCapacity(resource?: ResourceConstant): number | null;
-    /** Returns the capacity used by the specified resource, or total used capacity for general purpose stores if resource is undefined. */
+    /**
+     * Returns the capacity used by the specified resource, or total used capacity for general purpose stores if `resource` is undefined.
+     * @param resource The type of the resource.
+     * @returns Returns used capacity number, or `null` in case of a not valid `resource` for this store type.
+     */
     getUsedCapacity(resource?: ResourceConstant): number | null;
-    /** A shorthand for getCapacity(resource) - getUsedCapacity(resource). */
-    getFreeCapacity(resource?: ResourceConstant): number;
+    /**
+     * Returns free capacity for the store. For a limited store, it returns the capacity available for the specified resource if `resource` is defined and valid for this store.
+     * @param resource The type of the resource.
+     * @returns Returns available capacity number, or `null` in case of an invalid `resource` for this store type.
+     */
+    getFreeCapacity(resource?: ResourceConstant): number | null;
 }
 
 type GenericStore = GenericStoreBase & { [P in ResourceConstant]: number };
@@ -5114,6 +5162,12 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
      * @param creep The target creep.
      */
     unboostCreep(creep: Creep): ScreepsReturnCode;
+    /**
+     * Breaks mineral compounds back into reagents. The same output labs can be used by many source labs.
+     * @param lab1 The first result lab.
+     * @param lab2 The second result lab.
+     */
+    reverseReaction(lab1: StructureLab, lab2: StructureLab): ScreepsReturnCode;
     /**
      * Produce mineral compounds using reagents from two another labs. Each lab has to be within 2 squares range. The same input labs can be used by many output labs
      * @param lab1 The first source lab.
