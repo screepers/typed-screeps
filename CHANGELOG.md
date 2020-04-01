@@ -7,6 +7,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.1.0] - 2020-04-01
+
+- Fixed `StructureSpawn.renewCreep()` documentation ([#158](https://github.com/screepers/typed-screeps/pull/158))
+- Added missing `PWR_OPERATE_FACTORY` constant ([#161](https://github.com/screepers/typed-screeps/pull/161))
+- Changed `BodyPartConstant` to allow inferred Boost type from part type ([#162](https://github.com/screepers/typed-screeps/pull/162))
+- Added `ConcreteStructure<T>` type
+- Change `owner` to allow undefined on `StructureController` ([#164](https://github.com/screepers/typed-screeps/pull/164))
+- Various updates from 2020-03-24 game update ([#163](https://github.com/screepers/typed-screeps/pull/163))
+  - Added `Game.map.getRoomStauts(roomName)`
+  - Added `RoomStatus` type, a discriminated union on `status` of `RoomStatusTemporary` and `RoomStatusPermanent`.
+  - Added `StructureLab.reverseReaction(lab1,lab2)`
+  - Changed `room.name` to be readonly
+  - Changed typing of `StoreBase.getFreeCapacity()` to return `null` for invalid resources types on limited stores.
+  - Changed documentation of `store` functions
+  - Deprecated `Game.map.isRoomAvailable()`, see `Game.map.getRoomStatus()`
+
 ## [3.0.1] - 2019-11-27
 
 - Fix POSSIBLE_RESSOURCES typo in store definition ([#151](https://github.com/screepers/typed-screeps/pull/151))
@@ -248,7 +264,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Initial public `npm` release.
 
-[unreleased]: https://github.com/screepers/typed-screeps/compare/v3.0.0...HEAD
+[unreleased]: https://github.com/screepers/typed-screeps/compare/v3.1.0...HEAD
+[3.1.0]: https://github.com/screepers/typed-screeps/compare/v3.0.1...v3.1.0
 [3.0.1]: https://github.com/screepers/typed-screeps/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/screepers/typed-screeps/compare/v2.5.4...v3.0.0
 [2.5.4]: https://github.com/screepers/typed-screeps/compare/v2.5.3...v2.5.4
