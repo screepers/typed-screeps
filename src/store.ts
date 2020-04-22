@@ -4,29 +4,29 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
      * @param resource The type of the resource.
      * @returns Returns capacity number, or `null` in case of an invalid `resource` for this store type.
      */
-    getCapacity<R extends ResourceConstant | undefined>(
+    getCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
     ): UNLIMITED_STORE extends true
         ? null
-        : (undefined extends R
-              ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null)
-              : (R extends POSSIBLE_RESOURCES ? number : null));
+        : R extends undefined
+        ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null)
+        : (R extends POSSIBLE_RESOURCES ? number : null);
     /**
      * Returns the capacity used by the specified resource, or total used capacity for general purpose stores if `resource` is undefined.
      * @param resource The type of the resource.
      * @returns Returns used capacity number, or `null` in case of a not valid `resource` for this store type.
      */
-    getUsedCapacity<R extends ResourceConstant | undefined>(
+    getUsedCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): undefined extends R ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
+    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
     /**
      * Returns free capacity for the store. For a limited store, it returns the capacity available for the specified resource if `resource` is defined and valid for this store.
      * @param resource The type of the resource.
      * @returns Returns available capacity number, or `null` in case of an invalid `resource` for this store type.
      */
-    getFreeCapacity<R extends ResourceConstant | undefined>(
+    getFreeCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): undefined extends R ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
+    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
 }
 
 type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> = StoreBase<POSSIBLE_RESOURCES, UNLIMITED_STORE> &
