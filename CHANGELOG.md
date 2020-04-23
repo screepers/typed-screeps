@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.1.1] - 2020-04-23
+
+### Fixed
+
+- Added type `Ruin` to `PowerCreep.withdraw` parameter `target`
+
 ## [3.1.0] - 2020-04-01
 
 - Fixed `StructureSpawn.renewCreep()` documentation ([#158](https://github.com/screepers/typed-screeps/pull/158))
@@ -264,7 +270,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Initial public `npm` release.
 
-[unreleased]: https://github.com/screepers/typed-screeps/compare/v3.1.0...HEAD
+[unreleased]: https://github.com/screepers/typed-screeps/compare/v3.1.1...HEAD
+[3.1.1]: https://github.com/screepers/typed-screeps/compare/v3.1.0...v3.1.1
 [3.1.0]: https://github.com/screepers/typed-screeps/compare/v3.0.1...v3.1.0
 [3.0.1]: https://github.com/screepers/typed-screeps/compare/v3.0.0...v3.0.1
 [3.0.0]: https://github.com/screepers/typed-screeps/compare/v2.5.4...v3.0.0
