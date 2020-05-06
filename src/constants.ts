@@ -724,6 +724,7 @@ declare const BOOSTS: {
 declare const COMMODITIES: Record<
     CommodityConstant | MineralConstant | RESOURCE_GHODIUM,
     {
+        level?: number;
         amount: number;
         cooldown: number;
         components: Record<DepositConstant | CommodityConstant | MineralConstant | RESOURCE_GHODIUM, number>;
