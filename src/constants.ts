@@ -727,7 +727,7 @@ declare const COMMODITIES: Record<
         level?: number;
         amount: number;
         cooldown: number;
-        components: Record<DepositConstant | CommodityConstant | MineralConstant | RESOURCE_GHODIUM, number>;
+        components: Record<DepositConstant | CommodityConstant | MineralConstant | RESOURCE_ENERGY | RESOURCE_GHODIUM, number>;
     }
 >;
 

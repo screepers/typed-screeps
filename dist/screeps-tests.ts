@@ -876,5 +876,11 @@ function atackPower(creep: Creep) {
 
     factory.produce(RESOURCE_PHLEGM);
 
+    factory.produce(RESOURCE_BATTERY);
+    factory.produce(RESOURCE_ENERGY);
+
+    factory.produce(RESOURCE_GHODIUM);
+    factory.produce(RESOURCE_GHODIUM_MELT);
+
     creep.withdraw(factory, RESOURCE_PHLEGM);
 }

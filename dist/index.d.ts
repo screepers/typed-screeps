@@ -742,7 +742,7 @@ declare const COMMODITIES: Record<
         level?: number;
         amount: number;
         cooldown: number;
-        components: Record<DepositConstant | CommodityConstant | MineralConstant | RESOURCE_GHODIUM, number>;
+        components: Record<DepositConstant | CommodityConstant | MineralConstant | RESOURCE_ENERGY | RESOURCE_GHODIUM, number>;
     }
 >;
 
@@ -5332,7 +5332,7 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
      * Produces the specified commodity.
      * All ingredients should be available in the factory store.
      */
-    produce(resource: CommodityConstant | MineralConstant | RESOURCE_GHODIUM): ScreepsReturnCode;
+    produce(resource: CommodityConstant | MineralConstant | RESOURCE_ENERGY | RESOURCE_GHODIUM): ScreepsReturnCode;
 }
 
 interface StructureFactoryConstructor extends _Constructor<StructureFactory>, _ConstructorById<StructureFactory> {}
