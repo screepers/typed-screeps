@@ -54,7 +54,7 @@ interface OwnedStructure<T extends StructureConstant = StructureConstant> extend
     /**
      * Whether this is your own structure. Walls and roads don't have this property as they are considered neutral structures.
      */
-    my: T extends STRUCTURE_CONTROLLER ? boolean | undefined : boolean;
+    my: boolean;
     /**
      * An object with the structure’s owner info (if present) containing the following properties: username
      */
