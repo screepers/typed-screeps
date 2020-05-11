@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Add `level?: number` to `COMMODITIES` record ([522a9ca](https://github.com/screepers/typed-screeps/commit/522a9ca1780ae2d6eade0311983c2e4933eeee68))
+- Add `RESOURCE_ENERGY` to commodities components ([a3a59c9](https://github.com/screepers/typed-screeps/commit/a3a59c96ea3988d3362969ff9b7372624aa0a8f2))
+
+### Fixed
+
+- Fix `FindOpts.costCallback` type to `void | CostMatrix` ([32f051c](https://github.com/screepers/typed-screeps/commit/32f051c70b1572a507f5b483ea829a07bba344a5))
+- Fix `StructureController.my` to be `boolean` ([062e4a4](https://github.com/screepers/typed-screeps/commit/062e4a4b8b8496979e073eb577fa6d023bba473d))
+
+### Changed
+
+- Slight change to `store` signatures to allow better type inference in certain editors ([#166](https://github.com/screepers/typed-screeps/pull/166))
+
 ## [3.1.1] - 2020-04-23
 
 ### Fixed
