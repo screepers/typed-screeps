@@ -395,7 +395,7 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
     store: Store<RESOURCE_ENERGY, false>;
 
     /**
-     * Remotely attack any creep in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
+     * Remotely attack any creep or structure in the room. Consumes 10 energy units per tick. Attack power depends on the distance to the target: from 600 hits at range 10 to 300 hits at range 40.
      * @param target The target creep.
      */
     attack(target: AnyCreep | Structure): ScreepsReturnCode;
