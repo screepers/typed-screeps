@@ -569,6 +569,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     towers[0].attack(creeps[0]);
     towers[0].attack(creeps[0] as AnyCreep);
     towers[0].attack(powerCreep);
+    towers[0].attack(spawns[0]);
     towers[0].heal(powerCreep);
 }
 
