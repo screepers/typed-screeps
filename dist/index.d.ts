@@ -1,4 +1,4 @@
-// Type definitions for Screeps 3.1.2
+// Type definitions for Screeps 3.1.3-beta
 // Project: https://github.com/screeps/screeps
 // Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
 //                 Nhan Ho <https://github.com/NhanHo>
@@ -322,6 +322,11 @@ declare const RESOURCE_ESSENCE: RESOURCE_ESSENCE;
 declare const RESOURCES_ALL: ResourceConstant[];
 
 declare const SUBSCRIPTION_TOKEN: SUBSCRIPTION_TOKEN;
+declare const CPU_UNLOCK: CPU_UNLOCK;
+declare const PIXEL: PIXEL;
+declare const ACCESS_KEY: ACCESS_KEY;
+
+declare const PIXEL_CPU_COST: 5000;
 
 declare const CONTROLLER_LEVELS: { [level: number]: number };
 declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, { [level: number]: number }>;
@@ -735,6 +740,8 @@ declare const BOOSTS: {
         };
     };
 };
+
+declare const INTERSHARD_RESOURCES: [SUBSCRIPTION_TOKEN, CPU_UNLOCK, PIXEL, ACCESS_KEY];
 
 declare const COMMODITIES: Record<
     CommodityConstant | MineralConstant | RESOURCE_GHODIUM,
@@ -1653,6 +1660,10 @@ interface CPU {
      */
     shardLimits: CPUShardLimits;
 
+    unlocked: boolean;
+
+    unlockedTime: number;
+
     /**
      * Get amount of CPU time used from the beginning of the current game tick. Always returns 0 in the Simulation mode.
      */
@@ -1685,6 +1696,10 @@ interface CPU {
      * Player code execution stops immediately.
      */
     halt?(): never;
+
+    generatePixel(): ScreepsReturnCode;
+
+    unlock(): ScreepsReturnCode;
 }
 
 interface HeapStatistics {
@@ -2501,6 +2516,9 @@ type RESOURCE_EMANATION = "emanation";
 type RESOURCE_ESSENCE = "essence";
 
 type SUBSCRIPTION_TOKEN = "token";
+type CPU_UNLOCK = "cpuUnlock";
+type PIXEL = "pixel";
+type ACCESS_KEY = "accessKey";
 
 type TOMBSTONE_DECAY_PER_PART = 5;
 

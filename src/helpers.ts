@@ -70,6 +70,10 @@ interface CPU {
      */
     shardLimits: CPUShardLimits;
 
+    unlocked: boolean;
+
+    unlockedTime: number;
+
     /**
      * Get amount of CPU time used from the beginning of the current game tick. Always returns 0 in the Simulation mode.
      */
@@ -102,6 +106,10 @@ interface CPU {
      * Player code execution stops immediately.
      */
     halt?(): never;
+
+    generatePixel(): ScreepsReturnCode;
+
+    unlock(): ScreepsReturnCode;
 }
 
 interface HeapStatistics {
