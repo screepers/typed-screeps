@@ -193,6 +193,18 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 }
 
+// Game.cpu.unlock()
+{
+    if (!Game.cpu.unlocked) {
+        if (!Game.cpu.unlockedTime) {
+            const unlock_state = Game.cpu.unlock();
+            if (unlock_state === OK) {
+                // Unlimited cosmic power!
+            }
+        }
+    }
+}
+
 // Game.getObjectById(id)
 
 {
@@ -884,4 +896,9 @@ function atackPower(creep: Creep) {
     factory.produce(RESOURCE_GHODIUM_MELT);
 
     creep.withdraw(factory, RESOURCE_PHLEGM);
+}
+
+// <strike>Horse armor!</strike>Pixels!
+{
+    const ret: OK | ERR_NOT_ENOUGH_RESOURCES | ERR_FULL = Game.cpu.generatePixel();
 }

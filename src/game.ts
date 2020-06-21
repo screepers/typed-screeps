@@ -35,7 +35,7 @@ interface Game {
      */
     powerCreeps: { [creepName: string]: PowerCreep };
     /**
-     * An object with your global resources that are bound to the account, like subscription tokens. Each object key is a resource constant, values are resources amounts.
+     * An object with your global resources that are bound to the account, like pixels or cpu unlocks. Each object key is a resource constant, values are resources amounts.
      */
     resources: { [key: string]: any };
     /**

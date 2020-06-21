@@ -1526,7 +1526,7 @@ interface Game {
      */
     powerCreeps: { [creepName: string]: PowerCreep };
     /**
-     * An object with your global resources that are bound to the account, like subscription tokens. Each object key is a resource constant, values are resources amounts.
+     * An object with your global resources that are bound to the account, like pixels or cpu unlocks. Each object key is a resource constant, values are resources amounts.
      */
     resources: { [key: string]: any };
     /**
@@ -1659,10 +1659,15 @@ interface CPU {
      * An object with limits for each shard with shard names as keys. You can use `setShardLimits` method to re-assign them.
      */
     shardLimits: CPUShardLimits;
-
+    /**
+     * Whether full CPU is currently unlocked for your account.
+     */
     unlocked: boolean;
-
-    unlockedTime: number;
+    /**
+     * The time in milliseconds since UNIX epoch time until full CPU is unlocked for your account.
+     * This property is not defined when full CPU is not unlocked for your account or it's unlocked with a subscription.
+     */
+    unlockedTime: number | undefined;
 
     /**
      * Get amount of CPU time used from the beginning of the current game tick. Always returns 0 in the Simulation mode.
@@ -1696,10 +1701,17 @@ interface CPU {
      * Player code execution stops immediately.
      */
     halt?(): never;
+    /**
+     * Generate 1 pixel resource unit for 5000 CPU from your bucket.
+     */
+    generatePixel(): OK | ERR_NOT_ENOUGH_RESOURCES;
 
-    generatePixel(): ScreepsReturnCode;
-
-    unlock(): ScreepsReturnCode;
+    /**
+     * Unlock full CPU for your account for additional 24 hours.
+     * This method will consume 1 CPU unlock bound to your account (See `Game.resources`).
+     * If full CPU is not currently unlocked for your account, it may take some time (up to 5 minutes) before unlock is applied to your account.
+     */
+    unlock(): OK | ERR_NOT_ENOUGH_RESOURCES | ERR_FULL;
 }
 
 interface HeapStatistics {
