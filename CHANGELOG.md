@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.1.3] - 2020-06-22
+
+- Add constants `CPU_UNLOCK`, `PIXEL`, `ACCESS_KEY` ([#172](https://github.com/screepers/typed-screeps/pull/172))
+- Add `Game.cpu.generatePixel()` ([#172](https://github.com/screepers/typed-screeps/pull/172))
+- Add `Game.cpu.unlock()`, `Game.cpu.unlocked`, and `Game.cpu.unlockedTime` ([#172](https://github.com/screepers/typed-screeps/pull/172))
+
 ## [3.1.2] - 2020-05-12
 
 ### Added
@@ -286,7 +292,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Initial public `npm` release.
 
-[unreleased]: https://github.com/screepers/typed-screeps/compare/v3.1.2...HEAD
+[unreleased]: https://github.com/screepers/typed-screeps/compare/v3.1.3...HEAD
+[3.1.3]: https://github.com/screepers/typed-screeps/compare/v3.1.2...v3.1.3
 [3.1.2]: https://github.com/screepers/typed-screeps/compare/v3.1.1...v3.1.2
 [3.1.1]: https://github.com/screepers/typed-screeps/compare/v3.1.0...v3.1.1
 [3.1.0]: https://github.com/screepers/typed-screeps/compare/v3.0.1...v3.1.0

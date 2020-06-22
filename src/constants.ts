@@ -307,6 +307,11 @@ declare const RESOURCE_ESSENCE: RESOURCE_ESSENCE;
 declare const RESOURCES_ALL: ResourceConstant[];
 
 declare const SUBSCRIPTION_TOKEN: SUBSCRIPTION_TOKEN;
+declare const CPU_UNLOCK: CPU_UNLOCK;
+declare const PIXEL: PIXEL;
+declare const ACCESS_KEY: ACCESS_KEY;
+
+declare const PIXEL_CPU_COST: 5000;
 
 declare const CONTROLLER_LEVELS: { [level: number]: number };
 declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, { [level: number]: number }>;
@@ -720,6 +725,8 @@ declare const BOOSTS: {
         };
     };
 };
+
+declare const INTERSHARD_RESOURCES: [SUBSCRIPTION_TOKEN, CPU_UNLOCK, PIXEL, ACCESS_KEY];
 
 declare const COMMODITIES: Record<
     CommodityConstant | MineralConstant | RESOURCE_GHODIUM,

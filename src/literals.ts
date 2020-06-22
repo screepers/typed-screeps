@@ -473,6 +473,9 @@ type RESOURCE_EMANATION = "emanation";
 type RESOURCE_ESSENCE = "essence";
 
 type SUBSCRIPTION_TOKEN = "token";
+type CPU_UNLOCK = "cpuUnlock";
+type PIXEL = "pixel";
+type ACCESS_KEY = "accessKey";
 
 type TOMBSTONE_DECAY_PER_PART = 5;
 
