@@ -9,9 +9,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.1.3] - 2020-06-22
 
+### Added
+
 - Add constants `CPU_UNLOCK`, `PIXEL`, `ACCESS_KEY` ([#172](https://github.com/screepers/typed-screeps/pull/172))
 - Add `Game.cpu.generatePixel()` ([#172](https://github.com/screepers/typed-screeps/pull/172))
 - Add `Game.cpu.unlock()`, `Game.cpu.unlocked`, and `Game.cpu.unlockedTime` ([#172](https://github.com/screepers/typed-screeps/pull/172))
+
+### Fixed
+
+- Fixed `tower.attack()` to allow targeting Structures ([#170](https://github.com/screepers/typed-screeps/pull/170))
 
 ## [3.1.2] - 2020-05-12
 
