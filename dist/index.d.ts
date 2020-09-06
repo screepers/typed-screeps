@@ -1025,7 +1025,7 @@ declare const POWER_INFO: {
         level: [0, 2, 7, 14, 22];
         cooldown: 1000;
         range: 3;
-        duration: 800;
+        duration: 1000;
         ops: 100;
     };
 };
