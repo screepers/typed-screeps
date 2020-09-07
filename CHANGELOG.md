@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+- Adds `RESOURCE_ENERGY` to `COMMODITIES` record.
+
 ## [3.2.0] - 2020-09-06
 
 ### Added

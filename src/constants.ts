@@ -729,7 +729,7 @@ declare const BOOSTS: {
 declare const INTERSHARD_RESOURCES: [SUBSCRIPTION_TOKEN, CPU_UNLOCK, PIXEL, ACCESS_KEY];
 
 declare const COMMODITIES: Record<
-    CommodityConstant | MineralConstant | RESOURCE_GHODIUM,
+    CommodityConstant | MineralConstant | RESOURCE_GHODIUM | RESOURCE_ENERGY,
     {
         level?: number;
         amount: number;
