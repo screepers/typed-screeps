@@ -969,4 +969,8 @@ function atackPower(creep: Creep) {
         .rect(point3, 50, 50);
 
     const size: number = mapVis.getSize();
+
+    const visData = mapVis.export();
+    mapVis.clear();
+    mapVis.import(visData);
 }

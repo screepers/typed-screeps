@@ -2927,6 +2927,19 @@ interface MapVisual {
      * @returns The size of the visuals in bytes.
      */
     getSize(): number;
+
+    /**
+     * Returns a compact representation of all visuals added on the map in the current tick.
+     * @returns A string with visuals data. There's not much you can do with the string besides store them for later.
+     */
+    export(): string;
+
+    /**
+     * Add previously exported (with `Game.map.visual.export`) map visuals to the map visual data of the current tick.
+     * @param data The string returned from `Game.map.visual.export`.
+     * @returns The MapVisual object itself, so that you can chain calls.
+     */
+    import(data: string): MapVisual;
 }
 
 interface MapLineStyle {
@@ -4141,6 +4154,19 @@ declare class RoomVisual {
      * @returns The size of the visuals in bytes.
      */
     getSize(): number;
+
+    /**
+     * Returns a compact representation of all visuals added in the room in the current tick.
+     * @returns A string with visuals data. There's not much you can do with the string besides store them for later.
+     */
+    export(): string;
+
+    /**
+     * Add previously exported (with `RoomVisual.export`) room visuals to the room visual data of the current tick.
+     * @param data The string returned from `RoomVisual.export`.
+     * @returns The RoomVisual object itself, so that you can chain calls.
+     */
+    import(data: string): RoomVisual;
 }
 
 interface LineStyle {
