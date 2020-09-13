@@ -598,11 +598,18 @@ function resources(o: GenericStore): ResourceConstant[] {
         filter: structure => {
             return structure.structureType === STRUCTURE_TOWER;
         },
+        algorithm: "astar",
     });
     if (tower !== null) {
         tower.attack(creep);
         tower.attack(powerCreep);
     }
+
+    const creepWithEnergy = creep.pos.findClosestByPath(creep.room.find(FIND_CREEPS), { filter: c => c.store.energy > 0 });
+
+    const creepAbove = creep.pos.findClosestByPath(creep.room.find(FIND_CREEPS).map(c => c.pos), {
+        filter: p => p.getDirectionTo(creep) === TOP,
+    });
 
     const rampart = creep.pos.findClosestByRange<StructureRampart>(FIND_HOSTILE_STRUCTURES, {
         filter: structure => {

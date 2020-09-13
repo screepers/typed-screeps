@@ -61,11 +61,11 @@ interface RoomPosition {
      */
     findClosestByPath<K extends FindConstant>(
         type: K,
-        opts?: FindPathOpts & FilterOptions<K> & { algorithm?: string },
+        opts?: FindPathOpts & Partial<FilterOptions<K>> & { algorithm?: FindClosestByPathAlgorithm },
     ): FindTypes[K] | null;
     findClosestByPath<T extends Structure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FindPathOpts & FilterOptions<FIND_STRUCTURES> & { algorithm?: string },
+        opts?: FindPathOpts & Partial<FilterOptions<FIND_STRUCTURES>> & { algorithm?: FindClosestByPathAlgorithm },
     ): T | null;
     /**
      * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
@@ -75,7 +75,7 @@ interface RoomPosition {
      */
     findClosestByPath<T extends _HasRoomPosition | RoomPosition>(
         objects: T[],
-        opts?: FindPathOpts & { filter?: any | string; algorithm?: string },
+        opts?: FindPathOpts & { filter?: ((object: T) => boolean) | FilterObject | string; algorithm?: FindClosestByPathAlgorithm },
     ): T | null;
     /**
      * Find the object with the shortest linear distance from the given position.
