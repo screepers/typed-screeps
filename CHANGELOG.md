@@ -9,7 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
-- Adds `RESOURCE_ENERGY` to `COMMODITIES` record.
+- Adds `RESOURCE_ENERGY` to `COMMODITIES` record. ([#178](https://github.com/screepers/typed-screeps/pull/178))
+- Fixes signature of `RoomPosition.findClosestByPath()` ([#179](https://github.com/screepers/typed-screeps/pull/179))
 
 ## [3.2.0] - 2020-09-06
 
