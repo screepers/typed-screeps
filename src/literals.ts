@@ -11,6 +11,8 @@ type ExitKey = "1" | "3" | "5" | "7";
 
 type AnyCreep = Creep | PowerCreep;
 
+type FindClosestByPathAlgorithm = "astar" | "dijkstra";
+
 // Return Codes
 
 type ScreepsReturnCode =
