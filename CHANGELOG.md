@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.2.1] - 2020-09-24
+
+### Added
+
+- Adds `import` and `export` to `RoomVisual` and `MapVisual` ([#181](https://github.com/screepers/typed-screeps/pull/181))
+
 ### Fixed
 
 - Adds `RESOURCE_ENERGY` to `COMMODITIES` record. ([#178](https://github.com/screepers/typed-screeps/pull/178))
@@ -313,7 +319,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Initial public `npm` release.
 
-[unreleased]: https://github.com/screepers/typed-screeps/compare/v3.2.0...HEAD
+[unreleased]: https://github.com/screepers/typed-screeps/compare/v3.2.1...HEAD
+[3.2.1]: https://github.com/screepers/typed-screeps/compare/v3.2.0...v3.2.1
 [3.2.0]: https://github.com/screepers/typed-screeps/compare/v3.1.3...v3.2.0
 [3.1.3]: https://github.com/screepers/typed-screeps/compare/v3.1.2...v3.1.3
 [3.1.2]: https://github.com/screepers/typed-screeps/compare/v3.1.1...v3.1.2
