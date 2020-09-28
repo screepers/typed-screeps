@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 - Adds `import` and `export` to `RoomVisual` and `MapVisual` ([#181](https://github.com/screepers/typed-screeps/pull/181))
+- Add `InterShardResourceConstant`, fix resources missing from `MarketResourceConstant` ([#182](https://github.com/screepers/typed-screeps/pull/182))
 
 ### Fixed
 
