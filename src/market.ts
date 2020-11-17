@@ -88,7 +88,7 @@ interface Market {
      * @param resource One of the RESOURCE_* constants. If undefined, returns history data for all resources. Optional
      * @returns An array of objects with resource info.
      */
-    getHistory(resource?: ResourceConstant): PriceHistory[];
+    getHistory(resource?: MarketResourceConstant): PriceHistory[];
     /**
      * Retrieve info for specific market order.
      * @param orderId The order ID.
