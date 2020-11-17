@@ -421,6 +421,10 @@ function resources(o: GenericStore): ResourceConstant[] {
     const avgPrice: number = priceHistory[0].avgPrice;
     const stddevPrice: number = priceHistory[0].stddevPrice;
     const volume: number = priceHistory[0].volume;
+
+    // Game.market.getHistory([resourceType])
+    const energyHistory = Game.market.getHistory(RESOURCE_ENERGY);
+    const pixelHistory = Game.market.getHistory(PIXEL);
 }
 
 // PathFinder
