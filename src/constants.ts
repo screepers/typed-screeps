@@ -726,10 +726,10 @@ declare const BOOSTS: {
     };
 };
 
-declare const INTERSHARD_RESOURCES: [SUBSCRIPTION_TOKEN, CPU_UNLOCK, PIXEL, ACCESS_KEY];
+declare const INTERSHARD_RESOURCES: InterShardResourceConstant[];
 
 declare const COMMODITIES: Record<
-    CommodityConstant | MineralConstant | RESOURCE_GHODIUM,
+    CommodityConstant | MineralConstant | RESOURCE_GHODIUM | RESOURCE_ENERGY,
     {
         level?: number;
         amount: number;
@@ -1010,7 +1010,7 @@ declare const POWER_INFO: {
         level: [0, 2, 7, 14, 22];
         cooldown: 1000;
         range: 3;
-        duration: 800;
+        duration: 1000;
         ops: 100;
     };
 };

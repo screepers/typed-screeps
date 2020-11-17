@@ -11,6 +11,8 @@ type ExitKey = "1" | "3" | "5" | "7";
 
 type AnyCreep = Creep | PowerCreep;
 
+type FindClosestByPathAlgorithm = "astar" | "dijkstra";
+
 // Return Codes
 
 type ScreepsReturnCode =
@@ -373,7 +375,8 @@ type CommodityConstant =
     | RESOURCE_EMANATION
     | RESOURCE_ESSENCE;
 
-type MarketResourceConstant = ResourceConstant | SUBSCRIPTION_TOKEN;
+type InterShardResourceConstant = SUBSCRIPTION_TOKEN | CPU_UNLOCK | PIXEL | ACCESS_KEY;
+type MarketResourceConstant = ResourceConstant | InterShardResourceConstant;
 
 type RESOURCE_ENERGY = "energy";
 type RESOURCE_POWER = "power";
