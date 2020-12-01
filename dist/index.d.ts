@@ -319,6 +319,8 @@ declare const RESOURCE_SPIRIT: RESOURCE_SPIRIT;
 declare const RESOURCE_EMANATION: RESOURCE_EMANATION;
 declare const RESOURCE_ESSENCE: RESOURCE_ESSENCE;
 
+declare const RESOURCE_SCORE: RESOURCE_SCORE;
+
 declare const RESOURCES_ALL: ResourceConstant[];
 
 declare const SUBSCRIPTION_TOKEN: SUBSCRIPTION_TOKEN;
@@ -2320,6 +2322,8 @@ type STRUCTURE_NUKER = "nuker";
 type STRUCTURE_FACTORY = "factory";
 type STRUCTURE_INVADER_CORE = "invaderCore";
 type STRUCTURE_PORTAL = "portal";
+type STRUCTURE_SCORE_CONTAINER = "scoreContainer";
+type STRUCTURE_SCORE_COLLECTOR = "scoreCollector";
 
 // Terrain mask constants
 type TERRAIN_MASK_WALL = 1;
@@ -2332,6 +2336,7 @@ type ResourceConstant =
     | RESOURCE_ENERGY
     | RESOURCE_POWER
     | RESOURCE_OPS
+    | RESOURCE_SCORE
     | MineralConstant
     | MineralCompoundConstant
     | DepositConstant
@@ -2529,6 +2534,8 @@ type RESOURCE_EXTRACT = "extract";
 type RESOURCE_SPIRIT = "spirit";
 type RESOURCE_EMANATION = "emanation";
 type RESOURCE_ESSENCE = "essence";
+
+type RESOURCE_SCORE = "score";
 
 type SUBSCRIPTION_TOKEN = "token";
 type CPU_UNLOCK = "cpuUnlock";
@@ -5585,6 +5592,42 @@ interface StructureInvaderCoreConstructor extends _Constructor<StructureInvaderC
 declare const StructureInvaderCore: StructureInvaderCoreConstructor;
 
 /**
+ * Non-player structure. Contains score resources in the Season world which players can collect. Decays over time.
+ */
+interface StructureScoreContainer extends RoomObject {
+    readonly prototype: StructureScoreContainer;
+
+    /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store<RESOURCE_SCORE, false>;
+    /**
+     * The amount of game ticks when this container will lose some hit points.
+     */
+    decayTime: number;
+}
+
+interface StructureScoreContainerConstructor extends _Constructor<StructureScoreContainer>, _ConstructorById<StructureScoreContainer> {}
+
+declare const StructureScoreContainer: StructureScoreContainerConstructor;
+
+/**
+ * Non-player structure. Contains score resources in the Season world which players have deposited for points ranking.
+ */
+interface StructureScoreCollector extends RoomObject {
+    readonly prototype: StructureScoreCollector;
+
+    /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store<RESOURCE_SCORE, false>;
+}
+
+interface StructureScoreCollectorConstructor extends _Constructor<StructureScoreCollector>, _ConstructorById<StructureScoreCollector> {}
+
+declare const StructureScoreCollector: StructureScoreCollectorConstructor;
+
+/**
  * A discriminated union on Structure.type of all owned structure types
  */
 type AnyOwnedStructure =
@@ -5617,7 +5660,9 @@ type AnyStoreStructure =
     | StructureStorage
     | StructureTerminal
     | StructureTower
-    | StructureContainer;
+    | StructureContainer
+    | StructureScoreContainer
+    | StructureScoreCollector;
 
 /**
  * A discriminated union on Structure.type of all structure types
@@ -5670,6 +5715,10 @@ type ConcreteStructure<T extends StructureConstant> = T extends STRUCTURE_EXTENS
     ? StructurePortal
     : T extends STRUCTURE_INVADER_CORE
     ? StructureInvaderCore
+    : T extends STRUCTURE_SCORE_CONTAINER
+    ? StructureScoreContainer
+    : T extends STRUCTURE_SCORE_COLLECTOR
+    ? StructureScoreCollector
     : never;
 /**
  * A remnant of dead creeps. This is a walkable structure.

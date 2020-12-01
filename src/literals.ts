@@ -265,6 +265,8 @@ type STRUCTURE_NUKER = "nuker";
 type STRUCTURE_FACTORY = "factory";
 type STRUCTURE_INVADER_CORE = "invaderCore";
 type STRUCTURE_PORTAL = "portal";
+type STRUCTURE_SCORE_CONTAINER = "scoreContainer";
+type STRUCTURE_SCORE_COLLECTOR = "scoreCollector";
 
 // Terrain mask constants
 type TERRAIN_MASK_WALL = 1;
@@ -277,6 +279,7 @@ type ResourceConstant =
     | RESOURCE_ENERGY
     | RESOURCE_POWER
     | RESOURCE_OPS
+    | RESOURCE_SCORE
     | MineralConstant
     | MineralCompoundConstant
     | DepositConstant
@@ -474,6 +477,8 @@ type RESOURCE_EXTRACT = "extract";
 type RESOURCE_SPIRIT = "spirit";
 type RESOURCE_EMANATION = "emanation";
 type RESOURCE_ESSENCE = "essence";
+
+type RESOURCE_SCORE = "score";
 
 type SUBSCRIPTION_TOKEN = "token";
 type CPU_UNLOCK = "cpuUnlock";

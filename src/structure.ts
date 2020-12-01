@@ -696,6 +696,42 @@ interface StructureInvaderCoreConstructor extends _Constructor<StructureInvaderC
 declare const StructureInvaderCore: StructureInvaderCoreConstructor;
 
 /**
+ * Non-player structure. Contains score resources in the Season world which players can collect. Decays over time.
+ */
+interface StructureScoreContainer extends RoomObject {
+    readonly prototype: StructureScoreContainer;
+
+    /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store<RESOURCE_SCORE, false>;
+    /**
+     * The amount of game ticks when this container will lose some hit points.
+     */
+    decayTime: number;
+}
+
+interface StructureScoreContainerConstructor extends _Constructor<StructureScoreContainer>, _ConstructorById<StructureScoreContainer> {}
+
+declare const StructureScoreContainer: StructureScoreContainerConstructor;
+
+/**
+ * Non-player structure. Contains score resources in the Season world which players have deposited for points ranking.
+ */
+interface StructureScoreCollector extends RoomObject {
+    readonly prototype: StructureScoreCollector;
+
+    /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store<RESOURCE_SCORE, false>;
+}
+
+interface StructureScoreCollectorConstructor extends _Constructor<StructureScoreCollector>, _ConstructorById<StructureScoreCollector> {}
+
+declare const StructureScoreCollector: StructureScoreCollectorConstructor;
+
+/**
  * A discriminated union on Structure.type of all owned structure types
  */
 type AnyOwnedStructure =
@@ -728,7 +764,9 @@ type AnyStoreStructure =
     | StructureStorage
     | StructureTerminal
     | StructureTower
-    | StructureContainer;
+    | StructureContainer
+    | StructureScoreContainer
+    | StructureScoreCollector;
 
 /**
  * A discriminated union on Structure.type of all structure types
@@ -781,4 +819,8 @@ type ConcreteStructure<T extends StructureConstant> = T extends STRUCTURE_EXTENS
     ? StructurePortal
     : T extends STRUCTURE_INVADER_CORE
     ? StructureInvaderCore
+    : T extends STRUCTURE_SCORE_CONTAINER
+    ? StructureScoreContainer
+    : T extends STRUCTURE_SCORE_COLLECTOR
+    ? StructureScoreCollector
     : never;
