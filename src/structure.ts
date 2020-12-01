@@ -698,9 +698,8 @@ declare const StructureInvaderCore: StructureInvaderCoreConstructor;
 /**
  * Non-player structure. Contains score resources in the Season world which players can collect. Decays over time.
  */
-interface StructureScoreContainer extends RoomObject {
+interface StructureScoreContainer extends Structure<STRUCTURE_SCORE_CONTAINER> {
     readonly prototype: StructureScoreContainer;
-
     /**
      * A Store object that contains cargo of this structure.
      */
@@ -718,9 +717,8 @@ declare const StructureScoreContainer: StructureScoreContainerConstructor;
 /**
  * Non-player structure. Contains score resources in the Season world which players have deposited for points ranking.
  */
-interface StructureScoreCollector extends RoomObject {
+interface StructureScoreCollector extends Structure<STRUCTURE_SCORE_COLLECTOR> {
     readonly prototype: StructureScoreCollector;
-
     /**
      * A Store object that contains cargo of this structure.
      */

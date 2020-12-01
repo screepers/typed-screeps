@@ -226,6 +226,8 @@ declare const STRUCTURE_NUKER: STRUCTURE_NUKER;
 declare const STRUCTURE_FACTORY: STRUCTURE_FACTORY;
 declare const STRUCTURE_INVADER_CORE: STRUCTURE_INVADER_CORE;
 declare const STRUCTURE_PORTAL: STRUCTURE_PORTAL;
+declare const STRUCTURE_SCORE_CONTAINER: STRUCTURE_SCORE_CONTAINER;
+declare const STRUCTURE_SCORE_COLLECTOR: STRUCTURE_SCORE_COLLECTOR;
 
 declare const RESOURCE_ENERGY: RESOURCE_ENERGY;
 declare const RESOURCE_POWER: RESOURCE_POWER;
@@ -2299,7 +2301,9 @@ type StructureConstant =
     | STRUCTURE_CONTROLLER
     | STRUCTURE_POWER_BANK
     | STRUCTURE_PORTAL
-    | STRUCTURE_INVADER_CORE;
+    | STRUCTURE_INVADER_CORE
+    | STRUCTURE_SCORE_CONTAINER
+    | STRUCTURE_SCORE_COLLECTOR;
 
 type STRUCTURE_EXTENSION = "extension";
 type STRUCTURE_RAMPART = "rampart";
@@ -5594,9 +5598,8 @@ declare const StructureInvaderCore: StructureInvaderCoreConstructor;
 /**
  * Non-player structure. Contains score resources in the Season world which players can collect. Decays over time.
  */
-interface StructureScoreContainer extends RoomObject {
+interface StructureScoreContainer extends Structure<STRUCTURE_SCORE_CONTAINER> {
     readonly prototype: StructureScoreContainer;
-
     /**
      * A Store object that contains cargo of this structure.
      */
@@ -5614,9 +5617,8 @@ declare const StructureScoreContainer: StructureScoreContainerConstructor;
 /**
  * Non-player structure. Contains score resources in the Season world which players have deposited for points ranking.
  */
-interface StructureScoreCollector extends RoomObject {
+interface StructureScoreCollector extends Structure<STRUCTURE_SCORE_COLLECTOR> {
     readonly prototype: StructureScoreCollector;
-
     /**
      * A Store object that contains cargo of this structure.
      */
