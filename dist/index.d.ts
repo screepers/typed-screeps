@@ -226,8 +226,6 @@ declare const STRUCTURE_NUKER: STRUCTURE_NUKER;
 declare const STRUCTURE_FACTORY: STRUCTURE_FACTORY;
 declare const STRUCTURE_INVADER_CORE: STRUCTURE_INVADER_CORE;
 declare const STRUCTURE_PORTAL: STRUCTURE_PORTAL;
-declare const STRUCTURE_SCORE_CONTAINER: STRUCTURE_SCORE_CONTAINER;
-declare const STRUCTURE_SCORE_COLLECTOR: STRUCTURE_SCORE_COLLECTOR;
 
 declare const RESOURCE_ENERGY: RESOURCE_ENERGY;
 declare const RESOURCE_POWER: RESOURCE_POWER;
@@ -320,8 +318,6 @@ declare const RESOURCE_EXTRACT: RESOURCE_EXTRACT;
 declare const RESOURCE_SPIRIT: RESOURCE_SPIRIT;
 declare const RESOURCE_EMANATION: RESOURCE_EMANATION;
 declare const RESOURCE_ESSENCE: RESOURCE_ESSENCE;
-
-declare const RESOURCE_SCORE: RESOURCE_SCORE;
 
 declare const RESOURCES_ALL: ResourceConstant[];
 
@@ -1033,6 +1029,15 @@ declare const POWER_INFO: {
         ops: 100;
     };
 };
+
+// Season 1
+declare const RESOURCE_SCORE: RESOURCE_SCORE;
+declare const FIND_SCORE_CONTAINERS: FIND_SCORE_CONTAINERS;
+declare const FIND_SCORE_COLLECTORS: FIND_SCORE_COLLECTORS;
+declare const SCORE_CONTAINER_SPAWN_CHANCE: SCORE_CONTAINER_SPAWN_CHANCE;
+declare const SCORE_CONTAINER_SPAWN_INTERVAL: SCORE_CONTAINER_SPAWN_INTERVAL;
+declare const SCORE_COLLECTOR_SINK: SCORE_COLLECTOR_SINK;
+declare const SCORE_COLLECTOR_MAX_CAPACITY: SCORE_COLLECTOR_MAX_CAPACITY;
 /**
  * A site of a structure which is currently under construction.
  */
@@ -2301,9 +2306,7 @@ type StructureConstant =
     | STRUCTURE_CONTROLLER
     | STRUCTURE_POWER_BANK
     | STRUCTURE_PORTAL
-    | STRUCTURE_INVADER_CORE
-    | STRUCTURE_SCORE_CONTAINER
-    | STRUCTURE_SCORE_COLLECTOR;
+    | STRUCTURE_INVADER_CORE;
 
 type STRUCTURE_EXTENSION = "extension";
 type STRUCTURE_RAMPART = "rampart";
@@ -2326,8 +2329,6 @@ type STRUCTURE_NUKER = "nuker";
 type STRUCTURE_FACTORY = "factory";
 type STRUCTURE_INVADER_CORE = "invaderCore";
 type STRUCTURE_PORTAL = "portal";
-type STRUCTURE_SCORE_CONTAINER = "scoreContainer";
-type STRUCTURE_SCORE_COLLECTOR = "scoreCollector";
 
 // Terrain mask constants
 type TERRAIN_MASK_WALL = 1;
@@ -2538,8 +2539,6 @@ type RESOURCE_EXTRACT = "extract";
 type RESOURCE_SPIRIT = "spirit";
 type RESOURCE_EMANATION = "emanation";
 type RESOURCE_ESSENCE = "essence";
-
-type RESOURCE_SCORE = "score";
 
 type SUBSCRIPTION_TOKEN = "token";
 type CPU_UNLOCK = "cpuUnlock";
@@ -2764,6 +2763,15 @@ type EffectConstant = EFFECT_INVULNERABILITY | EFFECT_COLLAPSE_TIMER;
 
 type EFFECT_INVULNERABILITY = 1001;
 type EFFECT_COLLAPSE_TIMER = 1002;
+
+// Season 1
+type RESOURCE_SCORE = "score";
+type FIND_SCORE_CONTAINERS = 10011;
+type FIND_SCORE_COLLECTORS = 10012;
+type SCORE_CONTAINER_SPAWN_CHANCE = 0.01;
+type SCORE_CONTAINER_SPAWN_INTERVAL = 500;
+type SCORE_COLLECTOR_SINK = 20;
+type SCORE_COLLECTOR_MAX_CAPACITY = 20000;
 /**
  * The options that can be accepted by `findRoute()` and friends.
  */
@@ -4600,6 +4608,54 @@ interface RuinConstructor extends _Constructor<Ruin>, _ConstructorById<Ruin> {}
 
 declare const Ruin: RuinConstructor;
 /**
+ * Accepts score resource and enrolls it into your account. Use Creep.transfer to put scores into the collector.
+ *
+ * **Only available in the Season 1 world.**
+ *
+ * > Note: The capacity of each collector is limited.
+ * When your creep transfers some amount of score resource into the collector, its capacity decreases correspondingly.
+ * The limit recovers by 20 units per tick.
+ */
+interface ScoreCollector extends RoomObject {
+    /**
+     * A unique object identificator.
+     * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
+     */
+    id: Id<this>;
+    /**
+     * A Store object that contains score resource
+     */
+    store: StoreDefinitionUnlimited;
+}
+
+interface ScoreCollectorConstructor extends _Constructor<ScoreCollector>, _ConstructorById<ScoreCollector> {}
+
+declare const ScoreCollector: ScoreCollectorConstructor;
+/**
+ * Contains score resource which can be withdrawn by creeps with a CARRY part.
+ *
+ * **Only available in the Season 1 world.**
+ */
+interface ScoreContainer extends RoomObject {
+    /**
+     * A unique object identificator.
+     * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
+     */
+    id: Id<this>;
+    /**
+     * A Store object that contains score resource
+     */
+    store: StoreDefinitionUnlimited;
+    /**
+     * The amount of game ticks before this ScoreContainer decays.
+     */
+    ticksToDecay: number;
+}
+
+interface ScoreContainerConstructor extends _Constructor<ScoreContainer>, _ConstructorById<ScoreContainer> {}
+
+declare const ScoreContainer: ScoreContainerConstructor;
+/**
  * An energy source object. Can be harvested by creeps with a WORK body part.
  */
 interface Source extends RoomObject {
@@ -5596,40 +5652,6 @@ interface StructureInvaderCoreConstructor extends _Constructor<StructureInvaderC
 declare const StructureInvaderCore: StructureInvaderCoreConstructor;
 
 /**
- * Non-player structure. Contains score resources in the Season world which players can collect. Decays over time.
- */
-interface StructureScoreContainer extends Structure<STRUCTURE_SCORE_CONTAINER> {
-    readonly prototype: StructureScoreContainer;
-    /**
-     * A Store object that contains cargo of this structure.
-     */
-    store: Store<RESOURCE_SCORE, false>;
-    /**
-     * The amount of game ticks when this container will lose some hit points.
-     */
-    decayTime: number;
-}
-
-interface StructureScoreContainerConstructor extends _Constructor<StructureScoreContainer>, _ConstructorById<StructureScoreContainer> {}
-
-declare const StructureScoreContainer: StructureScoreContainerConstructor;
-
-/**
- * Non-player structure. Contains score resources in the Season world which players have deposited for points ranking.
- */
-interface StructureScoreCollector extends Structure<STRUCTURE_SCORE_COLLECTOR> {
-    readonly prototype: StructureScoreCollector;
-    /**
-     * A Store object that contains cargo of this structure.
-     */
-    store: Store<RESOURCE_SCORE, false>;
-}
-
-interface StructureScoreCollectorConstructor extends _Constructor<StructureScoreCollector>, _ConstructorById<StructureScoreCollector> {}
-
-declare const StructureScoreCollector: StructureScoreCollectorConstructor;
-
-/**
  * A discriminated union on Structure.type of all owned structure types
  */
 type AnyOwnedStructure =
@@ -5662,9 +5684,7 @@ type AnyStoreStructure =
     | StructureStorage
     | StructureTerminal
     | StructureTower
-    | StructureContainer
-    | StructureScoreContainer
-    | StructureScoreCollector;
+    | StructureContainer;
 
 /**
  * A discriminated union on Structure.type of all structure types
@@ -5717,10 +5737,6 @@ type ConcreteStructure<T extends StructureConstant> = T extends STRUCTURE_EXTENS
     ? StructurePortal
     : T extends STRUCTURE_INVADER_CORE
     ? StructureInvaderCore
-    : T extends STRUCTURE_SCORE_CONTAINER
-    ? StructureScoreContainer
-    : T extends STRUCTURE_SCORE_COLLECTOR
-    ? StructureScoreCollector
     : never;
 /**
  * A remnant of dead creeps. This is a walkable structure.
