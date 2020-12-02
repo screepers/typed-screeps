@@ -1850,7 +1850,9 @@ interface FindTypes {
         | Nuke
         | Tombstone
         | Deposit
-        | Ruin;
+        | Ruin
+        | ScoreContainer
+        | ScoreCollector;
     1: RoomPosition; // FIND_EXIT_TOP
     3: RoomPosition; // FIND_EXIT_RIGHT
     5: RoomPosition; // FIND_EXIT_BOTTOM
@@ -1879,6 +1881,8 @@ interface FindTypes {
     121: PowerCreep; // FIND_HOSTILE_POWER_CREEPS
     122: Deposit; // FIND_DEPOSITS
     123: Ruin; // FIND_RUINS
+    10011: ScoreContainer; // FIND_SCORE_CONTAINERS
+    10012: ScoreCollector; // FIND_SCORE_COLLECTORS
 }
 
 interface FindPathOpts {
@@ -2152,7 +2156,9 @@ type FindConstant =
     | FIND_MY_POWER_CREEPS
     | FIND_HOSTILE_POWER_CREEPS
     | FIND_DEPOSITS
-    | FIND_RUINS;
+    | FIND_RUINS
+    | FIND_SCORE_CONTAINERS
+    | FIND_SCORE_COLLECTORS;
 
 type FIND_EXIT_TOP = 1;
 type FIND_EXIT_RIGHT = 3;
@@ -4421,6 +4427,8 @@ interface Room {
      *  * FIND_EXIT_BOTTOM
      *  * FIND_EXIT_LEFT
      *  * FIND_EXIT
+     *  * FIND_SCORE_CONTAINERS
+     *  * FIND_SCORE_COLLECTORS
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
