@@ -4635,7 +4635,7 @@ interface ScoreCollector extends RoomObject {
     /**
      * A Store object that contains score resource
      */
-    store: StoreDefinitionUnlimited;
+    store: Store<RESOURCE_SCORE, false>;
 }
 
 interface ScoreCollectorConstructor extends _Constructor<ScoreCollector>, _ConstructorById<ScoreCollector> {}
@@ -4655,7 +4655,7 @@ interface ScoreContainer extends RoomObject {
     /**
      * A Store object that contains score resource
      */
-    store: StoreDefinitionUnlimited;
+    store: Store<RESOURCE_SCORE, false>;
     /**
      * The amount of game ticks before this ScoreContainer decays.
      */
