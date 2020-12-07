@@ -10,7 +10,11 @@ interface Deposit extends RoomObject {
      */
     id: Id<this>;
     /**
-     * The amount of game ticks until the next harvest action is possible.
+     * The deposit type, one of the following constants:
+     * * `RESOURCE_MIST`
+     * * `RESOURCE_BIOMASS`
+     * * `RESOURCE_METAL`
+     * * `RESOURCE_SILICON`
      */
     depositType: DepositConstant;
     /**
