@@ -1029,6 +1029,16 @@ declare const POWER_INFO: {
         ops: 100;
     };
 };
+
+// Season 1
+declare const RESOURCE_SCORE: RESOURCE_SCORE;
+declare const FIND_SCORE_CONTAINERS: FIND_SCORE_CONTAINERS;
+declare const FIND_SCORE_COLLECTORS: FIND_SCORE_COLLECTORS;
+declare const WALLS_RADIUS: WALLS_RADIUS;
+declare const SCORE_CONTAINER_SPAWN_CHANCE: SCORE_CONTAINER_SPAWN_CHANCE;
+declare const SCORE_CONTAINER_SPAWN_INTERVAL: SCORE_CONTAINER_SPAWN_INTERVAL;
+declare const SCORE_COLLECTOR_SINK: SCORE_COLLECTOR_SINK;
+declare const SCORE_COLLECTOR_MAX_CAPACITY: SCORE_COLLECTOR_MAX_CAPACITY;
 /**
  * A site of a structure which is currently under construction.
  */
@@ -1364,7 +1374,7 @@ interface Creep extends RoomObject {
      * @param resourceType One of the RESOURCE_* constants
      * @param amount The amount of resources to be transferred. If omitted, all the available carried amount is used.
      */
-    transfer(target: AnyCreep | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    transfer(target: AnyCreep | Structure | ScoreCollector, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
     /**
      * Upgrade your controller to the next level using carried energy.
      *
@@ -1392,7 +1402,7 @@ interface Creep extends RoomObject {
      * @param resourceType The target One of the RESOURCE_* constants..
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    withdraw(target: Structure | Tombstone | Ruin | ScoreContainer, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
 
 interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> {}
@@ -1841,7 +1851,9 @@ interface FindTypes {
         | Nuke
         | Tombstone
         | Deposit
-        | Ruin;
+        | Ruin
+        | ScoreContainer
+        | ScoreCollector;
     1: RoomPosition; // FIND_EXIT_TOP
     3: RoomPosition; // FIND_EXIT_RIGHT
     5: RoomPosition; // FIND_EXIT_BOTTOM
@@ -1870,6 +1882,8 @@ interface FindTypes {
     121: PowerCreep; // FIND_HOSTILE_POWER_CREEPS
     122: Deposit; // FIND_DEPOSITS
     123: Ruin; // FIND_RUINS
+    10011: ScoreContainer; // FIND_SCORE_CONTAINERS
+    10012: ScoreCollector; // FIND_SCORE_COLLECTORS
 }
 
 interface FindPathOpts {
@@ -2143,7 +2157,9 @@ type FindConstant =
     | FIND_MY_POWER_CREEPS
     | FIND_HOSTILE_POWER_CREEPS
     | FIND_DEPOSITS
-    | FIND_RUINS;
+    | FIND_RUINS
+    | FIND_SCORE_CONTAINERS
+    | FIND_SCORE_COLLECTORS;
 
 type FIND_EXIT_TOP = 1;
 type FIND_EXIT_RIGHT = 3;
@@ -2332,6 +2348,7 @@ type ResourceConstant =
     | RESOURCE_ENERGY
     | RESOURCE_POWER
     | RESOURCE_OPS
+    | RESOURCE_SCORE
     | MineralConstant
     | MineralCompoundConstant
     | DepositConstant
@@ -2753,6 +2770,16 @@ type EffectConstant = EFFECT_INVULNERABILITY | EFFECT_COLLAPSE_TIMER;
 
 type EFFECT_INVULNERABILITY = 1001;
 type EFFECT_COLLAPSE_TIMER = 1002;
+
+// Season 1
+type RESOURCE_SCORE = "score";
+type FIND_SCORE_CONTAINERS = 10011;
+type FIND_SCORE_COLLECTORS = 10012;
+type WALLS_RADIUS = 5;
+type SCORE_CONTAINER_SPAWN_CHANCE = 0.01;
+type SCORE_CONTAINER_SPAWN_INTERVAL = 500;
+type SCORE_COLLECTOR_SINK = 20;
+type SCORE_COLLECTOR_MAX_CAPACITY = 20000;
 /**
  * The options that can be accepted by `findRoute()` and friends.
  */
@@ -4402,6 +4429,8 @@ interface Room {
      *  * FIND_EXIT_BOTTOM
      *  * FIND_EXIT_LEFT
      *  * FIND_EXIT
+     *  * FIND_SCORE_CONTAINERS
+     *  * FIND_SCORE_COLLECTORS
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
@@ -4588,6 +4617,54 @@ interface Ruin extends RoomObject {
 interface RuinConstructor extends _Constructor<Ruin>, _ConstructorById<Ruin> {}
 
 declare const Ruin: RuinConstructor;
+/**
+ * Accepts score resource and enrolls it into your account. Use Creep.transfer to put scores into the collector.
+ *
+ * **Only available in the Season 1 world.**
+ *
+ * > Note: The capacity of each collector is limited.
+ * When your creep transfers some amount of score resource into the collector, its capacity decreases correspondingly.
+ * The limit recovers by 20 units per tick.
+ */
+interface ScoreCollector extends RoomObject {
+    /**
+     * A unique object identificator.
+     * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
+     */
+    id: Id<this>;
+    /**
+     * A Store object that contains score resource
+     */
+    store: Store<RESOURCE_SCORE, false>;
+}
+
+interface ScoreCollectorConstructor extends _Constructor<ScoreCollector>, _ConstructorById<ScoreCollector> {}
+
+declare const ScoreCollector: ScoreCollectorConstructor;
+/**
+ * Contains score resource which can be withdrawn by creeps with a CARRY part.
+ *
+ * **Only available in the Season 1 world.**
+ */
+interface ScoreContainer extends RoomObject {
+    /**
+     * A unique object identificator.
+     * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
+     */
+    id: Id<this>;
+    /**
+     * A Store object that contains score resource
+     */
+    store: Store<RESOURCE_SCORE, false>;
+    /**
+     * The amount of game ticks before this ScoreContainer decays.
+     */
+    ticksToDecay: number;
+}
+
+interface ScoreContainerConstructor extends _Constructor<ScoreContainer>, _ConstructorById<ScoreContainer> {}
+
+declare const ScoreContainer: ScoreContainerConstructor;
 /**
  * An energy source object. Can be harvested by creeps with a WORK body part.
  */

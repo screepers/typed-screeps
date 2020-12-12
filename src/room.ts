@@ -143,6 +143,8 @@ interface Room {
      *  * FIND_EXIT_BOTTOM
      *  * FIND_EXIT_LEFT
      *  * FIND_EXIT
+     *  * FIND_SCORE_CONTAINERS
+     *  * FIND_SCORE_COLLECTORS
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
