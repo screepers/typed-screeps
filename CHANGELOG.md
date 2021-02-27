@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+- Added `StructureInvaderCore.Spawning` ([d798c56](https://github.com/screepers/typed-screeps/commit/d798c56f2724c21910b5b66e06a9b129e98020a7))
+
+### Updated
+
+- Updated `PIXEL_CPU_COST` constant to 10000 ([d798c56](https://github.com/screepers/typed-screeps/commit/d798c56f2724c21910b5b66e06a9b129e98020a7))
+- MarketResourceConstant as argument for Game.market.getHistory ([#184](https://github.com/screepers/typed-screeps/pull/184))
+- Updated `Deposit.depositType` documentation ([#189](https://github.com/screepers/typed-screeps/pull/189))
+- Updated `Creep.build` documentation ([#186](https://github.com/screepers/typed-screeps/pull/186))
+- Adds `import` and `export` to `RoomVisual` and `MapVisual` ([#181](https://github.com/screepers/typed-screeps/pull/181))
+
 ## [3.2.1] - 2020-09-24
 
 ### Added
