@@ -689,6 +689,10 @@ interface StructureInvaderCore extends OwnedStructure<STRUCTURE_INVADER_CORE> {
      * Shows the timer for a not yet deployed stronghold, undefined otherwise.
      */
     ticksToDeploy: number;
+    /**
+     * If the core is in process of spawning a new creep, this object will contain a `StructureSpawn.Spawning` object, or `null` otherwise.
+     */
+    spawning: Spawning | null;
 }
 
 interface StructureInvaderCoreConstructor extends _Constructor<StructureInvaderCore>, _ConstructorById<StructureInvaderCore> {}

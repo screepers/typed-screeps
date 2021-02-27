@@ -311,7 +311,7 @@ declare const CPU_UNLOCK: CPU_UNLOCK;
 declare const PIXEL: PIXEL;
 declare const ACCESS_KEY: ACCESS_KEY;
 
-declare const PIXEL_CPU_COST: 5000;
+declare const PIXEL_CPU_COST: 10000;
 
 declare const CONTROLLER_LEVELS: { [level: number]: number };
 declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, { [level: number]: number }>;

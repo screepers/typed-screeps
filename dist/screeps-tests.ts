@@ -152,6 +152,12 @@ function resources(o: GenericStore): ResourceConstant[] {
 
         creep = new StructureSpawn.Spawning("" as Id<Spawning>);
         creep = StructureSpawn.Spawning("" as Id<Spawning>);
+
+        const invaderCore = new StructureInvaderCore("" as Id<StructureInvaderCore>);
+        const invader = invaderCore.spawning;
+        if (invader) {
+            const name = invader.name;
+        }
     }
 }
 

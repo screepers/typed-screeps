@@ -326,7 +326,7 @@ declare const CPU_UNLOCK: CPU_UNLOCK;
 declare const PIXEL: PIXEL;
 declare const ACCESS_KEY: ACCESS_KEY;
 
-declare const PIXEL_CPU_COST: 5000;
+declare const PIXEL_CPU_COST: 10000;
 
 declare const CONTROLLER_LEVELS: { [level: number]: number };
 declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, { [level: number]: number }>;
@@ -5582,6 +5582,10 @@ interface StructureInvaderCore extends OwnedStructure<STRUCTURE_INVADER_CORE> {
      * Shows the timer for a not yet deployed stronghold, undefined otherwise.
      */
     ticksToDeploy: number;
+    /**
+     * If the core is in process of spawning a new creep, this object will contain a `StructureSpawn.Spawning` object, or `null` otherwise.
+     */
+    spawning: Spawning | null;
 }
 
 interface StructureInvaderCoreConstructor extends _Constructor<StructureInvaderCore>, _ConstructorById<StructureInvaderCore> {}
