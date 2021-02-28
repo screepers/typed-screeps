@@ -991,3 +991,34 @@ function atackPower(creep: Creep) {
     mapVis.clear();
     mapVis.import(visData);
 }
+
+// Season 2
+{
+    // Find my decoder
+    const decoder = room.find(FIND_SYMBOL_DECODERS).shift()!;
+
+    // Find container
+    const symbolFetchers: Creep[] = []; // ex. result of find
+    symbolFetchers.forEach(fetcher => {
+        if (fetcher.store.getUsedCapacity(decoder.resourceType) > 0) {
+            // Deposit symbol(s)
+            if (!fetcher.pos.isNearTo(decoder)) {
+                fetcher.moveTo(decoder);
+            } else {
+                fetcher.transfer(decoder, decoder.resourceType);
+            }
+        } else {
+            // Retrieve symbol
+            const symbolContainer = room.find(FIND_SYMBOL_CONTAINERS).shift();
+            if (symbolContainer) {
+                if (symbolContainer.resourceType === decoder.resourceType) {
+                    if (!fetcher.pos.isNearTo(symbolContainer)) {
+                        fetcher.moveTo(symbolContainer);
+                    } else {
+                        fetcher.withdraw(symbolContainer, symbolContainer.resourceType);
+                    }
+                }
+            }
+        }
+    });
+}

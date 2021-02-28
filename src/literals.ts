@@ -88,7 +88,9 @@ type FindConstant =
     | FIND_MY_POWER_CREEPS
     | FIND_HOSTILE_POWER_CREEPS
     | FIND_DEPOSITS
-    | FIND_RUINS;
+    | FIND_RUINS
+    | FIND_SYMBOL_CONTAINERS
+    | FIND_SYMBOL_DECODERS;
 
 type FIND_EXIT_TOP = 1;
 type FIND_EXIT_RIGHT = 3;
@@ -118,6 +120,8 @@ type FIND_MY_POWER_CREEPS = 120;
 type FIND_HOSTILE_POWER_CREEPS = 121;
 type FIND_DEPOSITS = 122;
 type FIND_RUINS = 123;
+type FIND_SYMBOL_CONTAINERS = 10021;
+type FIND_SYMBOL_DECODERS = 10022;
 
 // Filter Options
 
@@ -158,7 +162,9 @@ type LookConstant =
     | LOOK_TERRAIN
     | LOOK_TOMBSTONES
     | LOOK_POWER_CREEPS
-    | LOOK_RUINS;
+    | LOOK_RUINS
+    | LOOK_SYMBOL_CONTAINERS
+    | LOOK_SYMBOL_DECODERS;
 
 type LOOK_CONSTRUCTION_SITES = "constructionSite";
 type LOOK_CREEPS = "creep";
@@ -174,6 +180,8 @@ type LOOK_TERRAIN = "terrain";
 type LOOK_TOMBSTONES = "tombstone";
 type LOOK_POWER_CREEPS = "powerCreep";
 type LOOK_RUINS = "ruin";
+type LOOK_SYMBOL_CONTAINERS = "symbolContainer";
+type LOOK_SYMBOL_DECODERS = "symbolDecoder";
 
 type ORDER_SELL = "sell";
 type ORDER_BUY = "buy";
@@ -280,7 +288,8 @@ type ResourceConstant =
     | MineralConstant
     | MineralCompoundConstant
     | DepositConstant
-    | CommodityConstant;
+    | CommodityConstant
+    | SymbolConstant;
 
 type _ResourceConstantSansEnergy = Exclude<ResourceConstant, RESOURCE_ENERGY>;
 
@@ -474,6 +483,78 @@ type RESOURCE_EXTRACT = "extract";
 type RESOURCE_SPIRIT = "spirit";
 type RESOURCE_EMANATION = "emanation";
 type RESOURCE_ESSENCE = "essence";
+
+type RESOURCE_SYMBOL_ALEPH = "symbol_aleph";
+type RESOURCE_SYMBOL_BETH = "symbol_beth";
+type RESOURCE_SYMBOL_GIMMEL = "symbol_gimmel";
+type RESOURCE_SYMBOL_DALETH = "symbol_daleth";
+type RESOURCE_SYMBOL_HE = "symbol_he";
+type RESOURCE_SYMBOL_WAW = "symbol_waw";
+type RESOURCE_SYMBOL_ZAYIN = "symbol_zayin";
+type RESOURCE_SYMBOL_HETH = "symbol_heth";
+type RESOURCE_SYMBOL_TETH = "symbol_teth";
+type RESOURCE_SYMBOL_YODH = "symbol_yodh";
+type RESOURCE_SYMBOL_KAPH = "symbol_kaph";
+type RESOURCE_SYMBOL_LAMEDH = "symbol_lamedh";
+type RESOURCE_SYMBOL_MEM = "symbol_mem";
+type RESOURCE_SYMBOL_NUN = "symbol_nun";
+type RESOURCE_SYMBOL_SAMEKH = "symbol_samekh";
+type RESOURCE_SYMBOL_AYIN = "symbol_ayin";
+type RESOURCE_SYMBOL_PE = "symbol_pe";
+type RESOURCE_SYMBOL_TSADE = "symbol_tsade";
+type RESOURCE_SYMBOL_QOPH = "symbol_qoph";
+type RESOURCE_SYMBOL_RES = "symbol_res";
+type RESOURCE_SYMBOL_SIN = "symbol_sim";
+type RESOURCE_SYMBOL_TAW = "symbol_taw";
+
+type SymbolConstant =
+    | RESOURCE_SYMBOL_ALEPH
+    | RESOURCE_SYMBOL_BETH
+    | RESOURCE_SYMBOL_GIMMEL
+    | RESOURCE_SYMBOL_DALETH
+    | RESOURCE_SYMBOL_HE
+    | RESOURCE_SYMBOL_WAW
+    | RESOURCE_SYMBOL_ZAYIN
+    | RESOURCE_SYMBOL_HETH
+    | RESOURCE_SYMBOL_TETH
+    | RESOURCE_SYMBOL_YODH
+    | RESOURCE_SYMBOL_KAPH
+    | RESOURCE_SYMBOL_LAMEDH
+    | RESOURCE_SYMBOL_MEM
+    | RESOURCE_SYMBOL_NUN
+    | RESOURCE_SYMBOL_SAMEKH
+    | RESOURCE_SYMBOL_AYIN
+    | RESOURCE_SYMBOL_PE
+    | RESOURCE_SYMBOL_TSADE
+    | RESOURCE_SYMBOL_QOPH
+    | RESOURCE_SYMBOL_RES
+    | RESOURCE_SYMBOL_SIN
+    | RESOURCE_SYMBOL_TAW;
+
+type SYMBOLS = [
+    RESOURCE_SYMBOL_ALEPH,
+    RESOURCE_SYMBOL_BETH,
+    RESOURCE_SYMBOL_GIMMEL,
+    RESOURCE_SYMBOL_DALETH,
+    RESOURCE_SYMBOL_HE,
+    RESOURCE_SYMBOL_WAW,
+    RESOURCE_SYMBOL_ZAYIN,
+    RESOURCE_SYMBOL_HETH,
+    RESOURCE_SYMBOL_TETH,
+    RESOURCE_SYMBOL_YODH,
+    RESOURCE_SYMBOL_KAPH,
+    RESOURCE_SYMBOL_LAMEDH,
+    RESOURCE_SYMBOL_MEM,
+    RESOURCE_SYMBOL_NUN,
+    RESOURCE_SYMBOL_SAMEKH,
+    RESOURCE_SYMBOL_AYIN,
+    RESOURCE_SYMBOL_PE,
+    RESOURCE_SYMBOL_TSADE,
+    RESOURCE_SYMBOL_QOPH,
+    RESOURCE_SYMBOL_RES,
+    RESOURCE_SYMBOL_SIN,
+    RESOURCE_SYMBOL_TAW
+];
 
 type SUBSCRIPTION_TOKEN = "token";
 type CPU_UNLOCK = "cpuUnlock";

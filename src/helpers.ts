@@ -209,6 +209,8 @@ interface AllLookAtTypes {
     tombstone: Tombstone;
     powerCreep: PowerCreep;
     ruin: Ruin;
+    symbolContainer: SymbolContainer;
+    symbolDecoder: SymbolDecoder;
 }
 
 type LookAtTypes = Partial<AllLookAtTypes>;
@@ -251,7 +253,9 @@ interface FindTypes {
         | Nuke
         | Tombstone
         | Deposit
-        | Ruin;
+        | Ruin
+        | SymbolContainer
+        | SymbolDecoder;
     1: RoomPosition; // FIND_EXIT_TOP
     3: RoomPosition; // FIND_EXIT_RIGHT
     5: RoomPosition; // FIND_EXIT_BOTTOM
@@ -280,6 +284,8 @@ interface FindTypes {
     121: PowerCreep; // FIND_HOSTILE_POWER_CREEPS
     122: Deposit; // FIND_DEPOSITS
     123: Ruin; // FIND_RUINS
+    10021: SymbolContainer; // FIND_SYMBOL_CONTAINERS
+    10022: SymbolDecoder; // FIND_SYMBOL_DECODERS
 }
 
 interface FindPathOpts {
