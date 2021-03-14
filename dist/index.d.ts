@@ -1,4 +1,4 @@
-// Type definitions for Screeps 3.2.2-beta
+// Type definitions for Screeps 3.2.2
 // Project: https://github.com/screeps/screeps
 // Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
 //                 Nhan Ho <https://github.com/NhanHo>
