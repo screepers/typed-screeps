@@ -5817,6 +5817,9 @@ interface SymbolDecoder extends RoomObject {
     scoreMultiplier: number;
 }
 
+interface SymbolDecoderConstructor extends _Constructor<SymbolDecoder>, _ConstructorById<SymbolDecoder> {}
+declare const SymbolDecoder: SymbolDecoderConstructor;
+
 interface SymbolContainer extends RoomObject {
     /**
      * A unique object identificator. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
@@ -5838,6 +5841,9 @@ interface SymbolContainer extends RoomObject {
      */
     ticksToDecay: number;
 }
+
+interface SymbolContainerConstructor extends _Constructor<SymbolContainer>, _ConstructorById<SymbolContainer> {}
+declare const SymbolContainer: SymbolContainerConstructor;
 /**
  * A remnant of dead creeps. This is a walkable structure.
  * <ul>

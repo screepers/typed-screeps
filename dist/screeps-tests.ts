@@ -1021,4 +1021,8 @@ function atackPower(creep: Creep) {
             }
         }
     });
+
+    if (decoder instanceof SymbolDecoder) {
+        // It really is!
+    }
 }
