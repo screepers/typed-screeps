@@ -121,10 +121,10 @@ type FIND_RUINS = 123;
 
 // Filter Options
 
-interface FilterOptions<T extends FindConstant> {
-    filter: FilterFunction<T> | FilterObject | string;
+interface FilterOptions<T extends FindConstant, S extends FindTypes[T] = FindTypes[T]> {
+    filter: FilterFunction<FindTypes[T], S> | FilterObject | string;
 }
-type FilterFunction<T extends FindConstant> = (object: FindTypes[T]) => boolean;
+type FilterFunction<T, S extends T> = (object: T) => object is S;
 interface FilterObject {
     [key: string]: any;
 }

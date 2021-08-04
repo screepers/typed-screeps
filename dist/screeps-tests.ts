@@ -577,6 +577,14 @@ function resources(o: GenericStore): ResourceConstant[] {
     const sites = room.find(FIND_CONSTRUCTION_SITES);
     sites[0].remove();
 
+    const extensionsites = room.find(FIND_CONSTRUCTION_SITES, {
+        filter: (site): site is ConstructionSite<STRUCTURE_EXTENSION> => {
+            return site.structureType === STRUCTURE_EXTENSION;
+        },
+    });
+    // Should always be true. needs proper testing
+    extensionsites[0].structureType === STRUCTURE_EXTENSION;
+
     // Should have type (_HasRoomPosition | RoomPosition)[]
     const exits = room.find(FIND_EXIT);
 
@@ -593,6 +601,19 @@ function resources(o: GenericStore): ResourceConstant[] {
     towers[0].attack(powerCreep);
     towers[0].attack(spawns[0]);
     towers[0].heal(powerCreep);
+
+    const isTower = (structure: AnyStructure): structure is StructureTower => {
+        return structure.structureType === STRUCTURE_TOWER;
+    };
+
+    const tower = room.find(FIND_MY_STRUCTURES, {
+        filter: isTower,
+    })[0];
+    tower.attack(creeps[0]);
+    tower.attack(creeps[0] as AnyCreep);
+    tower.attack(powerCreep);
+    tower.attack(spawns[0]);
+    tower.heal(powerCreep);
 }
 
 // RoomPosition Finds
@@ -613,6 +634,22 @@ function resources(o: GenericStore): ResourceConstant[] {
     if (tower !== null) {
         tower.attack(creep);
         tower.attack(powerCreep);
+    }
+
+    // Generic type predicate filter
+    const isStructureType = <T extends StructureConstant, S extends ConcreteStructure<T>>(structureType: T) => {
+        return (structure: AnyStructure): structure is S => {
+            return structure.structureType === structureType;
+        };
+    };
+
+    const tower2 = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES, {
+        filter: isStructureType(STRUCTURE_TOWER),
+        algorithm: "astar",
+    });
+    if (tower2 !== null) {
+        tower2.attack(creep);
+        tower2.attack(powerCreep);
     }
 
     const creepWithEnergy = creep.pos.findClosestByPath(creep.room.find(FIND_CREEPS), { filter: c => c.store.energy > 0 });
