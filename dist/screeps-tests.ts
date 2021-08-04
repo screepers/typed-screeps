@@ -637,13 +637,13 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     // Generic type predicate filter
-    const isStructureType = <T extends AnyStructure>(structureType: T["structureType"]) => {
-        return (structure: AnyStructure): structure is T => {
+    const isStructureType = <T extends StructureConstant, S extends ConcreteStructure<T>>(structureType: T) => {
+        return (structure: AnyStructure): structure is S => {
             return structure.structureType === structureType;
         };
     };
 
-    const tower2 = creep.pos.findClosestByPath<StructureTower>(FIND_HOSTILE_STRUCTURES, {
+    const tower2 = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES, {
         filter: isStructureType(STRUCTURE_TOWER),
         algorithm: "astar",
     });
