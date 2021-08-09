@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-## [3.2.2] - 2020-03-14
+- Added support for type predicates in `room.find` and similar functions ([#199](https://github.com/screepers/typed-screeps/pull/199))
+- Fixed typo in docstring ([#198](https://github.com/screepers/typed-screeps/pull/198))
+
+## [3.2.2] - 2021-03-14
 
 ### Added
 
