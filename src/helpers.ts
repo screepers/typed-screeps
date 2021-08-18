@@ -433,3 +433,4 @@ declare namespace Tag {
     }
 }
 type Id<T> = string & Tag.OpaqueTag<T>;
+type fromId<T> = T extends Id<infer R> ? R : never;

@@ -1567,7 +1567,7 @@ interface Game {
      * @param id The unique identifier.
      * @returns an object instance or null if it cannot be found.
      */
-    getObjectById<T>(id: Id<T>): T | null;
+    getObjectById<T extends Id<any>>(id: T): fromId<T> | null;
 
     /**
      * Get an object with the specified unique ID. It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.
@@ -1588,7 +1588,7 @@ interface Game {
      * @param groupInterval If set to 0 (default), the notification will be scheduled immediately.
      * Otherwise, it will be grouped with other notifications and mailed out later using the specified time in minutes.
      */
-    notify(message: string, groupInterval?: number): undefined;
+    notify(message: string, groupInterval?: number): void;
 }
 
 declare var Game: Game;
@@ -2027,6 +2027,7 @@ declare namespace Tag {
     }
 }
 type Id<T> = string & Tag.OpaqueTag<T>;
+type fromId<T> = T extends Id<infer R> ? R : never;
 /**
  * `InterShardMemory` object provides an interface for communicating between shards.
  * Your script is executed separatedly on each shard, and their `Memory` objects are isolated from each other.
@@ -2761,7 +2762,7 @@ type EFFECT_COLLAPSE_TIMER = 1002;
  * The options that can be accepted by `findRoute()` and friends.
  */
 interface RouteOptions {
-    routeCallback: (roomName: string, fromRoomName: string) => any;
+    routeCallback: (roomName: string, fromRoomName: string) => number;
 }
 
 interface RoomStatusPermanent {
