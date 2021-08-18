@@ -287,8 +287,8 @@ function resources(o: GenericStore): ResourceConstant[] {
 }
 
 {
+    // $ExpectType -2 | { exit: ExitConstant; room: string; }[]
     const route = Game.map.findRoute(creep.room, anotherRoomName, {
-        // $ExpectType -2 | { exit: ExitConstant; room: string; }[]
         routeCallback(roomName, fromRoomName) {
             if (roomName === "W10S10") {
                 // avoid this room
@@ -306,8 +306,8 @@ function resources(o: GenericStore): ResourceConstant[] {
     // Use `findRoute` to calculate a high-level plan for this path,
     // prioritizing highways and owned rooms
     const allowedRooms = { [from.roomName]: true };
+    // $ExpectType -2 | { exit: ExitConstant; room: string; }[]
     const route = Game.map.findRoute(from.roomName, to.roomName, {
-        // $ExpectType -2 | { exit: ExitConstant; room: string; }[]
         routeCallback(roomName) {
             const parsed = /^[WE]([0-9]+)[NS]([0-9]+)$/.exec(roomName);
             if (parsed !== null) {
@@ -331,8 +331,8 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     // Invoke PathFinder, allowing access only to rooms from `findRoute`
+    // $ExpectType PathFinderPath
     const ret = PathFinder.search(from, [to], {
-        // $ExpectType PathFinderPath
         roomCallback: roomName => {
             if (allowedRooms[roomName] === undefined) {
                 return false;
@@ -415,8 +415,8 @@ function resources(o: GenericStore): ResourceConstant[] {
     Game.market.getAllOrders({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM }); // $ExpectType Order[]
 
     const targetRoom = "W1N1";
+    // $ExpectType Order[]
     Game.market.getAllOrders(
-        // $ExpectType Order[]
         currentOrder =>
             currentOrder.resourceType === RESOURCE_GHODIUM &&
             currentOrder.type === ORDER_SELL &&
@@ -452,8 +452,8 @@ function resources(o: GenericStore): ResourceConstant[] {
         return { pos: source.pos, range: 1 };
     });
 
+    // $ExpectType PathFinderPath
     const ret = PathFinder.search(pfCreep.pos, goals, {
-        // $ExpectType PathFinderPath
         // We need to set the defaults costs higher so that we
         // can set the road cost lower in `roomCallback`
         plainCost: 2,
@@ -586,8 +586,8 @@ function resources(o: GenericStore): ResourceConstant[] {
     const sites = room.find(FIND_CONSTRUCTION_SITES); // $ExpectType ConstructionSite<BuildableStructureConstant>[]
     sites[0].remove();
 
+    // $ExpectType ConstructionSite<"extension">[]
     const extensionsites = room.find(FIND_CONSTRUCTION_SITES, {
-        // $ExpectType ConstructionSite<"extension">[]
         filter: (site): site is ConstructionSite<STRUCTURE_EXTENSION> => {
             return site.structureType === STRUCTURE_EXTENSION;
         },
@@ -601,8 +601,8 @@ function resources(o: GenericStore): ResourceConstant[] {
     const creepsHere = room.lookForAt(LOOK_CREEPS, 10, 10); // $ExpectType Creep[]
     creepsHere[0].getActiveBodyparts(ATTACK);
 
+    // $ExpectType StructureTower[]
     const towers = room.find<StructureTower>(FIND_MY_STRUCTURES, {
-        // $ExpectType StructureTower[]
         filter: structure => {
             return structure.structureType === STRUCTURE_TOWER;
         },
@@ -617,8 +617,8 @@ function resources(o: GenericStore): ResourceConstant[] {
         return structure.structureType === STRUCTURE_TOWER;
     };
 
+    // $ExpectType StructureTower
     const tower = room.find(FIND_MY_STRUCTURES, {
-        // $ExpectType StructureTower
         filter: isTower,
     })[0];
     tower.attack(creeps[0]);
@@ -637,8 +637,8 @@ function resources(o: GenericStore): ResourceConstant[] {
         creep.say(hostileCreep.name);
     }
 
+    // $ExpectType StructureTower | null
     const tower = creep.pos.findClosestByPath<StructureTower>(FIND_HOSTILE_STRUCTURES, {
-        // $ExpectType StructureTower | null
         filter: structure => {
             return structure.structureType === STRUCTURE_TOWER;
         },
@@ -656,8 +656,8 @@ function resources(o: GenericStore): ResourceConstant[] {
         };
     };
 
+    // $ExpectType StructureTower | null
     const tower2 = creep.pos.findClosestByPath(FIND_HOSTILE_STRUCTURES, {
-        // $ExpectType StructureTower | null
         filter: isStructureType(STRUCTURE_TOWER),
         algorithm: "astar",
     });
@@ -672,8 +672,8 @@ function resources(o: GenericStore): ResourceConstant[] {
         filter: p => p.getDirectionTo(creep) === TOP,
     });
 
+    // $ExpectType StructureRampart | null
     const rampart = creep.pos.findClosestByRange<StructureRampart>(FIND_HOSTILE_STRUCTURES, {
-        // $ExpectType StructureRampart | null
         filter: structure => {
             return structure.structureType === STRUCTURE_RAMPART;
         },
@@ -686,8 +686,8 @@ function resources(o: GenericStore): ResourceConstant[] {
     const hostileCreeps = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 10); // $ExpectType Creep[]
     hostileCreeps[0].saying;
 
+    // $ExpectType StructureLab[]
     const labs = creep.pos.findInRange<StructureLab>(FIND_MY_STRUCTURES, 4, {
-        // $ExpectType StructureLab[]
         filter: structure => {
             return structure.structureType === STRUCTURE_LAB;
         },
