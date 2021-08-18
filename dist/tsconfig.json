@@ -19,5 +19,8 @@
     "files": [
         "index.d.ts",
         "screeps-tests.ts"
+    ],
+    "include": [
+        "./tests/**/*.ts"
     ]
 }
