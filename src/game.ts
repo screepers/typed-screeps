@@ -93,7 +93,7 @@ interface Game {
      * @param groupInterval If set to 0 (default), the notification will be scheduled immediately.
      * Otherwise, it will be grouped with other notifications and mailed out later using the specified time in minutes.
      */
-    notify(message: string, groupInterval?: number): undefined;
+    notify(message: string, groupInterval?: number): void;
 }
 
 declare var Game: Game;

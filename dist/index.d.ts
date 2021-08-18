@@ -1588,7 +1588,7 @@ interface Game {
      * @param groupInterval If set to 0 (default), the notification will be scheduled immediately.
      * Otherwise, it will be grouped with other notifications and mailed out later using the specified time in minutes.
      */
-    notify(message: string, groupInterval?: number): undefined;
+    notify(message: string, groupInterval?: number): void;
 }
 
 declare var Game: Game;
@@ -2762,7 +2762,7 @@ type EFFECT_COLLAPSE_TIMER = 1002;
  * The options that can be accepted by `findRoute()` and friends.
  */
 interface RouteOptions {
-    routeCallback: (roomName: string, fromRoomName: string) => any;
+    routeCallback: (roomName: string, fromRoomName: string) => number;
 }
 
 interface RoomStatusPermanent {
