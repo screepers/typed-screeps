@@ -7,8 +7,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- Added support for type predicates in `room.find` and similar functions ([#199](https://github.com/screepers/typed-screeps/pull/199))
-- Fixed typo in docstring ([#198](https://github.com/screepers/typed-screeps/pull/198))
+## [3.2.4] - 2021-08-21
+
+### Added
+
+- Add `Game.GetObjectById` support for union of Id's ([#201](https://github.com/screepers/typed-screeps/pull/201))
+- Add support for type predicates in `room.find` and similar functions ([#199](https://github.com/screepers/typed-screeps/pull/199))
+- Add explicit `| undefined` to undefined types that may exist with an undefined value.
+
+### Fixed
+
+- Fix typo in docstring in `Flag` interface ([#198](https://github.com/screepers/typed-screeps/pull/198))
+- Fix function documentation. 10k per pixel ([#200](https://github.com/screepers/typed-screeps/pull/200))
+
+## [3.2.3]
+
+This version was pushed by DefinitelyTyped maintainers, not present in this repository.
 
 ## [3.2.2] - 2021-03-14
 
