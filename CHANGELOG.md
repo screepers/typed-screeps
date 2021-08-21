@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix typo in docstring in `Flag` interface ([#198](https://github.com/screepers/typed-screeps/pull/198))
 - Fix function documentation. 10k per pixel ([#200](https://github.com/screepers/typed-screeps/pull/200))
 
-## [3.2.3]
+## 3.2.3
 
 This version was pushed by DefinitelyTyped maintainers, not present in this repository.
 
@@ -351,7 +351,8 @@ This version was pushed by DefinitelyTyped maintainers, not present in this repo
 
 - Initial public `npm` release.
 
-[unreleased]: https://github.com/screepers/typed-screeps/compare/v3.2.2...HEAD
+[unreleased]: https://github.com/screepers/typed-screeps/compare/v3.2.4...HEAD
+[3.2.4]: https://github.com/screepers/typed-screeps/compare/v3.2.2...v3.2.4
 [3.2.2]: https://github.com/screepers/typed-screeps/compare/v3.2.1...v3.2.2
 [3.2.1]: https://github.com/screepers/typed-screeps/compare/v3.2.0...v3.2.1
 [3.2.0]: https://github.com/screepers/typed-screeps/compare/v3.1.3...v3.2.0
