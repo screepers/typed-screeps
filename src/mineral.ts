@@ -24,9 +24,9 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
      */
     id: Id<this>;
     /**
-     * The remaining time after which the deposit will be refilled.
+     * The remaining time after which the deposit will be refilled if is recharging, otherwise undefined.
      */
-    ticksToRegeneration: number;
+    ticksToRegeneration?: number;
 }
 
 interface MineralConstructor extends _Constructor<Mineral>, _ConstructorById<Mineral> {}
