@@ -30,7 +30,7 @@ interface CreepMemory {
 // the type of the key should be narrowed down in order to prevent casting (key as ResourceConstant).
 // This helper function provides strongly typed keys for such objects.
 // See discussion (https://github.com/Microsoft/TypeScript/pull/12253) why Object.keys does not return typed keys.
-function keys<T>(o: T): Array<keyof T> {
+function keys<T extends Record<string, any>>(o: T): Array<keyof T> {
     return Object.keys(o) as Array<keyof T>;
 }
 
