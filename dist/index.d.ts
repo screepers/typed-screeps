@@ -1567,7 +1567,7 @@ interface Game {
      * @param id The unique identifier.
      * @returns an object instance or null if it cannot be found.
      */
-    getObjectById<T extends Id<any>>(id: T): fromId<T> | null;
+    getObjectById<T extends Id<_HasId>>(id: T): fromId<T> | null;
 
     /**
      * Get an object with the specified unique ID. It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.
@@ -2014,7 +2014,7 @@ interface _Constructor<T> {
     readonly prototype: T;
 }
 
-interface _ConstructorById<T> extends _Constructor<T> {
+interface _ConstructorById<T extends _HasId> extends _Constructor<T> {
     new (id: Id<T>): T;
     (id: Id<T>): T;
 }
@@ -2026,7 +2026,7 @@ declare namespace Tag {
         private [OpaqueTagSymbol]: T;
     }
 }
-type Id<T> = string & Tag.OpaqueTag<T>;
+type Id<T extends _HasId> = string & Tag.OpaqueTag<T>;
 type fromId<T> = T extends Id<infer R> ? R : never;
 /**
  * `InterShardMemory` object provides an interface for communicating between shards.
@@ -4834,7 +4834,7 @@ interface SpawnOptions {
     directions?: DirectionConstant[];
 }
 
-interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {}
+interface SpawningConstructor extends _Constructor<Spawning> {}
 interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> {
     /**
      * Returns capacity of this store for the specified resource. For a general purpose store, it returns total capacity if `resource` is undefined.

@@ -142,7 +142,7 @@ function resources(o: GenericStore): ResourceConstant[] {
         Game.spawns[i].createCreep(body);
 
         // Test StructureSpawn.Spawning
-        let creep: Spawning | null = Game.spawns[i].spawning;
+        const creep: Spawning | null = Game.spawns[i].spawning;
         if (creep) {
             const name: string = creep.name;
             const needTime: number = creep.needTime;
@@ -152,9 +152,6 @@ function resources(o: GenericStore): ResourceConstant[] {
             const cancelStatus: OK | ERR_NOT_OWNER = creep.cancel();
             const setDirectionStatus: OK | ERR_NOT_OWNER | ERR_INVALID_ARGS = creep.setDirections([TOP, BOTTOM, LEFT, RIGHT]);
         }
-
-        creep = new StructureSpawn.Spawning("" as Id<Spawning>);
-        creep = StructureSpawn.Spawning("" as Id<Spawning>);
 
         const invaderCore = new StructureInvaderCore("" as Id<StructureInvaderCore>);
         const invader = invaderCore.spawning;
