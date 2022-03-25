@@ -1568,15 +1568,7 @@ interface Game {
      * @returns an object instance or null if it cannot be found.
      */
     getObjectById<T extends Id<_HasId>>(id: T): fromId<T> | null;
-
-    /**
-     * Get an object with the specified unique ID. It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.
-     * @param id The unique identifier.
-     * @returns an object instance or null if it cannot be found.
-     * @deprecated Use Id<T>, instead of strings, to increase type safety
-     */
-    // tslint:disable-next-line:unified-signatures
-    getObjectById<T>(id: string): T | null;
+    getObjectById<T extends _HasId>(id: Id<T>): T | null;
 
     /**
      * Send a custom message at your profile email.
