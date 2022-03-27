@@ -5554,7 +5554,7 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
      * Can be set by applying the PWR_OPERATE_FACTORY power to a newly built factory.
      * Once set, the level cannot be changed.
      */
-    level: number;
+    level?: number;
     /**
      * An object with the structure contents.
      */

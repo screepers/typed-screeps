@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+- Updates `ticksToRegeneration` to be optional in `Minerals` ([#204](https://github.com/screepers/typed-screeps/pull/204))
+- Updates `level` to be optional in `StructureFactory` ([#205](https://github.com/screepers/typed-screeps/pull/205))
+
 ## [3.2.4] - 2021-08-21
 
 ### Added

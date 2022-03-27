@@ -939,6 +939,10 @@ function atackPower(creep: Creep) {
 {
     const factory = new StructureFactory("" as Id<StructureFactory>);
 
+    if (!factory.level) {
+        powerCreep.usePower(PWR_OPERATE_FACTORY, factory);
+    }
+
     creep.transfer(factory, RESOURCE_CELL, 20);
     creep.transfer(factory, RESOURCE_OXIDANT, 36);
     creep.transfer(factory, RESOURCE_LEMERGIUM_BAR, 16);
