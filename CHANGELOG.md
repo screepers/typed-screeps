@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Updates `ticksToRegeneration` to be optional in `Minerals` ([#204](https://github.com/screepers/typed-screeps/pull/204))
 - Updates `level` to be optional in `StructureFactory` ([#205](https://github.com/screepers/typed-screeps/pull/205))
+- Updates `Id` type to only be used on types with an `id` property ([#207](https://github.com/screepers/typed-screeps/pull/207))
+- Removes deprecated `Game.getObjectById(id: string)` function. Use version with `Id<T>` typed ids. ([#207](https://github.com/screepers/typed-screeps/pull/207))
 
 ## [3.2.4] - 2021-08-21
 
