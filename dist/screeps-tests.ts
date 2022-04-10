@@ -30,7 +30,7 @@ interface CreepMemory {
 // the type of the key should be narrowed down in order to prevent casting (key as ResourceConstant).
 // This helper function provides strongly typed keys for such objects.
 // See discussion (https://github.com/Microsoft/TypeScript/pull/12253) why Object.keys does not return typed keys.
-function keys<T>(o: T): Array<keyof T> {
+function keys<T extends Record<string, any>>(o: T): Array<keyof T> {
     return Object.keys(o) as Array<keyof T>;
 }
 
@@ -42,7 +42,6 @@ function resources(o: GenericStore): ResourceConstant[] {
 {
     const creepId: Id<Creep> = "1" as Id<Creep>;
     const creepOne: Creep | null = Game.getObjectById(creepId);
-    const creepTwo: Creep | null = Game.getObjectById<Creep>("2"); // deprecated
     const creepThree: Creep = new Creep(creepId); // Works with typed ID
 
     if (creepOne) {
@@ -67,9 +66,6 @@ function resources(o: GenericStore): ResourceConstant[] {
         default:
             storeObject.structureType === "link";
     }
-
-    // Default type is unknown if untyped Id provided
-    const untyped = Game.getObjectById("untyped");
 }
 
 // Game.creeps
@@ -96,7 +92,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 
         if (powerCreep.ticksToLive === undefined) {
             // Not spawned in world; spawn creep
-            const spawn = Game.getObjectById("powerSpawnID") as StructurePowerSpawn;
+            const spawn = Game.getObjectById("powerSpawnID" as Id<StructurePowerSpawn>)!;
             powerCreep.spawn(spawn);
         } else {
             // Generate Ops
@@ -108,7 +104,7 @@ function resources(o: GenericStore): ResourceConstant[] {
                 Game.powerCreeps[i].usePower(PWR_GENERATE_OPS);
             } else {
                 // Boost resource
-                const targetSource = Game.getObjectById("targetSourceID") as Source;
+                const targetSource = Game.getObjectById("targetSourceID" as Id<Source>)!;
                 const sourceEffect = targetSource.effects.find(effect => effect.effect === PWR_REGEN_SOURCE && effect.level > 0);
                 if (!sourceEffect && powerCreep.powers[PWR_REGEN_SOURCE] && powerCreep.powers[PWR_REGEN_SOURCE].cooldown === 0) {
                     powerCreep.usePower(PWR_REGEN_SOURCE, targetSource);
@@ -142,7 +138,7 @@ function resources(o: GenericStore): ResourceConstant[] {
         Game.spawns[i].createCreep(body);
 
         // Test StructureSpawn.Spawning
-        let creep: Spawning | null = Game.spawns[i].spawning;
+        const creep: Spawning | null = Game.spawns[i].spawning;
         if (creep) {
             const name: string = creep.name;
             const needTime: number = creep.needTime;
@@ -152,9 +148,6 @@ function resources(o: GenericStore): ResourceConstant[] {
             const cancelStatus: OK | ERR_NOT_OWNER = creep.cancel();
             const setDirectionStatus: OK | ERR_NOT_OWNER | ERR_INVALID_ARGS = creep.setDirections([TOP, BOTTOM, LEFT, RIGHT]);
         }
-
-        creep = new StructureSpawn.Spawning("" as Id<Spawning>);
-        creep = StructureSpawn.Spawning("" as Id<Spawning>);
 
         const invaderCore = new StructureInvaderCore("" as Id<StructureInvaderCore>);
         const invader = invaderCore.spawning;
@@ -744,7 +737,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 
 // Advanced Structure types
 {
-    const owned = Game.getObjectById<AnyOwnedStructure>("blah")!;
+    const owned = Game.getObjectById("blah" as Id<AnyOwnedStructure>)!;
     const owner = owned.owner && owned.owner.username;
     owned.notifyWhenAttacked(false);
 
@@ -760,7 +753,7 @@ function resources(o: GenericStore): ResourceConstant[] {
         }
     });
 
-    const unowned = Game.getObjectById<AnyStructure>("blah2")!;
+    const unowned = Game.getObjectById("blah2" as Id<AnyStructure>)!;
     const hp = unowned.hits / unowned.hitsMax;
 
     // test discriminated union
@@ -865,9 +858,9 @@ function resources(o: GenericStore): ResourceConstant[] {
 // StructureLab
 
 {
-    const lab0 = Game.getObjectById<StructureLab>("lab0");
-    const lab1 = Game.getObjectById<StructureLab>("lab1");
-    const lab2 = Game.getObjectById<StructureLab>("lab2");
+    const lab0 = Game.getObjectById("lab" as Id<StructureLab>);
+    const lab1 = Game.getObjectById("lab" as Id<StructureLab>);
+    const lab2 = Game.getObjectById("lab" as Id<StructureLab>);
     if (lab0 !== null && lab1 !== null && lab2 !== null) {
         if (lab1.mineralAmount >= LAB_REACTION_AMOUNT && lab2.mineralAmount >= LAB_REACTION_AMOUNT && lab0.mineralType === null) {
             lab0.runReaction(lab1, lab2);
@@ -1034,4 +1027,11 @@ function atackPower(creep: Creep) {
     const visData = mapVis.export();
     mapVis.clear();
     mapVis.import(visData);
+}
+
+// Id
+{
+    const roomId = "" as Id<Room>; // $ExpectError
+    const creep = Game.getObjectById("" as Id<Creep>);
+    const foo = Game.getObjectById<StructureTower>("" as Id<Creep>); // $ExpectError
 }
