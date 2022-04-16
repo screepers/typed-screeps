@@ -17,7 +17,7 @@
     "lint": "tslint -p tsconfig.json 'src/**/*.ts'",
     "lint:test": "tslint -p dist/tsconfig.json 'dist/screeps-tests.ts'",
     "pre-commit": "npm run compile && git add dist/index.d.ts",
-    "prepare": "npm test",
+    "prepare": "husky install && npm test",
     "test": "npm run dtslint"
   },
   "keywords": [
@@ -41,15 +41,9 @@
     "tslint-plugin-prettier": "^2.3.0",
     "typescript": "^4.6.3"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && npm run pre-commit"
-    }
-  },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   }
 }
