@@ -8,6 +8,6 @@
 //                 Skyler Kehren <https://github.com/pyrodogg>
 //                 Kieran Carnegie <https://github.com/kotarou>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
+// TypeScript Version: 4.6
 
 // Please contribute types to https://github.com/screepers/typed-screeps

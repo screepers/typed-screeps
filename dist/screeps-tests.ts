@@ -71,8 +71,8 @@ function resources(o: GenericStore): ResourceConstant[] {
 // Game.creeps
 
 {
-    for (const i in Game.creeps) {
-        Game.creeps[i].moveTo(flag);
+    for (const creepName of Object.keys(Game.creeps)) {
+        Game.creeps[creepName].moveTo(flag);
     }
 }
 
@@ -87,7 +87,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 {
     PowerCreep.create("steve", POWER_CLASS.OPERATOR) === OK;
 
-    for (const i in Game.powerCreeps) {
+    for (const i of Object.keys(Game.powerCreeps)) {
         const powerCreep = Game.powerCreeps[i];
 
         if (powerCreep.ticksToLive === undefined) {
@@ -134,7 +134,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 // Game.spawns
 
 {
-    for (const i in Game.spawns) {
+    for (const i of Object.keys(Game.spawns)) {
         Game.spawns[i].createCreep(body);
 
         // Test StructureSpawn.Spawning
@@ -173,7 +173,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 }
 
 {
-    for (const name in Game.creeps) {
+    for (const name of Object.keys(Game.creeps)) {
         const startCpu = Game.cpu.getUsed();
 
         // creep logic goes here
@@ -218,7 +218,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 
 {
     if (creep.hits < creep.memory.lastHits) {
-        Game.notify(`Creep ${creep} has been attacked at ${creep.pos}!`);
+        Game.notify(`Creep ${creep.toString()} has been attacked at ${creep.pos.toString()}!`);
     }
     creep.memory.lastHits = creep.hits;
 }
@@ -248,7 +248,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 // Game.map.findExit()
 
 {
-    if (creep.room !== anotherRoomName) {
+    if (creep.room.name !== anotherRoomName.name) {
         const exitDir = Game.map.findExit(creep.room, anotherRoomName);
         if (exitDir !== ERR_NO_PATH && exitDir !== ERR_INVALID_ARGS) {
             const exit = creep.pos.findClosestByRange(exitDir);
@@ -367,7 +367,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     const cost = Game.market.calcTransactionCost(1000, "W0N0", "W10N5");
 
     // Game.market.cancelOrder(orderId)
-    for (const id in Game.market.orders) {
+    for (const id of Object.keys(Game.market.orders)) {
         Game.market.cancelOrder(id);
     }
 
@@ -635,7 +635,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     // Generic type predicate filter
     const isStructureType = <T extends StructureConstant, S extends ConcreteStructure<T>>(structureType: T) => {
         return (structure: AnyStructure): structure is S => {
-            return structure.structureType === structureType;
+            return structure.structureType === structureType as string;
         };
     };
 
@@ -680,11 +680,11 @@ function resources(o: GenericStore): ResourceConstant[] {
 
 {
     const matrix = room.lookAtArea(10, 10, 20, 20, false);
-    for (const y in matrix) {
-        const row = matrix[y];
-        for (const x in row) {
+    for (const y of Object.keys(matrix)) {
+        const row = matrix[y as unknown as number];
+        for (const x of Object.keys(row)) {
             const pos = new RoomPosition(+x, +y, room.name);
-            const objects = row[x];
+            const objects = row[x as unknown as number];
             if (objects.length > 0) {
                 objects.map(o => o.type);
             }
@@ -835,7 +835,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     portals.forEach((p: StructurePortal) => {
         const state = p.ticksToDecay === undefined ? "stable" : "unstable";
         if (p.destination instanceof RoomPosition) {
-            Game.notify(`Found ${state} inter-room portal to ${p.destination}`);
+            Game.notify(`Found ${state} inter-room portal to ${p.destination.toString()}`);
         } else {
             Game.notify(`Found ${state} inter-shard portal to ${p.destination.shard} ${p.destination.room}`);
         }

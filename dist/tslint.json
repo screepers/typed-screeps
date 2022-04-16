@@ -1,7 +1,8 @@
 {
-    "extends": "dtslint/dtslint.json",
+    "extends": "@definitelytyped/dtslint/dtslint.json",
     "rules": {
         "file-name-casing": false,
+        "no-redundant-jsdoc": false,
         "no-redundant-jsdoc-2": false,
         "dt-header": false,
         "no-empty-interface": false,

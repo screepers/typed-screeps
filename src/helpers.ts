@@ -311,7 +311,8 @@ interface FindPathOpts {
      * @param costMatrix The current CostMatrix
      * @returns The new CostMatrix to use
      */
-    costCallback?(roomName: string, costMatrix: CostMatrix): void | CostMatrix;
+    // tslint:disable-next-line: invalid-void
+    costCallback?: (roomName: string, costMatrix: CostMatrix) => void | CostMatrix;
 
     /**
      * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search. This option
