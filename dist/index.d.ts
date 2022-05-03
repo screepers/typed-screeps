@@ -3198,11 +3198,11 @@ interface PriceHistory {
     stddevPrice: number;
 }
 interface Memory {
-    creeps: {[name: string]: CreepMemory};
-    powerCreeps: {[name: string]: PowerCreepMemory};
-    flags: {[name: string]: FlagMemory};
-    rooms: {[name: string]: RoomMemory};
-    spawns: {[name: string]: SpawnMemory};
+    creeps: { [name: string]: CreepMemory };
+    powerCreeps: { [name: string]: PowerCreepMemory };
+    flags: { [name: string]: FlagMemory };
+    rooms: { [name: string]: RoomMemory };
+    spawns: { [name: string]: SpawnMemory };
 }
 
 interface CreepMemory {}
@@ -3388,7 +3388,7 @@ interface CostMatrix {
     /**
      * Creates a new CostMatrix containing 0's for all positions.
      */
-    new(): CostMatrix;
+    new (): CostMatrix;
     /**
      * Set the cost of a position in this CostMatrix.
      * @param x X position in the room.
@@ -5634,52 +5634,37 @@ type AnyStoreStructure =
 type AnyStructure = AnyOwnedStructure | StructureContainer | StructurePortal | StructureRoad | StructureWall;
 
 /**
+ * Map of structure constant to the concrete structure class
+ */
+interface ConcreteStructureMap {
+    [STRUCTURE_EXTENSION]: StructureExtension;
+    [STRUCTURE_RAMPART]: StructureRampart;
+    [STRUCTURE_ROAD]: StructureRoad;
+    [STRUCTURE_SPAWN]: StructureSpawn;
+    [STRUCTURE_LINK]: StructureLink;
+    [STRUCTURE_WALL]: StructureWall;
+    [STRUCTURE_STORAGE]: StructureStorage;
+    [STRUCTURE_TOWER]: StructureTower;
+    [STRUCTURE_OBSERVER]: StructureObserver;
+    [STRUCTURE_POWER_SPAWN]: StructurePowerSpawn;
+    [STRUCTURE_EXTRACTOR]: StructureExtractor;
+    [STRUCTURE_LAB]: StructureLab;
+    [STRUCTURE_TERMINAL]: StructureTerminal;
+    [STRUCTURE_CONTAINER]: StructureContainer;
+    [STRUCTURE_NUKER]: StructureNuker;
+    [STRUCTURE_FACTORY]: StructureFactory;
+    [STRUCTURE_KEEPER_LAIR]: StructureKeeperLair;
+    [STRUCTURE_CONTROLLER]: StructureController;
+    [STRUCTURE_POWER_BANK]: StructurePowerBank;
+    [STRUCTURE_PORTAL]: StructurePortal;
+    [STRUCTURE_INVADER_CORE]: StructureInvaderCore;
+}
+
+/**
  * Conditional type for all concrete implementations of Structure.
  * Unlike Structure<T>, ConcreteStructure<T> gives you the actual concrete class that extends Structure<T>.
  */
-type ConcreteStructure<T extends StructureConstant> = T extends STRUCTURE_EXTENSION
-    ? StructureExtension
-    : T extends STRUCTURE_RAMPART
-    ? StructureRampart
-    : T extends STRUCTURE_ROAD
-    ? StructureRoad
-    : T extends STRUCTURE_SPAWN
-    ? StructureSpawn
-    : T extends STRUCTURE_LINK
-    ? StructureLink
-    : T extends STRUCTURE_WALL
-    ? StructureWall
-    : T extends STRUCTURE_STORAGE
-    ? StructureStorage
-    : T extends STRUCTURE_TOWER
-    ? StructureTower
-    : T extends STRUCTURE_OBSERVER
-    ? StructureObserver
-    : T extends STRUCTURE_POWER_SPAWN
-    ? StructurePowerSpawn
-    : T extends STRUCTURE_EXTRACTOR
-    ? StructureExtractor
-    : T extends STRUCTURE_LAB
-    ? StructureLab
-    : T extends STRUCTURE_TERMINAL
-    ? StructureTerminal
-    : T extends STRUCTURE_CONTAINER
-    ? StructureContainer
-    : T extends STRUCTURE_NUKER
-    ? StructureNuker
-    : T extends STRUCTURE_FACTORY
-    ? StructureFactory
-    : T extends STRUCTURE_KEEPER_LAIR
-    ? StructureKeeperLair
-    : T extends STRUCTURE_CONTROLLER
-    ? StructureController
-    : T extends STRUCTURE_POWER_BANK
-    ? StructurePowerBank
-    : T extends STRUCTURE_PORTAL
-    ? StructurePortal
-    : T extends STRUCTURE_INVADER_CORE
-    ? StructureInvaderCore
-    : never;
+type ConcreteStructure<T extends StructureConstant> = ConcreteStructureMap[T];
 /**
  * A remnant of dead creeps. This is a walkable structure.
  * <ul>
