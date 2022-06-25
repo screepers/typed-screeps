@@ -115,10 +115,6 @@ interface PathFinderOpts {
  */
 interface CostMatrix {
     /**
-     * Creates a new CostMatrix containing 0's for all positions.
-     */
-    new (): CostMatrix;
-    /**
      * Set the cost of a position in this CostMatrix.
      * @param x X position in the room.
      * @param y Y position in the room.
