@@ -4,9 +4,9 @@
  */
 interface PathFinder {
     /**
-     * Container for custom navigation cost data.
+     * Creates a new CostMatrix containing 0's for all positions.
      */
-    CostMatrix: CostMatrix;
+    CostMatrix: CostMatrixConstructor;
 
     /**
      * Find an optimal path between origin and goal.
@@ -108,6 +108,10 @@ interface PathFinderOpts {
      * @param roomName The name of the room the pathfinder needs a cost matrix for.
      */
     roomCallback?(roomName: string): boolean | CostMatrix;
+}
+
+interface CostMatrixConstructor extends _Constructor<CostMatrix> {
+    new(): CostMatrix;
 }
 
 /**
