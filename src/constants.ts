@@ -728,15 +728,14 @@ declare const BOOSTS: {
 
 declare const INTERSHARD_RESOURCES: InterShardResourceConstant[];
 
-declare const COMMODITIES: Record<
-    CommodityConstant | MineralConstant | RESOURCE_GHODIUM | RESOURCE_ENERGY,
-    {
-        level?: number;
-        amount: number;
-        cooldown: number;
-        components: Record<DepositConstant | CommodityConstant | MineralConstant | RESOURCE_ENERGY | RESOURCE_GHODIUM, number>;
-    }
->;
+type CommoditiesTypes = CommodityConstant | MineralConstant | RESOURCE_GHODIUM | RESOURCE_ENERGY;
+interface CommodityEntry {
+    level?: number;
+    amount: number;
+    cooldown: number;
+    components: Record<DepositConstant | CommoditiesTypes, number>;
+}
+declare const COMMODITIES: Record<CommoditiesTypes, CommodityEntry>;
 
 declare const LOOK_CREEPS: LOOK_CREEPS;
 declare const LOOK_ENERGY: LOOK_ENERGY;
