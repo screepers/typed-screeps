@@ -756,6 +756,7 @@ declare const LOOK_RUINS: LOOK_RUINS;
 declare const ORDER_SELL: ORDER_SELL;
 declare const ORDER_BUY: ORDER_BUY;
 
+declare const MARKET_FEE: 0.05;
 declare const MARKET_MAX_ORDERS: 300;
 declare const MARKET_ORDER_LIFE_TIME: 2592000000; // 1000*60*60*24*30
 
