@@ -50,7 +50,7 @@ interface Game {
     /**
      * A hash containing all your structures with structure id as hash keys.
      */
-    structures: { [structureId: string]: Structure };
+    structures: { [structureId: string]: OwnedStructure };
 
     /**
      * A hash containing all your construction sites with their id as hash keys.
