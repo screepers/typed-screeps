@@ -743,15 +743,14 @@ declare const BOOSTS: {
 
 declare const INTERSHARD_RESOURCES: InterShardResourceConstant[];
 
-declare const COMMODITIES: Record<
-    CommodityConstant | MineralConstant | RESOURCE_GHODIUM | RESOURCE_ENERGY,
-    {
-        level?: number;
-        amount: number;
-        cooldown: number;
-        components: Record<DepositConstant | CommodityConstant | MineralConstant | RESOURCE_ENERGY | RESOURCE_GHODIUM, number>;
-    }
->;
+type CommoditiesTypes = CommodityConstant | MineralConstant | RESOURCE_GHODIUM | RESOURCE_ENERGY;
+interface CommodityEntry {
+    level?: number;
+    amount: number;
+    cooldown: number;
+    components: Record<DepositConstant | CommoditiesTypes, number>;
+}
+declare const COMMODITIES: Record<CommoditiesTypes, CommodityEntry>;
 
 declare const LOOK_CREEPS: LOOK_CREEPS;
 declare const LOOK_ENERGY: LOOK_ENERGY;
@@ -771,6 +770,7 @@ declare const LOOK_RUINS: LOOK_RUINS;
 declare const ORDER_SELL: ORDER_SELL;
 declare const ORDER_BUY: ORDER_BUY;
 
+declare const MARKET_FEE: 0.05;
 declare const MARKET_MAX_ORDERS: 300;
 declare const MARKET_ORDER_LIFE_TIME: 2592000000; // 1000*60*60*24*30
 
@@ -1545,7 +1545,7 @@ interface Game {
     /**
      * A hash containing all your structures with structure id as hash keys.
      */
-    structures: { [structureId: string]: Structure };
+    structures: { [structureId: string]: OwnedStructure };
 
     /**
      * A hash containing all your construction sites with their id as hash keys.
@@ -5564,7 +5564,7 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
      * Produces the specified commodity.
      * All ingredients should be available in the factory store.
      */
-    produce(resource: CommodityConstant | MineralConstant | RESOURCE_ENERGY | RESOURCE_GHODIUM): ScreepsReturnCode;
+    produce(resource: CommoditiesTypes): ScreepsReturnCode;
 }
 
 interface StructureFactoryConstructor extends _Constructor<StructureFactory>, _ConstructorById<StructureFactory> {}
