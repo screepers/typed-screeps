@@ -204,7 +204,7 @@ interface AllLookAtTypes {
     nuke: Nuke;
     resource: Resource;
     source: Source;
-    structure: Structure;
+    structure: AnyStructure;
     terrain: Terrain;
     tombstone: Tombstone;
     powerCreep: PowerCreep;
