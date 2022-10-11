@@ -1,4 +1,3 @@
-// Type definitions for Screeps 3.3.0
 // Project: https://github.com/screeps/screeps
 // Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
 //                 Nhan Ho <https://github.com/NhanHo>
@@ -1790,7 +1789,7 @@ interface AllLookAtTypes {
     nuke: Nuke;
     resource: Resource;
     source: Source;
-    structure: Structure;
+    structure: AnyStructure;
     terrain: Terrain;
     tombstone: Tombstone;
     powerCreep: PowerCreep;
