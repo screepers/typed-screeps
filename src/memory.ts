@@ -1,9 +1,9 @@
 interface Memory {
-    creeps: { [name: string]: CreepMemory };
-    powerCreeps: { [name: string]: PowerCreepMemory };
-    flags: { [name: string]: FlagMemory };
-    rooms: { [name: string]: RoomMemory };
-    spawns: { [name: string]: SpawnMemory };
+    creeps: { [name: string]: Partial<CreepMemory> };
+    powerCreeps: { [name: string]: Partial<PowerCreepMemory> };
+    flags: { [name: string]: Partial<FlagMemory> };
+    rooms: { [name: string]: Partial<RoomMemory> };
+    spawns: { [name: string]: Partial<SpawnMemory> };
 }
 
 interface CreepMemory {}
