@@ -7,9 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
-- Add missing MARKET_FEE constant ([#213](https://github.com/screepers/typed-screeps/pull/213)
+- Add type inference for params in filter callbacks ([#221](https://github.com/screepers/typed-screeps/pull/221))
+- Add missing MARKET_FEE constant ([#213](https://github.com/screepers/typed-screeps/pull/213))
 - Add CommodityTypes type and CommidityEntry interface ([#212](https://github.com/screepers/typed-screeps/pull/212))
-- Update Game.structures type to OwnedStructure ([#211](https://github.com/screepers/typed-screeps/pull/211)
+- Update Game.structures type to OwnedStructure ([#211](https://github.com/screepers/typed-screeps/pull/211))
 - Update ConcreteStructure syntax to use map instead of conditional chain ([#209](https://github.com/screepers/typed-screeps/pull/209))
 
 ## [3.3.0] - 2022-04-18
