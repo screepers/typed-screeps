@@ -610,6 +610,16 @@ function resources(o: GenericStore): ResourceConstant[] {
     tower.attack(powerCreep);
     tower.attack(spawns[0]);
     tower.heal(powerCreep);
+
+    // All the params in filter callback should be automatically inferred
+    room.find(FIND_STRUCTURES, {
+        filter: (s, idx, array) => {
+            s.structureType === STRUCTURE_EXTENSION;
+            idx = idx + 1;
+            array.indexOf(s);
+            return true;
+        },
+    });
 }
 
 // RoomPosition Finds
@@ -707,6 +717,25 @@ function resources(o: GenericStore): ResourceConstant[] {
     creep.pos.findInRange([] as AnyStructure[], 10, {
         // s should be AnyStructure
         filter: (s) => s.structureType === STRUCTURE_EXTENSION,
+    });
+
+    // All the params in filter callback should be automatically inferred
+    creep.pos.findClosestByPath(FIND_STRUCTURES, {
+        filter: (s, idx, array) => {
+            s.structureType;
+            idx = idx + 1;
+            array.indexOf(s);
+            return true;
+        },
+    });
+
+    creep.pos.findClosestByPath([] as AnyStructure[], {
+        filter: (s, idx, array) => {
+            s.structureType;
+            idx = idx + 1;
+            array.indexOf(s);
+            return true;
+        },
     });
 }
 

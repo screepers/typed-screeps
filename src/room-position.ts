@@ -75,7 +75,9 @@ interface RoomPosition {
      */
     findClosestByPath<T extends _HasRoomPosition | RoomPosition>(
         objects: T[],
-        opts?: FindPathOpts & { filter?: ((object: T) => boolean) | FilterObject | string; algorithm?: FindClosestByPathAlgorithm },
+        opts?: FindPathOpts & { filter?: ((object: T, index: number, collection: T[]) => boolean) | FilterObject | string } & {
+            algorithm?: FindClosestByPathAlgorithm;
+        },
     ): T | null;
     /**
      * Find the object with the shortest linear distance from the given position.
@@ -94,7 +96,7 @@ interface RoomPosition {
      */
     findClosestByRange<T extends _HasRoomPosition | RoomPosition>(
         objects: T[],
-        opts?: { filter?: ((object: T) => boolean) | FilterObject | string },
+        opts?: { filter?: ((object: T, index: number, collection: T[]) => boolean) | FilterObject | string },
     ): T | null;
     /**
      * Find all objects in the specified linear range.
@@ -117,7 +119,7 @@ interface RoomPosition {
     findInRange<T extends _HasRoomPosition | RoomPosition>(
         objects: T[],
         range: number,
-        opts?: { filter?: ((object: T) => boolean) | FilterObject | string },
+        opts?: { filter?: ((object: T, index: number, collection: T[]) => boolean) | FilterObject | string },
     ): T[];
     /**
      * Find an optimal path to the specified position using A* search algorithm.
