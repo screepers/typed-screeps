@@ -677,6 +677,37 @@ function resources(o: GenericStore): ResourceConstant[] {
     });
 
     labs[0].boostCreep(creep);
+
+    // Should be able to automatically infer the type of params in the filter function
+    creep.pos.findClosestByPath(FIND_STRUCTURES, {
+        // s should be AnyStructure
+        filter: (s) => s.structureType === STRUCTURE_EXTENSION,
+    });
+
+    creep.pos.findClosestByPath([] as AnyStructure[], {
+        // s should be AnyStructure
+        filter: (s) => s.structureType === STRUCTURE_EXTENSION,
+    });
+
+    creep.pos.findClosestByRange(FIND_STRUCTURES, {
+        // s should be AnyStructure
+        filter: (s) => s.structureType === STRUCTURE_EXTENSION,
+    });
+
+    creep.pos.findClosestByRange([] as AnyStructure[], {
+        // s should be AnyStructure
+        filter: (s) => s.structureType === STRUCTURE_EXTENSION,
+    });
+
+    creep.pos.findInRange(FIND_STRUCTURES, 10, {
+        // s should be AnyStructure
+        filter: (s) => s.structureType === STRUCTURE_EXTENSION,
+    });
+
+    creep.pos.findInRange([] as AnyStructure[], 10, {
+        // s should be AnyStructure
+        filter: (s) => s.structureType === STRUCTURE_EXTENSION,
+    });
 }
 
 // LookAt Finds
