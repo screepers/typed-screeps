@@ -8,10 +8,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 - Add type inference for params in filter callbacks ([#221](https://github.com/screepers/typed-screeps/pull/221))
-- Add missing MARKET_FEE constant ([#213](https://github.com/screepers/typed-screeps/pull/213))
-- Add CommodityTypes type and CommidityEntry interface ([#212](https://github.com/screepers/typed-screeps/pull/212))
-- Update Game.structures type to OwnedStructure ([#211](https://github.com/screepers/typed-screeps/pull/211))
-- Update ConcreteStructure syntax to use map instead of conditional chain ([#209](https://github.com/screepers/typed-screeps/pull/209))
+- Add missing `MARKET_FEE` constant ([#213](https://github.com/screepers/typed-screeps/pull/213))
+- Add `CommodityTypes` type and `CommidityEntry` interface ([#212](https://github.com/screepers/typed-screeps/pull/212))
+- Update `PathFinder.CostMatrix` to be `CostMatrixConstructor` to separate static methods from `CostMatrix`. ([#214](https://github.com/screepers/typed-screeps/pull/214))
+- Update `LOOK_STRUCTURES` return type to `AnyStructure` ([#217](https://github.com/screepers/typed-screeps/pull/217))
+- Update `Game.structures` type to `OwnedStructure` ([#211](https://github.com/screepers/typed-screeps/pull/211))
+- Update `ConcreteStructure` syntax to use map instead of conditional chain ([#209](https://github.com/screepers/typed-screeps/pull/209))
 
 ## [3.3.0] - 2022-04-18
 

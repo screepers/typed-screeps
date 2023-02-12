@@ -1,3 +1,4 @@
+// Type definitions for Screeps 3.3.0
 // Project: https://github.com/screeps/screeps
 // Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
 //                 Nhan Ho <https://github.com/NhanHo>
@@ -3269,9 +3270,9 @@ declare const Nuke: NukeConstructor;
  */
 interface PathFinder {
     /**
-     * Container for custom navigation cost data.
+     * Creates a new CostMatrix containing 0's for all positions.
      */
-    CostMatrix: CostMatrix;
+    CostMatrix: CostMatrixConstructor;
 
     /**
      * Find an optimal path between origin and goal.
@@ -3375,14 +3376,20 @@ interface PathFinderOpts {
     roomCallback?(roomName: string): boolean | CostMatrix;
 }
 
+interface CostMatrixConstructor extends _Constructor<CostMatrix> {
+    new(): CostMatrix;
+    
+    /**
+     * Static method which deserializes a new CostMatrix using the return value of serialize.
+     * @param val Whatever serialize returned
+     */
+    deserialize(val: number[]): CostMatrix;
+}
+
 /**
  * Container for custom navigation cost data.
  */
 interface CostMatrix {
-    /**
-     * Creates a new CostMatrix containing 0's for all positions.
-     */
-    new (): CostMatrix;
     /**
      * Set the cost of a position in this CostMatrix.
      * @param x X position in the room.
@@ -3404,11 +3411,6 @@ interface CostMatrix {
      * Returns a compact representation of this CostMatrix which can be stored via JSON.stringify.
      */
     serialize(): number[];
-    /**
-     * Static method which deserializes a new CostMatrix using the return value of serialize.
-     * @param val Whatever serialize returned
-     */
-    deserialize(val: number[]): CostMatrix;
 }
 
 declare const PathFinder: PathFinder;
