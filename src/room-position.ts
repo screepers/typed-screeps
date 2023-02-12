@@ -75,7 +75,9 @@ interface RoomPosition {
      */
     findClosestByPath<T extends _HasRoomPosition | RoomPosition>(
         objects: T[],
-        opts?: FindPathOpts & { filter?: ((object: T) => boolean) | FilterObject | string; algorithm?: FindClosestByPathAlgorithm },
+        opts?: FindPathOpts & { filter?: ((object: T, index: number, collection: T[]) => boolean) | FilterObject | string } & {
+            algorithm?: FindClosestByPathAlgorithm;
+        },
     ): T | null;
     /**
      * Find the object with the shortest linear distance from the given position.
@@ -92,7 +94,10 @@ interface RoomPosition {
      * @param objects An array of RoomPositions or objects with a RoomPosition.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: { filter: any | string }): T | null;
+    findClosestByRange<T extends _HasRoomPosition | RoomPosition>(
+        objects: T[],
+        opts?: { filter?: ((object: T, index: number, collection: T[]) => boolean) | FilterObject | string },
+    ): T | null;
     /**
      * Find all objects in the specified linear range.
      * @param type Any of the FIND_* constants.
@@ -111,7 +116,11 @@ interface RoomPosition {
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], range: number, opts?: { filter?: any | string }): T[];
+    findInRange<T extends _HasRoomPosition | RoomPosition>(
+        objects: T[],
+        range: number,
+        opts?: { filter?: ((object: T, index: number, collection: T[]) => boolean) | FilterObject | string },
+    ): T[];
     /**
      * Find an optimal path to the specified position using A* search algorithm.
      *

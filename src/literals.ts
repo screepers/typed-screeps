@@ -124,7 +124,9 @@ type FIND_RUINS = 123;
 interface FilterOptions<T extends FindConstant, S extends FindTypes[T] = FindTypes[T]> {
     filter: FilterFunction<FindTypes[T], S> | FilterObject | string;
 }
-type FilterFunction<T, S extends T> = (object: T) => object is S;
+
+// We do not need to mark params as optional, because this is used for callback functions, whose params are always optional
+type FilterFunction<T, S extends T> = (object: T, index: number, collection: T[]) => object is S;
 interface FilterObject {
     [key: string]: any;
 }
