@@ -112,6 +112,12 @@ interface PathFinderOpts {
 
 interface CostMatrixConstructor extends _Constructor<CostMatrix> {
     new(): CostMatrix;
+    
+    /**
+     * Static method which deserializes a new CostMatrix using the return value of serialize.
+     * @param val Whatever serialize returned
+     */
+    deserialize(val: number[]): CostMatrix;
 }
 
 /**
@@ -139,11 +145,6 @@ interface CostMatrix {
      * Returns a compact representation of this CostMatrix which can be stored via JSON.stringify.
      */
     serialize(): number[];
-    /**
-     * Static method which deserializes a new CostMatrix using the return value of serialize.
-     * @param val Whatever serialize returned
-     */
-    deserialize(val: number[]): CostMatrix;
 }
 
 declare const PathFinder: PathFinder;
