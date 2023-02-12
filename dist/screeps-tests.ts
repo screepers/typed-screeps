@@ -483,6 +483,14 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     const pos = ret.path[0];
     pfCreep.move(pfCreep.pos.getDirectionTo(pos));
+    
+    // CostMatrix Creation
+    const costs = new PathFinder.CostMatrix;
+    costs.set(20, 20, 42);
+    
+    // Serialization
+    const toStoreInMemory = costs.serialize();
+    const costsFromMemory = PathFinder.CostMatrix.deserialize([]);
 }
 
 // RawMemory
