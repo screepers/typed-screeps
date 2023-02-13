@@ -761,7 +761,7 @@ function resources(o: GenericStore): ResourceConstant[] {
         tower?.attack(creep);
     }
     {
-        let towers = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+        let tower = creep.pos.findClosestByRange(FIND_STRUCTURES, {
             filter: isStructureType(STRUCTURE_TOWER),
         });
         tower?.attack(creep);
@@ -780,7 +780,7 @@ function resources(o: GenericStore): ResourceConstant[] {
         tower?.attack(creep);
     }
     {
-        let towers = creep.pos.findClosestByRange([] as AnyStructure[], {
+        let tower = creep.pos.findClosestByRange([] as AnyStructure[], {
             filter: isStructureType(STRUCTURE_TOWER),
         });
         tower?.attack(creep);
