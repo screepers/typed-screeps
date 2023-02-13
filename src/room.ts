@@ -146,12 +146,12 @@ interface Room {
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
-    find<K extends FindConstant, S extends FindTypes[K], C extends S>(type: K, opts?: FilterOptionsNarrowing<S, C>): C[];
-    find<K extends FindConstant, S extends FindTypes[K] = FindTypes[K]>(type: K, opts?: FilterOptions<FindTypes[K]>): S[];
-    find<S extends AnyStructure>(
+    find<K extends FindConstant, T extends FindTypes[K], S extends T>(type: K, opts?: PredicateFilterOptions<T, S>): S[];
+    find<K extends FindConstant, T extends FindTypes[K] = FindTypes[K]>(type: K, opts?: FilterOptions<FindTypes[K]>): T[];
+    find<T extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
         opts?: FilterOptions<AnyStructure>,
-    ): S[];
+    ): T[];
     /**
      * Find the exit direction en route to another room.
      * @param room Another room name or room object.
