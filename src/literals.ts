@@ -122,7 +122,7 @@ type FIND_RUINS = 123;
 // Filter Options
 
 interface FilterOptionsNarrowing<T, S extends T> {
-    filter: FilterFunctionNarrowing<T, S> | FilterObject | string;
+    filter: FilterFunctionNarrowing<T, S>;
 }
 interface FilterOptions<T> {
     filter: FilterFunction<T> | FilterObject | string;
