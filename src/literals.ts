@@ -121,12 +121,15 @@ type FIND_RUINS = 123;
 
 // Filter Options
 
-interface FilterOptions<T extends FindConstant, S extends FindTypes[T] = FindTypes[T]> {
-    filter: FilterFunction<FindTypes[T], S> | FilterObject | string;
+interface FilterOptionsNarrowing<T, S extends T> {
+    filter: FilterFunctionNarrowing<T, S> | FilterObject | string;
+}
+interface FilterOptions<T> {
+    filter: FilterFunction<T> | FilterObject | string;
 }
 
-// We do not need to mark params as optional, because this is used for callback functions, whose params are always optional
-type FilterFunction<T, S extends T> = (object: T, index: number, collection: T[]) => object is S;
+type FilterFunctionNarrowing<T, S extends T> = (object: T, index: number, collection: T[]) => object is S;
+type FilterFunction<T> = (object: T, index: number, collection: T[]) => unknown;
 interface FilterObject {
     [key: string]: any;
 }
