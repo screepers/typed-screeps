@@ -2591,65 +2591,65 @@ type EventDestroyType = "creep" | StructureConstant;
 
 type EventItem =
     | {
-          event: EVENT_ATTACK;
-          objectId: string;
-          data: EventData[EVENT_ATTACK];
-      }
+        event: EVENT_ATTACK;
+        objectId: string;
+        data: EventData[EVENT_ATTACK];
+    }
     | {
-          event: EVENT_OBJECT_DESTROYED;
-          objectId: string;
-          data: EventData[EVENT_OBJECT_DESTROYED];
-      }
+        event: EVENT_OBJECT_DESTROYED;
+        objectId: string;
+        data: EventData[EVENT_OBJECT_DESTROYED];
+    }
     | {
-          event: EVENT_ATTACK_CONTROLLER;
-          objectId: string;
-          data: EventData[EVENT_ATTACK_CONTROLLER];
-      }
+        event: EVENT_ATTACK_CONTROLLER;
+        objectId: string;
+        data: EventData[EVENT_ATTACK_CONTROLLER];
+    }
     | {
-          event: EVENT_BUILD;
-          objectId: string;
-          data: EventData[EVENT_BUILD];
-      }
+        event: EVENT_BUILD;
+        objectId: string;
+        data: EventData[EVENT_BUILD];
+    }
     | {
-          event: EVENT_HARVEST;
-          objectId: string;
-          data: EventData[EVENT_HARVEST];
-      }
+        event: EVENT_HARVEST;
+        objectId: string;
+        data: EventData[EVENT_HARVEST];
+    }
     | {
-          event: EVENT_HEAL;
-          objectId: string;
-          data: EventData[EVENT_HEAL];
-      }
+        event: EVENT_HEAL;
+        objectId: string;
+        data: EventData[EVENT_HEAL];
+    }
     | {
-          event: EVENT_REPAIR;
-          objectId: string;
-          data: EventData[EVENT_REPAIR];
-      }
+        event: EVENT_REPAIR;
+        objectId: string;
+        data: EventData[EVENT_REPAIR];
+    }
     | {
-          event: EVENT_RESERVE_CONTROLLER;
-          objectId: string;
-          data: EventData[EVENT_RESERVE_CONTROLLER];
-      }
+        event: EVENT_RESERVE_CONTROLLER;
+        objectId: string;
+        data: EventData[EVENT_RESERVE_CONTROLLER];
+    }
     | {
-          event: EVENT_UPGRADE_CONTROLLER;
-          objectId: string;
-          data: EventData[EVENT_UPGRADE_CONTROLLER];
-      }
+        event: EVENT_UPGRADE_CONTROLLER;
+        objectId: string;
+        data: EventData[EVENT_UPGRADE_CONTROLLER];
+    }
     | {
-          event: EVENT_EXIT;
-          objectId: string;
-          data: EventData[EVENT_EXIT];
-      }
+        event: EVENT_EXIT;
+        objectId: string;
+        data: EventData[EVENT_EXIT];
+    }
     | {
-          event: EVENT_POWER;
-          objectId: string;
-          data: EventData[EVENT_POWER];
-      }
+        event: EVENT_POWER;
+        objectId: string;
+        data: EventData[EVENT_POWER];
+    }
     | {
-          event: EVENT_TRANSFER;
-          objectId: string;
-          data: EventData[EVENT_TRANSFER];
-      };
+        event: EVENT_TRANSFER;
+        objectId: string;
+        data: EventData[EVENT_TRANSFER];
+    };
 
 interface EventData {
     [EVENT_ATTACK]: {
@@ -3883,14 +3883,18 @@ interface RoomPosition {
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      * @returns An instance of a RoomObject.
      */
+    findClosestByPath<K extends FindConstant, S extends FindTypes[K], C extends S>(
+        type: K,
+        opts?: FindPathOpts & Partial<FilterOptionsNarrowing<S, C>> & { algorithm?: FindClosestByPathAlgorithm },
+    ): C | null;
     findClosestByPath<K extends FindConstant, S extends FindTypes[K] = FindTypes[K]>(
         type: K,
-        opts?: FindPathOpts & Partial<FilterOptions<S>> & { algorithm?: FindClosestByPathAlgorithm },
+        opts?: FindPathOpts & Partial<FilterOptions<FindTypes[K]>> & { algorithm?: FindClosestByPathAlgorithm },
     ): S | null;
-    findClosestByPath<S extends AnyStructure>(
+    findClosestByPath<T extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FindPathOpts & Partial<FilterOptions<S>> & { algorithm?: FindClosestByPathAlgorithm },
-    ): S | null;
+        opts?: FindPathOpts & Partial<FilterOptions<AnyStructure>> & { algorithm?: FindClosestByPathAlgorithm },
+    ): T | null;
     /**
      * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
      * @param objects An array of RoomPositions or objects with a RoomPosition
@@ -3899,50 +3903,59 @@ interface RoomPosition {
      */
     findClosestByPath<T extends _HasRoomPosition | RoomPosition, S extends T>(
         objects: T[],
-        opts?: FindPathOpts & Partial<FilterOptionsNarrowing<T, S>> & {
-            algorithm?: FindClosestByPathAlgorithm;
-        },
+        opts?: FindPathOpts &
+            Partial<FilterOptionsNarrowing<T, S>> & {
+                algorithm?: FindClosestByPathAlgorithm;
+            },
     ): S | null;
     findClosestByPath<T extends _HasRoomPosition | RoomPosition>(
         objects: T[],
-        opts?: FindPathOpts & Partial<FilterOptions<T>> & {
-            algorithm?: FindClosestByPathAlgorithm;
-        },
+        opts?: FindPathOpts &
+            Partial<FilterOptions<T>> & {
+                algorithm?: FindClosestByPathAlgorithm;
+            },
     ): T | null;
     /**
      * Find the object with the shortest linear distance from the given position.
      * @param type Any of the FIND_* constants.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<K extends FindConstant, S extends FindTypes[K] = FindTypes[K]>(type: K, opts?: FilterOptions<S>): S | null;
+    findClosestByRange<K extends FindConstant, S extends FindTypes[K], C extends S>(type: K, opts?: FilterOptionsNarrowing<S, C>): C | null;
+    findClosestByRange<K extends FindConstant, S extends FindTypes[K] = FindTypes[K]>(
+        type: K,
+        opts?: FilterOptions<FindTypes[K]>,
+    ): S | null;
     findClosestByRange<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FilterOptions<S>,
+        opts?: FilterOptions<AnyStructure>,
     ): S | null;
     /**
      * Find the object with the shortest linear distance from the given position.
      * @param objects An array of RoomPositions or objects with a RoomPosition.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<T extends _HasRoomPosition | RoomPosition, S extends T>(
-        objects: T[],
-        opts?: FilterOptionsNarrowing<T, S>,
-    ): S | null;
-    findClosestByRange<T extends _HasRoomPosition | RoomPosition>(
-        objects: T[],
-        opts?: FilterOptions<T>,
-    ): T | null;
+    findClosestByRange<T extends _HasRoomPosition | RoomPosition, S extends T>(objects: T[], opts?: FilterOptionsNarrowing<T, S>): S | null;
+    findClosestByRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: FilterOptions<T>): T | null;
     /**
      * Find all objects in the specified linear range.
      * @param type Any of the FIND_* constants.
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<K extends FindConstant, S extends FindTypes[K] = FindTypes[K]>(type: K, range: number, opts?: FilterOptions<S>): S[];
+    findInRange<K extends FindConstant, S extends FindTypes[K], C extends S>(
+        type: K,
+        range: number,
+        opts?: FilterOptionsNarrowing<S, C>,
+    ): C[];
+    findInRange<K extends FindConstant, S extends FindTypes[K] = FindTypes[K]>(
+        type: K,
+        range: number,
+        opts?: FilterOptions<FindTypes[K]>,
+    ): S[];
     findInRange<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
         range: number,
-        opts?: FilterOptions<S>,
+        opts?: FilterOptions<AnyStructure>,
     ): S[];
     /**
      * Find all objects in the specified linear range.
@@ -3954,12 +3967,8 @@ interface RoomPosition {
         objects: T[],
         range: number,
         opts?: FilterOptionsNarrowing<T, S>,
-    ): T[];
-    findInRange<T extends _HasRoomPosition | RoomPosition>(
-        objects: T[],
-        range: number,
-        opts?: FilterOptions<T>,
-    ): T[];
+    ): S[];
+    findInRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], range: number, opts?: FilterOptions<T>): T[];
     /**
      * Find an optimal path to the specified position using A* search algorithm.
      *
@@ -4433,11 +4442,11 @@ interface Room {
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
-    find<K extends FindConstant, S extends FindTypes[K], C extends S>(type: K, opts?: FilterOptionsNarrowing<S, C>): S[];
-    find<K extends FindConstant, S extends FindTypes[K] = FindTypes[K]>(type: K, opts?: FilterOptions<S>): S[];
+    find<K extends FindConstant, S extends FindTypes[K], C extends S>(type: K, opts?: FilterOptionsNarrowing<S, C>): C[];
+    find<K extends FindConstant, S extends FindTypes[K] = FindTypes[K]>(type: K, opts?: FilterOptions<FindTypes[K]>): S[];
     find<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FilterOptions<S>,
+        opts?: FilterOptions<AnyStructure>,
     ): S[];
     /**
      * Find the exit direction en route to another room.
