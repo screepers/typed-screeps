@@ -483,11 +483,11 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     const pos = ret.path[0];
     pfCreep.move(pfCreep.pos.getDirectionTo(pos));
-    
+
     // CostMatrix Creation
-    const costs = new PathFinder.CostMatrix;
+    const costs = new PathFinder.CostMatrix();
     costs.set(20, 20, 42);
-    
+
     // Serialization
     const toStoreInMemory = costs.serialize();
     const costsFromMemory = PathFinder.CostMatrix.deserialize([]);
@@ -651,9 +651,9 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     // Generic type predicate filter
-    const isStructureType = <T extends StructureConstant, S extends ConcreteStructure<T>>(structureType: T) => {
-        return (structure: AnyStructure): structure is S => {
-            return structure.structureType === (structureType as string);
+    const isStructureType = <T extends StructureConstant>(structureType: T) => {
+        return (structure: AnyStructure): structure is ConcreteStructure<T> => {
+            return structure.structureType === structureType;
         };
     };
 
@@ -745,6 +745,46 @@ function resources(o: GenericStore): ResourceConstant[] {
             return true;
         },
     });
+
+    // `findInRange, findClosestByRange, findClosestByPath` should be able to accept filter callback's type predicate
+    // when using FIND_* constants
+    {
+        let towers = creep.pos.findInRange(FIND_STRUCTURES, 2, {
+            filter: isStructureType(STRUCTURE_TOWER),
+        });
+        towers[0].attack(creep);
+    }
+    {
+        let tower = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+            filter: isStructureType(STRUCTURE_TOWER),
+        });
+        tower?.attack(creep);
+    }
+    {
+        let towers = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+            filter: isStructureType(STRUCTURE_TOWER),
+        });
+        tower?.attack(creep);
+    }
+    // when pass in an array of room objects
+    {
+        let towers = creep.pos.findInRange([] as AnyStructure[], 2, {
+            filter: isStructureType(STRUCTURE_TOWER),
+        });
+        towers[0].attack(creep);
+    }
+    {
+        let tower = creep.pos.findClosestByPath([] as AnyStructure[], {
+            filter: isStructureType(STRUCTURE_TOWER),
+        });
+        tower?.attack(creep);
+    }
+    {
+        let towers = creep.pos.findClosestByRange([] as AnyStructure[], {
+            filter: isStructureType(STRUCTURE_TOWER),
+        });
+        tower?.attack(creep);
+    }
 }
 
 // LookAt Finds
