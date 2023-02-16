@@ -749,38 +749,38 @@ function resources(o: GenericStore): ResourceConstant[] {
     // `findInRange, findClosestByRange, findClosestByPath` should be able to accept filter callback's type predicate
     // when using FIND_* constants
     {
-        let towers = creep.pos.findInRange(FIND_STRUCTURES, 2, {
+        const towers = creep.pos.findInRange(FIND_STRUCTURES, 2, {
             filter: isStructureType(STRUCTURE_TOWER),
         });
         towers[0].attack(creep);
     }
     {
-        let tower = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+        const tower = creep.pos.findClosestByPath(FIND_STRUCTURES, {
             filter: isStructureType(STRUCTURE_TOWER),
         });
         tower?.attack(creep);
     }
     {
-        let tower = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+        const tower = creep.pos.findClosestByRange(FIND_STRUCTURES, {
             filter: isStructureType(STRUCTURE_TOWER),
         });
         tower?.attack(creep);
     }
     // when pass in an array of room objects
     {
-        let towers = creep.pos.findInRange([] as AnyStructure[], 2, {
+        const towers = creep.pos.findInRange([] as AnyStructure[], 2, {
             filter: isStructureType(STRUCTURE_TOWER),
         });
         towers[0].attack(creep);
     }
     {
-        let tower = creep.pos.findClosestByPath([] as AnyStructure[], {
+        const tower = creep.pos.findClosestByPath([] as AnyStructure[], {
             filter: isStructureType(STRUCTURE_TOWER),
         });
         tower?.attack(creep);
     }
     {
-        let tower = creep.pos.findClosestByRange([] as AnyStructure[], {
+        const tower = creep.pos.findClosestByRange([] as AnyStructure[], {
             filter: isStructureType(STRUCTURE_TOWER),
         });
         tower?.attack(creep);
