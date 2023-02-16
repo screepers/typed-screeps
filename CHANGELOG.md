@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [3.3.1] - 2023-02-16
 
+### Updated
+
+- Update `ConcreteStructure` syntax to use map instead of conditional chain ([#209](https://github.com/screepers/typed-screeps/pull/209))
+
 ### Fixed
 
 - Fix: brings removed `Game.getObjectById(id: string)` back to avoid breaking changes. ([#226](https://github.com/screepers/typed-screeps/pull/226))
