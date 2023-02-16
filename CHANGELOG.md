@@ -7,9 +7,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [3.3.1] - 2023-02-16
+
+### Fixed
+
+- Fix: brings removed `Game.getObjectById(id: string)` back to avoid breaking changes. ([#226](https://github.com/screepers/typed-screeps/pull/226))
+
+## [3.3.0] - 2022-04-18
+
+### Updated
+
 - Updates `ticksToRegeneration` to be optional in `Minerals` ([#204](https://github.com/screepers/typed-screeps/pull/204))
 - Updates `level` to be optional in `StructureFactory` ([#205](https://github.com/screepers/typed-screeps/pull/205))
 - Updates `Id` type to only be used on types with an `id` property ([#207](https://github.com/screepers/typed-screeps/pull/207))
+
+### Removed
+
 - Removes deprecated `Game.getObjectById(id: string)` function. Use version with `Id<T>` typed ids. ([#207](https://github.com/screepers/typed-screeps/pull/207))
 
 ## [3.2.4] - 2021-08-21
@@ -356,7 +369,9 @@ This version was pushed by DefinitelyTyped maintainers, not present in this repo
 
 - Initial public `npm` release.
 
-[unreleased]: https://github.com/screepers/typed-screeps/compare/v3.2.4...HEAD
+[unreleased]: https://github.com/screepers/typed-screeps/compare/v3.3.1...HEAD
+[3.3.1]: https://github.com/screepers/typed-screeps/compare/v3.3.0...v3.3.1
+[3.3.0]: https://github.com/screepers/typed-screeps/compare/v3.2.4...v3.3.0
 [3.2.4]: https://github.com/screepers/typed-screeps/compare/v3.2.2...v3.2.4
 [3.2.2]: https://github.com/screepers/typed-screeps/compare/v3.2.1...v3.2.2
 [3.2.1]: https://github.com/screepers/typed-screeps/compare/v3.2.0...v3.2.1
