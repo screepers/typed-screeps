@@ -1571,15 +1571,6 @@ interface Game {
     getObjectById<T extends _HasId>(id: Id<T>): T | null;
 
     /**
-     * Get an object with the specified unique ID. It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.
-     * @param id The unique identifier.
-     * @returns an object instance or null if it cannot be found.
-     * @deprecated Use Id<T>, instead of strings, to increase type safety
-     */
-    // tslint:disable-next-line:unified-signatures
-    getObjectById<T extends _HasId>(id: string): T | null;
-
-    /**
      * Send a custom message at your profile email.
      *
      * This way, you can set up notifications to yourself on any occasion within the game.
@@ -3386,8 +3377,8 @@ interface PathFinderOpts {
 }
 
 interface CostMatrixConstructor extends _Constructor<CostMatrix> {
-    new (): CostMatrix;
-
+    new(): CostMatrix;
+    
     /**
      * Static method which deserializes a new CostMatrix using the return value of serialize.
      * @param val Whatever serialize returned
