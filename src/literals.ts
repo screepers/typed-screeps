@@ -121,8 +121,8 @@ type FIND_RUINS = 123;
 
 // Filter Options
 
-interface FilterOptions<T extends FindConstant, S extends FindTypes[T] = FindTypes[T]> {
-    filter: FilterFunction<FindTypes[T], S> | FilterObject | string;
+interface FilterOptions<T, S extends T> {
+    filter: FilterFunction<T, S> | FilterObject | string;
 }
 
 // We do not need to mark params as optional, because this is used for callback functions, whose params are always optional
