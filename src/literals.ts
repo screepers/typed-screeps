@@ -121,11 +121,8 @@ type FIND_RUINS = 123;
 
 // Filter Options
 
-interface PredicateFilterOptions<T, S extends T> {
-    filter: PredicateFilterFunction<T, S>;
-}
-interface FilterOptions<T> {
-    filter: FilterFunction<T> | FilterObject<T> | string;
+interface FilterOptions<T, S extends T = T> {
+    filter: PredicateFilterFunction<T, S> | FilterFunction<T> | FilterObject<T> | string;
 }
 
 type PredicateFilterFunction<T, S extends T> = (object: T, index: number, collection: T[]) => object is S;

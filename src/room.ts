@@ -146,7 +146,7 @@ interface Room {
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
-    find<K extends FindConstant, T extends FindTypes[K], S extends T>(type: K, opts?: PredicateFilterOptions<T, S>): S[];
+    find<K extends FindConstant, T extends FindTypes[K], S extends T>(type: K, opts?: FilterOptions<T, S>): S[];
     find<K extends FindConstant, T extends FindTypes[K] = FindTypes[K]>(type: K, opts?: FilterOptions<FindTypes[K]>): T[];
     find<T extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
