@@ -125,7 +125,7 @@ interface PredicateFilterOptions<T, S extends T> {
     filter: PredicateFilterFunction<T, S>;
 }
 interface FilterOptions<T> {
-    filter: FilterFunction<T> | FilterObject<T> | string;
+    filter: FilterFunction<T> | FilterObject<T> | string; // TODO: string should be a path of T's property, like 'my', 'store.energy'
 }
 
 type PredicateFilterFunction<T, S extends T> = (object: T, index: number, collection: T[]) => object is S;
