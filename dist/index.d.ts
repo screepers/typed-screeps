@@ -2178,14 +2178,14 @@ interface PredicateFilterOptions<T, S extends T> {
     filter: PredicateFilterFunction<T, S>;
 }
 interface FilterOptions<T> {
-    filter: FilterFunction<T> | FilterObject | string;
+    filter: FilterFunction<T> | FilterObject<T> | string;
 }
 
 type PredicateFilterFunction<T, S extends T> = (object: T, index: number, collection: T[]) => object is S;
 type FilterFunction<T> = (object: T, index: number, collection: T[]) => unknown;
-interface FilterObject {
-    [key: string]: any;
-}
+type FilterObject<T> = DeepPartial<T>;
+
+type DeepPartial<T> = T extends object ? { [P in keyof T]?: DeepPartial<T[P]> } : T;
 
 // Body Part Constants
 
@@ -2591,65 +2591,65 @@ type EventDestroyType = "creep" | StructureConstant;
 
 type EventItem =
     | {
-          event: EVENT_ATTACK;
-          objectId: string;
-          data: EventData[EVENT_ATTACK];
-      }
+        event: EVENT_ATTACK;
+        objectId: string;
+        data: EventData[EVENT_ATTACK];
+    }
     | {
-          event: EVENT_OBJECT_DESTROYED;
-          objectId: string;
-          data: EventData[EVENT_OBJECT_DESTROYED];
-      }
+        event: EVENT_OBJECT_DESTROYED;
+        objectId: string;
+        data: EventData[EVENT_OBJECT_DESTROYED];
+    }
     | {
-          event: EVENT_ATTACK_CONTROLLER;
-          objectId: string;
-          data: EventData[EVENT_ATTACK_CONTROLLER];
-      }
+        event: EVENT_ATTACK_CONTROLLER;
+        objectId: string;
+        data: EventData[EVENT_ATTACK_CONTROLLER];
+    }
     | {
-          event: EVENT_BUILD;
-          objectId: string;
-          data: EventData[EVENT_BUILD];
-      }
+        event: EVENT_BUILD;
+        objectId: string;
+        data: EventData[EVENT_BUILD];
+    }
     | {
-          event: EVENT_HARVEST;
-          objectId: string;
-          data: EventData[EVENT_HARVEST];
-      }
+        event: EVENT_HARVEST;
+        objectId: string;
+        data: EventData[EVENT_HARVEST];
+    }
     | {
-          event: EVENT_HEAL;
-          objectId: string;
-          data: EventData[EVENT_HEAL];
-      }
+        event: EVENT_HEAL;
+        objectId: string;
+        data: EventData[EVENT_HEAL];
+    }
     | {
-          event: EVENT_REPAIR;
-          objectId: string;
-          data: EventData[EVENT_REPAIR];
-      }
+        event: EVENT_REPAIR;
+        objectId: string;
+        data: EventData[EVENT_REPAIR];
+    }
     | {
-          event: EVENT_RESERVE_CONTROLLER;
-          objectId: string;
-          data: EventData[EVENT_RESERVE_CONTROLLER];
-      }
+        event: EVENT_RESERVE_CONTROLLER;
+        objectId: string;
+        data: EventData[EVENT_RESERVE_CONTROLLER];
+    }
     | {
-          event: EVENT_UPGRADE_CONTROLLER;
-          objectId: string;
-          data: EventData[EVENT_UPGRADE_CONTROLLER];
-      }
+        event: EVENT_UPGRADE_CONTROLLER;
+        objectId: string;
+        data: EventData[EVENT_UPGRADE_CONTROLLER];
+    }
     | {
-          event: EVENT_EXIT;
-          objectId: string;
-          data: EventData[EVENT_EXIT];
-      }
+        event: EVENT_EXIT;
+        objectId: string;
+        data: EventData[EVENT_EXIT];
+    }
     | {
-          event: EVENT_POWER;
-          objectId: string;
-          data: EventData[EVENT_POWER];
-      }
+        event: EVENT_POWER;
+        objectId: string;
+        data: EventData[EVENT_POWER];
+    }
     | {
-          event: EVENT_TRANSFER;
-          objectId: string;
-          data: EventData[EVENT_TRANSFER];
-      };
+        event: EVENT_TRANSFER;
+        objectId: string;
+        data: EventData[EVENT_TRANSFER];
+    };
 
 interface EventData {
     [EVENT_ATTACK]: {

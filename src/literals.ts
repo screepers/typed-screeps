@@ -125,14 +125,14 @@ interface PredicateFilterOptions<T, S extends T> {
     filter: PredicateFilterFunction<T, S>;
 }
 interface FilterOptions<T> {
-    filter: FilterFunction<T> | FilterObject | string;
+    filter: FilterFunction<T> | FilterObject<T> | string;
 }
 
 type PredicateFilterFunction<T, S extends T> = (object: T, index: number, collection: T[]) => object is S;
 type FilterFunction<T> = (object: T, index: number, collection: T[]) => unknown;
-interface FilterObject {
-    [key: string]: any;
-}
+type FilterObject<T> = DeepPartial<T>;
+
+type DeepPartial<T> = T extends object ? { [P in keyof T]?: DeepPartial<T[P]> } : T;
 
 // Body Part Constants
 
