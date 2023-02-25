@@ -61,7 +61,7 @@ interface RoomPosition {
      */
     findClosestByPath<K extends FindConstant, T extends FindTypes[K], S extends T>(
         type: K,
-        opts?: FindPathOpts & Partial<FilterOptions<T, S>> & { algorithm?: FindClosestByPathAlgorithm },
+        opts?: FindPathOpts & Partial<PredicateFilterOptions<T, S>> & { algorithm?: FindClosestByPathAlgorithm },
     ): S | null;
     findClosestByPath<K extends FindConstant, T extends FindTypes[K] = FindTypes[K]>(
         type: K,
@@ -80,7 +80,7 @@ interface RoomPosition {
     findClosestByPath<T extends _HasRoomPosition | RoomPosition, S extends T>(
         objects: T[],
         opts?: FindPathOpts &
-            Partial<FilterOptions<T, S>> & {
+            Partial<PredicateFilterOptions<T, S>> & {
                 algorithm?: FindClosestByPathAlgorithm;
             },
     ): S | null;
@@ -96,7 +96,7 @@ interface RoomPosition {
      * @param type Any of the FIND_* constants.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<K extends FindConstant, T extends FindTypes[K], S extends T>(type: K, opts?: FilterOptions<T, S>): S | null;
+    findClosestByRange<K extends FindConstant, T extends FindTypes[K], S extends T>(type: K, opts?: PredicateFilterOptions<T, S>): S | null;
     findClosestByRange<K extends FindConstant, T extends FindTypes[K] = FindTypes[K]>(
         type: K,
         opts?: FilterOptions<FindTypes[K]>,
@@ -110,7 +110,7 @@ interface RoomPosition {
      * @param objects An array of RoomPositions or objects with a RoomPosition.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<T extends _HasRoomPosition | RoomPosition, S extends T>(objects: T[], opts?: FilterOptions<T, S>): S | null;
+    findClosestByRange<T extends _HasRoomPosition | RoomPosition, S extends T>(objects: T[], opts?: PredicateFilterOptions<T, S>): S | null;
     findClosestByRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: FilterOptions<T>): T | null;
     /**
      * Find all objects in the specified linear range.
@@ -118,7 +118,11 @@ interface RoomPosition {
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<K extends FindConstant, T extends FindTypes[K], S extends T>(type: K, range: number, opts?: FilterOptions<T, S>): S[];
+    findInRange<K extends FindConstant, T extends FindTypes[K], S extends T>(
+        type: K,
+        range: number,
+        opts?: PredicateFilterOptions<T, S>,
+    ): S[];
     findInRange<K extends FindConstant, T extends FindTypes[K] = FindTypes[K]>(
         type: K,
         range: number,
@@ -135,7 +139,11 @@ interface RoomPosition {
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<T extends _HasRoomPosition | RoomPosition, S extends T>(objects: T[], range: number, opts?: FilterOptions<T, S>): S[];
+    findInRange<T extends _HasRoomPosition | RoomPosition, S extends T>(
+        objects: T[],
+        range: number,
+        opts?: PredicateFilterOptions<T, S>,
+    ): S[];
     findInRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], range: number, opts?: FilterOptions<T>): T[];
     /**
      * Find an optimal path to the specified position using A* search algorithm.
