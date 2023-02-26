@@ -786,6 +786,103 @@ function resources(o: GenericStore): ResourceConstant[] {
         });
         tower?.attack(creep);
     }
+
+    // Lodash's object style filter predicate
+    // Currently do not support narrowing.
+    {
+        // $ExpectType AnyStructure[]
+        const towers = creep.pos.findInRange(FIND_STRUCTURES, 2, {
+            filter: { structureType: STRUCTURE_TOWER },
+        });
+    }
+    {
+        // $ExpectType AnyStructure | null
+        const tower = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+            filter: { structureType: STRUCTURE_TOWER },
+        });
+    }
+    {
+        // $ExpectType AnyStructure | null
+        const tower = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+            filter: { structureType: STRUCTURE_TOWER },
+        });
+    }
+
+    // should throw error if the property is not exist in the object
+    {
+        /// @ts-expect-error
+        creep.pos.findInRange(FIND_STRUCTURES, 2, {
+            filter: { foo: "bar" },
+        });
+    }
+    // should throw error if type of values are not match
+    {
+        /// @ts-expect-error
+        creep.pos.findInRange(FIND_STRUCTURES, 2, {
+            filter: { structureType: "foobar" },
+        });
+
+        /// @ts-expect-error
+        creep.pos.findInRange(FIND_STRUCTURES, 2, {
+            filter: { structureType: 123 },
+        });
+    }
+
+    // should support deep property
+    {
+        // $ExpectType AnyOwnedStructure | null
+        const tower1 = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+            filter: { owner: { username: "foo" } },
+        });
+
+        /// @ts-expect-error
+        const tower2 = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+            filter: { owner: { yourname: "Mitsuha" } },
+        });
+    }
+
+    {
+        // Lodash's path string style filter predicate
+        // Currently do not support narrowing, and maybe never will.
+
+        // $ExpectType AnyStructure[]
+        const towers = creep.pos.findInRange(FIND_STRUCTURES, 2, {
+            filter: "my",
+        });
+    }
+
+    // composed filter
+    function randomPicker<T>(array: T[]): T {
+        return array[Math.floor(Math.random() * array.length)];
+    }
+
+    // should not be narrowing down if no type predicate callback is passed in
+    {
+        // $ExpectType AnyStructure | null
+        const result = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+            filter: randomPicker([
+                (s: AnyStructure) => s.structureType === STRUCTURE_EXTENSION,
+                { structureType: STRUCTURE_CONTAINER },
+                "my",
+            ]),
+        });
+    }
+
+    // should be narrowing down if only type predicate callback is passed in
+    {
+        // $ExpectType StructureTower | null
+        const result1 = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+            filter: randomPicker([isStructureType(STRUCTURE_TOWER)]),
+        });
+    }
+
+    // should not be narrowing down if both type predicate callback and other filter is passed in
+    {
+        // $ExpectType AnyStructure | null
+        const result = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+            filter: randomPicker([isStructureType(STRUCTURE_TOWER), (s: AnyStructure) => s.structureType === STRUCTURE_EXTENSION]),
+        });
+    }
 }
 
 // LookAt Finds
