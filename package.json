@@ -29,7 +29,7 @@
   "author": "Marko Sulamagi <marko.sulamagi@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@definitelytyped/dtslint": "^0.0.111",
+    "@definitelytyped/dtslint": "^0.0.147",
     "copy": "^0.3.2",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.8",
