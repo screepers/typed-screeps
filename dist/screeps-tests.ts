@@ -786,6 +786,53 @@ function resources(o: GenericStore): ResourceConstant[] {
         });
         tower?.attack(creep);
     }
+    // should not be narrowed without using type predicate
+    {
+        // @ts-expect-error
+        const towers: StructureTower[] = creep.pos.findInRange([] as AnyStructure[], 2, {
+            filter: (s) => s.structureType === STRUCTURE_TOWER,
+        });
+        towers[0].attack(creep);
+
+        // @ts-expect-error
+        const tower: StructureTower | null = creep.pos.findClosestByPath([] as AnyStructure[], {
+            filter: (s) => s.structureType === STRUCTURE_TOWER,
+        });
+        tower?.attack(creep);
+    }
+    // worse case, narrowing into incorrect type
+    // but it is on your own risk if you use `as` to cast the result
+    {
+        {
+            // @ts-expect-error
+            const towers: StructureTower[] = creep.pos.findInRange([] as AnyStructure[], 2, {
+                filter: (s) => s.structureType === STRUCTURE_EXTENSION,
+            });
+            towers[0].attack(creep);
+        }
+        {
+            // @ts-expect-error
+            const tower1: StructureTower | null = creep.pos.findClosestByPath([] as AnyStructure[], {
+                filter: (s) => s.structureType === STRUCTURE_EXTENSION,
+            });
+            tower1?.attack(creep);
+        }
+        {
+            // @ts-expect-error
+            const tower2: StructureTower | null = creep.pos.findClosestByRange([] as AnyStructure[], {
+                filter: (s) => s.structureType === STRUCTURE_SPAWN,
+            });
+            tower2?.attack(creep);
+        }
+        // using `as` on your own risk
+        {
+            // $ExpectType StructureTower[]
+            const towers: StructureTower[] = creep.pos.findInRange([] as AnyStructure[], 2, {
+                filter: (s) => s.structureType === STRUCTURE_EXTENSION,
+            }) as StructureTower[];
+            towers[0].attack(creep);
+        }
+    }
 
     // Lodash's object style filter predicate
     // Currently do not support narrowing.
