@@ -653,7 +653,8 @@ function resources(o: GenericStore): ResourceConstant[] {
     // Generic type predicate filter
     const isStructureType = <T extends StructureConstant>(structureType: T) => {
         return (structure: AnyStructure): structure is ConcreteStructure<T> => {
-            return structure.structureType === structureType;
+            // dtslint treats string literal as object, so we have to use this `as`
+            return structure.structureType === (structureType as string);
         };
     };
 
@@ -1138,7 +1139,9 @@ function atackPower(creep: Creep) {
 
 // Id
 {
-    const roomId = "" as Id<Room>; // $ExpectError
+    /// @ts-expect-error
+    const roomId = "" as Id<Room>;
     const creep = Game.getObjectById("" as Id<Creep>);
-    const foo = Game.getObjectById<StructureTower>("" as Id<Creep>); // $ExpectError
+    /// @ts-expect-error
+    const foo = Game.getObjectById<StructureTower>("" as Id<Creep>);
 }
