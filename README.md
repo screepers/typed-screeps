@@ -2,7 +2,7 @@
 
 > Strong TypeScript declarations for the game Screeps: World.
 
-[![Travis](https://img.shields.io/travis/screepers/typed-screeps.svg)](https://travis-ci.org/screepers/typed-screeps) [![npm](https://img.shields.io/npm/v/@types/screeps)](https://www.npmjs.com/package/@types/screeps)
+[![Github action](https://github.com/screepers/typed-screeps/actions/workflows/CI.yml/badge.svg)](https://github.com/screepers/typed-screeps/actions/workflows/CI.yml) [![npm](https://img.shields.io/npm/v/@types/screeps)](https://www.npmjs.com/package/@types/screeps)
 
 ## Installation
 
