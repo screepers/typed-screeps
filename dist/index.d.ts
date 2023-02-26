@@ -1,4 +1,4 @@
-// Type definitions for Screeps 3.3.0
+// Type definitions for Screeps 3.3.1
 // Project: https://github.com/screeps/screeps
 // Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
 //                 Nhan Ho <https://github.com/NhanHo>
@@ -8,6 +8,7 @@
 //                 Dominic Marcuse <https://github.com/dmarcuse>
 //                 Skyler Kehren <https://github.com/pyrodogg>
 //                 Kieran Carnegie <https://github.com/kotarou>
+//                 Mofeng <https://github.com/DiamondMofeng>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.6
 
