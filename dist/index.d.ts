@@ -2176,10 +2176,11 @@ type FIND_RUINS = 123;
 // Filter Options
 
 interface FilterOptions<T extends FindConstant, S extends FindTypes[T] = FindTypes[T]> {
-    filter: FilterFunction<FindTypes[T], S> | FilterObject<FindTypes[T]> | string;
+    filter: PredicateFilterFunction<FindTypes[T], S> | FilterFunction<FindTypes[T]> | FilterObject<FindTypes[T]> | string;
 }
 
-type FilterFunction<T, S extends T> = (object: T, index: number, collection: T[]) => object is S;
+type PredicateFilterFunction<T, S extends T> = (object: T, index: number, collection: T[]) => object is S;
+type FilterFunction<T> = (object: T, index: number, collection: T[]) => unknown;
 type FilterObject<T> = DeepPartial<T>;
 
 type DeepPartial<T> = T extends object ? { [P in keyof T]?: DeepPartial<T[P]> } : T;
