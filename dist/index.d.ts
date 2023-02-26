@@ -2176,7 +2176,7 @@ type FIND_RUINS = 123;
 // Filter Options
 
 interface FilterOptions<T extends FindConstant, S extends FindTypes[T] = FindTypes[T]> {
-    filter: PredicateFilterFunction<FindTypes[T], S> | FilterFunction<FindTypes[T]> | FilterObject<FindTypes[T]> | string;
+    filter?: PredicateFilterFunction<FindTypes[T], S> | FilterFunction<FindTypes[T]> | FilterObject<FindTypes[T]> | string;
 }
 
 type PredicateFilterFunction<T, S extends T> = (object: T, index: number, collection: T[]) => object is S;
