@@ -622,9 +622,9 @@ function resources(o: GenericStore): ResourceConstant[] {
     // All the params in filter callback should be automatically inferred
     room.find(FIND_STRUCTURES, {
         filter: (s, idx, array) => {
-            s.structureType === STRUCTURE_EXTENSION;
-            idx = idx + 1;
-            array.indexOf(s);
+            s; // $ExpectType AnyStructure
+            idx; // $ExpectType number
+            array; // $ExpectType AnyStructure[]
             return true;
         },
     });
@@ -640,6 +640,8 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     const tower = creep.pos.findClosestByPath<StructureTower>(FIND_HOSTILE_STRUCTURES, {
+        // ? s should be AnyOwnedStructure in the future
+        // $ExpectType (structure: AnyStructure) => boolean
         filter: (structure) => {
             return structure.structureType === STRUCTURE_TOWER;
         },
@@ -671,11 +673,14 @@ function resources(o: GenericStore): ResourceConstant[] {
     const creepAbove = creep.pos.findClosestByPath(
         creep.room.find(FIND_CREEPS).map((c) => c.pos),
         {
+            // $ExpectType (p: RoomPosition) => boolean
             filter: (p) => p.getDirectionTo(creep) === TOP,
         },
     );
 
     const rampart = creep.pos.findClosestByRange<StructureRampart>(FIND_HOSTILE_STRUCTURES, {
+        // ? s should be AnyOwnedStructure in the future
+        // $ExpectType (structure: AnyStructure) => boolean
         filter: (structure) => {
             return structure.structureType === STRUCTURE_RAMPART;
         },
@@ -689,6 +694,8 @@ function resources(o: GenericStore): ResourceConstant[] {
     hostileCreeps[0].saying;
 
     const labs = creep.pos.findInRange<StructureLab>(FIND_MY_STRUCTURES, 4, {
+        // ? s should be AnyOwnedStructure in the future
+        // $ExpectType (structure: AnyStructure) => boolean
         filter: (structure) => {
             return structure.structureType === STRUCTURE_LAB;
         },
@@ -698,50 +705,50 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     // Should be able to automatically infer the type of params in the filter function
     creep.pos.findClosestByPath(FIND_STRUCTURES, {
-        // s should be AnyStructure
+        // $ExpectType (s: AnyStructure) => boolean
         filter: (s) => s.structureType === STRUCTURE_EXTENSION,
     });
 
     creep.pos.findClosestByPath([] as AnyStructure[], {
-        // s should be AnyStructure
+        // $ExpectType (s: AnyStructure) => boolean
         filter: (s) => s.structureType === STRUCTURE_EXTENSION,
     });
 
     creep.pos.findClosestByRange(FIND_STRUCTURES, {
-        // s should be AnyStructure
+        // $ExpectType (s: AnyStructure) => boolean
         filter: (s) => s.structureType === STRUCTURE_EXTENSION,
     });
 
     creep.pos.findClosestByRange([] as AnyStructure[], {
-        // s should be AnyStructure
+        // $ExpectType (s: AnyStructure) => boolean
         filter: (s) => s.structureType === STRUCTURE_EXTENSION,
     });
 
     creep.pos.findInRange(FIND_STRUCTURES, 10, {
-        // s should be AnyStructure
+        // $ExpectType (s: AnyStructure) => boolean
         filter: (s) => s.structureType === STRUCTURE_EXTENSION,
     });
 
     creep.pos.findInRange([] as AnyStructure[], 10, {
-        // s should be AnyStructure
+        // $ExpectType (s: AnyStructure) => boolean
         filter: (s) => s.structureType === STRUCTURE_EXTENSION,
     });
 
     // All the params in filter callback should be automatically inferred
     creep.pos.findClosestByPath(FIND_STRUCTURES, {
         filter: (s, idx, array) => {
-            s.structureType;
-            idx = idx + 1;
-            array.indexOf(s);
+            s; // $ExpectType AnyStructure
+            idx; // $ExpectType number
+            array; // $ExpectType AnyStructure[]
             return true;
         },
     });
 
     creep.pos.findClosestByPath([] as AnyStructure[], {
         filter: (s, idx, array) => {
-            s.structureType;
-            idx = idx + 1;
-            array.indexOf(s);
+            s; // $ExpectType AnyStructure
+            idx; // $ExpectType number
+            array; // $ExpectType AnyStructure[]
             return true;
         },
     });
@@ -749,18 +756,21 @@ function resources(o: GenericStore): ResourceConstant[] {
     // `findInRange, findClosestByRange, findClosestByPath` should be able to accept filter callback's type predicate
     // when using FIND_* constants
     {
+        // $ExpectType StructureTower[]
         const towers = creep.pos.findInRange(FIND_STRUCTURES, 2, {
             filter: isStructureType(STRUCTURE_TOWER),
         });
         towers[0].attack(creep);
     }
     {
+        // $ExpectType StructureTower | null
         const tower = creep.pos.findClosestByPath(FIND_STRUCTURES, {
             filter: isStructureType(STRUCTURE_TOWER),
         });
         tower?.attack(creep);
     }
     {
+        // $ExpectType StructureTower | null
         const tower = creep.pos.findClosestByRange(FIND_STRUCTURES, {
             filter: isStructureType(STRUCTURE_TOWER),
         });
@@ -768,18 +778,21 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
     // when pass in an array of room objects
     {
+        // $ExpectType StructureTower[]
         const towers = creep.pos.findInRange([] as AnyStructure[], 2, {
             filter: isStructureType(STRUCTURE_TOWER),
         });
         towers[0].attack(creep);
     }
     {
+        // $ExpectType StructureTower | null
         const tower = creep.pos.findClosestByPath([] as AnyStructure[], {
             filter: isStructureType(STRUCTURE_TOWER),
         });
         tower?.attack(creep);
     }
     {
+        // $ExpectType StructureTower | null
         const tower = creep.pos.findClosestByRange([] as AnyStructure[], {
             filter: isStructureType(STRUCTURE_TOWER),
         });
@@ -884,9 +897,12 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     // test discriminated union using filter functions on find
+
+    // $ExpectType AnyStructure
     const from = Game.rooms.myRoom.find(FIND_STRUCTURES, {
         filter: (s) => (s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_STORAGE) && s.store.energy > 0,
     })[0];
+    // $ExpectType AnyOwnedStructure | null
     const to = from.pos.findClosestByPath(FIND_MY_STRUCTURES, {
         filter: (s) => (s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION) && s.energy < s.energyCapacity,
     });
