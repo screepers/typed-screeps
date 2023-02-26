@@ -810,19 +810,19 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     // should throw error if the property is not exist in the object
     {
-        /// @ts-expect-error
+        // @ts-expect-error
         creep.pos.findInRange(FIND_STRUCTURES, 2, {
             filter: { foo: "bar" },
         });
     }
     // should throw error if type of values are not match
     {
-        /// @ts-expect-error
+        // @ts-expect-error
         creep.pos.findInRange(FIND_STRUCTURES, 2, {
             filter: { structureType: "foobar" },
         });
 
-        /// @ts-expect-error
+        // @ts-expect-error
         creep.pos.findInRange(FIND_STRUCTURES, 2, {
             filter: { structureType: 123 },
         });
@@ -835,7 +835,7 @@ function resources(o: GenericStore): ResourceConstant[] {
             filter: { owner: { username: "foo" } },
         });
 
-        /// @ts-expect-error
+        // @ts-expect-error
         const tower2 = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
             filter: { owner: { yourname: "Mitsuha" } },
         });
@@ -1236,9 +1236,9 @@ function atackPower(creep: Creep) {
 
 // Id
 {
-    /// @ts-expect-error
+    // @ts-expect-error
     const roomId = "" as Id<Room>;
     const creep = Game.getObjectById("" as Id<Creep>);
-    /// @ts-expect-error
+    // @ts-expect-error
     const foo = Game.getObjectById<StructureTower>("" as Id<Creep>);
 }
