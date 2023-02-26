@@ -483,11 +483,11 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     const pos = ret.path[0];
     pfCreep.move(pfCreep.pos.getDirectionTo(pos));
-    
+
     // CostMatrix Creation
-    const costs = new PathFinder.CostMatrix;
+    const costs = new PathFinder.CostMatrix();
     costs.set(20, 20, 42);
-    
+
     // Serialization
     const toStoreInMemory = costs.serialize();
     const costsFromMemory = PathFinder.CostMatrix.deserialize([]);
@@ -1098,7 +1098,9 @@ function atackPower(creep: Creep) {
 
 // Id
 {
-    const roomId = "" as Id<Room>; // $ExpectError
+    /// @ts-expect-error
+    const roomId = "" as Id<Room>;
     const creep = Game.getObjectById("" as Id<Creep>);
-    const foo = Game.getObjectById<StructureTower>("" as Id<Creep>); // $ExpectError
+    /// @ts-expect-error
+    const foo = Game.getObjectById<StructureTower>("" as Id<Creep>);
 }

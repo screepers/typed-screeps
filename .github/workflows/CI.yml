@@ -28,6 +28,8 @@ jobs:
     - name: Lint
       run:  npm run lint:test
 
-    - name: Dtslint test
-      run:  npm run test
+    # this has been covered in the prepare script
+
+    # - name: Dtslint test
+    #   run:  npm run test
 
