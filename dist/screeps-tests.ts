@@ -798,6 +798,90 @@ function resources(o: GenericStore): ResourceConstant[] {
         });
         tower?.attack(creep);
     }
+
+    // Lodash's object style filter predicate
+    // Currently do not support narrowing.
+    {
+        // $ExpectType AnyStructure[]
+        const towers = room.find(FIND_STRUCTURES, {
+            filter: { structureType: STRUCTURE_TOWER },
+        });
+    }
+    {
+        // $ExpectType AnyStructure[]
+        const towers = creep.pos.findInRange(FIND_STRUCTURES, 2, {
+            filter: { structureType: STRUCTURE_TOWER },
+        });
+
+        // $ExpectType AnyStructure[]
+        const towers2 = creep.pos.findInRange([] as AnyStructure[], 2, {
+            filter: { structureType: STRUCTURE_TOWER },
+        });
+    }
+    {
+        // $ExpectType AnyStructure | null
+        const tower = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+            filter: { structureType: STRUCTURE_TOWER },
+        });
+
+        // $ExpectType AnyStructure | null
+        const towers2 = creep.pos.findClosestByPath([] as AnyStructure[], {
+            filter: { structureType: STRUCTURE_TOWER },
+        });
+    }
+    {
+        // $ExpectType AnyStructure | null
+        const tower = creep.pos.findClosestByRange(FIND_STRUCTURES, {
+            filter: { structureType: STRUCTURE_TOWER },
+        });
+
+        // $ExpectType AnyStructure | null
+        const towers2 = creep.pos.findClosestByRange([] as AnyStructure[], {
+            filter: { structureType: STRUCTURE_TOWER },
+        });
+    }
+
+    // should throw error if the property is not exist in the object
+    {
+        // @ts-expect-error
+        creep.pos.findInRange(FIND_STRUCTURES, 2, {
+            filter: { foo: "bar" },
+        });
+    }
+    // should throw error if type of values are not match
+    {
+        // @ts-expect-error
+        creep.pos.findInRange(FIND_STRUCTURES, 2, {
+            filter: { structureType: "foobar" },
+        });
+
+        // @ts-expect-error
+        creep.pos.findInRange(FIND_STRUCTURES, 2, {
+            filter: { structureType: 123 },
+        });
+    }
+
+    // should support deep property
+    {
+        // $ExpectType AnyOwnedStructure | null
+        const tower1 = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+            filter: { owner: { username: "foo" } },
+        });
+
+        // @ts-expect-error
+        const tower2 = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
+            filter: { owner: { yourname: "Mitsuha" } },
+        });
+    }
+
+    // Lodash's path string style filter predicate
+    // Currently do not support narrowing, and maybe never will.
+    {
+        // $ExpectType AnyStructure[]
+        const towers = creep.pos.findInRange(FIND_STRUCTURES, 2, {
+            filter: "my",
+        });
+    }
 }
 
 // LookAt Finds
