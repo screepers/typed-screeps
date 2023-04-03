@@ -23,6 +23,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Removes deprecated `Game.getObjectById(id: string)` function. Use version with `Id<T>` typed ids. ([#207](https://github.com/screepers/typed-screeps/pull/207))
 
+## 3.3.2
+
+This version was pushed by DefinitelyTyped maintainers, has no effect on type definitions
+
+- MarkoSulamagi resigns from DT side maintainers
+
 ## [3.3.1] - 2023-02-16
 
 ### Updated
