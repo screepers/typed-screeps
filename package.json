@@ -15,7 +15,7 @@
     "format:build": "prettier --write 'build/**/*.js'",
     "format:src": "prettier --write 'src/**/*.ts'",
     "lint": "tslint -p tsconfig.json 'src/**/*.ts'",
-    "lint:test": "tslint -p dist/tsconfig.json 'dist/screeps-tests.ts'",
+    "lint:test": "tslint -p dist/tsconfig.json dist/screeps-tests.ts",
     "pre-commit": "npm run compile && git add dist/index.d.ts",
     "prepare": "husky install && npm test",
     "test": "npm run dtslint"
