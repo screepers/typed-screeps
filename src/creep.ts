@@ -124,6 +124,16 @@ interface Creep extends RoomObject {
      */
     claimController(target: StructureController): CreepActionReturnCode | ERR_FULL | ERR_GCL_NOT_ENOUGH;
     /**
+     * Requires the CLAIM body part.
+     *
+     * Claims a reactor under your control.
+     *
+     * The target has to be at adjacent square to the creep.
+     * @param target The target reactor object.
+     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART
+     */
+    claimReactor(target: Reactor): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
+    /**
      * Dismantles any (even hostile) structure returning 50% of the energy spent on its repair.
      *
      * Requires the WORK body part. If the creep has an empty CARRY body part, the energy is put into it; otherwise it is dropped on the ground.
