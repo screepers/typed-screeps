@@ -1030,7 +1030,26 @@ function atackPower(creep: Creep) {
 
 // Id
 {
-    const roomId = "" as Id<Room>; // $ExpectError
+    // @ts-expect-error
+    const roomId = "" as Id<Room>;
     const creep = Game.getObjectById("" as Id<Creep>);
     const foo = Game.getObjectById<StructureTower>("" as Id<Creep>); // expected to be an error in the next major release
+}
+
+// Season5
+{
+    const reactors = room.find(FIND_REACTORS);
+    const reactor: Reactor = reactors[0];
+
+    if (creep.claimReactor(reactor) === ERR_NOT_IN_RANGE) {
+        creep.moveTo(reactor);
+    }
+
+    if (reactor.store[RESOURCE_THORIUM] < 100) {
+        creep.transfer(reactor, RESOURCE_THORIUM);
+    }
+
+    if (reactor.store.getFreeCapacity(RESOURCE_THORIUM) > 0) {
+        creep.transfer(reactor, RESOURCE_THORIUM);
+    }
 }

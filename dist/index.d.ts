@@ -1371,7 +1371,7 @@ interface Creep extends RoomObject {
      * @param resourceType One of the RESOURCE_* constants
      * @param amount The amount of resources to be transferred. If omitted, all the available carried amount is used.
      */
-    transfer(target: AnyCreep | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    transfer(target: AnyCreep | Structure | Reactor, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
     /**
      * Upgrade your controller to the next level using carried energy.
      *
