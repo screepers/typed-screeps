@@ -1,17 +1,11 @@
-// Type definitions for Screeps 3.3.1
+// Type definitions for Screeps world season5 server 1.0.0
 // Project: https://github.com/screeps/screeps
-// Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
-//                 Nhan Ho <https://github.com/NhanHo>
-//                 Bryan <https://github.com/bryanbecker>
-//                 Resi Respati <https://github.com/resir014>
-//                 Adam Laycock <https://github.com/Arcath>
-//                 Dominic Marcuse <https://github.com/dmarcuse>
-//                 Skyler Kehren <https://github.com/pyrodogg>
-//                 Kieran Carnegie <https://github.com/kotarou>
+// Definitions by: admon84 <https://github.com/admon84>
+//                 Mofeng <https://github.com/DiamondMofeng>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
 // TypeScript Version: 4.6
 
-// Please contribute types to https://github.com/screepers/typed-screeps
+// Please contribute types to https://github.com/screepers/typed-screeps/tree/season-5
 
 // Game Constants
 

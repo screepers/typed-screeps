@@ -9,10 +9,10 @@ const [major, minor, patch] = pkg.version.split(".");
 
 const version = `${major}.${minor}.${patch}`;
 
-var description = `// Type definitions for Screeps ${version}`;
+var description = `// Type definitions for Screeps world season5 server ${version}`;
 
 if (fs.existsSync(BUILT_FILE_PATH)) {
-    prepend(BUILT_FILE_PATH, description, function(err) {
+    prepend(BUILT_FILE_PATH, description, function (err) {
         if (err) console.error(err);
     });
 }

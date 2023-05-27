@@ -1,7 +1,7 @@
 {
   "name": "typed-screeps",
-  "version": "3.3.1",
-  "description": "Strong TypeScript declarations for the game Screeps.",
+  "version": "1.0.0",
+  "description": "Strong TypeScript declarations for the game Screeps. Especially for season5",
   "repository": "screepers/typed-screeps",
   "types": "./dist/index.d.ts",
   "files": [
