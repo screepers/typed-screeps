@@ -251,7 +251,8 @@ interface FindTypes {
         | Nuke
         | Tombstone
         | Deposit
-        | Ruin;
+        | Ruin
+        | Reactor;
     1: RoomPosition; // FIND_EXIT_TOP
     3: RoomPosition; // FIND_EXIT_RIGHT
     5: RoomPosition; // FIND_EXIT_BOTTOM
@@ -280,6 +281,7 @@ interface FindTypes {
     121: PowerCreep; // FIND_HOSTILE_POWER_CREEPS
     122: Deposit; // FIND_DEPOSITS
     123: Ruin; // FIND_RUINS
+    10051: Reactor; // FIND_REACTORS
 }
 
 interface FindPathOpts {

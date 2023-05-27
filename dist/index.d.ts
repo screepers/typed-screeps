@@ -55,6 +55,7 @@ declare const FIND_MY_POWER_CREEPS: FIND_MY_POWER_CREEPS;
 declare const FIND_HOSTILE_POWER_CREEPS: FIND_HOSTILE_POWER_CREEPS;
 declare const FIND_DEPOSITS: FIND_DEPOSITS;
 declare const FIND_RUINS: FIND_RUINS;
+declare const FIND_REACTORS: FIND_REACTORS;
 
 declare const TOP: TOP;
 declare const TOP_RIGHT: TOP_RIGHT;
@@ -312,6 +313,8 @@ declare const RESOURCE_EXTRACT: RESOURCE_EXTRACT;
 declare const RESOURCE_SPIRIT: RESOURCE_SPIRIT;
 declare const RESOURCE_EMANATION: RESOURCE_EMANATION;
 declare const RESOURCE_ESSENCE: RESOURCE_ESSENCE;
+
+declare const RESOURCE_THORIUM: RESOURCE_THORIUM;
 
 declare const RESOURCES_ALL: ResourceConstant[];
 
@@ -1840,7 +1843,8 @@ interface FindTypes {
         | Nuke
         | Tombstone
         | Deposit
-        | Ruin;
+        | Ruin
+        | Reactor;
     1: RoomPosition; // FIND_EXIT_TOP
     3: RoomPosition; // FIND_EXIT_RIGHT
     5: RoomPosition; // FIND_EXIT_BOTTOM
@@ -1869,6 +1873,7 @@ interface FindTypes {
     121: PowerCreep; // FIND_HOSTILE_POWER_CREEPS
     122: Deposit; // FIND_DEPOSITS
     123: Ruin; // FIND_RUINS
+    10051: Reactor; // FIND_REACTORS
 }
 
 interface FindPathOpts {
@@ -2144,7 +2149,8 @@ type FindConstant =
     | FIND_MY_POWER_CREEPS
     | FIND_HOSTILE_POWER_CREEPS
     | FIND_DEPOSITS
-    | FIND_RUINS;
+    | FIND_RUINS
+    | FIND_REACTORS;
 
 type FIND_EXIT_TOP = 1;
 type FIND_EXIT_RIGHT = 3;
@@ -2174,6 +2180,7 @@ type FIND_MY_POWER_CREEPS = 120;
 type FIND_HOSTILE_POWER_CREEPS = 121;
 type FIND_DEPOSITS = 122;
 type FIND_RUINS = 123;
+type FIND_REACTORS = 10051;
 
 // Filter Options
 
@@ -2333,6 +2340,7 @@ type ResourceConstant =
     | RESOURCE_ENERGY
     | RESOURCE_POWER
     | RESOURCE_OPS
+    | RESOURCE_THORIUM
     | MineralConstant
     | MineralCompoundConstant
     | DepositConstant
@@ -2530,6 +2538,8 @@ type RESOURCE_EXTRACT = "extract";
 type RESOURCE_SPIRIT = "spirit";
 type RESOURCE_EMANATION = "emanation";
 type RESOURCE_ESSENCE = "essence";
+
+type RESOURCE_THORIUM = "T";
 
 type SUBSCRIPTION_TOKEN = "token";
 type CPU_UNLOCK = "cpuUnlock";
@@ -3725,6 +3735,31 @@ interface RawMemory {
 }
 
 declare const RawMemory: RawMemory;
+/**
+ * An object that process Thorium into season score.
+ */
+interface Reactor extends RoomObject {
+    /**
+     * Ticks of continuous work of this reactor.
+     */
+    continuousWork: number;
+    /**
+     * A Store object that contains cargo of this structure.
+     */
+    store: Store<RESOURCE_THORIUM, false>;
+    /**
+     * Whether you control this reactor.
+     */
+    my: boolean;
+    /**
+     * An object with the reactor's owner info.
+     */
+    owner: Owner;
+}
+
+interface ReactorConstructor extends _Constructor<Reactor> {}
+
+declare const Reactor: ReactorConstructor;
 /**
  * A dropped piece of resource. It will decay after a while if not picked up. Dropped resource pile decays for ceil(amount/1000) units per tick.
  */
