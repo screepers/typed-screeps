@@ -1052,4 +1052,6 @@ function atackPower(creep: Creep) {
     if (reactor.store.getFreeCapacity(RESOURCE_THORIUM) > 0) {
         creep.transfer(reactor, RESOURCE_THORIUM);
     }
+
+    creep.withdraw(reactor, RESOURCE_THORIUM);
 }

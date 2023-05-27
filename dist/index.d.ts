@@ -1388,7 +1388,7 @@ interface Creep extends RoomObject {
      */
     upgradeController(target: StructureController): ScreepsReturnCode;
     /**
-     * Withdraw resources from a structure, a tombstone or a ruin.
+     * Withdraw resources from a structure, a tombstone, a ruin or a reactor.
      *
      * The target has to be at adjacent square to the creep.
      *
@@ -1399,7 +1399,7 @@ interface Creep extends RoomObject {
      * @param resourceType The target One of the RESOURCE_* constants..
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      */
-    withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    withdraw(target: Structure | Tombstone | Ruin | Reactor, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
 
 interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> {}
