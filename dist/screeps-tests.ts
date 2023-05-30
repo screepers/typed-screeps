@@ -1040,6 +1040,7 @@ function atackPower(creep: Creep) {
 {
     const minerals = room.find(FIND_MINERALS);
     const thorium = minerals.find((m) => m.mineralType === RESOURCE_THORIUM);
+
     if (thorium) {
         room.createConstructionSite(thorium.pos, STRUCTURE_EXTRACTOR);
     }
