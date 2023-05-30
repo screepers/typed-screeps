@@ -279,7 +279,6 @@ type ResourceConstant =
     | RESOURCE_ENERGY
     | RESOURCE_POWER
     | RESOURCE_OPS
-    | RESOURCE_THORIUM
     | MineralConstant
     | MineralCompoundConstant
     | DepositConstant
@@ -295,7 +294,8 @@ type MineralConstant =
     | RESOURCE_ZYNTHIUM
     | RESOURCE_OXYGEN
     | RESOURCE_HYDROGEN
-    | RESOURCE_CATALYST;
+    | RESOURCE_CATALYST
+    | RESOURCE_THORIUM;
 
 /** The compounds which can't boost */
 type MineralBaseCompoundsConstant = RESOURCE_HYDROXIDE | RESOURCE_ZYNTHIUM_KEANITE | RESOURCE_UTRIUM_LEMERGITE | RESOURCE_GHODIUM;
