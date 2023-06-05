@@ -3,6 +3,10 @@
  */
 interface Reactor extends RoomObject {
     /**
+     * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
+     */
+    id: Id<this>;
+    /**
      * Ticks of continuous work of this reactor.
      */
     continuousWork: number;

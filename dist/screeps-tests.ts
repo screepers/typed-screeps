@@ -1047,6 +1047,7 @@ function atackPower(creep: Creep) {
 
     const reactors = room.find(FIND_REACTORS);
     const reactor: Reactor = reactors[0];
+    const reactorFromId = Game.getObjectById(reactor.id);
 
     if (creep.claimReactor(reactor) === ERR_NOT_IN_RANGE) {
         creep.moveTo(reactor);
