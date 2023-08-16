@@ -4781,7 +4781,7 @@ interface Spawning {
      * An array with the spawn directions
      * @see http://docs.screeps.com/api/#StructureSpawn.Spawning.setDirections
      */
-    directions: DirectionConstant[] | undefined;
+    directions?: DirectionConstant[];
 
     /**
      * The name of the creep
