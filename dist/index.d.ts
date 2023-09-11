@@ -4286,7 +4286,11 @@ interface Room {
     /**
      * Returns an array of events happened on the previous tick in this room.
      */
-    getEventLog(raw?: boolean): EventItem[];
+    getEventLog(raw?: false): EventItem[];
+    /**
+     * Returns an raw JSON string of events happened on the previous tick in this room.
+     */
+    getEventLog(raw: true): string;
     /**
      * A shorthand to `Memory.rooms[room.name]`. You can use it for quick access the room’s specific memory data object.
      */
