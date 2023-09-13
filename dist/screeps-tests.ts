@@ -1085,7 +1085,10 @@ function resources(o: GenericStore): ResourceConstant[] {
 
 {
     room.getEventLog();
-    room.getEventLog(true);
+    const eventStr = room.getEventLog(true);
+    if (eventStr.includes(`build:4`)) {
+        // Build occured on last tick.
+    }
 
     const events = room.getEventLog();
 
