@@ -1239,6 +1239,128 @@ function atackPower(creep: Creep) {
     mapVis.import(visData);
 }
 
+// Store
+{
+    // Store definitions of structures are well typed with their capable resources
+    {
+        const energyOnlyStores = [
+            new StructureSpawn("" as Id<StructureSpawn>).store,
+            new StructureExtension("" as Id<StructureExtension>).store,
+            new StructureTower("" as Id<StructureTower>).store,
+            new StructureLink("" as Id<StructureLink>).store,
+        ];
+
+        for (const store of energyOnlyStores) {
+            // should be number for capabale resources
+            const shouldBeNumber = store.getCapacity(RESOURCE_ENERGY); // $ExpectType number
+            const shouldBeNumber2 = store.getFreeCapacity(RESOURCE_ENERGY); // $ExpectType number
+            const shouldBeNumber3 = store.getUsedCapacity(RESOURCE_ENERGY); // $ExpectType number
+
+            // should be null for non-capabale resources
+            const shouldBeNull1 = store.getCapacity(RESOURCE_HYDROGEN); // $ExpectType null
+            const shouldBeNull2 = store.getFreeCapacity(RESOURCE_HYDROGEN); // $ExpectType null
+            const shouldBeNull3 = store.getUsedCapacity(RESOURCE_HYDROGEN); // $ExpectType null
+
+            const shouldBeZero = store[RESOURCE_HYDROGEN]; // $ExpectType 0
+        }
+
+        const nukerStore = new StructureNuker("" as Id<StructureNuker>).store;
+
+        // should be number for capabale resources
+        const shouldBeNumber = nukerStore.getCapacity(RESOURCE_ENERGY); // $ExpectType number
+        const shouldBeNumber2 = nukerStore.getFreeCapacity(RESOURCE_ENERGY); // $ExpectType number
+        const shouldBeNumber3 = nukerStore.getUsedCapacity(RESOURCE_ENERGY); // $ExpectType number
+
+        const shouldBeNumber4 = nukerStore.getCapacity(RESOURCE_GHODIUM); // $ExpectType number
+        const shouldBeNumber5 = nukerStore.getFreeCapacity(RESOURCE_GHODIUM); // $ExpectType number
+        const shouldBeNumber6 = nukerStore.getUsedCapacity(RESOURCE_GHODIUM); // $ExpectType number
+
+        // should be null for non-capabale resources
+        const shouldBeNull1 = nukerStore.getCapacity(RESOURCE_HYDROGEN); // $ExpectType null
+        const shouldBeNull2 = nukerStore.getFreeCapacity(RESOURCE_HYDROGEN); // $ExpectType null
+        const shouldBeNull3 = nukerStore.getUsedCapacity(RESOURCE_HYDROGEN); // $ExpectType null
+    }
+
+    // Unlimited store have no notion of capacity and free capacity
+    {
+        const ruinStore = new Ruin("" as Id<Ruin>).store;
+
+        for (const resourceType of RESOURCES_ALL) {
+            const shouldBeNull1 = ruinStore.getCapacity(resourceType); // $ExpectType null
+            const shouldBeNull2 = ruinStore.getFreeCapacity(resourceType); // $ExpectType null
+
+            const shouldNotBeNull = ruinStore.getUsedCapacity(resourceType); // $ExpectType number
+            const shouldNotBeNull2 = ruinStore[resourceType]; // $ExpectType number
+        }
+
+        const tombstoneStore = new Tombstone("" as Id<Tombstone>).store;
+
+        for (const resourceType of RESOURCES_ALL) {
+            const shouldBeNull1 = tombstoneStore.getCapacity(resourceType); // $ExpectType null
+            const shouldBeNull2 = tombstoneStore.getFreeCapacity(resourceType); // $ExpectType null
+
+            const shouldNotBeNull = tombstoneStore.getUsedCapacity(resourceType); // $ExpectType number
+            const shouldNotBeNull2 = tombstoneStore[resourceType]; // $ExpectType number
+        }
+    }
+
+    // test return type of `get*Capacity()` with no resourceType specified
+    {
+        // should be null for structures that only accept certain resource types
+        {
+            const spawnStore = new StructureSpawn("" as Id<StructureSpawn>).store;
+
+            const shouldBeNull1 = spawnStore.getCapacity(); // $ExpectType null
+            const shouldBeNull2 = spawnStore.getFreeCapacity(); // $ExpectType null
+            const shouldBeNull3 = spawnStore.getUsedCapacity(); // $ExpectType null
+        }
+        {
+            const nukeStore = new StructureNuker("" as Id<StructureNuker>).store;
+
+            const shouldBeNull1 = nukeStore.getCapacity(); // $ExpectType null
+            const shouldBeNull2 = nukeStore.getFreeCapacity(); // $ExpectType null
+            const shouldBeNull3 = nukeStore.getUsedCapacity(); // $ExpectType null
+        }
+        {
+            const labStore = new StructureLab("" as Id<StructureLab>).store;
+
+            const shouldBeNull1 = labStore.getCapacity(); // $ExpectType null
+            const shouldBeNull2 = labStore.getFreeCapacity(); // $ExpectType null
+            const shouldBeNull3 = labStore.getUsedCapacity(); // $ExpectType null
+        }
+
+        // should be number for structures that accept all resource types
+        {
+            const containerStore = new StructureContainer("" as Id<StructureContainer>).store;
+
+            const shouldBeNumber1 = containerStore.getCapacity(); // $ExpectType number
+            const shouldBeNumber2 = containerStore.getFreeCapacity(); // $ExpectType number
+            const shouldBeNumber3 = containerStore.getUsedCapacity(); // $ExpectType number
+        }
+        {
+            const storageStore = new StructureStorage("" as Id<StructureStorage>).store;
+
+            const shouldBeNumber1 = storageStore.getCapacity(); // $ExpectType number
+            const shouldBeNumber2 = storageStore.getFreeCapacity(); // $ExpectType number
+            const shouldBeNumber3 = storageStore.getUsedCapacity(); // $ExpectType number
+        }
+        {
+            const terminalStore = new StructureTerminal("" as Id<StructureTerminal>).store;
+
+            const shouldBeNumber1 = terminalStore.getCapacity(); // $ExpectType number
+            const shouldBeNumber2 = terminalStore.getFreeCapacity(); // $ExpectType number
+            const shouldBeNumber3 = terminalStore.getUsedCapacity(); // $ExpectType number
+        }
+        {
+            const factoryStore = new StructureFactory("" as Id<StructureFactory>).store;
+
+            const shouldBeNumber1 = factoryStore.getCapacity(); // $ExpectType number
+            const shouldBeNumber2 = factoryStore.getFreeCapacity(); // $ExpectType number
+            const shouldBeNumber3 = factoryStore.getUsedCapacity(); // $ExpectType number
+        }
+    }
+}
+
 // Id
 {
     /// @ts-expect-error
