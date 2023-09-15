@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Fix: Mark `Spawning.directions` as optional ([#244](https://github.com/screepers/typed-screeps/pull/244))
 - Fix: Unlimited stores have no notion of free capacity ([#208](https://github.com/screepers/typed-screeps/pull/208))
 - Fix: `Room.getEventLog()` may return string ([#245](https://github.com/screepers/typed-screeps/pull/245))
+- FIx: Mark `RoomObject.effects` as optional
 
 ### Removed
 

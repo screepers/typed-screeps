@@ -105,7 +105,7 @@ function resources(o: GenericStore): ResourceConstant[] {
             } else {
                 // Boost resource
                 const targetSource = Game.getObjectById("targetSourceID" as Id<Source>)!;
-                const sourceEffect = targetSource.effects.find((effect) => effect.effect === PWR_REGEN_SOURCE && effect.level > 0);
+                const sourceEffect = targetSource.effects?.find((effect) => effect.effect === PWR_REGEN_SOURCE && effect.level > 0);
                 if (!sourceEffect && powerCreep.powers[PWR_REGEN_SOURCE] && powerCreep.powers[PWR_REGEN_SOURCE].cooldown === 0) {
                     powerCreep.usePower(PWR_REGEN_SOURCE, targetSource);
                 }
@@ -1358,6 +1358,19 @@ function atackPower(creep: Creep) {
             const shouldBeNumber2 = factoryStore.getFreeCapacity(); // $ExpectType number
             const shouldBeNumber3 = factoryStore.getUsedCapacity(); // $ExpectType number
         }
+    }
+}
+
+// Room Object
+{
+    // `RoomObject.effects` can be undefined
+    {
+        const source = new Source("" as Id<Source>);
+        // @ts-expect-error
+        source.effects.find((effect) => effect.effect === PWR_REGEN_SOURCE);
+
+        // no error with optional chaining operator
+        source.effects?.find((effect) => effect.effect === PWR_REGEN_SOURCE);
     }
 }
 
