@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Breaking changes
+
+- More flexible `Memory` ([#246](https://github.com/screepers/typed-screeps/pull/246))
+
 ### Added
 
 - Add type inference for params in filter callbacks ([#221](https://github.com/screepers/typed-screeps/pull/221))

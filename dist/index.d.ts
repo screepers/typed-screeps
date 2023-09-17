@@ -1,4 +1,4 @@
-// Type definitions for Screeps 3.3.3
+// Type definitions for Screeps 4.0.0
 // Project: https://github.com/screeps/screeps
 // Definitions by: Nhan Ho <https://github.com/NhanHo>
 //                 Bryan <https://github.com/bryanbecker>
