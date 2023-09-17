@@ -22,30 +22,30 @@ This repo has more activity and is considerably more up-to-date.
 
 ### Breaking Changes:
 
-- `Memory` is typed by default. The added typings are:
+- `Memory` is typed by default, each record defaults to `unknown`. The added typings are:
 
   - `CreepMemory`
   - `FlagMemory`
   - `SpawnMemory`
   - `RoomMemory`
 
-  If you like the idea of typed memory, but aren't ready to just jump fully in, you only need to make sure you define an interface for the above four types. Then you can extend them at a later time.
+  If you like the idea of typed memory, but aren't ready to just jump fully in, you only need to make sure you define the `Memory` interface loosely. Then you can extend them at a later time.
 
   Example:
 
   ```TypeScript
-  interface CreepMemory { [name: string]: any };
-  interface FlagMemory { [name: string]: any };
-  interface SpawnMemory { [name: string]: any };
-  interface RoomMemory { [name: string]: any };
-  ```
+  interface Memory {
+    // TODO: Remove this once types are in place.
+    // Everything is allowed.
+    [key: string]: any;
 
-  If you don't want to add types to the global `Memory` object, you will need to add the following interface along with the four above.
-
-  Example:
-
-  ```Typescript
-  interface Memory { [key: string]: any };
+    // TODO: Replace with specific memory types.
+    // Narrow down for the record types.
+    creeps: Record<string, any>;
+    flags: Record<string, any>;
+    spawns: Record<string, any>;
+    rooms: Record<string, any>;
+  }
   ```
 
 - Any place in code that uses a constant (ex `STRUCTURE_EXTENSION` or `FIND_MY_SPAWNS` is now constrained to use literal types. Here is the list of the new types:
