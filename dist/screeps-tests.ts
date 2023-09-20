@@ -1126,6 +1126,23 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     const enemyTerrain = new Room.Terrain("W2N5");
+
+    const raw = myTerrain.getRawBuffer();
+
+    for (let y = 0; y < 50; y++) {
+        for (let x = 0; x < 50; x++) {
+            const code = raw[y * 50 + x];
+            if (code === 0) {
+                /*plain*/
+            }
+            if (code & TERRAIN_MASK_SWAMP) {
+                /*swamp*/
+            }
+            if (code & TERRAIN_MASK_WALL) {
+                /*wall*/
+            }
+        }
+    }
 }
 
 // Creep.body
