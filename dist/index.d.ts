@@ -1,4 +1,4 @@
-// Type definitions for Screeps 3.3.4
+// Type definitions for Screeps 3.3.3
 // Project: https://github.com/screeps/screeps
 // Definitions by: Nhan Ho <https://github.com/NhanHo>
 //                 Bryan <https://github.com/bryanbecker>
@@ -2019,8 +2019,21 @@ declare namespace Tag {
         private [OpaqueTagSymbol]: T;
     }
 }
+
 type Id<T extends _HasId> = string & Tag.OpaqueTag<T>;
+
 type fromId<T> = T extends Id<infer R> ? R : never;
+
+type TypedArray =
+    | Int8Array
+    | Uint8Array
+    | Int16Array
+    | Uint16Array
+    | Int32Array
+    | Uint32Array
+    | Uint8ClampedArray
+    | Float32Array
+    | Float64Array;
 /**
  * `InterShardMemory` object provides an interface for communicating between shards.
  * Your script is executed separatedly on each shard, and their `Memory` objects are isolated from each other.
@@ -4047,9 +4060,11 @@ interface RoomTerrain {
     /**
      * Get copy of underlying static terrain buffer.
      * @param destinationArray (optional) A typed array view in which terrain will be copied to.
-     * @return Uint8Array Copy of underlying room terrain as a new Uint8Array typed array of size 2500.
+     * @throws {RangeError} if `destinationArray` is provided, it must have a length of at least 2500 (`50*50`).
+     * @return Copy of underlying room terrain as a new typed array of size 2500.
      */
-    getRawBuffer(destinationArray?: Uint8Array): Uint8Array;
+    getRawBuffer<T extends TypedArray>(destinationArray: T): T;
+    getRawBuffer(): Uint8Array;
 }
 
 interface RoomTerrainConstructor extends _Constructor<RoomTerrain> {

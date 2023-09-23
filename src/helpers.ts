@@ -433,5 +433,18 @@ declare namespace Tag {
         private [OpaqueTagSymbol]: T;
     }
 }
+
 type Id<T extends _HasId> = string & Tag.OpaqueTag<T>;
+
 type fromId<T> = T extends Id<infer R> ? R : never;
+
+type TypedArray =
+    | Int8Array
+    | Uint8Array
+    | Int16Array
+    | Uint16Array
+    | Int32Array
+    | Uint32Array
+    | Uint8ClampedArray
+    | Float32Array
+    | Float64Array;

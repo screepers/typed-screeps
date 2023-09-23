@@ -1114,6 +1114,10 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     const myTerrain = room.getTerrain();
 
+    const otherTerrain = new Room.Terrain("E2S7");
+
+    const anotherTerrain = Game.map.getRoomTerrain("W2N5");
+
     const ret = myTerrain.get(5, 5);
     if (ret === 0) {
         /*plain*/
@@ -1125,21 +1129,25 @@ function resources(o: GenericStore): ResourceConstant[] {
         /*wall*/
     }
 
-    const enemyTerrain = new Room.Terrain("W2N5");
+    const myRawTerrain = myTerrain.getRawBuffer();
 
-    const raw = myTerrain.getRawBuffer();
+    const otherRawTerrain = otherTerrain.getRawBuffer(new Int8Array(2500));
 
-    for (let y = 0; y < 50; y++) {
-        for (let x = 0; x < 50; x++) {
-            const code = raw[y * 50 + x];
-            if (code === 0) {
-                /*plain*/
-            }
-            if (code & TERRAIN_MASK_SWAMP) {
-                /*swamp*/
-            }
-            if (code & TERRAIN_MASK_WALL) {
-                /*wall*/
+    const anotherRawTerrain = anotherTerrain.getRawBuffer(new Uint16Array(2500));
+
+    for (const rawTerrain of [myRawTerrain, otherRawTerrain, anotherRawTerrain]) {
+        for (let y = 0; y < 50; y++) {
+            for (let x = 0; x < 50; x++) {
+                const code = rawTerrain[y * 50 + x];
+                if (code === 0) {
+                    /*plain*/
+                }
+                if (code & TERRAIN_MASK_SWAMP) {
+                    /*swamp*/
+                }
+                if (code & TERRAIN_MASK_WALL) {
+                    /*wall*/
+                }
             }
         }
     }

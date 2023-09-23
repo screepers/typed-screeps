@@ -12,9 +12,11 @@ interface RoomTerrain {
     /**
      * Get copy of underlying static terrain buffer.
      * @param destinationArray (optional) A typed array view in which terrain will be copied to.
-     * @return Uint8Array Copy of underlying room terrain as a new Uint8Array typed array of size 2500.
+     * @throws {RangeError} if `destinationArray` is provided, it must have a length of at least 2500 (`50*50`).
+     * @return Copy of underlying room terrain as a new typed array of size 2500.
      */
-    getRawBuffer(destinationArray?: Uint8Array): Uint8Array;
+    getRawBuffer<T extends TypedArray>(destinationArray: T): T;
+    getRawBuffer(): Uint8Array;
 }
 
 interface RoomTerrainConstructor extends _Constructor<RoomTerrain> {
