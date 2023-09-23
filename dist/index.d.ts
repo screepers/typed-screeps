@@ -2023,17 +2023,6 @@ declare namespace Tag {
 type Id<T extends _HasId> = string & Tag.OpaqueTag<T>;
 
 type fromId<T> = T extends Id<infer R> ? R : never;
-
-type TypedArray =
-    | Int8Array
-    | Uint8Array
-    | Int16Array
-    | Uint16Array
-    | Int32Array
-    | Uint32Array
-    | Uint8ClampedArray
-    | Float32Array
-    | Float64Array;
 /**
  * `InterShardMemory` object provides an interface for communicating between shards.
  * Your script is executed separatedly on each shard, and their `Memory` objects are isolated from each other.
@@ -4063,7 +4052,20 @@ interface RoomTerrain {
      * @throws {RangeError} if `destinationArray` is provided, it must have a length of at least 2500 (`50*50`).
      * @return Copy of underlying room terrain as a new typed array of size 2500.
      */
-    getRawBuffer<T extends TypedArray>(destinationArray: T): T;
+    getRawBuffer<
+        T extends
+            | Int8Array
+            | Uint8Array
+            | Int16Array
+            | Uint16Array
+            | Int32Array
+            | Uint32Array
+            | Uint8ClampedArray
+            | Float32Array
+            | Float64Array,
+    >(
+        destinationArray: T,
+    ): T;
     getRawBuffer(): Uint8Array;
 }
 
