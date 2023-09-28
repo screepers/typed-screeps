@@ -25,19 +25,15 @@ interface MinerMemory {
     sourceId: Id<Source>;
 }
 
-interface BuilderMemory {
-    targetId?: Id<ConstructionSite>;
-}
-
-interface HaulerMemory {
-    targetId?: Id<AnyStructure>;
+interface UpgraderMemory {
+    upgrading: boolean;
 }
 
 interface CommonCreepMemory {
     lastHits: number;
 }
 
-type MyCreepMemory = CommonCreepMemory & (Brand<"miner", MinerMemory> | Brand<"builder", BuilderMemory> | Brand<"hauler", HaulerMemory>);
+type MyCreepMemory = CommonCreepMemory & (Brand<"miner", MinerMemory> | Brand<"upgrader", UpgraderMemory>);
 
 // Sample memory extensions
 interface Memory {
@@ -165,11 +161,10 @@ function resources(o: GenericStore): ResourceConstant[] {
             },
         });
         Game.spawns[i].spawnCreep(body, "error", {
+            // @ts-expect-error
             memory: {
                 lastHits: 0,
-                // @ts-expect-error
-                role: "hauler",
-                sourceId: "" as Id<Source>,
+                role: "upgrader",
             },
         });
 
