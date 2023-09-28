@@ -19,9 +19,29 @@ const body: BodyPartConstant[] = [WORK, WORK, CARRY, MOVE];
 // Sample inputs for Game.map.findRoute testing
 const anotherRoomName: Room = Game.rooms.W10S11;
 
+type Brand<T extends string, O extends object & Partial<Record<"role", never>>> = { role: T } & O;
+
+interface MinerMemory {
+    sourceId: Id<Source>;
+}
+
+interface BuilderMemory {
+    targetId?: Id<ConstructionSite>;
+}
+
+interface HaulerMemory {
+    targetId?: Id<AnyStructure>;
+}
+
+interface CommonCreepMemory {
+    lastHits: number;
+}
+
+type MyCreepMemory = CommonCreepMemory & (Brand<"miner", MinerMemory> | Brand<"builder", BuilderMemory> | Brand<"hauler", HaulerMemory>);
+
 // Sample memory extensions
 interface Memory {
-    creeps: Record<string, { sourceId: Id<Source>; lastHits: number } & ({ type: "foo"; foo: number } | { type: "bar"; bar: number })>;
+    creeps: Record<string, MyCreepMemory>;
     flags: Record<string, unknown>;
     spawns: Record<string, unknown>;
     rooms: Record<string, unknown>;
@@ -137,12 +157,19 @@ function resources(o: GenericStore): ResourceConstant[] {
 
 {
     for (const i of Object.keys(Game.spawns)) {
-        Game.spawns[i].spawnCreep(body, "test", {
+        Game.spawns[i].spawnCreep(body, "miner", {
             memory: {
-                sourceId: "" as Id<Source>,
                 lastHits: 0,
-                type: "foo",
-                foo: 1000,
+                sourceId: "" as Id<Source>,
+                role: "miner",
+            },
+        });
+        Game.spawns[i].spawnCreep(body, "error", {
+            memory: {
+                lastHits: 0,
+                // @ts-expect-error
+                role: "hauler",
+                sourceId: "" as Id<Source>,
             },
         });
 
@@ -219,8 +246,13 @@ function resources(o: GenericStore): ResourceConstant[] {
 // Game.getObjectById(id)
 
 {
-    creep.memory.sourceId = creep.pos.findClosestByRange(FIND_SOURCES)!.id;
-    const source = Game.getObjectById<Source>(creep.memory.sourceId);
+    if (creep.memory.role === "miner") {
+        creep.memory.sourceId = creep.pos.findClosestByRange(FIND_SOURCES)!.id;
+        const source = Game.getObjectById<Source>(creep.memory.sourceId);
+    } else {
+        // @ts-expect-error
+        creep.memory.sourceId = creep.pos.findClosestByRange(FIND_SOURCES)!.id;
+    }
 }
 
 // Game.notify(message, [groupInterval])
