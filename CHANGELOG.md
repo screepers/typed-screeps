@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Breaking changes
 
-- More flexible `Memory` ([#246](https://github.com/screepers/typed-screeps/pull/246))
+- Improve `Memory` support for role based creeps ([#246](https://github.com/screepers/typed-screeps/pull/246))
 
 ### Added
 
