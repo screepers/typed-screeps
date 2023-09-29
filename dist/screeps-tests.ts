@@ -19,7 +19,7 @@ const body: BodyPartConstant[] = [WORK, WORK, CARRY, MOVE];
 // Sample inputs for Game.map.findRoute testing
 const anotherRoomName: Room = Game.rooms.W10S11;
 
-type Brand<T extends string, O extends object & Partial<Record<"role", never>>> = { role: T } & O;
+type AttachRole<T extends string, O extends object & Partial<Record<"role", never>>> = { role: T } & O;
 
 interface MinerMemory {
     sourceId: Id<Source>;
@@ -33,7 +33,7 @@ interface CommonCreepMemory {
     lastHits: number;
 }
 
-type MyCreepMemory = CommonCreepMemory & (Brand<"miner", MinerMemory> | Brand<"upgrader", UpgraderMemory>);
+type MyCreepMemory = CommonCreepMemory & (AttachRole<"miner", MinerMemory> | AttachRole<"upgrader", UpgraderMemory>);
 
 // Sample memory extensions
 interface Memory {
