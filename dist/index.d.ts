@@ -843,7 +843,7 @@ declare const PWR_OPERATE_FACTORY: PWR_OPERATE_FACTORY;
 declare const EFFECT_INVULNERABILITY: EFFECT_INVULNERABILITY;
 declare const EFFECT_COLLAPSE_TIMER: EFFECT_COLLAPSE_TIMER;
 
-declare const INVADER_CORE_HITS: 1000000;
+declare const INVADER_CORE_HITS: 100000;
 declare const INVADER_CORE_CREEP_SPAWN_TIME: {
     0: 0;
     1: 0;
@@ -852,11 +852,24 @@ declare const INVADER_CORE_CREEP_SPAWN_TIME: {
     4: 2;
     5: 1;
 };
-declare const INVADER_CORE_EXPAND_TIME: 15000;
-declare const INVADER_CORE_CONTROLLER_POWER: 100;
+declare const INVADER_CORE_EXPAND_TIME: {
+    1: 4000;
+    2: 3500;
+    3: 3000;
+    4: 2500;
+    5: 2000;
+};
+declare const INVADER_CORE_CONTROLLER_POWER: 2;
 declare const INVADER_CORE_CONTROLLER_DOWNGRADE: 5000;
-declare const STRONGHOLD_RAMPART_HITS: { 0: 0; 1: 50000; 2: 200000; 3: 500000; 4: 1000000; 5: 2000000 };
-declare const STRONGHOLD_DECAY_TICKS: 150000;
+declare const STRONGHOLD_RAMPART_HITS: {
+    0: 0;
+    1: 100000;
+    2: 200000;
+    3: 500000;
+    4: 1000000;
+    5: 2000000;
+};
+declare const STRONGHOLD_DECAY_TICKS: 75000;
 
 declare const POWER_INFO: {
     [powerID: number]: {
