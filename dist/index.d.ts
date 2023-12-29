@@ -1,4 +1,3 @@
-// Type definitions for Screeps 3.3.3
 // Project: https://github.com/screeps/screeps
 // Definitions by: Nhan Ho <https://github.com/NhanHo>
 //                 Bryan <https://github.com/bryanbecker>
@@ -2796,7 +2795,7 @@ interface GameMap {
      * @param roomName The room name.
      * @returns The exits information or null if the room not found.
      */
-    describeExits(roomName: string): ExitsInformation;
+    describeExits(roomName: string): ExitsInformation | null;
     /**
      * Find the exit direction from the given room en route to another room.
      * @param fromRoom Start room name or room object.
