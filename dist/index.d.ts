@@ -2075,7 +2075,7 @@ declare const InterShardMemory: InterShardMemory;
 
 type Terrain = "plain" | "swamp" | "wall";
 
-type ExitKey = "1" | "3" | "5" | "7";
+type ExitKey = TOP | RIGHT | BOTTOM | LEFT;
 
 type AnyCreep = Creep | PowerCreep;
 
