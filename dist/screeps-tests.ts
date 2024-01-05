@@ -908,13 +908,17 @@ function resources(o: GenericStore): ResourceConstant[] {
     const x = flags[10];
     const y = x[11];
     const entry = y[0];
-    entry.flag.remove();
+    entry.remove();
 
     const creeps = room.lookForAtArea(LOOK_CREEPS, 10, 10, 20, 20, true);
 
     creeps[0].x;
     creeps[0].y;
     creeps[0].creep.move(TOP);
+
+    const structuresMatrix = room.lookForAtArea(LOOK_STRUCTURES, 10, 10, 20, 20);
+
+    structuresMatrix[15][15].find((s) => s.structureType === STRUCTURE_CONTROLLER);
 }
 
 // StoreDefinition

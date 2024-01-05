@@ -226,9 +226,9 @@ interface LookAtResultMatrix<K extends LookConstant = LookConstant> {
     };
 }
 
-interface LookForAtAreaResultMatrix<T, K extends keyof LookAtTypes = keyof LookAtTypes> {
+interface LookForAtAreaResultMatrix<T> {
     [y: number]: {
-        [x: number]: Array<LookForAtAreaResult<T, K>>;
+        [x: number]: T[];
     };
 }
 
