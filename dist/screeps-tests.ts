@@ -916,7 +916,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     creeps[0].y;
     creeps[0].creep.move(TOP);
 
-    const structuresMatrix = room.lookForAtArea(LOOK_STRUCTURES, 10, 10, 20, 20);
+    const structuresMatrix = room.lookForAtArea(LOOK_STRUCTURES, 10, 10, 20, 20, false);
 
     structuresMatrix[15][15].find((s) => s.structureType === STRUCTURE_CONTROLLER);
 }
