@@ -247,7 +247,7 @@ interface Room {
         bottom: number,
         right: number,
         asArray?: false,
-    ): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
+    ): LookForAtAreaResultMatrix<AllLookAtTypes[T]>;
     /**
      * Get the given objets in the supplied area.
      * @param type One of the LOOK_* constants

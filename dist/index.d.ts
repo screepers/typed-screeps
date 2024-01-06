@@ -1825,9 +1825,9 @@ interface LookAtResultMatrix<K extends LookConstant = LookConstant> {
     };
 }
 
-interface LookForAtAreaResultMatrix<T, K extends keyof LookAtTypes = keyof LookAtTypes> {
+interface LookForAtAreaResultMatrix<T> {
     [y: number]: {
-        [x: number]: Array<LookForAtAreaResult<T, K>>;
+        [x: number]: T[];
     };
 }
 
@@ -4546,7 +4546,7 @@ interface Room {
         bottom: number,
         right: number,
         asArray?: false,
-    ): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
+    ): LookForAtAreaResultMatrix<AllLookAtTypes[T]>;
     /**
      * Get the given objets in the supplied area.
      * @param type One of the LOOK_* constants
