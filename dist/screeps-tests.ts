@@ -378,6 +378,21 @@ function resources(o: GenericStore): ResourceConstant[] {
     Game.market.createOrder({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM, price: 9.95, totalAmount: 10000, roomName: "W1N1" });
     Game.market.createOrder({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM, price: 9.95, totalAmount: 10000 });
 
+    // Testing the hardcoded string literal value of the `type` field
+    {
+        // error
+        Game.market.createOrder({
+            // @ts-expect-error
+            type: "BUY",
+            resourceType: RESOURCE_GHODIUM,
+            price: 9.95,
+            totalAmount: 10000,
+        });
+
+        // okay
+        Game.market.createOrder({ type: "buy", resourceType: RESOURCE_GHODIUM, price: 9.95, totalAmount: 10000 });
+    }
+
     // Game.market.deal(orderId, amount, [yourRoomName])
     Game.market.deal("57cd2b12cda69a004ae223a3", 1000, "W1N1");
 
