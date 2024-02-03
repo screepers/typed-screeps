@@ -3173,7 +3173,7 @@ interface Order {
     id: string;
     created: number;
     active?: boolean;
-    type: string;
+    type: ORDER_BUY | ORDER_SELL;
     resourceType: MarketResourceConstant;
     roomName?: string;
     amount: number;
