@@ -236,13 +236,15 @@ function resources(o: GenericStore): ResourceConstant[] {
 
 {
     const exits = Game.map.describeExits("W8N3");
-    // tslint:disable-next-line:newline-per-chained-call
-    keys(exits).map((exitKey) => {
-        const nextRoom = exits[exitKey];
-        const exitDir = +exitKey as ExitConstant;
-        const exitPos = creep.pos.findClosestByRange(exitDir);
-        return { nextRoom, exitPos };
-    });
+    if (exits) {
+        // tslint:disable-next-line:newline-per-chained-call
+        keys(exits).map((exitKey) => {
+            const nextRoom = exits[exitKey];
+            const exitDir = +exitKey as ExitConstant;
+            const exitPos = creep.pos.findClosestByRange(exitDir);
+            return { nextRoom, exitPos };
+        });
+    }
 }
 
 // Game.map.findExit()
