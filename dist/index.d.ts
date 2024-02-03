@@ -1746,7 +1746,7 @@ type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = T exten
            *
            * If the body part is boosted, this property specifies the mineral type which is used for boosting.
            */
-          boost?: keyof typeof BOOSTS[T];
+          boost?: keyof (typeof BOOSTS)[T];
           /**
            * One of the body part types constants.
            */
@@ -1790,6 +1790,15 @@ type StoreDefinitionUnlimited = Store<ResourceConstant, true>;
 //   energy: number;
 // }
 
+/**
+ * @example
+ * {
+ *   "1": "W8N4",       // TOP
+ *   "3": "W7N3",       // RIGHT
+ *   // "5": "W8N2",    // BOTTOM
+ *   "7": "W9N3"        // LEFT
+ * }
+ */
 type ExitsInformation = Partial<Record<ExitKey, string>>;
 
 interface AllLookAtTypes {
