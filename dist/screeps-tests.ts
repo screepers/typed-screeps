@@ -1020,8 +1020,165 @@ function resources(o: GenericStore): ResourceConstant[] {
     EXTENSION_ENERGY_CAPACITY[Game.rooms.myRoom.controller!.level];
 
     REACTIONS[Object.keys(creep.carry)[0]];
+}
 
-    BOOSTS[creep.body[0].type];
+{
+    // Test the BOOSTS constant
+
+    // Can be used with a body part, returns a record of mineral -> boosted property -> level
+    const c = BOOSTS[creep.body[0].type];
+
+    // Can be used with all body part types, returns undefined
+    const undef = BOOSTS["claim"];
+
+    // Can still be iterated over
+    for (const bodyPart of Object.keys(BOOSTS) as BodyPartConstant[]) {
+        const boosts = BOOSTS[bodyPart];
+        for (const mineral of Object.keys(boosts) as MineralBoostConstant[]) {
+            const upgrades = boosts[mineral];
+        }
+    }
+}
+
+{
+    // Boost estimation code lifted from Overmind
+
+    type HARVEST = "harvest";
+    type CONSTRUCT = "construct";
+    type DISMANTLE = "dismantle";
+    type UPGRADE = "upgrade";
+    const HARVEST: HARVEST = "harvest";
+    const CONSTRUCT: CONSTRUCT = "construct";
+    const DISMANTLE: DISMANTLE = "dismantle";
+    const UPGRADE: UPGRADE = "upgrade";
+
+    type BoostTier = "T1" | "T2" | "T3";
+    type BoostType = ATTACK | CARRY | RANGED_ATTACK | HEAL | MOVE | TOUGH | HARVEST | CONSTRUCT | DISMANTLE | UPGRADE;
+
+    const BOOST_TIERS: {
+        [boostType in BoostType]: {
+            [boostTier in BoostTier]: MineralBoostConstant;
+        };
+    } = {
+        attack: {
+            T1: "UH",
+            T2: "UH2O",
+            T3: "XUH2O",
+        },
+        carry: {
+            T1: "KH",
+            T2: "KH2O",
+            T3: "XKH2O",
+        },
+        ranged_attack: {
+            T1: "KO",
+            T2: "KHO2",
+            T3: "XKHO2",
+        },
+        heal: {
+            T1: "LO",
+            T2: "LHO2",
+            T3: "XLHO2",
+        },
+        move: {
+            T1: "ZO",
+            T2: "ZHO2",
+            T3: "XZHO2",
+        },
+        tough: {
+            T1: "GO",
+            T2: "GHO2",
+            T3: "XGHO2",
+        },
+        harvest: {
+            T1: "UO",
+            T2: "UHO2",
+            T3: "XUHO2",
+        },
+        construct: {
+            T1: "LH",
+            T2: "LH2O",
+            T3: "XLH2O",
+        },
+        dismantle: {
+            T1: "ZH",
+            T2: "ZH2O",
+            T3: "XZH2O",
+        },
+        upgrade: {
+            T1: "GH",
+            T2: "GH2O",
+            T3: "XGH2O",
+        },
+    };
+
+    const BoostTypeBodyparts: {
+        [boostType in BoostType]: BodyPartConstant;
+    } = {
+        [ATTACK]: ATTACK,
+        [CARRY]: CARRY,
+        [RANGED_ATTACK]: RANGED_ATTACK,
+        [HEAL]: HEAL,
+        [MOVE]: MOVE,
+        [TOUGH]: TOUGH,
+        [HARVEST]: WORK,
+        [CONSTRUCT]: WORK,
+        [DISMANTLE]: WORK,
+        [UPGRADE]: WORK,
+    };
+
+    const BoostTypeToBoostArray: {
+        [boostType in BoostType]: BoostModifier;
+    } = {
+        [ATTACK]: ATTACK,
+        [CARRY]: "capacity",
+        [RANGED_ATTACK]: "rangedAttack",
+        // [RANGED_MASS_ATTACK]: "rangedMassAttack",
+        [HEAL]: HEAL,
+        [MOVE]: "fatigue",
+        [TOUGH]: "damage",
+        [HARVEST]: "harvest",
+        [CONSTRUCT]: "build",
+        // [REPAIR]: "repair",
+        [DISMANTLE]: "dismantle",
+        [UPGRADE]: "upgradeController",
+    };
+
+    /**
+     *
+     * @param body
+     * @param type
+     * @param intendedBoosts
+     * @returns
+     */
+    function getBodyPotential(body: BodyPartDefinition[], type: BoostType, intendedBoosts: MineralBoostConstant[] = []): number {
+        const bodyPart = BoostTypeBodyparts[type];
+        return body.reduce((sum, part) => {
+            if (part.hits === 0) {
+                return sum + 0;
+            }
+            if (part.type === bodyPart) {
+                let boost = part.boost;
+                if (!boost && intendedBoosts) {
+                    boost = intendedBoosts.find(
+                        (boost) => boost === BOOST_TIERS[type].T1 || boost === BOOST_TIERS[type].T2 || boost === BOOST_TIERS[type].T3,
+                    );
+                }
+                if (!boost) {
+                    return sum + 1;
+                }
+
+                const key = BoostTypeToBoostArray[type];
+                const partBoost = BOOSTS[bodyPart];
+                if (!partBoost || !(boost in partBoost) || !partBoost[boost] || !(key in partBoost[boost])) {
+                    return sum + 0;
+                }
+
+                return partBoost[boost][key];
+            }
+            return sum + 0;
+        }, 0);
+    }
 }
 
 // Tombstones
