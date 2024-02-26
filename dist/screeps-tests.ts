@@ -1332,7 +1332,7 @@ function atackPower(creep: Creep) {
     return creep.body
         .map((part) => {
             if (part.type === ATTACK) {
-                const multiplier = part.boost ? BOOSTS[part.type][part.boost].attack : 1;
+                const multiplier = part.boost ? BOOSTS[part.type][part.boost]?.attack ?? 0 : 1;
                 return multiplier * ATTACK_POWER;
             }
             return 0;
