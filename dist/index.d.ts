@@ -3139,7 +3139,7 @@ interface Market {
      * @param orderId The order ID as provided in Game.market.orders
      * @param amount The amount of resources to transfer.
      * @param yourRoomName The name of your room which has to contain an active Terminal with enough amount of energy.
-     * This argument should not be passed when the order resource type is one of account-bound resources (@see {@link InterShardResourceConstant}).
+     * This argument is not used when the order resource type is one of account-bound resources (@see {@link InterShardResourceConstant}).
      *
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_NOT_ENOUGH_RESOURCES, ERR_FULL, ERR_INVALID_ARGS, ERR_TIRED
      */
