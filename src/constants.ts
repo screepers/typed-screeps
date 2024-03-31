@@ -610,7 +610,6 @@ declare const REACTION_TIME: {
 };
 
 declare const BOOSTS: {
-    [part: string]: { [boost: string]: { [action: string]: number } };
     work: {
         UO: {
             harvest: 3;
@@ -724,7 +723,7 @@ declare const BOOSTS: {
             damage: 0.3;
         };
     };
-};
+} & Record<BodyPartConstant, Record<MineralBoostConstant, Record<BoostModifier, number>>>;
 
 declare const INTERSHARD_RESOURCES: InterShardResourceConstant[];
 
