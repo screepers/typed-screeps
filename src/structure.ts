@@ -192,11 +192,9 @@ interface StructureLink extends OwnedStructure<STRUCTURE_LINK> {
      */
     store: Store<RESOURCE_ENERGY, false>;
     /**
-     * Transfer energy from the link to another link or a creep.
+     * Transfer energy from the link to another link.
      *
-     * If the target is a creep, it has to be at adjacent square to the link.
-     *
-     * If the target is a link, it can be at any location in the same room.
+     * The target link can be at any position within the room.
      *
      * Remote transfer process implies 3% energy loss and cooldown delay depending on the distance.
      * @param target The target object.
