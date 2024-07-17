@@ -22,30 +22,44 @@ This repo has more activity and is considerably more up-to-date.
 
 ### Breaking Changes:
 
-- `Memory` is typed by default. The added typings are:
+- `Memory` is typed by default, each record defaults to `unknown`. The added typings are:
 
   - `CreepMemory`
   - `FlagMemory`
   - `SpawnMemory`
   - `RoomMemory`
 
-  If you like the idea of typed memory, but aren't ready to just jump fully in, you only need to make sure you define an interface for the above four types. Then you can extend them at a later time.
+  If you like the idea of typed memory, but aren't ready to just jump fully in, you only need to make sure you define the `Memory` interface loosely. Then you can extend them at a later time.
 
-  Example:
+  Example for [tutorial section 5](https://github.com/screeps/tutorial-scripts/tree/0fc8e9d2d6fe55415d39cf1a0118297480e275f3/section5) types
 
-  ```TypeScript
-  interface CreepMemory { [name: string]: any };
-  interface FlagMemory { [name: string]: any };
-  interface SpawnMemory { [name: string]: any };
-  interface RoomMemory { [name: string]: any };
-  ```
+  ```ts
+  interface BuilderMemory {
+    role: "builder";
+    building: boolean;
+  }
+  interface HarvesterMemory {
+    role: "harvester";
+  }
+  interface UpgraderMemory {
+    role: "upgrader";
+    upgrading: boolean;
+  }
 
-  If you don't want to add types to the global `Memory` object, you will need to add the following interface along with the four above.
+  type MyCreepMemory = BuilderMemory | HarvesterMemory | UpgraderMemory;
 
-  Example:
+  interface Memory {
+    // TODO: Remove this once types are in place.
+    // Everything is allowed.
+    [key: string]: any;
 
-  ```Typescript
-  interface Memory { [key: string]: any };
+    // TODO: Replace with specific memory types.
+    // Narrow down for the record types.
+    creeps: Record<string, MyCreepMemory>;
+    flags: Record<string, any>;
+    spawns: Record<string, any>;
+    rooms: Record<string, any>;
+  }
   ```
 
 - Any place in code that uses a constant (ex `STRUCTURE_EXTENSION` or `FIND_MY_SPAWNS` is now constrained to use literal types. Here is the list of the new types:
@@ -66,18 +80,18 @@ This repo has more activity and is considerably more up-to-date.
 
   To update your code, you just need to change any `string` types to match one of the above. For example, if your code had:
 
-  ```TypeScript
+  ```ts
   function getBody(): string[] {
-    return [ WORK, MOVE, CARRY ];
+    return [WORK, MOVE, CARRY];
   }
-
   ```
 
   Change it to:
 
-  ```TypeScript
-  function getBody(): BodyPartConstant[] {  // this line changed
-    return [ WORK, MOVE, CARRY ];
+  ```ts
+  function getBody(): BodyPartConstant[] {
+    // this line changed
+    return [WORK, MOVE, CARRY];
   }
   ```
 
@@ -88,34 +102,34 @@ This repo has more activity and is considerably more up-to-date.
 
   If you have code like this (un-type-asserted use of `Game.getObjectById`)
 
-  ```TypeScript
-  interface Memory{
+  ```ts
+  interface Memory {
     towerIds: string[];
   }
 
   Memory.towerIds.forEach((towerId) => {
     const tower = Game.getObjectById(towerId); // type of returned tower is 'unknown' instead of 'any'
     tower.attack(targetCreep); // Error Object is of type unknown ts(2571)
-  })
+  });
   ```
 
   Change it store typed Ids:
 
-  ```TypeScript
-  interface Memory{
+  ```ts
+  interface Memory {
     towerIds: Array<Id<StructureTower>>;
   }
 
   Memory.towerIds.forEach((towerId) => {
     const tower = Game.getObjectById(towerId); // type of returned tower is StructureTower
     tower.attack(targetCreep);
-  })
+  });
   ```
 
   If you're already manually asserting the type of the game object, you're not required to change anything immediately however this is deprecated and may be removed in the future.
 
-  ```TypeScript
-  const towerId: Id<StructureTower> = ""  as Id<StructureTower>;
+  ```ts
+  const towerId: Id<StructureTower> = "" as Id<StructureTower>;
   const tower1 = Game.getObjectById(towerId); // recommended use, returns StructureTower type
   const tower2 = Game.getObjectById<StructureTower>(""); // @deprecated returns StructureTower type
   const tower3 = Game.getObjectById("") as StructureTower; // @deprecated returns StructureTower type
@@ -123,17 +137,17 @@ This repo has more activity and is considerably more up-to-date.
 
   `Id<T>` types are assignable to `string` but the reverse is not allowed implicitly. To assign a `string` type to an `Id<T>` type, you must explicitly assert the type.
 
-  ```TypeScript
+  ```ts
   const typedId: Id<Creep> = "123" as Id<Creep>; // assertion required
   const untypedId1: string = typedId; // no assertion required
   ```
 
 - Game objects have typed id properties `id: Id<this>`. These typed ids can by passed to `Game.getObjectById()` to receive typed game objects matching the type of the Id. See above bullet for more details.
 
-  ```TypeScript
-  creep.id // has type Id<Creep>
-  copy = Game.getObjectById(creep.id) // returns type Creep
-  tower.id // has type Id<StructureTower>
+  ```ts
+  creep.id; // has type Id<Creep>
+  copy = Game.getObjectById(creep.id); // returns type Creep
+  tower.id; // has type Id<StructureTower>
   ```
 
 ### Additional (non-breaking) Features:

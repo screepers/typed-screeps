@@ -1,4 +1,4 @@
-// Type definitions for Screeps 3.3.3
+// Type definitions for Screeps 4.0.0
 // Project: https://github.com/screeps/screeps
 // Definitions by: Nhan Ho <https://github.com/NhanHo>
 //                 Bryan <https://github.com/bryanbecker>
@@ -3225,19 +3225,15 @@ interface PriceHistory {
     avgPrice: number;
     stddevPrice: number;
 }
-interface Memory {
-    creeps: { [name: string]: CreepMemory };
-    powerCreeps: { [name: string]: PowerCreepMemory };
-    flags: { [name: string]: FlagMemory };
-    rooms: { [name: string]: RoomMemory };
-    spawns: { [name: string]: SpawnMemory };
-}
+interface Memory {}
 
-interface CreepMemory {}
-interface FlagMemory {}
-interface PowerCreepMemory {}
-interface RoomMemory {}
-interface SpawnMemory {}
+type MemoryType<K extends string> = Memory extends { [k in K]: Record<string, infer M> } ? M : unknown;
+
+type CreepMemory = MemoryType<"creeps">;
+type FlagMemory = MemoryType<"flags">;
+type PowerCreepMemory = MemoryType<"powerCreeps">;
+type RoomMemory = MemoryType<"rooms">;
+type SpawnMemory = MemoryType<"spawns">;
 
 declare const Memory: Memory;
 /**
