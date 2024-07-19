@@ -14,6 +14,9 @@ npm install @types/screeps
 
 # yarn
 yarn add @types/screeps
+
+# pnpm
+pnpm add @types/screeps
 ```
 
 ## Differences from **[Screeps-Typescript-Declarations](https://github.com/screepers/Screeps-Typescript-Declarations)**

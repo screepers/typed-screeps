@@ -12,6 +12,7 @@
     "format": "npm run format:build && npm run format:src",
     "format:build": "prettier --write 'build/**/*.js'",
     "format:src": "prettier --write 'src/**/*.ts'",
+    "test": "npm run compile && npm run lint:test",
     "lint": "eslint -c eslint.config.mjs",
     "lint:test": "eslint -c eslint.config.test.mjs dist/screeps-tests.ts",
     "pre-commit": "npm run compile && git add dist/index.d.ts",
@@ -27,6 +28,7 @@
   "license": "MIT",
   "devDependencies": {
     "eslint": "^9.7.0",
+    "eslint-plugin-expect-type": "^0.4.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.8",
     "prepend": "^1.0.2",

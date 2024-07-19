@@ -16,14 +16,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
+
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-        #   cache: "npm
+          cache: "pnpm"
 
       - name: Install dependencies
-        run: npm i
+        run: pnpm i
 
       - name: Lint
-        run: npm run lint:test
+        run: pnpm lint
