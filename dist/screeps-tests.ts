@@ -237,7 +237,6 @@ function resources(o: GenericStore): ResourceConstant[] {
 {
     const exits = Game.map.describeExits("W8N3");
     if (exits) {
-        // tslint:disable-next-line:newline-per-chained-call
         keys(exits).map((exitKey) => {
             const nextRoom = exits[exitKey];
             const exitDir = +exitKey as ExitConstant;
@@ -451,7 +450,6 @@ function resources(o: GenericStore): ResourceConstant[] {
 {
     const pfCreep = Game.creeps.John;
 
-    // tslint:disable-next-line:newline-per-chained-call
     const goals = pfCreep.room.find(FIND_SOURCES).map((source) => {
         // We can't actually walk on sources-- set `range` to 1
         // so we path next to it.
@@ -474,7 +472,6 @@ function resources(o: GenericStore): ResourceConstant[] {
             }
             const costs = new PathFinder.CostMatrix();
 
-            // tslint:disable-next-line:newline-per-chained-call
             curRoom.find(FIND_STRUCTURES).forEach((struct) => {
                 if (struct.structureType === STRUCTURE_ROAD) {
                     // Favor roads over plain tiles
@@ -489,7 +486,6 @@ function resources(o: GenericStore): ResourceConstant[] {
             });
 
             // Avoid creeps in the room
-            // tslint:disable-next-line:newline-per-chained-call
             curRoom.find(FIND_CREEPS).forEach((thisCreep) => {
                 costs.set(thisCreep.pos.x, thisCreep.pos.y, 0xff);
             });
@@ -539,7 +535,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     const interShardData = JSON.parse(RawMemory.interShardSegment);
     if (interShardData.creeps[creep.name]) {
         creep.memory = interShardData[creep.name];
-        delete interShardData.creeps[creep.name]; // tslint:disable-line no-dynamic-delete
+        delete interShardData.creeps[creep.name];
     }
     RawMemory.interShardSegment = JSON.stringify(interShardData);
 

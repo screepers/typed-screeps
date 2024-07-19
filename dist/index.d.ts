@@ -1919,7 +1919,6 @@ interface FindPathOpts {
      * @param costMatrix The current CostMatrix
      * @returns The new CostMatrix to use
      */
-    // tslint:disable-next-line: invalid-void
     costCallback?: (roomName: string, costMatrix: CostMatrix) => void | CostMatrix;
 
     /**
