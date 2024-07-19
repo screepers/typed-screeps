@@ -8,3 +8,8 @@ dist/screeps.ts
 dist/screeps.js
 dist/screeps-tests.js
 .vscode/tasks.json
+
+# we do not need package.lock file
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
