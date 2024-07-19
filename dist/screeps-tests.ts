@@ -304,7 +304,7 @@ function resources(o: GenericStore): ResourceConstant[] {
             const parsed = /^[WE]([0-9]+)[NS]([0-9]+)$/.exec(roomName);
             if (parsed !== null) {
                 const isHighway = parseInt(parsed[1], 10) % 10 === 0 || parseInt(parsed[2], 10) % 10 === 0;
-                const isMyRoom = Game.rooms[roomName] && Game.rooms[roomName].controller && Game.rooms[roomName].controller!.my;
+                const isMyRoom = Game.rooms[roomName] && Game.rooms[roomName].controller && Game.rooms[roomName].controller?.my;
                 if (isHighway || isMyRoom) {
                     return 1;
                 } else {
