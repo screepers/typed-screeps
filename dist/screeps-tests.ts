@@ -5,6 +5,9 @@
 // If you open this file and see no red squiggly lines, then you're good!
 // Feel free to add more test cases in the form of a sample code.
 
+// `$ExpectType` is supported by the linter, you can use it to check the type of an expression or a variable.
+// See https://github.com/JoshuaKGoldberg/eslint-plugin-expect-type for more details.
+
 // TODO: add more test cases.
 
 // Sample inputs
