@@ -8,17 +8,15 @@
     "dist/index.d.ts"
   ],
   "scripts": {
-    "compile:dtslint": "node ./build/concat.js && node ./build/prependHeader.js",
-    "compile": "npm run compile:dtslint && node ./build/prependDescription.js",
-    "dtslint": "npm run compile:dtslint && dtslint dist",
+    "compile": "node ./build/concat.js && node ./build/prependHeader.js && node ./build/prependDescription.js",
     "format": "npm run format:build && npm run format:src",
     "format:build": "prettier --write 'build/**/*.js'",
     "format:src": "prettier --write 'src/**/*.ts'",
-    "lint": "tslint -p tsconfig.json 'src/**/*.ts'",
-    "lint:test": "tslint -p dist/tsconfig.json dist/screeps-tests.ts",
+    "test": "npm run compile && npm run lint:test",
+    "lint": "eslint -c eslint.config.mjs",
+    "lint:test": "eslint -c eslint.config.test.mjs dist/screeps-tests.ts",
     "pre-commit": "npm run compile && git add dist/index.d.ts",
-    "prepare": "husky install && npm test",
-    "test": "npm run dtslint"
+    "prepare": "husky install && npm test"
   },
   "keywords": [
     "Screeps",
@@ -29,17 +27,14 @@
   "author": "Marko Sulamagi <marko.sulamagi@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@definitelytyped/dtslint": "^0.0.111",
-    "copy": "^0.3.2",
+    "eslint": "^9.7.0",
+    "eslint-plugin-expect-type": "^0.4.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.8",
     "prepend": "^1.0.2",
     "prettier": "^2.6.2",
-    "rimraf": "^3.0.2",
-    "tslint": "^6.1.3",
-    "tslint-config-prettier": "^1.18.0",
-    "tslint-plugin-prettier": "^2.3.0",
-    "typescript": "^4.6.3"
+    "typescript": "^5.5.0",
+    "typescript-eslint": "^7.16.1"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

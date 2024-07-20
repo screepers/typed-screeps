@@ -5,6 +5,9 @@
 // If you open this file and see no red squiggly lines, then you're good!
 // Feel free to add more test cases in the form of a sample code.
 
+// `$ExpectType` is supported by the linter, you can use it to check the type of an expression or a variable.
+// See https://github.com/JoshuaKGoldberg/eslint-plugin-expect-type for more details.
+
 // TODO: add more test cases.
 
 // Sample inputs
@@ -237,7 +240,6 @@ function resources(o: GenericStore): ResourceConstant[] {
 {
     const exits = Game.map.describeExits("W8N3");
     if (exits) {
-        // tslint:disable-next-line:newline-per-chained-call
         keys(exits).map((exitKey) => {
             const nextRoom = exits[exitKey];
             const exitDir = +exitKey as ExitConstant;
@@ -304,7 +306,7 @@ function resources(o: GenericStore): ResourceConstant[] {
             const parsed = /^[WE]([0-9]+)[NS]([0-9]+)$/.exec(roomName);
             if (parsed !== null) {
                 const isHighway = parseInt(parsed[1], 10) % 10 === 0 || parseInt(parsed[2], 10) % 10 === 0;
-                const isMyRoom = Game.rooms[roomName] && Game.rooms[roomName].controller && Game.rooms[roomName].controller!.my;
+                const isMyRoom = Game.rooms[roomName] && Game.rooms[roomName].controller && Game.rooms[roomName].controller?.my;
                 if (isHighway || isMyRoom) {
                     return 1;
                 } else {
@@ -451,7 +453,6 @@ function resources(o: GenericStore): ResourceConstant[] {
 {
     const pfCreep = Game.creeps.John;
 
-    // tslint:disable-next-line:newline-per-chained-call
     const goals = pfCreep.room.find(FIND_SOURCES).map((source) => {
         // We can't actually walk on sources-- set `range` to 1
         // so we path next to it.
@@ -474,7 +475,6 @@ function resources(o: GenericStore): ResourceConstant[] {
             }
             const costs = new PathFinder.CostMatrix();
 
-            // tslint:disable-next-line:newline-per-chained-call
             curRoom.find(FIND_STRUCTURES).forEach((struct) => {
                 if (struct.structureType === STRUCTURE_ROAD) {
                     // Favor roads over plain tiles
@@ -489,7 +489,6 @@ function resources(o: GenericStore): ResourceConstant[] {
             });
 
             // Avoid creeps in the room
-            // tslint:disable-next-line:newline-per-chained-call
             curRoom.find(FIND_CREEPS).forEach((thisCreep) => {
                 costs.set(thisCreep.pos.x, thisCreep.pos.y, 0xff);
             });
@@ -539,7 +538,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     const interShardData = JSON.parse(RawMemory.interShardSegment);
     if (interShardData.creeps[creep.name]) {
         creep.memory = interShardData[creep.name];
-        delete interShardData.creeps[creep.name]; // tslint:disable-line no-dynamic-delete
+        delete interShardData.creeps[creep.name];
     }
     RawMemory.interShardSegment = JSON.stringify(interShardData);
 
@@ -658,7 +657,6 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     const tower = creep.pos.findClosestByPath<StructureTower>(FIND_HOSTILE_STRUCTURES, {
         // ? s should be AnyOwnedStructure in the future
-        // $ExpectType (structure: AnyStructure) => boolean
         filter: (structure) => {
             return structure.structureType === STRUCTURE_TOWER;
         },
@@ -697,7 +695,6 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     const rampart = creep.pos.findClosestByRange<StructureRampart>(FIND_HOSTILE_STRUCTURES, {
         // ? s should be AnyOwnedStructure in the future
-        // $ExpectType (structure: AnyStructure) => boolean
         filter: (structure) => {
             return structure.structureType === STRUCTURE_RAMPART;
         },
@@ -706,13 +703,12 @@ function resources(o: GenericStore): ResourceConstant[] {
         rampart.isPublic;
     }
 
-    // Should have type Creep[]
+    // $ExpectType Creep[]
     const hostileCreeps = creep.pos.findInRange(FIND_HOSTILE_CREEPS, 10);
     hostileCreeps[0].saying;
 
     const labs = creep.pos.findInRange<StructureLab>(FIND_MY_STRUCTURES, 4, {
         // ? s should be AnyOwnedStructure in the future
-        // $ExpectType (structure: AnyStructure) => boolean
         filter: (structure) => {
             return structure.structureType === STRUCTURE_LAB;
         },
@@ -722,32 +718,26 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     // Should be able to automatically infer the type of params in the filter function
     creep.pos.findClosestByPath(FIND_STRUCTURES, {
-        // $ExpectType (s: AnyStructure) => boolean
         filter: (s) => s.structureType === STRUCTURE_EXTENSION,
     });
 
     creep.pos.findClosestByPath([] as AnyStructure[], {
-        // $ExpectType (s: AnyStructure) => boolean
         filter: (s) => s.structureType === STRUCTURE_EXTENSION,
     });
 
     creep.pos.findClosestByRange(FIND_STRUCTURES, {
-        // $ExpectType (s: AnyStructure) => boolean
         filter: (s) => s.structureType === STRUCTURE_EXTENSION,
     });
 
     creep.pos.findClosestByRange([] as AnyStructure[], {
-        // $ExpectType (s: AnyStructure) => boolean
         filter: (s) => s.structureType === STRUCTURE_EXTENSION,
     });
 
     creep.pos.findInRange(FIND_STRUCTURES, 10, {
-        // $ExpectType (s: AnyStructure) => boolean
         filter: (s) => s.structureType === STRUCTURE_EXTENSION,
     });
 
     creep.pos.findInRange([] as AnyStructure[], 10, {
-        // $ExpectType (s: AnyStructure) => boolean
         filter: (s) => s.structureType === STRUCTURE_EXTENSION,
     });
 

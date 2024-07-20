@@ -9,7 +9,7 @@
 //                 Kieran Carnegie <https://github.com/kotarou>
 //                 Mofeng <https://github.com/DiamondMofeng>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.6
+// TypeScript Version: 5.5
 
 // Please contribute types to https://github.com/screepers/typed-screeps
 
@@ -1919,7 +1919,6 @@ interface FindPathOpts {
      * @param costMatrix The current CostMatrix
      * @returns The new CostMatrix to use
      */
-    // tslint:disable-next-line: invalid-void
     costCallback?: (roomName: string, costMatrix: CostMatrix) => void | CostMatrix;
 
     /**
@@ -2739,8 +2738,6 @@ type PowerConstant =
     | PWR_OPERATE_EXTENSION
     | PWR_OPERATE_OBSERVER
     | PWR_OPERATE_TERMINAL
-    | PWR_OPERATE_SPAWN
-    | PWR_OPERATE_TOWER
     | PWR_DISRUPT_SPAWN
     | PWR_DISRUPT_TOWER
     | PWR_DISRUPT_SOURCE

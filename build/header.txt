@@ -8,6 +8,6 @@
 //                 Kieran Carnegie <https://github.com/kotarou>
 //                 Mofeng <https://github.com/DiamondMofeng>
 // Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 4.6
+// TypeScript Version: 5.5
 
 // Please contribute types to https://github.com/screepers/typed-screeps
