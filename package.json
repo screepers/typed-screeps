@@ -8,7 +8,7 @@
     "dist/index.d.ts"
   ],
   "scripts": {
-    "compile": "node ./build/concat.js && node ./build/prependHeader.js && node ./build/prependDescription.js",
+    "compile": "node ./build/concat.js",
     "format": "npm run format:build && npm run format:src",
     "format:build": "prettier --write 'build/**/*.js'",
     "format:src": "prettier --write 'src/**/*.ts'",
@@ -31,7 +31,6 @@
     "eslint-plugin-expect-type": "^0.4.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.8",
-    "prepend": "^1.0.2",
     "prettier": "^2.6.2",
     "typescript": "^5.5.0",
     "typescript-eslint": "^7.16.1"
