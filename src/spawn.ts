@@ -147,7 +147,7 @@ interface Spawning {
      * An array with the spawn directions
      * @see http://docs.screeps.com/api/#StructureSpawn.Spawning.setDirections
      */
-    directions: DirectionConstant[];
+    directions?: DirectionConstant[];
 
     /**
      * The name of the creep
@@ -205,4 +205,7 @@ interface SpawnOptions {
     directions?: DirectionConstant[];
 }
 
-interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {}
+interface SpawningConstructor extends _Constructor<Spawning> {
+    new (id: Id<StructureSpawn>): Spawning;
+    (id: Id<StructureSpawn>): Spawning;
+}

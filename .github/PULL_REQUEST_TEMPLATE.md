@@ -11,4 +11,4 @@
 - [ ] Test passed
 - [ ] Coding style (indentation, etc)
 - [ ] Edits have been made to `src/` files not `index.d.ts`
-- [ ] Run `npm run dtslint` to update `index.d.ts`
+- [ ] Run `npm run compile` to update `index.d.ts`

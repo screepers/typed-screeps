@@ -6,7 +6,7 @@ node_modules/
 .editorconfig
 .gitattributes
 tsconfig.json
-tslint.json
+eslint.config.*
 
 src/
 dist/screeps.ts

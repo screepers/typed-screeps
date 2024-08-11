@@ -123,13 +123,15 @@ type FIND_RUINS = 123;
 
 // Filter Options
 
-interface FilterOptions<T extends FindConstant> {
-    filter: FilterFunction<T> | FilterObject | string;
+interface FilterOptions<T, S extends T> {
+    filter?: PredicateFilterFunction<T, S> | FilterFunction<T> | FilterObject<T> | string;
 }
-type FilterFunction<T extends FindConstant> = (object: FindTypes[T]) => boolean;
-interface FilterObject {
-    [key: string]: any;
-}
+
+type PredicateFilterFunction<T, S extends T> = (object: T, index: number, collection: T[]) => object is S;
+type FilterFunction<T> = (object: T, index: number, collection: T[]) => unknown;
+type FilterObject<T> = DeepPartial<T>;
+
+type DeepPartial<T> = T extends object ? { [P in keyof T]?: DeepPartial<T[P]> } : T;
 
 // Body Part Constants
 
@@ -663,8 +665,6 @@ type PowerConstant =
     | PWR_OPERATE_EXTENSION
     | PWR_OPERATE_OBSERVER
     | PWR_OPERATE_TERMINAL
-    | PWR_OPERATE_SPAWN
-    | PWR_OPERATE_TOWER
     | PWR_DISRUPT_SPAWN
     | PWR_DISRUPT_TOWER
     | PWR_DISRUPT_SOURCE

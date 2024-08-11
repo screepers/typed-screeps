@@ -23,7 +23,11 @@ interface Room {
     /**
      * Returns an array of events happened on the previous tick in this room.
      */
-    getEventLog(raw?: boolean): EventItem[];
+    getEventLog(raw?: false): EventItem[];
+    /**
+     * Returns an raw JSON string of events happened on the previous tick in this room.
+     */
+    getEventLog(raw: true): string;
     /**
      * A shorthand to `Memory.rooms[room.name]`. You can use it for quick access the room’s specific memory data object.
      */
@@ -148,11 +152,11 @@ interface Room {
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
-    find<K extends FindConstant>(type: K, opts?: FilterOptions<K>): Array<FindTypes[K]>;
-    find<T extends Structure>(
+    find<K extends FindConstant, S extends FindTypes[K]>(type: K, opts?: FilterOptions<FindTypes[K], S>): S[];
+    find<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FilterOptions<FIND_STRUCTURES>,
-    ): T[];
+        opts?: FilterOptions<FindTypes[FIND_STRUCTURES], S>,
+    ): S[];
     /**
      * Find the exit direction en route to another room.
      * @param room Another room name or room object.
@@ -245,7 +249,7 @@ interface Room {
         bottom: number,
         right: number,
         asArray?: false,
-    ): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
+    ): LookForAtAreaResultMatrix<AllLookAtTypes[T]>;
     /**
      * Get the given objets in the supplied area.
      * @param type One of the LOOK_* constants

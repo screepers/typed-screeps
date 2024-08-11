@@ -137,30 +137,30 @@ interface LineStyle {
     /**
      * Either undefined (solid line), dashed, or dotted.Default is undefined.
      */
-    lineStyle?: "dashed" | "dotted" | "solid";
+    lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface PolyStyle {
     /**
-     * Fill color in any web format, default is #ffffff(white).
+     * Fill color in any web format, default is undefined (no fill).
      */
-    fill?: string;
+    fill?: string | undefined;
     /**
      * Opacity value, default is 0.5.
      */
     opacity?: number;
     /**
-     * Stroke color in any web format, default is undefined (no stroke).
+     * Stroke color in any web format, default is #ffffff (white).
      */
-    stroke?: string | undefined;
+    stroke?: string;
     /**
      * Stroke line width, default is 0.1.
      */
     strokeWidth?: number;
     /**
-     * Either undefined (solid line), dashed, or dotted.Default is undefined.
+     * Either undefined (solid line), dashed, or dotted. Default is undefined.
      */
-    lineStyle?: "dashed" | "dotted" | "solid";
+    lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface CircleStyle extends PolyStyle {
@@ -186,7 +186,7 @@ interface TextStyle {
     /**
      * Stroke color in any web format, default is undefined (no stroke).
      */
-    stroke?: string;
+    stroke?: string | undefined;
     /**
      * Stroke width, default is 0.15.
      */
@@ -194,7 +194,7 @@ interface TextStyle {
     /**
      * Background color in any web format, default is undefined (no background).When background is enabled, text vertical align is set to middle (default is baseline).
      */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
 
     /**
      * Background rectangle padding, default is 0.3.

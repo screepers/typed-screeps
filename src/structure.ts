@@ -192,17 +192,15 @@ interface StructureLink extends OwnedStructure<STRUCTURE_LINK> {
      */
     store: Store<RESOURCE_ENERGY, false>;
     /**
-     * Transfer energy from the link to another link or a creep.
+     * Transfer energy from the link to another link.
      *
-     * If the target is a creep, it has to be at adjacent square to the link.
-     *
-     * If the target is a link, it can be at any location in the same room.
+     * The target link can be at any position within the room.
      *
      * Remote transfer process implies 3% energy loss and cooldown delay depending on the distance.
      * @param target The target object.
      * @param amount The amount of energy to be transferred. If omitted, all the available energy is used.
      */
-    transferEnergy(target: Creep | StructureLink, amount?: number): ScreepsReturnCode;
+    transferEnergy(target: StructureLink, amount?: number): ScreepsReturnCode;
 }
 
 interface StructureLinkConstructor extends _Constructor<StructureLink>, _ConstructorById<StructureLink> {}
@@ -660,7 +658,7 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
      * Can be set by applying the PWR_OPERATE_FACTORY power to a newly built factory.
      * Once set, the level cannot be changed.
      */
-    level: number;
+    level?: number;
     /**
      * An object with the structure contents.
      */
@@ -669,7 +667,7 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
      * Produces the specified commodity.
      * All ingredients should be available in the factory store.
      */
-    produce(resource: CommodityConstant | MineralConstant | RESOURCE_ENERGY | RESOURCE_GHODIUM): ScreepsReturnCode;
+    produce(resource: CommoditiesTypes): ScreepsReturnCode;
 }
 
 interface StructureFactoryConstructor extends _Constructor<StructureFactory>, _ConstructorById<StructureFactory> {}
@@ -689,6 +687,10 @@ interface StructureInvaderCore extends OwnedStructure<STRUCTURE_INVADER_CORE> {
      * Shows the timer for a not yet deployed stronghold, undefined otherwise.
      */
     ticksToDeploy: number;
+    /**
+     * If the core is in process of spawning a new creep, this object will contain a `StructureSpawn.Spawning` object, or `null` otherwise.
+     */
+    spawning: Spawning | null;
 }
 
 interface StructureInvaderCoreConstructor extends _Constructor<StructureInvaderCore>, _ConstructorById<StructureInvaderCore> {}
@@ -736,49 +738,34 @@ type AnyStoreStructure =
 type AnyStructure = AnyOwnedStructure | StructureContainer | StructurePortal | StructureRoad | StructureWall;
 
 /**
+ * Map of structure constant to the concrete structure class
+ */
+interface ConcreteStructureMap {
+    [STRUCTURE_EXTENSION]: StructureExtension;
+    [STRUCTURE_RAMPART]: StructureRampart;
+    [STRUCTURE_ROAD]: StructureRoad;
+    [STRUCTURE_SPAWN]: StructureSpawn;
+    [STRUCTURE_LINK]: StructureLink;
+    [STRUCTURE_WALL]: StructureWall;
+    [STRUCTURE_STORAGE]: StructureStorage;
+    [STRUCTURE_TOWER]: StructureTower;
+    [STRUCTURE_OBSERVER]: StructureObserver;
+    [STRUCTURE_POWER_SPAWN]: StructurePowerSpawn;
+    [STRUCTURE_EXTRACTOR]: StructureExtractor;
+    [STRUCTURE_LAB]: StructureLab;
+    [STRUCTURE_TERMINAL]: StructureTerminal;
+    [STRUCTURE_CONTAINER]: StructureContainer;
+    [STRUCTURE_NUKER]: StructureNuker;
+    [STRUCTURE_FACTORY]: StructureFactory;
+    [STRUCTURE_KEEPER_LAIR]: StructureKeeperLair;
+    [STRUCTURE_CONTROLLER]: StructureController;
+    [STRUCTURE_POWER_BANK]: StructurePowerBank;
+    [STRUCTURE_PORTAL]: StructurePortal;
+    [STRUCTURE_INVADER_CORE]: StructureInvaderCore;
+}
+
+/**
  * Conditional type for all concrete implementations of Structure.
  * Unlike Structure<T>, ConcreteStructure<T> gives you the actual concrete class that extends Structure<T>.
  */
-type ConcreteStructure<T extends StructureConstant> = T extends STRUCTURE_EXTENSION
-    ? StructureExtension
-    : T extends STRUCTURE_RAMPART
-    ? StructureRampart
-    : T extends STRUCTURE_ROAD
-    ? StructureRoad
-    : T extends STRUCTURE_SPAWN
-    ? StructureSpawn
-    : T extends STRUCTURE_LINK
-    ? StructureLink
-    : T extends STRUCTURE_WALL
-    ? StructureWall
-    : T extends STRUCTURE_STORAGE
-    ? StructureStorage
-    : T extends STRUCTURE_TOWER
-    ? StructureTower
-    : T extends STRUCTURE_OBSERVER
-    ? StructureObserver
-    : T extends STRUCTURE_POWER_SPAWN
-    ? StructurePowerSpawn
-    : T extends STRUCTURE_EXTRACTOR
-    ? StructureExtractor
-    : T extends STRUCTURE_LAB
-    ? StructureLab
-    : T extends STRUCTURE_TERMINAL
-    ? StructureTerminal
-    : T extends STRUCTURE_CONTAINER
-    ? StructureContainer
-    : T extends STRUCTURE_NUKER
-    ? StructureNuker
-    : T extends STRUCTURE_FACTORY
-    ? StructureFactory
-    : T extends STRUCTURE_KEEPER_LAIR
-    ? StructureKeeperLair
-    : T extends STRUCTURE_CONTROLLER
-    ? StructureController
-    : T extends STRUCTURE_POWER_BANK
-    ? StructurePowerBank
-    : T extends STRUCTURE_PORTAL
-    ? StructurePortal
-    : T extends STRUCTURE_INVADER_CORE
-    ? StructureInvaderCore
-    : never;
+type ConcreteStructure<T extends StructureConstant> = ConcreteStructureMap[T];

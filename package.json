@@ -1,6 +1,6 @@
 {
   "name": "typed-screeps",
-  "version": "3.2.2-beta",
+  "version": "3.3.3",
   "description": "Strong TypeScript declarations for the game Screeps.",
   "repository": "screepers/typed-screeps",
   "types": "./dist/index.d.ts",
@@ -8,17 +8,15 @@
     "dist/index.d.ts"
   ],
   "scripts": {
-    "compile:dtslint": "node ./build/concat.js && node ./build/prependHeader.js",
-    "compile": "npm run compile:dtslint && node ./build/prependDescription.js",
-    "dtslint": "npm run compile:dtslint && dtslint dist",
+    "compile": "node ./build/concat.js",
     "format": "npm run format:build && npm run format:src",
     "format:build": "prettier --write 'build/**/*.js'",
     "format:src": "prettier --write 'src/**/*.ts'",
-    "lint": "tslint -p tsconfig.json 'src/**/*.ts'",
-    "lint:test": "tslint -p dist/tsconfig.json 'dist/screeps-tests.ts'",
+    "test": "npm run compile && npm run lint:test",
+    "lint": "eslint -c eslint.config.mjs",
+    "lint:test": "eslint -c eslint.config.test.mjs dist/screeps-tests.ts",
     "pre-commit": "npm run compile && git add dist/index.d.ts",
-    "prepare": "npm test",
-    "test": "npm run dtslint"
+    "prepare": "husky install && npm test"
   },
   "keywords": [
     "Screeps",
@@ -29,28 +27,17 @@
   "author": "Marko Sulamagi <marko.sulamagi@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "concat-files": "^0.1.1",
-    "copy": "^0.3.2",
-    "dtslint": "0.4.9",
-    "husky": "^2.2.0",
-    "lint-staged": "^8.1.6",
-    "prepend": "^1.0.2",
-    "prettier": "^1.15.3",
-    "rimraf": "^2.6.2",
-    "tslint": "^5.12.0",
-    "tslint-config-prettier": "^1.17.0",
-    "tslint-plugin-prettier": "^2.0.1",
-    "typescript": "^3.4.5"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged && npm run pre-commit"
-    }
+    "eslint": "^9.7.0",
+    "eslint-plugin-expect-type": "^0.4.0",
+    "husky": "^7.0.4",
+    "lint-staged": "^12.3.8",
+    "prettier": "^2.6.2",
+    "typescript": "^5.5.0",
+    "typescript-eslint": "^7.16.1"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "prettier --write",
-      "git add"
+      "prettier --write"
     ]
   }
 }

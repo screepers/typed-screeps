@@ -67,8 +67,17 @@ interface Market {
      * You can use Game.market.calcTransactionCost method to estimate it.
      *
      * When multiple players try to execute the same deal, the one with the shortest distance takes precedence.
+     *
+     * You cannot execute more than 10 deals during one tick.
+     *
+     * @param orderId The order ID as provided in Game.market.orders
+     * @param amount The amount of resources to transfer.
+     * @param yourRoomName The name of your room which has to contain an active Terminal with enough amount of energy.
+     * This argument is not used when the order resource type is one of account-bound resources (@see {@link InterShardResourceConstant}).
+     *
+     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_NOT_ENOUGH_RESOURCES, ERR_FULL, ERR_INVALID_ARGS, ERR_TIRED
      */
-    deal(orderId: string, amount: number, targetRoomName?: string): ScreepsReturnCode;
+    deal(orderId: string, amount: number, yourRoomName?: string): ScreepsReturnCode;
     /**
      * Add more capacity to an existing order. It will affect `remainingAmount` and `totalAmount` properties. You will be charged `price*addAmount*0.05` credits.
      * Extending the order doesn't update its expiration time.
@@ -116,7 +125,7 @@ interface Order {
     id: string;
     created: number;
     active?: boolean;
-    type: string;
+    type: ORDER_BUY | ORDER_SELL;
     resourceType: MarketResourceConstant;
     roomName?: string;
     amount: number;

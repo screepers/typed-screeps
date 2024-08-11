@@ -102,7 +102,7 @@ interface Creep extends RoomObject {
      *
      * The target has to be within 3 squares range of the creep.
      *
-     * @param target The target object to be attacked.
+     * @param target The target construction site to be built.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_RCL_NOT_ENOUGH
      */
     build(target: ConstructionSite): CreepActionReturnCode | ERR_NOT_ENOUGH_RESOURCES | ERR_RCL_NOT_ENOUGH;

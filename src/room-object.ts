@@ -8,7 +8,7 @@ interface RoomObject {
     /**
      * Applied effects, an array of objects with the following properties:
      */
-    effects: RoomObjectEffect[];
+    effects?: RoomObjectEffect[];
     /**
      * An object representing the position of this object in the room.
      */

@@ -26,7 +26,7 @@ interface GameMap {
      * @param roomName The room name.
      * @returns The exits information or null if the room not found.
      */
-    describeExits(roomName: string): ExitsInformation;
+    describeExits(roomName: string): ExitsInformation | null;
     /**
      * Find the exit direction from the given room en route to another room.
      * @param fromRoom Start room name or room object.
@@ -206,22 +206,22 @@ interface MapLineStyle {
     /**
      * Either undefined (solid line), dashed, or dotted. Default is undefined.
      */
-    lineStyle?: "dashed" | "dotted" | "solid";
+    lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface MapPolyStyle {
     /**
-     * Fill color in the following format: #ffffff (hex triplet). Default is #ffffff.
+     * Fill color in the following format: #ffffff (hex triplet). Default is undefined (no fill).
      */
-    fill?: string;
+    fill?: string | undefined;
     /**
      * Opacity value, default is 0.5.
      */
     opacity?: number;
     /**
-     * Stroke color in the following format: #ffffff (hex triplet). Default is undefined (no stroke).
+     * Stroke color in the following format: #ffffff (hex triplet). Default is #ffffff.
      */
-    stroke?: string | undefined;
+    stroke?: string;
     /**
      * Stroke line width, default is 0.5.
      */
@@ -229,7 +229,7 @@ interface MapPolyStyle {
     /**
      * Either undefined (solid line), dashed, or dotted. Default is undefined.
      */
-    lineStyle?: "dashed" | "dotted" | "solid";
+    lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface MapCircleStyle extends MapPolyStyle {
@@ -263,7 +263,7 @@ interface MapTextStyle {
     /**
      * Stroke color in the following format: #ffffff (hex triplet). Default is undefined (no stroke).
      */
-    stroke?: string;
+    stroke?: string | undefined;
     /**
      * Stroke width, default is 0.15.
      */
@@ -271,7 +271,7 @@ interface MapTextStyle {
     /**
      * Background color in the following format: #ffffff (hex triplet). Default is undefined (no background). When background is enabled, text vertical align is set to middle (default is baseline).
      */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
     /**
      * Background rectangle padding, default is 2.
      */

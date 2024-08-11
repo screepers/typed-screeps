@@ -1,18 +1,3 @@
-// Type definitions for Screeps 3.2.2-beta
-// Project: https://github.com/screeps/screeps
-// Definitions by: Marko Sulamägi <https://github.com/MarkoSulamagi>
-//                 Nhan Ho <https://github.com/NhanHo>
-//                 Bryan <https://github.com/bryanbecker>
-//                 Resi Respati <https://github.com/resir014>
-//                 Adam Laycock <https://github.com/Arcath>
-//                 Dominic Marcuse <https://github.com/dmarcuse>
-//                 Skyler Kehren <https://github.com/pyrodogg>
-//                 Kieran Carnegie <https://github.com/kotarou>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-// TypeScript Version: 2.8
-
-// Please contribute types to https://github.com/screepers/typed-screeps
-
 // Game Constants
 
 declare const OK: OK;
@@ -108,7 +93,7 @@ declare const OBSTACLE_OBJECT_TYPES: [
     "terminal",
     "nuker",
     "factory",
-    "invaderCore"
+    "invaderCore",
 ];
 
 declare const ENERGY_REGEN_TIME: 300;
@@ -326,7 +311,7 @@ declare const CPU_UNLOCK: CPU_UNLOCK;
 declare const PIXEL: PIXEL;
 declare const ACCESS_KEY: ACCESS_KEY;
 
-declare const PIXEL_CPU_COST: 5000;
+declare const PIXEL_CPU_COST: 10000;
 
 declare const CONTROLLER_LEVELS: { [level: number]: number };
 declare const CONTROLLER_STRUCTURES: Record<BuildableStructureConstant, { [level: number]: number }>;
@@ -743,15 +728,14 @@ declare const BOOSTS: {
 
 declare const INTERSHARD_RESOURCES: InterShardResourceConstant[];
 
-declare const COMMODITIES: Record<
-    CommodityConstant | MineralConstant | RESOURCE_GHODIUM | RESOURCE_ENERGY,
-    {
-        level?: number;
-        amount: number;
-        cooldown: number;
-        components: Record<DepositConstant | CommodityConstant | MineralConstant | RESOURCE_ENERGY | RESOURCE_GHODIUM, number>;
-    }
->;
+type CommoditiesTypes = CommodityConstant | MineralConstant | RESOURCE_GHODIUM | RESOURCE_ENERGY;
+interface CommodityEntry {
+    level?: number;
+    amount: number;
+    cooldown: number;
+    components: Record<DepositConstant | CommoditiesTypes, number>;
+}
+declare const COMMODITIES: Record<CommoditiesTypes, CommodityEntry>;
 
 declare const LOOK_CREEPS: LOOK_CREEPS;
 declare const LOOK_ENERGY: LOOK_ENERGY;
@@ -771,6 +755,7 @@ declare const LOOK_RUINS: LOOK_RUINS;
 declare const ORDER_SELL: ORDER_SELL;
 declare const ORDER_BUY: ORDER_BUY;
 
+declare const MARKET_FEE: 0.05;
 declare const MARKET_MAX_ORDERS: 300;
 declare const MARKET_ORDER_LIFE_TIME: 2592000000; // 1000*60*60*24*30
 
@@ -843,7 +828,7 @@ declare const PWR_OPERATE_FACTORY: PWR_OPERATE_FACTORY;
 declare const EFFECT_INVULNERABILITY: EFFECT_INVULNERABILITY;
 declare const EFFECT_COLLAPSE_TIMER: EFFECT_COLLAPSE_TIMER;
 
-declare const INVADER_CORE_HITS: 1000000;
+declare const INVADER_CORE_HITS: 100000;
 declare const INVADER_CORE_CREEP_SPAWN_TIME: {
     0: 0;
     1: 0;
@@ -852,11 +837,24 @@ declare const INVADER_CORE_CREEP_SPAWN_TIME: {
     4: 2;
     5: 1;
 };
-declare const INVADER_CORE_EXPAND_TIME: 15000;
-declare const INVADER_CORE_CONTROLLER_POWER: 100;
+declare const INVADER_CORE_EXPAND_TIME: {
+    1: 4000;
+    2: 3500;
+    3: 3000;
+    4: 2500;
+    5: 2000;
+};
+declare const INVADER_CORE_CONTROLLER_POWER: 2;
 declare const INVADER_CORE_CONTROLLER_DOWNGRADE: 5000;
-declare const STRONGHOLD_RAMPART_HITS: { 0: 0; 1: 50000; 2: 200000; 3: 500000; 4: 1000000; 5: 2000000 };
-declare const STRONGHOLD_DECAY_TICKS: 150000;
+declare const STRONGHOLD_RAMPART_HITS: {
+    0: 0;
+    1: 100000;
+    2: 200000;
+    3: 500000;
+    4: 1000000;
+    5: 2000000;
+};
+declare const STRONGHOLD_DECAY_TICKS: 75000;
 
 declare const POWER_INFO: {
     [powerID: number]: {
@@ -1182,7 +1180,7 @@ interface Creep extends RoomObject {
      *
      * The target has to be within 3 squares range of the creep.
      *
-     * @param target The target object to be attacked.
+     * @param target The target construction site to be built.
      * @returns Result Code: OK, ERR_NOT_OWNER, ERR_BUSY, ERR_NOT_ENOUGH_RESOURCES, ERR_INVALID_TARGET, ERR_NOT_IN_RANGE, ERR_NO_BODYPART, ERR_RCL_NOT_ENOUGH
      */
     build(target: ConstructionSite): CreepActionReturnCode | ERR_NOT_ENOUGH_RESOURCES | ERR_RCL_NOT_ENOUGH;
@@ -1420,7 +1418,11 @@ interface Deposit extends RoomObject {
      */
     id: Id<this>;
     /**
-     * The amount of game ticks until the next harvest action is possible.
+     * The deposit type, one of the following constants:
+     * * `RESOURCE_MIST`
+     * * `RESOURCE_BIOMASS`
+     * * `RESOURCE_METAL`
+     * * `RESOURCE_SILICON`
      */
     depositType: DepositConstant;
     /**
@@ -1459,7 +1461,7 @@ interface Flag extends RoomObject {
      *
      * You can choose the name while creating a new flag, and it cannot be changed later.
      *
-     * This name is a hash key to access the spawn via the `Game.flags` object. The maximum name length is 60 characters.
+     * This name is a hash key to access the flag via the `Game.flags` object. The maximum name length is 60 characters.
      */
     name: string;
     /**
@@ -1551,7 +1553,7 @@ interface Game {
     /**
      * A hash containing all your structures with structure id as hash keys.
      */
-    structures: { [structureId: string]: Structure };
+    structures: { [structureId: string]: OwnedStructure };
 
     /**
      * A hash containing all your construction sites with their id as hash keys.
@@ -1573,16 +1575,8 @@ interface Game {
      * @param id The unique identifier.
      * @returns an object instance or null if it cannot be found.
      */
-    getObjectById<T>(id: Id<T>): T | null;
-
-    /**
-     * Get an object with the specified unique ID. It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.
-     * @param id The unique identifier.
-     * @returns an object instance or null if it cannot be found.
-     * @deprecated Use Id<T>, instead of strings, to increase type safety
-     */
-    // tslint:disable-next-line:unified-signatures
-    getObjectById<T>(id: string): T | null;
+    getObjectById<T extends Id<_HasId>>(id: T): fromId<T> | null;
+    getObjectById<T extends _HasId>(id: Id<T>): T | null;
 
     /**
      * Send a custom message at your profile email.
@@ -1712,7 +1706,7 @@ interface CPU {
      */
     halt?(): never;
     /**
-     * Generate 1 pixel resource unit for 5000 CPU from your bucket.
+     * Generate 1 pixel resource unit for 10000 CPU from your bucket.
      */
     generatePixel(): OK | ERR_NOT_ENOUGH_RESOURCES;
 
@@ -1791,6 +1785,15 @@ type StoreDefinitionUnlimited = Store<ResourceConstant, true>;
 //   energy: number;
 // }
 
+/**
+ * @example
+ * {
+ *   "1": "W8N4",       // TOP
+ *   "3": "W7N3",       // RIGHT
+ *   // "5": "W8N2",    // BOTTOM
+ *   "7": "W9N3"        // LEFT
+ * }
+ */
 type ExitsInformation = Partial<Record<ExitKey, string>>;
 
 interface AllLookAtTypes {
@@ -1804,7 +1807,7 @@ interface AllLookAtTypes {
     nuke: Nuke;
     resource: Resource;
     source: Source;
-    structure: Structure;
+    structure: AnyStructure;
     terrain: Terrain;
     tombstone: Tombstone;
     powerCreep: PowerCreep;
@@ -1826,9 +1829,9 @@ interface LookAtResultMatrix<K extends LookConstant = LookConstant> {
     };
 }
 
-interface LookForAtAreaResultMatrix<T, K extends keyof LookAtTypes = keyof LookAtTypes> {
+interface LookForAtAreaResultMatrix<T> {
     [y: number]: {
-        [x: number]: Array<LookForAtAreaResult<T, K>>;
+        [x: number]: T[];
     };
 }
 
@@ -1915,7 +1918,7 @@ interface FindPathOpts {
      * @param costMatrix The current CostMatrix
      * @returns The new CostMatrix to use
      */
-    costCallback?(roomName: string, costMatrix: CostMatrix): void | CostMatrix;
+    costCallback?: (roomName: string, costMatrix: CostMatrix) => void | CostMatrix;
 
     /**
      * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search. This option
@@ -2024,7 +2027,7 @@ interface _Constructor<T> {
     readonly prototype: T;
 }
 
-interface _ConstructorById<T> extends _Constructor<T> {
+interface _ConstructorById<T extends _HasId> extends _Constructor<T> {
     new (id: Id<T>): T;
     (id: Id<T>): T;
 }
@@ -2036,7 +2039,10 @@ declare namespace Tag {
         private [OpaqueTagSymbol]: T;
     }
 }
-type Id<T> = string & Tag.OpaqueTag<T>;
+
+type Id<T extends _HasId> = string & Tag.OpaqueTag<T>;
+
+type fromId<T> = T extends Id<infer R> ? R : never;
 /**
  * `InterShardMemory` object provides an interface for communicating between shards.
  * Your script is executed separatedly on each shard, and their `Memory` objects are isolated from each other.
@@ -2192,13 +2198,15 @@ type FIND_RUINS = 123;
 
 // Filter Options
 
-interface FilterOptions<T extends FindConstant> {
-    filter: FilterFunction<T> | FilterObject | string;
+interface FilterOptions<T, S extends T> {
+    filter?: PredicateFilterFunction<T, S> | FilterFunction<T> | FilterObject<T> | string;
 }
-type FilterFunction<T extends FindConstant> = (object: FindTypes[T]) => boolean;
-interface FilterObject {
-    [key: string]: any;
-}
+
+type PredicateFilterFunction<T, S extends T> = (object: T, index: number, collection: T[]) => object is S;
+type FilterFunction<T> = (object: T, index: number, collection: T[]) => unknown;
+type FilterObject<T> = DeepPartial<T>;
+
+type DeepPartial<T> = T extends object ? { [P in keyof T]?: DeepPartial<T[P]> } : T;
 
 // Body Part Constants
 
@@ -2732,8 +2740,6 @@ type PowerConstant =
     | PWR_OPERATE_EXTENSION
     | PWR_OPERATE_OBSERVER
     | PWR_OPERATE_TERMINAL
-    | PWR_OPERATE_SPAWN
-    | PWR_OPERATE_TOWER
     | PWR_DISRUPT_SPAWN
     | PWR_DISRUPT_TOWER
     | PWR_DISRUPT_SOURCE
@@ -2808,7 +2814,7 @@ interface GameMap {
      * @param roomName The room name.
      * @returns The exits information or null if the room not found.
      */
-    describeExits(roomName: string): ExitsInformation;
+    describeExits(roomName: string): ExitsInformation | null;
     /**
      * Find the exit direction from the given room en route to another room.
      * @param fromRoom Start room name or room object.
@@ -2988,22 +2994,22 @@ interface MapLineStyle {
     /**
      * Either undefined (solid line), dashed, or dotted. Default is undefined.
      */
-    lineStyle?: "dashed" | "dotted" | "solid";
+    lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface MapPolyStyle {
     /**
-     * Fill color in the following format: #ffffff (hex triplet). Default is #ffffff.
+     * Fill color in the following format: #ffffff (hex triplet). Default is undefined (no fill).
      */
-    fill?: string;
+    fill?: string | undefined;
     /**
      * Opacity value, default is 0.5.
      */
     opacity?: number;
     /**
-     * Stroke color in the following format: #ffffff (hex triplet). Default is undefined (no stroke).
+     * Stroke color in the following format: #ffffff (hex triplet). Default is #ffffff.
      */
-    stroke?: string | undefined;
+    stroke?: string;
     /**
      * Stroke line width, default is 0.5.
      */
@@ -3011,7 +3017,7 @@ interface MapPolyStyle {
     /**
      * Either undefined (solid line), dashed, or dotted. Default is undefined.
      */
-    lineStyle?: "dashed" | "dotted" | "solid";
+    lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface MapCircleStyle extends MapPolyStyle {
@@ -3045,7 +3051,7 @@ interface MapTextStyle {
     /**
      * Stroke color in the following format: #ffffff (hex triplet). Default is undefined (no stroke).
      */
-    stroke?: string;
+    stroke?: string | undefined;
     /**
      * Stroke width, default is 0.15.
      */
@@ -3053,7 +3059,7 @@ interface MapTextStyle {
     /**
      * Background color in the following format: #ffffff (hex triplet). Default is undefined (no background). When background is enabled, text vertical align is set to middle (default is baseline).
      */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
     /**
      * Background rectangle padding, default is 2.
      */
@@ -3136,8 +3142,17 @@ interface Market {
      * You can use Game.market.calcTransactionCost method to estimate it.
      *
      * When multiple players try to execute the same deal, the one with the shortest distance takes precedence.
+     *
+     * You cannot execute more than 10 deals during one tick.
+     *
+     * @param orderId The order ID as provided in Game.market.orders
+     * @param amount The amount of resources to transfer.
+     * @param yourRoomName The name of your room which has to contain an active Terminal with enough amount of energy.
+     * This argument is not used when the order resource type is one of account-bound resources (@see {@link InterShardResourceConstant}).
+     *
+     * @returns Result Code: OK, ERR_NOT_OWNER, ERR_NOT_ENOUGH_RESOURCES, ERR_FULL, ERR_INVALID_ARGS, ERR_TIRED
      */
-    deal(orderId: string, amount: number, targetRoomName?: string): ScreepsReturnCode;
+    deal(orderId: string, amount: number, yourRoomName?: string): ScreepsReturnCode;
     /**
      * Add more capacity to an existing order. It will affect `remainingAmount` and `totalAmount` properties. You will be charged `price*addAmount*0.05` credits.
      * Extending the order doesn't update its expiration time.
@@ -3185,7 +3200,7 @@ interface Order {
     id: string;
     created: number;
     active?: boolean;
-    type: string;
+    type: ORDER_BUY | ORDER_SELL;
     resourceType: MarketResourceConstant;
     roomName?: string;
     amount: number;
@@ -3220,11 +3235,11 @@ interface PriceHistory {
     stddevPrice: number;
 }
 interface Memory {
-    creeps: {[name: string]: CreepMemory};
-    powerCreeps: {[name: string]: PowerCreepMemory};
-    flags: {[name: string]: FlagMemory};
-    rooms: {[name: string]: RoomMemory};
-    spawns: {[name: string]: SpawnMemory};
+    creeps: { [name: string]: CreepMemory };
+    powerCreeps: { [name: string]: PowerCreepMemory };
+    flags: { [name: string]: FlagMemory };
+    rooms: { [name: string]: RoomMemory };
+    spawns: { [name: string]: SpawnMemory };
 }
 
 interface CreepMemory {}
@@ -3260,9 +3275,9 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
      */
     id: Id<this>;
     /**
-     * The remaining time after which the deposit will be refilled.
+     * The remaining time after which the deposit will be refilled if is recharging, otherwise undefined.
      */
-    ticksToRegeneration: number;
+    ticksToRegeneration?: number;
 }
 
 interface MineralConstructor extends _Constructor<Mineral>, _ConstructorById<Mineral> {}
@@ -3297,9 +3312,9 @@ declare const Nuke: NukeConstructor;
  */
 interface PathFinder {
     /**
-     * Container for custom navigation cost data.
+     * Creates a new CostMatrix containing 0's for all positions.
      */
-    CostMatrix: CostMatrix;
+    CostMatrix: CostMatrixConstructor;
 
     /**
      * Find an optimal path between origin and goal.
@@ -3403,14 +3418,20 @@ interface PathFinderOpts {
     roomCallback?(roomName: string): boolean | CostMatrix;
 }
 
+interface CostMatrixConstructor extends _Constructor<CostMatrix> {
+    new (): CostMatrix;
+
+    /**
+     * Static method which deserializes a new CostMatrix using the return value of serialize.
+     * @param val Whatever serialize returned
+     */
+    deserialize(val: number[]): CostMatrix;
+}
+
 /**
  * Container for custom navigation cost data.
  */
 interface CostMatrix {
-    /**
-     * Creates a new CostMatrix containing 0's for all positions.
-     */
-    new(): CostMatrix;
     /**
      * Set the cost of a position in this CostMatrix.
      * @param x X position in the room.
@@ -3432,11 +3453,6 @@ interface CostMatrix {
      * Returns a compact representation of this CostMatrix which can be stored via JSON.stringify.
      */
     serialize(): number[];
-    /**
-     * Static method which deserializes a new CostMatrix using the return value of serialize.
-     * @param val Whatever serialize returned
-     */
-    deserialize(val: number[]): CostMatrix;
 }
 
 declare const PathFinder: PathFinder;
@@ -3785,7 +3801,7 @@ interface RoomObject {
     /**
      * Applied effects, an array of objects with the following properties:
      */
-    effects: RoomObjectEffect[];
+    effects?: RoomObjectEffect[];
     /**
      * An object representing the position of this object in the room.
      */
@@ -3906,59 +3922,62 @@ interface RoomPosition {
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      * @returns An instance of a RoomObject.
      */
-    findClosestByPath<K extends FindConstant>(
+    findClosestByPath<K extends FindConstant, S extends FindTypes[K]>(
         type: K,
-        opts?: FindPathOpts & Partial<FilterOptions<K>> & { algorithm?: FindClosestByPathAlgorithm },
-    ): FindTypes[K] | null;
-    findClosestByPath<T extends Structure>(
+        opts?: FindPathOpts & FilterOptions<FindTypes[K], S> & { algorithm?: FindClosestByPathAlgorithm },
+    ): S | null;
+    findClosestByPath<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FindPathOpts & Partial<FilterOptions<FIND_STRUCTURES>> & { algorithm?: FindClosestByPathAlgorithm },
-    ): T | null;
+        opts?: FindPathOpts & FilterOptions<FindTypes[FIND_STRUCTURES], S> & { algorithm?: FindClosestByPathAlgorithm },
+    ): S | null;
     /**
      * Find the object with the shortest path from the given position. Uses A* search algorithm and Dijkstra's algorithm.
      * @param objects An array of RoomPositions or objects with a RoomPosition
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      * @returns One of the supplied objects
      */
-    findClosestByPath<T extends _HasRoomPosition | RoomPosition>(
+    findClosestByPath<T extends _HasRoomPosition | RoomPosition, S extends T = T>(
         objects: T[],
-        opts?: FindPathOpts & { filter?: ((object: T) => boolean) | FilterObject | string; algorithm?: FindClosestByPathAlgorithm },
-    ): T | null;
+        opts?: FindPathOpts &
+            FilterOptions<T, S> & {
+                algorithm?: FindClosestByPathAlgorithm;
+            },
+    ): S | null;
     /**
      * Find the object with the shortest linear distance from the given position.
      * @param type Any of the FIND_* constants.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<K extends FindConstant>(type: K, opts?: FilterOptions<K>): FindTypes[K] | null;
-    findClosestByRange<T extends Structure>(
+    findClosestByRange<K extends FindConstant, S extends FindTypes[K]>(type: K, opts?: FilterOptions<FindTypes[K], S>): S | null;
+    findClosestByRange<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FilterOptions<FIND_STRUCTURES>,
-    ): T | null;
+        opts?: FilterOptions<FindTypes[FIND_STRUCTURES], S>,
+    ): S | null;
     /**
      * Find the object with the shortest linear distance from the given position.
      * @param objects An array of RoomPositions or objects with a RoomPosition.
      * @param opts An object containing pathfinding options (see Room.findPath), or one of the following: filter, algorithm
      */
-    findClosestByRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], opts?: { filter: any | string }): T | null;
+    findClosestByRange<T extends _HasRoomPosition | RoomPosition, S extends T = T>(objects: T[], opts?: FilterOptions<T, S>): S | null;
     /**
      * Find all objects in the specified linear range.
      * @param type Any of the FIND_* constants.
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<K extends FindConstant>(type: K, range: number, opts?: FilterOptions<K>): Array<FindTypes[K]>;
-    findInRange<T extends Structure>(
+    findInRange<K extends FindConstant, S extends FindTypes[K]>(type: K, range: number, opts?: FilterOptions<FindTypes[K], S>): S[];
+    findInRange<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
         range: number,
-        opts?: FilterOptions<FIND_STRUCTURES>,
-    ): T[];
+        opts?: FilterOptions<FindTypes[FIND_STRUCTURES], S>,
+    ): S[];
     /**
      * Find all objects in the specified linear range.
      * @param objects An array of room's objects or RoomPosition objects that the search should be executed against.
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<T extends _HasRoomPosition | RoomPosition>(objects: T[], range: number, opts?: { filter?: any | string }): T[];
+    findInRange<T extends _HasRoomPosition | RoomPosition, S extends T = T>(objects: T[], range: number, opts?: FilterOptions<T, S>): S[];
     /**
      * Find an optimal path to the specified position using A* search algorithm.
      *
@@ -4067,6 +4086,27 @@ interface RoomTerrain {
      * @return number Number of terrain mask like: TERRAIN_MASK_SWAMP | TERRAIN_MASK_WALL
      */
     get(x: number, y: number): 0 | TERRAIN_MASK_WALL | TERRAIN_MASK_SWAMP;
+    /**
+     * Get copy of underlying static terrain buffer.
+     * @param destinationArray (optional) A typed array view in which terrain will be copied to.
+     * @throws {RangeError} if `destinationArray` is provided, it must have a length of at least 2500 (`50*50`).
+     * @return Copy of underlying room terrain as a new typed array of size 2500.
+     */
+    getRawBuffer<
+        T extends
+            | Int8Array
+            | Uint8Array
+            | Int16Array
+            | Uint16Array
+            | Int32Array
+            | Uint32Array
+            | Uint8ClampedArray
+            | Float32Array
+            | Float64Array,
+    >(
+        destinationArray: T,
+    ): T;
+    getRawBuffer(): Uint8Array;
 }
 
 interface RoomTerrainConstructor extends _Constructor<RoomTerrain> {
@@ -4215,30 +4255,30 @@ interface LineStyle {
     /**
      * Either undefined (solid line), dashed, or dotted.Default is undefined.
      */
-    lineStyle?: "dashed" | "dotted" | "solid";
+    lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface PolyStyle {
     /**
-     * Fill color in any web format, default is #ffffff(white).
+     * Fill color in any web format, default is undefined (no fill).
      */
-    fill?: string;
+    fill?: string | undefined;
     /**
      * Opacity value, default is 0.5.
      */
     opacity?: number;
     /**
-     * Stroke color in any web format, default is undefined (no stroke).
+     * Stroke color in any web format, default is #ffffff (white).
      */
-    stroke?: string | undefined;
+    stroke?: string;
     /**
      * Stroke line width, default is 0.1.
      */
     strokeWidth?: number;
     /**
-     * Either undefined (solid line), dashed, or dotted.Default is undefined.
+     * Either undefined (solid line), dashed, or dotted. Default is undefined.
      */
-    lineStyle?: "dashed" | "dotted" | "solid";
+    lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface CircleStyle extends PolyStyle {
@@ -4264,7 +4304,7 @@ interface TextStyle {
     /**
      * Stroke color in any web format, default is undefined (no stroke).
      */
-    stroke?: string;
+    stroke?: string | undefined;
     /**
      * Stroke width, default is 0.15.
      */
@@ -4272,7 +4312,7 @@ interface TextStyle {
     /**
      * Background color in any web format, default is undefined (no background).When background is enabled, text vertical align is set to middle (default is baseline).
      */
-    backgroundColor?: string;
+    backgroundColor?: string | undefined;
 
     /**
      * Background rectangle padding, default is 0.3.
@@ -4309,7 +4349,11 @@ interface Room {
     /**
      * Returns an array of events happened on the previous tick in this room.
      */
-    getEventLog(raw?: boolean): EventItem[];
+    getEventLog(raw?: false): EventItem[];
+    /**
+     * Returns an raw JSON string of events happened on the previous tick in this room.
+     */
+    getEventLog(raw: true): string;
     /**
      * A shorthand to `Memory.rooms[room.name]`. You can use it for quick access the room’s specific memory data object.
      */
@@ -4434,11 +4478,11 @@ interface Room {
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
-    find<K extends FindConstant>(type: K, opts?: FilterOptions<K>): Array<FindTypes[K]>;
-    find<T extends Structure>(
+    find<K extends FindConstant, S extends FindTypes[K]>(type: K, opts?: FilterOptions<FindTypes[K], S>): S[];
+    find<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
-        opts?: FilterOptions<FIND_STRUCTURES>,
-    ): T[];
+        opts?: FilterOptions<FindTypes[FIND_STRUCTURES], S>,
+    ): S[];
     /**
      * Find the exit direction en route to another room.
      * @param room Another room name or room object.
@@ -4531,7 +4575,7 @@ interface Room {
         bottom: number,
         right: number,
         asArray?: false,
-    ): LookForAtAreaResultMatrix<AllLookAtTypes[T], T>;
+    ): LookForAtAreaResultMatrix<AllLookAtTypes[T]>;
     /**
      * Get the given objets in the supplied area.
      * @param type One of the LOOK_* constants
@@ -4848,7 +4892,7 @@ interface Spawning {
      * An array with the spawn directions
      * @see http://docs.screeps.com/api/#StructureSpawn.Spawning.setDirections
      */
-    directions: DirectionConstant[];
+    directions?: DirectionConstant[];
 
     /**
      * The name of the creep
@@ -4906,7 +4950,10 @@ interface SpawnOptions {
     directions?: DirectionConstant[];
 }
 
-interface SpawningConstructor extends _Constructor<Spawning>, _ConstructorById<Spawning> {}
+interface SpawningConstructor extends _Constructor<Spawning> {
+    new (id: Id<StructureSpawn>): Spawning;
+    (id: Id<StructureSpawn>): Spawning;
+}
 interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> {
     /**
      * Returns capacity of this store for the specified resource. For a general purpose store, it returns total capacity if `resource` is undefined.
@@ -4918,8 +4965,12 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
     ): UNLIMITED_STORE extends true
         ? null
         : R extends undefined
-        ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null)
-        : (R extends POSSIBLE_RESOURCES ? number : null);
+        ? ResourceConstant extends POSSIBLE_RESOURCES
+            ? number
+            : null
+        : R extends POSSIBLE_RESOURCES
+        ? number
+        : null;
     /**
      * Returns the capacity used by the specified resource, or total used capacity for general purpose stores if `resource` is undefined.
      * @param resource The type of the resource.
@@ -4927,7 +4978,7 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
      */
     getUsedCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
+    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : R extends POSSIBLE_RESOURCES ? number : null;
     /**
      * Returns free capacity for the store. For a limited store, it returns the capacity available for the specified resource if `resource` is defined and valid for this store.
      * @param resource The type of the resource.
@@ -4935,12 +4986,21 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
      */
     getFreeCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : (R extends POSSIBLE_RESOURCES ? number : null);
+    ): UNLIMITED_STORE extends true
+        ? null
+        : R extends undefined
+        ? ResourceConstant extends POSSIBLE_RESOURCES
+            ? number
+            : null
+        : R extends POSSIBLE_RESOURCES
+        ? number
+        : null;
 }
 
-type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> = StoreBase<POSSIBLE_RESOURCES, UNLIMITED_STORE> &
-    { [P in POSSIBLE_RESOURCES]: number } &
-    { [P in Exclude<ResourceConstant, POSSIBLE_RESOURCES>]: 0 };
+type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> = StoreBase<
+    POSSIBLE_RESOURCES,
+    UNLIMITED_STORE
+> & { [P in POSSIBLE_RESOURCES]: number } & { [P in Exclude<ResourceConstant, POSSIBLE_RESOURCES>]: 0 };
 
 interface GenericStoreBase {
     /**
@@ -5158,17 +5218,15 @@ interface StructureLink extends OwnedStructure<STRUCTURE_LINK> {
      */
     store: Store<RESOURCE_ENERGY, false>;
     /**
-     * Transfer energy from the link to another link or a creep.
+     * Transfer energy from the link to another link.
      *
-     * If the target is a creep, it has to be at adjacent square to the link.
-     *
-     * If the target is a link, it can be at any location in the same room.
+     * The target link can be at any position within the room.
      *
      * Remote transfer process implies 3% energy loss and cooldown delay depending on the distance.
      * @param target The target object.
      * @param amount The amount of energy to be transferred. If omitted, all the available energy is used.
      */
-    transferEnergy(target: Creep | StructureLink, amount?: number): ScreepsReturnCode;
+    transferEnergy(target: StructureLink, amount?: number): ScreepsReturnCode;
 }
 
 interface StructureLinkConstructor extends _Constructor<StructureLink>, _ConstructorById<StructureLink> {}
@@ -5626,7 +5684,7 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
      * Can be set by applying the PWR_OPERATE_FACTORY power to a newly built factory.
      * Once set, the level cannot be changed.
      */
-    level: number;
+    level?: number;
     /**
      * An object with the structure contents.
      */
@@ -5635,7 +5693,7 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
      * Produces the specified commodity.
      * All ingredients should be available in the factory store.
      */
-    produce(resource: CommodityConstant | MineralConstant | RESOURCE_ENERGY | RESOURCE_GHODIUM): ScreepsReturnCode;
+    produce(resource: CommoditiesTypes): ScreepsReturnCode;
 }
 
 interface StructureFactoryConstructor extends _Constructor<StructureFactory>, _ConstructorById<StructureFactory> {}
@@ -5655,6 +5713,10 @@ interface StructureInvaderCore extends OwnedStructure<STRUCTURE_INVADER_CORE> {
      * Shows the timer for a not yet deployed stronghold, undefined otherwise.
      */
     ticksToDeploy: number;
+    /**
+     * If the core is in process of spawning a new creep, this object will contain a `StructureSpawn.Spawning` object, or `null` otherwise.
+     */
+    spawning: Spawning | null;
 }
 
 interface StructureInvaderCoreConstructor extends _Constructor<StructureInvaderCore>, _ConstructorById<StructureInvaderCore> {}
@@ -5702,52 +5764,37 @@ type AnyStoreStructure =
 type AnyStructure = AnyOwnedStructure | StructureContainer | StructurePortal | StructureRoad | StructureWall;
 
 /**
+ * Map of structure constant to the concrete structure class
+ */
+interface ConcreteStructureMap {
+    [STRUCTURE_EXTENSION]: StructureExtension;
+    [STRUCTURE_RAMPART]: StructureRampart;
+    [STRUCTURE_ROAD]: StructureRoad;
+    [STRUCTURE_SPAWN]: StructureSpawn;
+    [STRUCTURE_LINK]: StructureLink;
+    [STRUCTURE_WALL]: StructureWall;
+    [STRUCTURE_STORAGE]: StructureStorage;
+    [STRUCTURE_TOWER]: StructureTower;
+    [STRUCTURE_OBSERVER]: StructureObserver;
+    [STRUCTURE_POWER_SPAWN]: StructurePowerSpawn;
+    [STRUCTURE_EXTRACTOR]: StructureExtractor;
+    [STRUCTURE_LAB]: StructureLab;
+    [STRUCTURE_TERMINAL]: StructureTerminal;
+    [STRUCTURE_CONTAINER]: StructureContainer;
+    [STRUCTURE_NUKER]: StructureNuker;
+    [STRUCTURE_FACTORY]: StructureFactory;
+    [STRUCTURE_KEEPER_LAIR]: StructureKeeperLair;
+    [STRUCTURE_CONTROLLER]: StructureController;
+    [STRUCTURE_POWER_BANK]: StructurePowerBank;
+    [STRUCTURE_PORTAL]: StructurePortal;
+    [STRUCTURE_INVADER_CORE]: StructureInvaderCore;
+}
+
+/**
  * Conditional type for all concrete implementations of Structure.
  * Unlike Structure<T>, ConcreteStructure<T> gives you the actual concrete class that extends Structure<T>.
  */
-type ConcreteStructure<T extends StructureConstant> = T extends STRUCTURE_EXTENSION
-    ? StructureExtension
-    : T extends STRUCTURE_RAMPART
-    ? StructureRampart
-    : T extends STRUCTURE_ROAD
-    ? StructureRoad
-    : T extends STRUCTURE_SPAWN
-    ? StructureSpawn
-    : T extends STRUCTURE_LINK
-    ? StructureLink
-    : T extends STRUCTURE_WALL
-    ? StructureWall
-    : T extends STRUCTURE_STORAGE
-    ? StructureStorage
-    : T extends STRUCTURE_TOWER
-    ? StructureTower
-    : T extends STRUCTURE_OBSERVER
-    ? StructureObserver
-    : T extends STRUCTURE_POWER_SPAWN
-    ? StructurePowerSpawn
-    : T extends STRUCTURE_EXTRACTOR
-    ? StructureExtractor
-    : T extends STRUCTURE_LAB
-    ? StructureLab
-    : T extends STRUCTURE_TERMINAL
-    ? StructureTerminal
-    : T extends STRUCTURE_CONTAINER
-    ? StructureContainer
-    : T extends STRUCTURE_NUKER
-    ? StructureNuker
-    : T extends STRUCTURE_FACTORY
-    ? StructureFactory
-    : T extends STRUCTURE_KEEPER_LAIR
-    ? StructureKeeperLair
-    : T extends STRUCTURE_CONTROLLER
-    ? StructureController
-    : T extends STRUCTURE_POWER_BANK
-    ? StructurePowerBank
-    : T extends STRUCTURE_PORTAL
-    ? StructurePortal
-    : T extends STRUCTURE_INVADER_CORE
-    ? StructureInvaderCore
-    : never;
+type ConcreteStructure<T extends StructureConstant> = ConcreteStructureMap[T];
 /**
  * A remnant of dead creeps. This is a walkable structure.
  * <ul>

@@ -112,7 +112,7 @@ interface CPU {
      */
     halt?(): never;
     /**
-     * Generate 1 pixel resource unit for 5000 CPU from your bucket.
+     * Generate 1 pixel resource unit for 10000 CPU from your bucket.
      */
     generatePixel(): OK | ERR_NOT_ENOUGH_RESOURCES;
 
@@ -191,6 +191,15 @@ type StoreDefinitionUnlimited = Store<ResourceConstant, true>;
 //   energy: number;
 // }
 
+/**
+ * @example
+ * {
+ *   "1": "W8N4",       // TOP
+ *   "3": "W7N3",       // RIGHT
+ *   // "5": "W8N2",    // BOTTOM
+ *   "7": "W9N3"        // LEFT
+ * }
+ */
 type ExitsInformation = Partial<Record<ExitKey, string>>;
 
 interface AllLookAtTypes {
@@ -204,7 +213,7 @@ interface AllLookAtTypes {
     nuke: Nuke;
     resource: Resource;
     source: Source;
-    structure: Structure;
+    structure: AnyStructure;
     terrain: Terrain;
     tombstone: Tombstone;
     powerCreep: PowerCreep;
@@ -226,9 +235,9 @@ interface LookAtResultMatrix<K extends LookConstant = LookConstant> {
     };
 }
 
-interface LookForAtAreaResultMatrix<T, K extends keyof LookAtTypes = keyof LookAtTypes> {
+interface LookForAtAreaResultMatrix<T> {
     [y: number]: {
-        [x: number]: Array<LookForAtAreaResult<T, K>>;
+        [x: number]: T[];
     };
 }
 
@@ -315,7 +324,7 @@ interface FindPathOpts {
      * @param costMatrix The current CostMatrix
      * @returns The new CostMatrix to use
      */
-    costCallback?(roomName: string, costMatrix: CostMatrix): void | CostMatrix;
+    costCallback?: (roomName: string, costMatrix: CostMatrix) => void | CostMatrix;
 
     /**
      * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search. This option
@@ -424,7 +433,7 @@ interface _Constructor<T> {
     readonly prototype: T;
 }
 
-interface _ConstructorById<T> extends _Constructor<T> {
+interface _ConstructorById<T extends _HasId> extends _Constructor<T> {
     new (id: Id<T>): T;
     (id: Id<T>): T;
 }
@@ -436,4 +445,7 @@ declare namespace Tag {
         private [OpaqueTagSymbol]: T;
     }
 }
-type Id<T> = string & Tag.OpaqueTag<T>;
+
+type Id<T extends _HasId> = string & Tag.OpaqueTag<T>;
+
+type fromId<T> = T extends Id<infer R> ? R : never;
