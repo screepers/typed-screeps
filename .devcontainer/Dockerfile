@@ -1,3 +1,5 @@
-FROM node:12-alpine
+FROM node:latest
 
-RUN apk add --update --no-cache git ca-certificates openssl openssh
+RUN apt update && apt upgrade -y
+
+RUN git config --global --add safe.directory /workspaces/screeps
