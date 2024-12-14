@@ -1,7 +1,7 @@
 // For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
 // https://github.com/microsoft/vscode-dev-containers/tree/v0.166.0/containers/docker-existing-dockerfile
 {
-  "name": "screeps",
+  "name": "Screeps",
 
   // Update the 'dockerFile' property if you aren't using the standard 'Dockerfile' filename.
   "dockerFile": "Dockerfile",
@@ -12,16 +12,30 @@
   },
 
   // Add the IDs of extensions you want installed when the container is created.
-  "extensions": []
+  "extensions": [],
 
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // "forwardPorts": [],
 
   // Uncomment the next line to run commands after the container is created - for example installing curl.
-  // "postCreateCommand": "apt-get update && apt-get install -y curl",
+  // "postCreateCommand": [""]
 
   // Uncomment when using a ptrace-based debugger like C++, Go, and Rust
   // "runArgs": [ "--cap-add=SYS_PTRACE", "--security-opt", "seccomp=unconfined" ],
+
+  "customizations": {
+    "vscode": {
+      // Add the IDs of VS extensions you want installed when the container is created.
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "ms-vscode-remote.remote-containers",
+        "esbenp.prettier-vscode",
+        "streetsidesoftware.code-spell-checker",
+        "GitHub.copilot",
+        "ms-vsliveshare.vsliveshare"
+      ]
+    }
+  }
 
   // Uncomment to use the Docker CLI from inside the container. See https://aka.ms/vscode-remote/samples/docker-from-docker.
   // "mounts": [ "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" ],
