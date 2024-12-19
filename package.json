@@ -8,6 +8,7 @@
     "dist/index.d.ts"
   ],
   "scripts": {
+    "postinstall": "npm install -g pnpm && pnpm install && pnpm add @types/screeps",
     "compile": "node ./build/concat.js",
     "format": "npm run format:build && npm run format:src",
     "format:build": "prettier --write 'build/**/*.js'",
@@ -39,5 +40,8 @@
     "*.{ts,tsx}": [
       "prettier --write"
     ]
+  },
+  "dependencies": {
+    "@types/screeps": "^3.3.8"
   }
 }
