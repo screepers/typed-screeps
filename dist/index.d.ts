@@ -3111,14 +3111,10 @@ interface Market {
      * it will be automatically activated and deactivated depending on the resource/credits availability.
      *
      * An order expires in 30 days after its creation, and the remaining market fee is returned.
+     *
+     * @param params A object describing the order.
      */
-    createOrder(params: {
-        type: ORDER_BUY | ORDER_SELL;
-        resourceType: MarketResourceConstant;
-        price: number;
-        totalAmount: number;
-        roomName?: string;
-    }): ScreepsReturnCode;
+    createOrder(params: CreateOrderParam): ScreepsReturnCode;
     /**
      * Execute a trade deal from your Terminal to another player's Terminal using the specified buy/sell order.
      *
@@ -3217,6 +3213,37 @@ interface PriceHistory {
     volume: number;
     avgPrice: number;
     stddevPrice: number;
+}
+
+/** Parameters to {@link Game.market.createOrder} */
+interface CreateOrderParam {
+    /**
+     * The order type.
+     */
+    type: ORDER_BUY | ORDER_SELL;
+    /**
+     * The resource type to trade.
+     *
+     * If your Terminal doesn't have the specified resource, the order will be temporary inactive.
+     */
+    resourceType: MarketResourceConstant;
+    /**
+     * The price for one resource unit in credits.
+     *
+     * Can be a decimal number.
+     */
+    price: number;
+    /**
+     * The amount of resources to be traded in total.
+     */
+    totalAmount: number;
+    /**
+     * The room where your order will be created.
+     *
+     * You must have your own Terminal structure in this room, otherwise the created order will be temporary inactive.
+     * This argument is not used when `resourceType` is one of the {@link InterShardResourceConstant} resources.
+     */
+    roomName?: string;
 }
 interface Memory {
     creeps: { [name: string]: CreepMemory };
