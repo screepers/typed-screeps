@@ -73,7 +73,10 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * - ERR_INVALID_ARGS: Body is not properly described.
      * - ERR_RCL_NOT_ENOUGH: Your Room Controller level is insufficient to use this spawn.
      */
-    canCreateCreep(body: BodyPartConstant[], name?: string): ScreepsReturnCode;
+    canCreateCreep(
+        body: BodyPartConstant[],
+        name?: string,
+    ): OK | ERR_NOT_OWNER | ERR_NAME_EXISTS | ERR_BUSY | ERR_NOT_ENOUGH_ENERGY | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
     /**
      * Start the creep spawning process.
      *
@@ -93,7 +96,11 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * - ERR_INVALID_ARGS: Body is not properly described.
      * - ERR_RCL_NOT_ENOUGH: Your Room Controller level is not enough to use this spawn.
      */
-    createCreep(body: BodyPartConstant[], name?: string, memory?: CreepMemory): ScreepsReturnCode | string;
+    createCreep(
+        body: BodyPartConstant[],
+        name?: string,
+        memory?: CreepMemory,
+    ): string | ERR_NOT_OWNER | ERR_NAME_EXISTS | ERR_BUSY | ERR_NOT_ENOUGH_ENERGY | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
 
     /**
      * Start the creep spawning process. The required energy amount can be withdrawn from all spawns and extensions in the room.
@@ -146,7 +153,9 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * - ERR_NOT_IN_RANGE: The target creep is too far away.
      * - ERR_RCL_NOT_ENOUGH: Your Room Controller level is insufficient to use this spawn.
      */
-    renewCreep(target: Creep): ScreepsReturnCode;
+    renewCreep(
+        target: Creep,
+    ): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_ENERGY | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE | ERR_RCL_NOT_ENOUGH;
     /**
      * Kill the creep and drop up to 100% of resources spent on its spawning and boosting depending on remaining life time.
      *
@@ -160,7 +169,7 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * - ERR_NOT_IN_RANGE: The target creep is too far away.
      * - ERR_RCL_NOT_ENOUGH: Your Room Controller level is insufficient to use this spawn.
      */
-    recycleCreep(target: Creep): ScreepsReturnCode;
+    recycleCreep(target: Creep): OK | ERR_NOT_OWNER | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_RCL_NOT_ENOUGH;
 }
 
 interface StructureSpawnConstructor extends _Constructor<StructureSpawn>, _ConstructorById<StructureSpawn> {
@@ -209,7 +218,7 @@ interface Spawning {
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: You are not the owner of this spawn.
      */
-    cancel(): ScreepsReturnCode & (OK | ERR_NOT_OWNER);
+    cancel(): OK | ERR_NOT_OWNER;
 
     /**
      * Set allowed directions the creep can move when spawned.
@@ -220,7 +229,7 @@ interface Spawning {
      * - ERR_NOT_OWNER: You are not the owner of this spawn.
      * - ERR_INVALID_ARGS: The directions is array is invalid.
      */
-    setDirections(directions: DirectionConstant[]): ScreepsReturnCode & (OK | ERR_NOT_OWNER | ERR_INVALID_ARGS);
+    setDirections(directions: DirectionConstant[]): OK | ERR_NOT_OWNER | ERR_INVALID_ARGS;
 }
 
 /**

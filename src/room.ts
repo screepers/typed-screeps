@@ -69,7 +69,11 @@ interface Room {
      * - ERR_INVALID_ARGS: The location is incorrect.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
-    createConstructionSite(x: number, y: number, structureType: BuildableStructureConstant): ScreepsReturnCode;
+    createConstructionSite(
+        x: number,
+        y: number,
+        structureType: BuildableStructureConstant,
+    ): OK | ERR_NOT_OWNER | ERR_INVALID_TARGET | ERR_FULL | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
     /**
      * Create new {@link ConstructionSite} at the specified location.
      * @param pos Can be a {@link RoomPosition} object or any object containing RoomPosition.
@@ -82,7 +86,10 @@ interface Room {
      * - ERR_INVALID_ARGS: The location is incorrect.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
-    createConstructionSite(pos: RoomPosition | _HasRoomPosition, structureType: StructureConstant): ScreepsReturnCode;
+    createConstructionSite(
+        pos: RoomPosition | _HasRoomPosition,
+        structureType: StructureConstant,
+    ): OK | ERR_NOT_OWNER | ERR_INVALID_TARGET | ERR_FULL | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
     /**
      * Create new {@link ConstructionSite} at the specified location.
      * @param x The X position
@@ -96,7 +103,12 @@ interface Room {
      * - ERR_INVALID_ARGS: The location is incorrect.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
-    createConstructionSite(x: number, y: number, structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
+    createConstructionSite(
+        x: number,
+        y: number,
+        structureType: STRUCTURE_SPAWN,
+        name?: string,
+    ): OK | ERR_NOT_OWNER | ERR_INVALID_TARGET | ERR_FULL | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
     /**
      * Create new {@link ConstructionSite} at the specified location.
      * @param pos Can be a {@link RoomPosition} object or any object containing RoomPosition.
@@ -109,7 +121,11 @@ interface Room {
      * - ERR_INVALID_ARGS: The location is incorrect.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
-    createConstructionSite(pos: RoomPosition | _HasRoomPosition, structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
+    createConstructionSite(
+        pos: RoomPosition | _HasRoomPosition,
+        structureType: STRUCTURE_SPAWN,
+        name?: string,
+    ): OK | ERR_NOT_OWNER | ERR_INVALID_TARGET | ERR_FULL | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
     /**
      * Create new {@link Flag} at the specified location.
      * @param x The X position.
@@ -134,7 +150,7 @@ interface Room {
         name?: string,
         color?: ColorConstant,
         secondaryColor?: ColorConstant,
-    ): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
+    ): ERR_NAME_EXISTS | ERR_FULL | ERR_INVALID_ARGS | string;
     /**
      * Create new {@link Flag} at the specified location.
      * @param pos Can be a {@link RoomPosition} object or any object containing RoomPosition.
@@ -157,7 +173,7 @@ interface Room {
         name?: string,
         color?: ColorConstant,
         secondaryColor?: ColorConstant,
-    ): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
+    ): ERR_NAME_EXISTS | ERR_FULL | ERR_INVALID_ARGS | string;
     /**
      * Find all objects of the specified type in the room.
      * @param type One of the {@link FindConstant} constants.
@@ -233,7 +249,7 @@ interface Room {
      * @param target A RoomPosition. Its room name will be ignored.
      * @returns An array of objects of the requested type at the given position, or ERR_INVALID_ARGS.
      */
-    lookForAt<T extends keyof AllLookAtTypes>(type: T, x: number, y: number): Array<AllLookAtTypes[T]>;
+    lookForAt<T extends keyof AllLookAtTypes>(type: T, x: number, y: number): Array<AllLookAtTypes[T]> | ERR_INVALID_ARGS;
     lookForAt<T extends keyof AllLookAtTypes>(type: T, target: RoomPosition | _HasRoomPosition): Array<AllLookAtTypes[T]>;
     /**
      * Get the given objects in the supplied area.

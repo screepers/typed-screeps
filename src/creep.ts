@@ -125,7 +125,7 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no ATTACK body parts in this creep’s body.
      */
-    attack(target: AnyCreep | Structure): CreepActionReturnCode;
+    attack(target: AnyCreep | Structure): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
     /**
      * Attack a controller.
      *
@@ -143,7 +143,7 @@ interface Creep extends RoomObject {
      * - ERR_TIRED: You have to wait until the next attack is possible.
      * - ERR_NO_BODYPART: There are not enough CLAIM body parts in this creep’s body.
      */
-    attackController(target: StructureController): CreepActionReturnCode;
+    attackController(target: StructureController): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_TIRED | ERR_NO_BODYPART;
     /**
      * Build a structure at the target construction site using carried energy.
      *
@@ -160,7 +160,7 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no WORK body parts in this creep’s body.
      */
-    build(target: ConstructionSite): CreepActionReturnCode | ERR_NOT_ENOUGH_RESOURCES | ERR_RCL_NOT_ENOUGH;
+    build(target: ConstructionSite): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
     /**
      * Cancel the order given during the current game tick.
      * @param methodName The name of a creep's method to be cancelled.
@@ -188,7 +188,7 @@ interface Creep extends RoomObject {
      * - ERR_NO_BODYPART: There are no CLAIM body parts in this creep’s body.
      * - ERR_GCL_NOT_ENOUGH: Your Global Control Level is not enough.
      */
-    claimController(target: StructureController): CreepActionReturnCode | ERR_FULL | ERR_GCL_NOT_ENOUGH;
+    claimController(target: StructureController): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE | ERR_NO_BODYPART | ERR_GCL_NOT_ENOUGH;
     /**
      * Dismantles any structure that can be constructed (even hostile) returning 50% of the energy spent on its repair.
      *
@@ -204,7 +204,7 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no WORK body parts in this creep’s body.
      */
-    dismantle(target: Structure): CreepActionReturnCode;
+    dismantle(target: Structure): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
     /**
      * Drop this resource on the ground.
      *
@@ -217,7 +217,7 @@ interface Creep extends RoomObject {
      * - ERR_NOT_ENOUGH_RESOURCES: The creep does not have the given amount of resources.
      * - ERR_INVALID_ARGS: The resourceType is not a valid RESOURCE_* constants.
      */
-    drop(resourceType: ResourceConstant, amount?: number): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES;
+    drop(resourceType: ResourceConstant, amount?: number): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_ARGS;
     /**
      * Add one more available safe mode activation to a room controller.
      *
@@ -231,7 +231,7 @@ interface Creep extends RoomObject {
      * - ERR_INVALID_TARGET: The target is not a valid controller object.
      * - ERR_NOT_IN_RANGE: The target is too far away.
      */
-    generateSafeMode(target: StructureController): CreepActionReturnCode;
+    generateSafeMode(target: StructureController): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE;
     /**
      * Get the quantity of live body parts of the given type.
      *
@@ -259,7 +259,7 @@ interface Creep extends RoomObject {
      * - ERR_TIRED: The extractor or the deposit is still cooling down.
      * - ERR_NO_BODYPART: There are no WORK body parts in this creep’s body.
      */
-    harvest(target: Source | Mineral | Deposit): CreepActionReturnCode | ERR_NOT_FOUND | ERR_NOT_ENOUGH_RESOURCES;
+    harvest(target: Source | Mineral | Deposit): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_FOUND | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_TIRED | ERR_NO_BODYPART;
     /**
      * Heal self or another creep.
      *
@@ -277,7 +277,7 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no HEAL body parts in this creep’s body.
      */
-    heal(target: AnyCreep): CreepActionReturnCode;
+    heal(target: AnyCreep): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
     /**
      * Move the creep one square in the specified direction or towards a creep that is pulling it.
      *
@@ -293,7 +293,7 @@ interface Creep extends RoomObject {
      * - ERR_TIRED: The fatigue indicator of the creep is non-zero.
      * - ERR_NO_BODYPART: There are no MOVE body parts in this creep’s body.
      */
-    move(direction: DirectionConstant): CreepMoveReturnCode;
+    move(direction: DirectionConstant): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_ARGS | ERR_TIRED | ERR_NO_BODYPART;
     move(target: Creep): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
     /**
      * Move the creep using the specified predefined path.
@@ -353,7 +353,7 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no CARRY body parts in this creep’s body.
      */
-    pickup(target: Resource): CreepActionReturnCode | ERR_FULL;
+    pickup(target: Resource): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
     /**
      * Allow another creep to follow this creep.
      *
@@ -506,7 +506,11 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant} constants, or the amount is incorrect.
      */
-    transfer(target: AnyCreep | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    transfer(
+        target: AnyCreep | Structure,
+        resourceType: ResourceConstant,
+        amount?: number,
+    ): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
     /**
      * Upgrade your controller to the next level using carried energy.
      *
@@ -528,7 +532,9 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no WORK body parts in this creep’s body.
      */
-    upgradeController(target: StructureController): ScreepsReturnCode;
+    upgradeController(
+        target: StructureController,
+    ): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
     /**
      * Withdraw resources from a structure, a tombstone or a ruin.
      *
@@ -551,7 +557,11 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant} constants, or the amount is incorrect.
      */
-    withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    withdraw(
+        target: Structure | Tombstone | Ruin,
+        resourceType: ResourceConstant,
+        amount?: number,
+    ): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
 }
 
 interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> {}

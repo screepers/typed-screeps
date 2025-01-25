@@ -56,7 +56,7 @@ interface RawMemory {
      * @param ids An array of segment IDs.
      * @throws if `ids` isn't an array, more than 10 segments are active, or the ids aren't all integers.
      */
-    setActiveSegments(ids: number[]): undefined;
+    setActiveSegments(ids: number[]): void;
     /**
      * Request a memory segment of another user.
      *
