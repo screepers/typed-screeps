@@ -186,11 +186,6 @@ type StoreDefinition = Store<ResourceConstant, false>;
 /** A general purpose Store, which has an unlimited capacity */
 type StoreDefinitionUnlimited = Store<ResourceConstant, true>;
 
-// type SD<K extends ResourceConstant> = {
-//   [P in K]: number;
-//   energy: number;
-// }
-
 /**
  * @example
  * {
@@ -206,7 +201,6 @@ interface AllLookAtTypes {
     constructionSite: ConstructionSite;
     creep: Creep;
     energy: Resource<RESOURCE_ENERGY>;
-    exit: any; // TODO what type is this?
     flag: Flag;
     mineral: Mineral;
     deposit: Deposit;
@@ -405,24 +399,6 @@ interface PathStep {
     y: number;
     dy: number;
     direction: DirectionConstant;
-}
-
-/**
- * An object with survival game info
- */
-interface SurvivalGameInfo {
-    /**
-     * Current score.
-     */
-    score: number;
-    /**
-     * Time to the next wave of invaders.
-     */
-    timeToWave: number;
-    /**
-     * The number of the next wave.
-     */
-    wave: number;
 }
 
 interface _Constructor<T> {

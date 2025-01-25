@@ -370,10 +370,8 @@ declare const GCL_POW: number;
 declare const GCL_MULTIPLY: number;
 declare const GCL_NOVICE: number;
 
-declare const MODE_SIMULATION: string;
-declare const MODE_SURVIVAL: string;
-declare const MODE_WORLD: string;
-declare const MODE_ARENA: string;
+declare const MODE_SIMULATION: null;
+declare const MODE_WORLD: null;
 
 declare const TERRAIN_MASK_WALL: TERRAIN_MASK_WALL;
 declare const TERRAIN_MASK_SWAMP: TERRAIN_MASK_SWAMP;

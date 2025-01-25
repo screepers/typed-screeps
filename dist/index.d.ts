@@ -370,10 +370,8 @@ declare const GCL_POW: number;
 declare const GCL_MULTIPLY: number;
 declare const GCL_NOVICE: number;
 
-declare const MODE_SIMULATION: string;
-declare const MODE_SURVIVAL: string;
-declare const MODE_WORLD: string;
-declare const MODE_ARENA: string;
+declare const MODE_SIMULATION: null;
+declare const MODE_WORLD: null;
 
 declare const TERRAIN_MASK_WALL: TERRAIN_MASK_WALL;
 declare const TERRAIN_MASK_SWAMP: TERRAIN_MASK_SWAMP;
@@ -1770,11 +1768,6 @@ type StoreDefinition = Store<ResourceConstant, false>;
 /** A general purpose Store, which has an unlimited capacity */
 type StoreDefinitionUnlimited = Store<ResourceConstant, true>;
 
-// type SD<K extends ResourceConstant> = {
-//   [P in K]: number;
-//   energy: number;
-// }
-
 /**
  * @example
  * {
@@ -1790,7 +1783,6 @@ interface AllLookAtTypes {
     constructionSite: ConstructionSite;
     creep: Creep;
     energy: Resource<RESOURCE_ENERGY>;
-    exit: any; // TODO what type is this?
     flag: Flag;
     mineral: Mineral;
     deposit: Deposit;
@@ -1989,24 +1981,6 @@ interface PathStep {
     y: number;
     dy: number;
     direction: DirectionConstant;
-}
-
-/**
- * An object with survival game info
- */
-interface SurvivalGameInfo {
-    /**
-     * Current score.
-     */
-    score: number;
-    /**
-     * Time to the next wave of invaders.
-     */
-    timeToWave: number;
-    /**
-     * The number of the next wave.
-     */
-    wave: number;
 }
 
 interface _Constructor<T> {
@@ -4332,10 +4306,6 @@ interface Room {
      */
     memory: RoomMemory;
     /**
-     * One of the `MODE_*` constants.
-     */
-    mode: string;
-    /**
      * The name of the room.
      */
     readonly name: string;
@@ -4766,20 +4736,6 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * ```
      */
     spawnCreep(body: BodyPartConstant[], name: string, opts?: SpawnOptions): ScreepsReturnCode;
-
-    /**
-     * Destroy this spawn immediately.
-     */
-    destroy(): ScreepsReturnCode;
-    /**
-     * Check whether this structure can be used. If the room controller level is not enough, then this method will return false, and the structure will be highlighted with red in the game.
-     */
-    isActive(): boolean;
-    /**
-     * Toggle auto notification when the spawn is under attack. The notification will be sent to your account email. Turned on by default.
-     * @param enabled Whether to enable notification or disable.
-     */
-    notifyWhenAttacked(enabled: boolean): ScreepsReturnCode;
     /**
      * Increase the remaining time to live of the target creep.
      *
