@@ -261,34 +261,34 @@ interface FindTypes {
         | Tombstone
         | Deposit
         | Ruin;
-    1: RoomPosition; // FIND_EXIT_TOP
-    3: RoomPosition; // FIND_EXIT_RIGHT
-    5: RoomPosition; // FIND_EXIT_BOTTOM
-    7: RoomPosition; // FIND_EXIT_LEFT
-    10: RoomPosition; // FIND_EXIT
-    101: Creep; // FIND_CREEPS
-    102: Creep; // FIND_MY_CREEPS
-    103: Creep; // FIND_HOSTILE_CREEPS
-    104: Source; // FIND_SOURCES_ACTIVE
-    105: Source; // FIND_SOURCES
-    106: Resource; // FIND_DROPPED_RESOURCES
-    107: AnyStructure; // FIND_STRUCTURES
-    108: AnyOwnedStructure; // FIND_MY_STRUCTURES
-    109: AnyOwnedStructure; // FIND_HOSTILE_STRUCTURES
-    110: Flag; // FIND_FLAGS
-    111: ConstructionSite; // FIND_CONSTRUCTION_SITES
-    112: StructureSpawn; // FIND_MY_SPAWNS
-    113: StructureSpawn; // FIND_HOSTILE_SPAWNS
-    114: ConstructionSite; // FIND_MY_CONSTRUCTION_SITES
-    115: ConstructionSite; // FIND_HOSTILE_CONSTRUCTION_SITES
-    116: Mineral; // FIND_MINERALS
-    117: Nuke; // FIND_NUKES
-    118: Tombstone; // FIND_TOMBSTONES
-    119: PowerCreep; // FIND_POWER_CREEPS
-    120: PowerCreep; // FIND_MY_POWER_CREEPS
-    121: PowerCreep; // FIND_HOSTILE_POWER_CREEPS
-    122: Deposit; // FIND_DEPOSITS
-    123: Ruin; // FIND_RUINS
+    [FIND_EXIT_TOP]: RoomPosition;
+    [FIND_EXIT_RIGHT]: RoomPosition;
+    [FIND_EXIT_BOTTOM]: RoomPosition;
+    [FIND_EXIT_LEFT]: RoomPosition;
+    [FIND_EXIT]: RoomPosition;
+    [FIND_CREEPS]: Creep;
+    [FIND_MY_CREEPS]: Creep;
+    [FIND_HOSTILE_CREEPS]: Creep;
+    [FIND_SOURCES_ACTIVE]: Source;
+    [FIND_SOURCES]: Source;
+    [FIND_DROPPED_RESOURCES]: Resource;
+    [FIND_STRUCTURES]: AnyStructure;
+    [FIND_MY_STRUCTURES]: AnyOwnedStructure;
+    [FIND_HOSTILE_STRUCTURES]: AnyOwnedStructure;
+    [FIND_FLAGS]: Flag;
+    [FIND_CONSTRUCTION_SITES]: ConstructionSite;
+    [FIND_MY_SPAWNS]: StructureSpawn;
+    [FIND_HOSTILE_SPAWNS]: StructureSpawn;
+    [FIND_MY_CONSTRUCTION_SITES]: ConstructionSite;
+    [FIND_HOSTILE_CONSTRUCTION_SITES]: ConstructionSite;
+    [FIND_MINERALS]: Mineral;
+    [FIND_NUKES]: Nuke;
+    [FIND_TOMBSTONES]: Tombstone;
+    [FIND_POWER_CREEPS]: PowerCreep;
+    [FIND_MY_POWER_CREEPS]: PowerCreep;
+    [FIND_HOSTILE_POWER_CREEPS]: PowerCreep;
+    [FIND_DEPOSITS]: Deposit;
+    [FIND_RUINS]: Ruin;
 }
 
 interface FindPathOpts {
