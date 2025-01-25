@@ -609,7 +609,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     const exits = room.find(FIND_EXIT);
 
     const creepsHere = room.lookForAt(LOOK_CREEPS, 10, 10);
-    creepsHere[0].getActiveBodyparts(ATTACK);
+    if (creepsHere !== ERR_INVALID_ARGS) creepsHere[0].getActiveBodyparts(ATTACK);
 
     const towers = room.find<StructureTower>(FIND_MY_STRUCTURES, {
         filter: (structure) => {

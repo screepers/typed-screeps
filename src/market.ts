@@ -47,7 +47,7 @@ interface Market {
      * - OK: The operation has been scheduled successfully.
      * - ERR_INVALID_ARGS: The order ID is not valid.
      */
-    cancelOrder(orderId: string): ScreepsReturnCode;
+    cancelOrder(orderId: string): OK | ERR_INVALID_ARGS;
     /**
      * Change the price of an existing order.
      *
@@ -60,7 +60,7 @@ interface Market {
      * - ERR_NOT_ENOUGH_RESOURCES: You don't have enough credits to pay a fee.
      * - ERR_INVALID_ARGS: The arguments provided are invalid.
      */
-    changeOrderPrice(orderId: string, newPrice: number): ScreepsReturnCode;
+    changeOrderPrice(orderId: string, newPrice: number): OK | ERR_NOT_OWNER | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_ARGS;
     /**
      * Create a market order in your terminal.
      *
@@ -103,7 +103,11 @@ interface Market {
      * - ERR_INVALID_ARGS: The arguments provided are invalid.
      * - ERR_TIRED: The target terminal is still cooling down.
      */
-    deal(orderId: string, amount: number, yourRoomName?: string): ScreepsReturnCode;
+    deal(
+        orderId: string,
+        amount: number,
+        yourRoomName?: string,
+    ): OK | ERR_NOT_OWNER | ERR_NOT_ENOUGH_RESOURCES | ERR_FULL | ERR_INVALID_ARGS | ERR_TIRED;
     /**
      * Add more capacity to an existing order.
      *
@@ -117,7 +121,7 @@ interface Market {
      * - ERR_NOT_ENOUGH_RESOURCES: You don't have enough credits to pay a fee.
      * - ERR_INVALID_ARGS:  The arguments provided are invalid.
      */
-    extendOrder(orderId: string, addAmount: number): ScreepsReturnCode;
+    extendOrder(orderId: string, addAmount: number): OK | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_ARGS;
     /**
      * Get other players' orders currently active on the market.
      * @param filter (optional) An object or function that will filter the resulting list using the lodash.filter method.
