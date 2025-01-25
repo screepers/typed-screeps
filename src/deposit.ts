@@ -5,6 +5,12 @@
  */
 interface Deposit extends RoomObject {
     /**
+     * The prototype is stored in the {@link Deposit.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
+     */
+    readonly prototype: Deposit;
+    /**
      * A unique object identificator.
      * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
      */

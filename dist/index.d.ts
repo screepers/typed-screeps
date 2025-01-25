@@ -1403,6 +1403,12 @@ declare const Creep: CreepConstructor;
  */
 interface Deposit extends RoomObject {
     /**
+     * The prototype is stored in the {@link Deposit.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
+     */
+    readonly prototype: Deposit;
+    /**
      * A unique object identificator.
      * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
      */
@@ -1436,6 +1442,11 @@ declare const Deposit: DepositConstructor;
  * A flag. Flags can be used to mark particular spots in a room. Flags are visible to their owners only.
  */
 interface Flag extends RoomObject {
+    /**
+     * The prototype is stored in the {@link Flag.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
+     */
     readonly prototype: Flag;
 
     /**
@@ -3228,7 +3239,9 @@ declare const Memory: Memory;
  */
 interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObject {
     /**
-     * The prototype is stored in the Mineral.prototype global object. You can use it to extend game objects behaviour globally.
+     * The prototype is stored in the {@link Mineral.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
      */
     readonly prototype: Mineral;
     /**
@@ -3260,6 +3273,11 @@ declare const Mineral: MineralConstructor;
  * A nuke landing position. This object cannot be removed or modified. You can find incoming nukes in the room using the FIND_NUKES constant.
  */
 interface Nuke extends RoomObject {
+    /**
+     * The prototype is stored in the {@link Nuke.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
+     */
     readonly prototype: Nuke;
 
     /**
@@ -3405,6 +3423,12 @@ interface CostMatrixConstructor extends _Constructor<CostMatrix> {
  * Container for custom navigation cost data.
  */
 interface CostMatrix {
+    /**
+     * The prototype is stored in the {@link CostMatrix.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
+     */
+    readonly prototype: CostMatrix;
     /**
      * Set the cost of a position in this CostMatrix.
      * @param x X position in the room.
@@ -4607,6 +4631,12 @@ declare const Room: RoomConstructor;
  */
 interface Ruin extends RoomObject {
     /**
+     * The prototype is stored in the {@link Ruin.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
+     */
+    readonly prototype: Ruin;
+    /**
      * A unique object identificator.
      * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
      */
@@ -4637,7 +4667,9 @@ declare const Ruin: RuinConstructor;
  */
 interface Source extends RoomObject {
     /**
-     * The prototype is stored in the Source.prototype global object. You can use it to extend game objects behaviour globally:
+     * The prototype is stored in the {@link Source.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
      */
     readonly prototype: Source;
     /**
@@ -4927,7 +4959,12 @@ type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends 
 
 interface GenericStoreBase {
     /**
-     * Returns capacity of this store for the specified resource. For a general purpose store, it returns total capacity if `resource` is undefined.
+     * The prototype is stored in the {@link GenericStoreBase.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
+     */
+    readonly prototype: GenericStoreBase;
+    /**
      * @param resource The type of the resource.
      * @returns Returns capacity number, or `null` in case of an invalid `resource` for this store type.
      */
@@ -4947,10 +4984,19 @@ interface GenericStoreBase {
 }
 
 type GenericStore = GenericStoreBase & { [P in ResourceConstant]: number };
+
+interface StoreConstructor extends _Constructor<GenericStoreBase> {}
+
+declare const Store: StoreConstructor;
 /**
  * Parent object for structure classes
  */
 interface Structure<T extends StructureConstant = StructureConstant> extends RoomObject {
+    /**
+     * The prototype is stored in the {@link Structure.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
+     */
     readonly prototype: Structure;
 
     /**
@@ -5725,6 +5771,12 @@ type ConcreteStructure<T extends StructureConstant> = ConcreteStructureMap[T];
  * </ul>
  */
 interface Tombstone extends RoomObject {
+    /**
+     * The prototype is stored in the {@link Tombstone.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
+     */
+    readonly prototype: Tombstone;
     /**
      * A unique object identificator.
      * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.

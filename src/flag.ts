@@ -2,6 +2,11 @@
  * A flag. Flags can be used to mark particular spots in a room. Flags are visible to their owners only.
  */
 interface Flag extends RoomObject {
+    /**
+     * The prototype is stored in the {@link Flag.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
+     */
     readonly prototype: Flag;
 
     /**

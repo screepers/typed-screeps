@@ -2,6 +2,11 @@
  * A nuke landing position. This object cannot be removed or modified. You can find incoming nukes in the room using the FIND_NUKES constant.
  */
 interface Nuke extends RoomObject {
+    /**
+     * The prototype is stored in the {@link Nuke.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
+     */
     readonly prototype: Nuke;
 
     /**
