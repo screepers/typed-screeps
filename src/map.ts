@@ -2,7 +2,14 @@
  * The options that can be accepted by `findRoute()` and friends.
  */
 interface RouteOptions {
-    routeCallback: (roomName: string, fromRoomName: string) => any;
+    /**
+     * This callback can be used to calculate the cost of entering that room.
+     * You can use this to do things like prioritize your own rooms, or avoid some rooms.
+     * @param roomName The room being considered
+     * @param fromRoomName The room we're coming from
+     * @returns a floating point to steer the route toward a given room, or Infinity to block it entirely.
+     */
+    routeCallback: (roomName: string, fromRoomName: string) => number;
 }
 
 interface RoomStatusPermanent {
@@ -43,18 +50,9 @@ interface GameMap {
      * @param fromRoom Start room name or room object.
      * @param toRoom Finish room name or room object.
      * @param opts (optional) An object with the pathfinding options.
-     * @returns the route array or ERR_NO_PATH code
+     * @returns either an array of room exits / room name, or ERR_NO_PATH if the destination room cannot be reached.
      */
-    findRoute(
-        fromRoom: string | Room,
-        toRoom: string | Room,
-        opts?: RouteOptions,
-    ):
-        | Array<{
-              exit: ExitConstant;
-              room: string;
-          }>
-        | ERR_NO_PATH;
+    findRoute(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): { exit: ExitConstant; room: string }[] | ERR_NO_PATH;
     /**
      * Get the linear distance (in rooms) between two rooms. You can use this function to estimate the energy cost of
      * sending resources through terminals, or using observers and nukes.
