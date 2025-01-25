@@ -1,6 +1,21 @@
 /**
- * A mineral deposit object. Can be harvested by creeps with a WORK body part using the extractor structure.
- * @see http://docs.screeps.com/api/#Mineral
+ * A mineral deposit.
+ *
+ * Can be harvested by creeps with a WORK body part using the extractor structure.
+ * Learn more about minerals from [this article](http://docs.screeps.com/api/#Mineral).
+ *
+ *
+ * |                            |                              |
+ * | ---------------------------| ---------------------------- |
+ * | Regeneration amount        | DENSITY_LOW: 15,000
+ * |                            | DENSITY_MODERATE: 35,000
+ * |                            | DENSITY_HIGH: 70,000
+ * |                            | DENSITY_ULTRA: 100,000
+ * | Regeneration time          | 50,000 ticks
+ * | Density change probability | DENSITY_LOW: 100% chance
+ * |                            | DENSITY_MODERATE: 5% chance
+ * |                            | DENSITY_HIGH: 5% chance
+ * |                            | DENSITY_ULTRA: 100% chance*
  */
 interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObject {
     /**
@@ -10,7 +25,7 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
      */
     readonly prototype: Mineral;
     /**
-     * The density of this mineral deposit, one of the `DENSITY_*` constants.
+     * The density of this mineral deposit, one of the {@link DensityConstant} constants.
      */
     density: DensityConstant;
     /**
@@ -18,11 +33,13 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
      */
     mineralAmount: number;
     /**
-     * The resource type, one of the `RESOURCE_*` constants.
+     * The resource type, one of the {@link MineralConstant} constants.
      */
     mineralType: T;
     /**
-     * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
+     * A unique object identifier.
+     *
+     * You can use {@link Game.getObjectById} to retrieve an object instance by its `id`.
      */
     id: Id<this>;
     /**

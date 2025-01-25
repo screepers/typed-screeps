@@ -1,10 +1,18 @@
 /**
  * A site of a structure which is currently under construction.
+ *
+ * A construction site can be created using the 'Construct' button at the left of the game field or the {@link Room.createConstructionSite} method.
+ *
+ * To build a structure on the construction site, give a worker creep some amount of energy and perform {@link Creep.build} action.
+ *
+ * You can remove enemy construction sites by moving a creep on it.
  */
 interface ConstructionSite<T extends BuildableStructureConstant = BuildableStructureConstant> extends RoomObject {
     readonly prototype: ConstructionSite;
     /**
-     * A unique object identifier. You can use `Game.getObjectById` method to retrieve an object instance by its `id`.
+     * A unique object identifier.
+     *
+     * You can use {@link Game.getObjectById} to retrieve an object instance by its `id`.
      */
     id: Id<this>;
     /**
@@ -24,7 +32,7 @@ interface ConstructionSite<T extends BuildableStructureConstant = BuildableStruc
      */
     progressTotal: number;
     /**
-     * One of the `STRUCTURE_*` constants.
+     * One of the {@link StructureConstant} constants.
      */
     structureType: T;
     /**

@@ -1,3 +1,16 @@
+/**
+ * Room visuals provide a way to show various visual debug info in game rooms.
+ *
+ * You can use the RoomVisual object to draw simple shapes that are visible only to you.
+ * Every existing Room object already contains the visual property, but you also can create new RoomVisual objects for any room (even without visibility) using the constructor.
+ *
+ * Room visuals are not stored in the database, their only purpose is to display something in your browser.
+ * All drawings will persist for one tick and will disappear if not updated. All RoomVisual API calls have no added CPU cost (their cost is natural and mostly related to simple `JSON.serialize` calls).
+ * However, there is a usage limit: you cannot post more than 500 KB of serialized data per one room (see {@link RoomVisual.getSize} method).
+ *
+ * All draw coordinates are measured in game coordinates and centered to tile centers, i.e. (10,10) will point to the center of the creep at x:10; y:10 position.
+ * Fractional coordinates are allowed.
+ */
 declare class RoomVisual {
     /**
      * You can create new RoomVisual object using its constructor.
@@ -86,7 +99,9 @@ declare class RoomVisual {
     text(text: string, x: number, y: number, style?: TextStyle): RoomVisual;
 
     /**
-     * Draw a text label. You can use any valid Unicode characters, including emoji.
+     * Draw a text label.
+     *
+     * You can use any valid Unicode characters, including emoji.
      * @param text The text message.
      * @param pos The position object of the center.
      * @param style An object describing the style.
@@ -114,7 +129,7 @@ declare class RoomVisual {
     export(): string;
 
     /**
-     * Add previously exported (with `RoomVisual.export`) room visuals to the room visual data of the current tick.
+     * Add previously exported (with {@link RoomVisual.export}) room visuals to the room visual data of the current tick.
      * @param data The string returned from `RoomVisual.export`.
      * @returns The RoomVisual object itself, so that you can chain calls.
      */
@@ -123,26 +138,31 @@ declare class RoomVisual {
 
 interface LineStyle {
     /**
-     * Line width, default is 0.1.
+     * Line width.
+     * @default 0.1
      */
     width?: number;
     /**
-     * Line color in any web format, default is #ffffff(white).
+     * Line color in any web format.
+     * @default #ffffff (white)
      */
     color?: string;
     /**
-     * Opacity value, default is 0.5.
+     * Opacity value.
+     * @default 0.5
      */
     opacity?: number;
     /**
-     * Either undefined (solid line), dashed, or dotted.Default is undefined.
+     * Either undefined (solid line), dashed, or dotted.
+     * @default undefined
      */
     lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface PolyStyle {
     /**
-     * Fill color in any web format, default is undefined (no fill).
+     * Fill color in any web format.
+     * @default undefined (no fill).
      */
     fill?: string | undefined;
     /**
@@ -150,59 +170,70 @@ interface PolyStyle {
      */
     opacity?: number;
     /**
-     * Stroke color in any web format, default is #ffffff (white).
+     * Stroke color in any web format.
+     * @default #ffffff (white)
      */
     stroke?: string;
     /**
-     * Stroke line width, default is 0.1.
+     * Stroke line width.
+     * @default 0.1
      */
     strokeWidth?: number;
     /**
-     * Either undefined (solid line), dashed, or dotted. Default is undefined.
+     * Either undefined (solid line), dashed, or dotted.
+     * @default undefined
      */
     lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface CircleStyle extends PolyStyle {
     /**
-     * Circle radius, default is 0.15.
+     * Circle radius.
+     * @default 0.15
      */
     radius?: number;
 }
 
 interface TextStyle {
     /**
-     * Font color in any web format, default is #ffffff(white).
+     * Font color in any web format.
+     * @default #ffffff (white)
      */
     color?: string;
     /**
      * Either a number or a string in one of the following forms:
-     * 0.7 - relative size in game coordinates
-     * 20px - absolute size in pixels
-     * 0.7 serif
-     * bold italic 1.5 Times New Roman
+     * - 0.7 - relative size in game coordinates
+     * - 20px - absolute size in pixels
+     * - 0.7 serif
+     * - bold italic 1.5 Times New Roman
      */
     font?: number | string;
     /**
-     * Stroke color in any web format, default is undefined (no stroke).
+     * Stroke color in any web format.
+     * @default undefined (no stroke)
      */
     stroke?: string | undefined;
     /**
-     * Stroke width, default is 0.15.
+     * Stroke width.
+     * @default 0.15
      */
     strokeWidth?: number;
     /**
-     * Background color in any web format, default is undefined (no background).When background is enabled, text vertical align is set to middle (default is baseline).
+     * Background color in any web format.
+     * When background is enabled, text vertical align is set to middle (default is baseline).
+     * @default undefined (no background)
      */
     backgroundColor?: string | undefined;
 
     /**
-     * Background rectangle padding, default is 0.3.
+     * Background rectangle padding
+     * @default 0.3
      */
     backgroundPadding?: number;
     align?: "center" | "left" | "right";
     /**
-     * Opacity value, default is 1.0.
+     * Opacity value.
+     * @default 1.0
      */
     opacity?: number;
 }

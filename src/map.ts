@@ -18,7 +18,9 @@ interface RoomStatusTemporary {
 type RoomStatus = RoomStatusPermanent | RoomStatusTemporary;
 
 /**
- * A global object representing world map. Use it to navigate between rooms. The object is accessible via Game.map property.
+ * A global object representing world map.
+ *
+ * Use it to navigate between rooms. The object is accessible via the {@link Game.map} property.
  */
 interface GameMap {
     /**
@@ -56,8 +58,9 @@ interface GameMap {
           }>
         | ERR_NO_PATH;
     /**
-     * Get the linear distance (in rooms) between two rooms. You can use this function to estimate the energy cost of
-     * sending resources through terminals, or using observers and nukes.
+     * Get the linear distance (in rooms) between two rooms.
+     *
+     * You can use this function to estimate the energy cost of sending resources through terminals, or using observers and nukes.
      * @param roomName1 The name of the first room.
      * @param roomName2 The name of the second room.
      * @param continuous Whether to treat the world map continuous on borders. Set to true if you
@@ -65,26 +68,34 @@ interface GameMap {
      */
     getRoomLinearDistance(roomName1: string, roomName2: string, continuous?: boolean): number;
     /**
-     * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
+     * Get terrain type at the specified room position.
+     *
+     * This method works for any room in the world even if you have no access to it.
      * @param x X position in the room.
      * @param y Y position in the room.
      * @param roomName The room name.
-     * @deprecated use `Game.map.getRoomTerrain` instead
+     * @deprecated use {@link Game.map.getRoomTerrain} instead
      */
     getTerrainAt(x: number, y: number, roomName: string): Terrain;
     /**
-     * Get terrain type at the specified room position. This method works for any room in the world even if you have no access to it.
+     * Get terrain type at the specified room position.
+     *
+     * This method works for any room in the world even if you have no access to it.
      * @param pos The position object.
-     * @deprecated use `Game.map.getRoomTerrain` instead
+     * @deprecated use {@link Game.map.getRoomTerrain} instead
      */
     getTerrainAt(pos: RoomPosition): Terrain;
     /**
-     * Get room terrain for the specified room. This method works for any room in the world even if you have no access to it.
+     * Get room terrain for the specified room.
+     *
+     * This method works for any room in the world even if you have no access to it.
      * @param roomName String name of the room.
      */
     getRoomTerrain(roomName: string): RoomTerrain;
     /**
-     * Returns the world size as a number of rooms between world corners. For example, for a world with rooms from W50N50 to E50S50 this method will return 102.
+     * Returns the world size as a number of rooms between world corners.
+     *
+     * For example, for a world with rooms from W50N50 to E50S50 this method will return 102.
      */
     getWorldSize(): number;
 
@@ -99,13 +110,13 @@ interface GameMap {
     /**
      * Get the room status to determine if it's available, or in a reserved area.
      * @param roomName The room name.
-     * @returns An object with the following properties {status: "normal" | "closed" | "novice" | "respawn", timestamp: number}
+     * @returns A {@link RoomStatus} object.
      */
     getRoomStatus(roomName: string): RoomStatus;
 
     /**
      * Map visuals provide a way to show various visual debug info on the game map.
-     * You can use the `Game.map.visual` object to draw simple shapes that are visible only to you.
+     * You can use the {@link Game.map.visual} object to draw simple shapes that are visible only to you.
      *
      * Map visuals are not stored in the database, their only purpose is to display something in your browser.
      * All drawings will persist for one tick and will disappear if not updated.
@@ -117,8 +128,18 @@ interface GameMap {
     visual: MapVisual;
 }
 
-// No static is available
-
+/**
+ * Map visuals provide a way to show various visual debug info on the game map.
+ *
+ * You can use the {@link Game.map.visual} object to draw simple shapes that are visible only to you.
+ *
+ *  Map visuals are not stored in the database, their only purpose is to display something in your browser.
+ * All drawings will persist for one tick and will disappear if not updated.
+ * All `Game.map.visual` calls have no added CPU cost (their cost is natural and mostly related to simple `JSON.serialize` calls).
+ * However, there is a usage limit: you cannot post more than 1000 KB of serialized data.
+ *
+ * All draw coordinates are measured in global game coordinates ({@link RoomPosition}).
+ */
 interface MapVisual {
     /**
      * Draw a line.
@@ -171,7 +192,9 @@ interface MapVisual {
     clear(): MapVisual;
 
     /**
-     * Get the stored size of all visuals added on the map in the current tick. It must not exceed 1024,000 (1000 KB).
+     * Get the stored size of all visuals added on the map in the current tick.
+     *
+     * It must not exceed 1024,000 (1000 KB).
      * @returns The size of the visuals in bytes.
      */
     getSize(): number;
@@ -183,7 +206,7 @@ interface MapVisual {
     export(): string;
 
     /**
-     * Add previously exported (with `Game.map.visual.export`) map visuals to the map visual data of the current tick.
+     * Add previously exported (with {@link Game.map.visual.export}) map visuals to the map visual data of the current tick.
      * @param data The string returned from `Game.map.visual.export`.
      * @returns The MapVisual object itself, so that you can chain calls.
      */
@@ -192,64 +215,77 @@ interface MapVisual {
 
 interface MapLineStyle {
     /**
-     * Line width, default is 0.1.
+     * Line width.
+     * @default 0.1
      */
     width?: number;
     /**
-     * Line color in the following format: #ffffff (hex triplet). Default is #ffffff.
+     * Line color in the following format: #ffffff (hex triplet).
+     * @default #ffffff
      */
     color?: string;
     /**
-     * Opacity value, default is 0.5.
+     * Opacity value
+     * @default 0.5
      */
     opacity?: number;
     /**
-     * Either undefined (solid line), dashed, or dotted. Default is undefined.
+     * Either undefined (solid line), dashed, or dotted.
+     * @default undefined.
      */
     lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface MapPolyStyle {
     /**
-     * Fill color in the following format: #ffffff (hex triplet). Default is undefined (no fill).
+     * Fill color in the following format: #ffffff (hex triplet).
+     * @default undefined (no fill).
      */
     fill?: string | undefined;
     /**
-     * Opacity value, default is 0.5.
+     * Opacity value
+     * @default 0.5
      */
     opacity?: number;
     /**
-     * Stroke color in the following format: #ffffff (hex triplet). Default is #ffffff.
+     * Stroke color in the following format: #ffffff (hex triplet).
+     * @default #ffffff
      */
     stroke?: string;
     /**
-     * Stroke line width, default is 0.5.
+     * Stroke line width.
+     * @default 0.5
      */
     strokeWidth?: number;
     /**
-     * Either undefined (solid line), dashed, or dotted. Default is undefined.
+     * Either undefined (solid line), dashed, or dotted.
+     * @default is undefined
      */
     lineStyle?: "dashed" | "dotted" | "solid" | undefined;
 }
 
 interface MapCircleStyle extends MapPolyStyle {
     /**
-     * Circle radius, default is 10.
+     * Circle radius.
+     * @default 10
      */
     radius?: number;
 }
 
 interface MapTextStyle {
     /**
-     * Font color in the following format: #ffffff (hex triplet). Default is #ffffff.
+     * Font color in the following format: #ffffff (hex triplet).
+     * @default #ffffff
      */
     color?: string;
     /**
-     * The font family, default is sans-serif
+     * The font family.
+     * @default sans-serif
      */
     fontFamily?: string;
     /**
-     * The font size in game coordinates, default is 10
+     * The font size in game coordinates.
+     * @default 10
      */
     fontSize?: number;
     /**
@@ -261,27 +297,35 @@ interface MapTextStyle {
      */
     fontVariant?: string;
     /**
-     * Stroke color in the following format: #ffffff (hex triplet). Default is undefined (no stroke).
+     * Stroke color in the following format: #ffffff (hex triplet)
+     * @default undefined (no stroke).
      */
     stroke?: string | undefined;
     /**
-     * Stroke width, default is 0.15.
+     * Stroke width.
+     * @default 0.15
      */
     strokeWidth?: number;
     /**
-     * Background color in the following format: #ffffff (hex triplet). Default is undefined (no background). When background is enabled, text vertical align is set to middle (default is baseline).
+     * Background color in the following format: #ffffff (hex triplet).
+     *
+     * When background is enabled, text vertical align is set to middle (default is baseline).
+     * @default undefined (no background).
      */
     backgroundColor?: string | undefined;
     /**
-     * Background rectangle padding, default is 2.
+     * Background rectangle padding.
+     * @default 2
      */
     backgroundPadding?: number;
     /**
-     * Text align, either center, left, or right. Default is center.
+     * Text align, either center, left, or right.
+     * @default center
      */
     align?: "center" | "left" | "right";
     /**
-     * Opacity value, default is 0.5.
+     * Opacity value.
+     * @default 0.5
      */
     opacity?: number;
 }

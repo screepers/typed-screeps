@@ -1,10 +1,13 @@
 /**
- * Contains powerful methods for pathfinding in the game world. Support exists for custom navigation costs and paths which span multiple rooms.
+ * Contains powerful methods for pathfinding in the game world.
+ *
+ * This module is written in fast native C++ code and supports custom navigation costs and paths which span multiple rooms.
+ *
  * Additionally PathFinder can search for paths through rooms you can't see, although you won't be able to detect any dynamic obstacles like creeps or buildings.
  */
 interface PathFinder {
     /**
-     * Creates a new CostMatrix containing 0's for all positions.
+     * Creates a new {@link CostMatrix} containing 0's for all positions.
      */
     CostMatrix: CostMatrixConstructor;
 
@@ -23,10 +26,10 @@ interface PathFinder {
     /**
      * Specify whether to use this new experimental pathfinder in game objects methods.
      * This method should be invoked every tick. It affects the following methods behavior:
-     * * `Room.findPath`
-     * * `RoomPosition.findPathTo`
-     * * `RoomPosition.findClosestByPath`
-     * * `Creep.moveTo`
+     * - {@link Room.findPath}
+     * - {@link RoomPosition.findPathTo}
+     * - {@link RoomPosition.findClosestByPath}
+     * - {@link Creep.moveTo}
      *
      * @deprecated This method is deprecated and will be removed soon.
      * @param isEnabled Whether to activate the new pathfinder or deactivate.
@@ -44,7 +47,7 @@ interface PathFinder {
  */
 interface PathFinderPath {
     /**
-     * An array of RoomPosition objects.
+     * An array of {@link RoomPosition} objects.
      */
     path: RoomPosition[];
     /**
@@ -52,7 +55,7 @@ interface PathFinderPath {
      */
     ops: number;
     /**
-     * The total cost of the path as derived from `plainCost`, `swampCost` and any given CostMatrix instances.
+     * The total cost of the path as derived from `plainCost`, `swampCost` and any given {@link CostMatrix} instances.
      */
     cost: number;
     /**
@@ -68,42 +71,56 @@ interface PathFinderPath {
  */
 interface PathFinderOpts {
     /**
-     * Cost for walking on plain positions. The default is 1.
+     * Cost for walking on plain positions.
+     * @default 1
      */
     plainCost?: number;
     /**
-     * Cost for walking on swamp positions. The default is 5.
+     * Cost for walking on swamp positions.
+     * @default 5
      */
     swampCost?: number;
     /**
      * Instead of searching for a path to the goals this will search for a path away from the goals.
-     * The cheapest path that is out of range of every goal will be returned. The default is false.
+     *
+     * The cheapest path that is out of range of every goal will be returned.
+     * @default false
      */
     flee?: boolean;
     /**
-     * The maximum allowed pathfinding operations. You can limit CPU time used for the search based on ratio 1 op ~ 0.001 CPU. The default value is 2000.
+     * The maximum allowed pathfinding operations.
+     *
+     * You can limit CPU time used for the search based on ratio 1 op ~ 0.001 CPU.
+     * @default 2000
      */
     maxOps?: number;
     /**
-     * The maximum allowed rooms to search. The default (and maximum) is 16.
+     * The maximum allowed rooms to search.
+     * @default 16 (also maximum)
      */
     maxRooms?: number;
     /**
-     * The maximum allowed cost of the path returned. If at any point the pathfinder detects that it is impossible to find
-     * a path with a cost less than or equal to maxCost it will immediately halt the search. The default is Infinity.
+     * The maximum allowed cost of the path returned.
+     *
+     * If at any point the pathfinder detects that it is impossible to find a path with a cost less than or equal to maxCost it will immediately halt the search.
+     * @default Infinity
      */
     maxCost?: number;
     /**
-     * Weight to apply to the heuristic in the A* formula F = G + weight * H. Use this option only if you understand
-     * the underlying A* algorithm mechanics! The default value is 1.
+     * Weight to apply to the heuristic in the A* formula `F = G + weight * H`.
+     *
+     * Use this option only if you understand the underlying A* algorithm mechanics!
+     * @default 1
      */
     heuristicWeight?: number;
 
     /**
-     * Request from the pathfinder to generate a CostMatrix for a certain room. The callback accepts one argument, roomName.
+     * Request from the pathfinder to generate a CostMatrix for a certain room.
+     *
+     * The callback accepts one argument, roomName.
      * This callback will only be called once per room per search. If you are running multiple pathfinding operations in a
-     * single room and in a single tick you may consider caching your CostMatrix to speed up your code. Please read the
-     * CostMatrix documentation below for more information on CostMatrix.
+     * single room and in a single tick you may consider caching your {@link CostMatrix} to speed up your code.
+     * Please read the {@link CostMatrix} documentation below for more information on CostMatrix.
      *
      * @param roomName The name of the room the pathfinder needs a cost matrix for.
      */
@@ -122,6 +139,14 @@ interface CostMatrixConstructor extends _Constructor<CostMatrix> {
 
 /**
  * Container for custom navigation cost data.
+ *
+ * By default PathFinder will only consider terrain data (plain, swamp, wall) — if you need to route around obstacles such as buildings or creeps you must put them into a CostMatrix.
+ *
+ * Generally you will create your CostMatrix from within {@link PathFinderOpts.roomCallback}.
+ * If a non-0 value is found in a room's CostMatrix then that value will be used instead of the default terrain cost.
+ *
+ * You should avoid using large values in your CostMatrix and terrain cost flags.
+ * For example, running {@link PathFinder.search} with `{ plainCost: 1, swampCost: 5 }` is faster than running it with `{plainCost: 2, swampCost: 10 }` even though your paths will be the same.
  */
 interface CostMatrix {
     /**

@@ -1,5 +1,14 @@
 /**
- * An energy source object. Can be harvested by creeps with a WORK body part.
+ * An energy source object.
+ *
+ * Can be harvested by creeps with a WORK body part.
+ *
+ * |                     |                                    |
+ * | ------------------- | ---------------------------------- |
+ * | Energy amount       | 4000 in center rooms
+ * |                     | 3000 in an owned or reserved room
+ * |                     | 1500 in an unreserved room
+ * | Energy regeneration | Every 300 game ticks
  */
 interface Source extends RoomObject {
     /**
@@ -13,16 +22,19 @@ interface Source extends RoomObject {
      */
     energy: number;
     /**
-     * The total amount of energy in the source. Equals to 3000 in most cases.
+     * The total amount of energy in the source.
+     *
+     * Equals to 3000 in most cases.
      */
     energyCapacity: number;
     /**
-     * A unique object identifier. You can use Game.getObjectById method to retrieve an object instance by its id.
+     * A unique object identifier.
+     *
+     * You can use {@link Game.getObjectById} to retrieve an object instance by its id.
      */
     id: Id<this>;
     /**
-     * If you can get an instance of Source, you can see it.
-     * If you can see a Source, you can see the room it's in.
+     * The room the source is in.
      */
     room: Room;
     /**
