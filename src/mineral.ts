@@ -10,7 +10,7 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
     /**
      * The density of this mineral deposit, one of the `DENSITY_*` constants.
      */
-    density: number;
+    density: DensityConstant;
     /**
      * The remaining amount of resources.
      */
