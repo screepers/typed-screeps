@@ -198,20 +198,20 @@ type StoreDefinitionUnlimited = Store<ResourceConstant, true>;
 type ExitsInformation = Partial<Record<ExitKey, string>>;
 
 interface AllLookAtTypes {
-    constructionSite: ConstructionSite;
-    creep: Creep;
-    energy: Resource<RESOURCE_ENERGY>;
-    flag: Flag;
-    mineral: Mineral;
-    deposit: Deposit;
-    nuke: Nuke;
-    resource: Resource;
-    source: Source;
-    structure: AnyStructure;
-    terrain: Terrain;
-    tombstone: Tombstone;
-    powerCreep: PowerCreep;
-    ruin: Ruin;
+    [LOOK_CONSTRUCTION_SITES]: ConstructionSite;
+    [LOOK_CREEPS]: Creep;
+    [LOOK_ENERGY]: Resource<RESOURCE_ENERGY>;
+    [LOOK_FLAGS]: Flag;
+    [LOOK_MINERALS]: Mineral;
+    [LOOK_DEPOSITS]: Deposit;
+    [LOOK_NUKES]: Nuke;
+    [LOOK_RESOURCES]: Resource;
+    [LOOK_SOURCES]: Source;
+    [LOOK_STRUCTURES]: AnyStructure;
+    [LOOK_TERRAIN]: Terrain;
+    [LOOK_TOMBSTONES]: Tombstone;
+    [LOOK_POWER_CREEPS]: PowerCreep;
+    [LOOK_RUINS]: Ruin;
 }
 
 type LookAtTypes = Partial<AllLookAtTypes>;
