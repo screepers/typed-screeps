@@ -33,10 +33,6 @@ interface Room {
      */
     memory: RoomMemory;
     /**
-     * One of the `MODE_*` constants.
-     */
-    mode: string;
-    /**
      * The name of the room.
      */
     readonly name: string;
