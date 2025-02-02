@@ -58,7 +58,15 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * Check if a creep can be created.
      *
      * @deprecated This method is deprecated and will be removed soon. Please use {@link StructureSpawn.spawnCreep} with `dryRun` flag instead.
-     * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of the {@link BodyPartConstant} constants.
+     * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of the {@link BodyPartConstant} constants:
+     * - WORK
+     * - MOVE
+     * - CARRY
+     * - ATTACK
+     * - RANGED_ATTACK
+     * - HEAL
+     * - TOUGH
+     * - CLAIM
      * @param name The name of a new creep.
      *
      * It should be unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key).
@@ -78,7 +86,15 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * Start the creep spawning process.
      *
      * @deprecated This method is deprecated and will be removed soon. Please use {@link StructureSpawn.spawnCreep} instead.
-     * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of the {@link BodyPartConstant} constants.
+     * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of the {@link BodyPartConstant} constants:
+     * - WORK
+     * - MOVE
+     * - CARRY
+     * - ATTACK
+     * - RANGED_ATTACK
+     * - HEAL
+     * - TOUGH
+     * - CLAIM
      * @param name The name of a new creep.
      *
      * It should be unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key).
@@ -94,11 +110,18 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * - ERR_RCL_NOT_ENOUGH: Your Room Controller level is not enough to use this spawn.
      */
     createCreep(body: BodyPartConstant[], name?: string, memory?: CreepMemory): ScreepsReturnCode | string;
-
     /**
      * Start the creep spawning process. The required energy amount can be withdrawn from all spawns and extensions in the room.
      *
-     * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of the {@link BodyPartConstant} constants.
+     * @param body An array describing the new creep’s body. Should contain 1 to 50 elements with one of the {@link BodyPartConstant} constants:
+     * - WORK
+     * - MOVE
+     * - CARRY
+     * - ATTACK
+     * - RANGED_ATTACK
+     * - HEAL
+     * - TOUGH
+     * - CLAIM
      * @param name The name of a new creep. It must be a unique creep name, i.e. the Game.creeps object should not contain another creep with the same name (hash key).
      * @param opts An object with additional options for the spawning process.
      * @returns One of the following codes:
