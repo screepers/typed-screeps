@@ -166,7 +166,7 @@ interface HeapStatistics {
 type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = T extends any
     ? {
           /**
-           * One of the {@link ResourceConstant} constants.
+           * One of the {@link ResourceConstant RESOURCE_*} constants.
            *
            * If the body part is boosted, this property specifies the mineral type which is used for boosting.
            */

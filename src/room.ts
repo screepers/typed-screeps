@@ -56,7 +56,7 @@ interface Room {
      * Create new {@link ConstructionSite} at the specified location.
      * @param x The X position
      * @param y The Y position
-     * @param structureType One of {@link BuildableStructureConstant}.
+     * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
      * @returns
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: The room is claimed or reserved by a hostile player.
@@ -69,7 +69,7 @@ interface Room {
     /**
      * Create new {@link ConstructionSite} at the specified location.
      * @param pos Can be a {@link RoomPosition} object or any object containing RoomPosition.
-     * @param structureType One of {@link BuildableStructureConstant}.
+     * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
      * @returns
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: The room is claimed or reserved by a hostile player.
@@ -83,7 +83,7 @@ interface Room {
      * Create new {@link ConstructionSite} at the specified location.
      * @param x The X position
      * @param y The Y position
-     * @param structureType One of {@link BuildableStructureConstant}.
+     * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
      * @returns
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: The room is claimed or reserved by a hostile player.
@@ -96,7 +96,7 @@ interface Room {
     /**
      * Create new {@link ConstructionSite} at the specified location.
      * @param pos Can be a {@link RoomPosition} object or any object containing RoomPosition.
-     * @param structureType One of {@link BuildableStructureConstant}.
+     * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
      * @returns
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: The room is claimed or reserved by a hostile player.
@@ -156,7 +156,7 @@ interface Room {
     ): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
     /**
      * Find all objects of the specified type in the room.
-     * @param type One of the {@link FindConstant} constants.
+     * @param type One of the {@link FindConstant FIND_*} constants.
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
@@ -223,17 +223,23 @@ interface Room {
     /**
      * Get the objects at the given position.
      *
-     * @param type One of the {@link LookConstant} constants.
+     * @param type One of the {@link LookConstant LOOK_*} constants.
      * @param x The X position.
      * @param y The Y position.
-     * @param target A RoomPosition. Its room name will be ignored.
      * @returns An array of objects of the requested type at the given position, or ERR_INVALID_ARGS.
      */
     lookForAt<T extends keyof AllLookAtTypes>(type: T, x: number, y: number): Array<AllLookAtTypes[T]>;
+    /**
+     * Get the objects at the given position.
+     *
+     * @param type One of the {@link LookConstant LOOK_*} constants.
+     * @param target A RoomPosition. Its room name will be ignored.
+     * @returns An array of objects of the requested type at the given position, or ERR_INVALID_ARGS.
+     */
     lookForAt<T extends keyof AllLookAtTypes>(type: T, target: RoomPosition | _HasRoomPosition): Array<AllLookAtTypes[T]>;
     /**
      * Get the given objects in the supplied area.
-     * @param type One of the {@link LookConstant} constants
+     * @param type One of the {@link LookConstant LOOK_*} constants
      * @param top The top (Y) boundary of the area.
      * @param left The left (X) boundary of the area.
      * @param bottom The bottom (Y) boundary of the area.

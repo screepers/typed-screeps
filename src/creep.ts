@@ -208,7 +208,7 @@ interface Creep extends RoomObject {
     /**
      * Drop this resource on the ground.
      *
-     * @param resourceType One of the {@link ResourceConstant} constants.
+     * @param resourceType One of the {@link ResourceConstant RESOURCE_*} constants.
      * @param amount The amount of resource units to be dropped. If omitted, all the available carried amount is used.
      * @returns One of the following codes:
      * - OK: The operation has been scheduled successfully.
@@ -282,7 +282,7 @@ interface Creep extends RoomObject {
      * Move the creep one square in the specified direction or towards a creep that is pulling it.
      *
      * Requires the MOVE body part if not being pulled.
-     * @param direction The direction to move in (see {@link DirectionConstant}).
+     * @param direction The direction to move in ({@link DirectionConstant `TOP`, `TOP_LEFT`...}).
      * @param creep A creep nearby.
      * @return One of the following codes:
      * - OK: The operation has been scheduled successfully.
@@ -494,7 +494,7 @@ interface Creep extends RoomObject {
      *
      * The target has to be at adjacent square to the creep.
      * @param target The target object.
-     * @param resourceType One of the {@link ResourceConstant} constants
+     * @param resourceType One of the {@link ResourceConstant RESOURCE_*} constants
      * @param amount The amount of resources to be transferred. If omitted, all the available carried amount is used.
      * @returns One of the following codes:
      * - OK: The operation has been scheduled successfully.
@@ -504,7 +504,7 @@ interface Creep extends RoomObject {
      * - ERR_INVALID_TARGET: The target is not a valid object which can contain the specified resource.
      * - ERR_FULL: The target cannot receive any more resources.
      * - ERR_NOT_IN_RANGE: The target is too far away.
-     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant} constants, or the amount is incorrect.
+     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant RESOURCE_*} constants, or the amount is incorrect.
      */
     transfer(target: AnyCreep | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
     /**
@@ -539,7 +539,7 @@ interface Creep extends RoomObject {
      * To transfer between creeps, use the {@link Creep.transfer} method on the original creep.
      *
      * @param target The target object.
-     * @param resourceType One of the {@link ResourceConstant} constants..
+     * @param resourceType One of the {@link ResourceConstant RESOURCE_*} constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      * @returns One of the following codes:
      * - OK: The operation has been scheduled successfully.
@@ -549,7 +549,7 @@ interface Creep extends RoomObject {
      * - ERR_INVALID_TARGET: The target is not a valid object which can contain the specified resource.
      * - ERR_FULL: The creep's carry is full.
      * - ERR_NOT_IN_RANGE: The target is too far away.
-     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant} constants, or the amount is incorrect.
+     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant RESOURCE_*} constants, or the amount is incorrect.
      */
     withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }

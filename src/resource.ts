@@ -19,7 +19,7 @@ interface Resource<T extends ResourceConstant = ResourceConstant> extends RoomOb
      */
     id: Id<this>;
     /**
-     * One of the {@link ResourceConstant} constants.
+     * One of the {@link ResourceConstant RESOURCE_*} constants.
      */
     resourceType: T;
 }

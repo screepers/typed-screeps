@@ -18,7 +18,7 @@ interface Tombstone extends RoomObject {
     /**
      * An object with the tombstone contents.
      *
-     * Each object key is one of the {@link ResourceConstant} constants, values are resources amounts.
+     * Each object key is one of the {@link ResourceConstant RESOURCE_*} constants, values are resources amounts.
      * {@link RESOURCE_ENERGY} is always defined and equals to 0 when empty, other resources are undefined when empty.
      * You can use `_.sum(tombstone.store)` to get the total amount of contents.
      */

@@ -1059,7 +1059,7 @@ interface ConstructionSite<T extends BuildableStructureConstant = BuildableStruc
      */
     progressTotal: number;
     /**
-     * One of the {@link StructureConstant} constants.
+     * One of the {@link StructureConstant STRUCTURE_*} constants.
      */
     structureType: T;
     /**
@@ -1282,7 +1282,7 @@ interface Creep extends RoomObject {
     /**
      * Drop this resource on the ground.
      *
-     * @param resourceType One of the {@link ResourceConstant} constants.
+     * @param resourceType One of the {@link ResourceConstant RESOURCE_*} constants.
      * @param amount The amount of resource units to be dropped. If omitted, all the available carried amount is used.
      * @returns One of the following codes:
      * - OK: The operation has been scheduled successfully.
@@ -1356,7 +1356,7 @@ interface Creep extends RoomObject {
      * Move the creep one square in the specified direction or towards a creep that is pulling it.
      *
      * Requires the MOVE body part if not being pulled.
-     * @param direction The direction to move in (see {@link DirectionConstant}).
+     * @param direction The direction to move in ({@link DirectionConstant `TOP`, `TOP_LEFT`...}).
      * @param creep A creep nearby.
      * @return One of the following codes:
      * - OK: The operation has been scheduled successfully.
@@ -1568,7 +1568,7 @@ interface Creep extends RoomObject {
      *
      * The target has to be at adjacent square to the creep.
      * @param target The target object.
-     * @param resourceType One of the {@link ResourceConstant} constants
+     * @param resourceType One of the {@link ResourceConstant RESOURCE_*} constants
      * @param amount The amount of resources to be transferred. If omitted, all the available carried amount is used.
      * @returns One of the following codes:
      * - OK: The operation has been scheduled successfully.
@@ -1578,7 +1578,7 @@ interface Creep extends RoomObject {
      * - ERR_INVALID_TARGET: The target is not a valid object which can contain the specified resource.
      * - ERR_FULL: The target cannot receive any more resources.
      * - ERR_NOT_IN_RANGE: The target is too far away.
-     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant} constants, or the amount is incorrect.
+     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant RESOURCE_*} constants, or the amount is incorrect.
      */
     transfer(target: AnyCreep | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
     /**
@@ -1613,7 +1613,7 @@ interface Creep extends RoomObject {
      * To transfer between creeps, use the {@link Creep.transfer} method on the original creep.
      *
      * @param target The target object.
-     * @param resourceType One of the {@link ResourceConstant} constants..
+     * @param resourceType One of the {@link ResourceConstant RESOURCE_*} constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      * @returns One of the following codes:
      * - OK: The operation has been scheduled successfully.
@@ -1623,7 +1623,7 @@ interface Creep extends RoomObject {
      * - ERR_INVALID_TARGET: The target is not a valid object which can contain the specified resource.
      * - ERR_FULL: The creep's carry is full.
      * - ERR_NOT_IN_RANGE: The target is too far away.
-     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant} constants, or the amount is incorrect.
+     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant RESOURCE_*} constants, or the amount is incorrect.
      */
     withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
@@ -1680,7 +1680,7 @@ interface Flag extends RoomObject {
     readonly prototype: Flag;
 
     /**
-     * Flag color. One of the {@link ColorConstant} constants.
+     * Flag color. One of the {@link ColorConstant COLOR_*} constants.
      */
     color: ColorConstant;
     /**
@@ -1698,7 +1698,7 @@ interface Flag extends RoomObject {
      */
     name: string;
     /**
-     * Flag secondary color. One of the {@link ColorConstant} constants.
+     * Flag secondary color. One of the {@link ColorConstant COLOR_*} constants.
      */
     secondaryColor: ColorConstant;
     /**
@@ -1708,8 +1708,8 @@ interface Flag extends RoomObject {
     remove(): OK;
     /**
      * Set new color of the flag.
-     * @param color One of the {@link ColorConstant} constants.
-     * @param secondaryColor Secondary color of the flag. One of the {@link ColorConstant} constants.
+     * @param color One of the {@link ColorConstant COLOR_*} constants.
+     * @param secondaryColor Secondary color of the flag. One of the {@link ColorConstant COLOR_*} constants.
      * @returns One of the following codes:
      * - OK: The operation has been scheduled successfully.
      * - ERR_INVALID_ARGS: color or secondaryColor is not a valid color constant.
@@ -2011,7 +2011,7 @@ interface HeapStatistics {
 type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = T extends any
     ? {
           /**
-           * One of the {@link ResourceConstant} constants.
+           * One of the {@link ResourceConstant RESOURCE_*} constants.
            *
            * If the body part is boosted, this property specifies the mineral type which is used for boosting.
            */
@@ -3511,7 +3511,7 @@ interface Market {
     getAllOrders(filter?: OrderFilter | ((o: Order) => boolean)): Order[];
     /**
      * Get daily price history of the specified resource on the market for the last 14 days.
-     * @param resource One of the {@link MarketResourceConstant} constants. If undefined, returns history data for all resources. Optional
+     * @param resource One of the {@link MarketResourceConstant RESOURCE_*} constants. If undefined, returns history data for all resources. Optional
      * @returns An array of objects with resource info.
      */
     getHistory(resource?: MarketResourceConstant): PriceHistory[];
@@ -3634,7 +3634,7 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
      */
     readonly prototype: Mineral;
     /**
-     * The density of this mineral deposit, one of the {@link DensityConstant} constants.
+     * The density of this mineral deposit, one of the {@link DensityConstant DENSITY_*} constants.
      */
     density: number;
     /**
@@ -3642,7 +3642,7 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
      */
     mineralAmount: number;
     /**
-     * The resource type, one of the {@link MineralConstant} constants.
+     * The resource type, one of the {@link MineralConstant RESOURCE_*} constants.
      */
     mineralType: T;
     /**
@@ -3902,7 +3902,7 @@ interface PowerCreep extends RoomObject {
      */
     carryCapacity: number;
     /**
-     * The power creep's class, one of the {@link PowerClassConstant} constants.
+     * The power creep's class, one of the {@link PowerClassConstant POWER_CLASS} constants.
      */
     className: PowerClassConstant;
     /**
@@ -4004,14 +4004,14 @@ interface PowerCreep extends RoomObject {
     delete(cancel?: boolean): OK | ERR_NOT_OWNER | ERR_BUSY;
     /**
      * Drop this resource on the ground.
-     * @param resourceType One of the {@link ResourceConstant} constants.
+     * @param resourceType One of the {@link ResourceConstant RESOURCE_*} constants.
      * @param amount The amount of resource units to be dropped. If omitted, all the available carried amount is used.
      * @returns One of the following codes:
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: You are not the owner of this creep.
      * - ERR_BUSY: The power creep is not spawned in the world.
      * - ERR_NOT_ENOUGH_RESOURCES: The creep does not have the given amount of energy.
-     * - ERR_INVALID_ARGS: The resourceType is not a valid {@link ResourceConstant} constants.
+     * - ERR_INVALID_ARGS: The resourceType is not a valid {@link ResourceConstant RESOURCE_*} constants.
      */
     drop(resourceType: ResourceConstant, amount?: number): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES;
     /**
@@ -4030,7 +4030,7 @@ interface PowerCreep extends RoomObject {
      * Move the creep one square in the specified direction or towards a creep that is pulling it.
      *
      * Requires the MOVE body part if not being pulled.
-     * @param direction The direction to move in (see {@link DirectionConstant})
+     * @param direction The direction to move in ({@link DirectionConstant `TOP`, `TOP_LEFT`...})
      * @returns One of the following codes:
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: You are not the owner of this creep.
@@ -4167,7 +4167,7 @@ interface PowerCreep extends RoomObject {
      *
      * The target has to be at adjacent square to the creep.
      * @param target The target object.
-     * @param resourceType One of the {@link ResourceConstant} constants
+     * @param resourceType One of the {@link ResourceConstant RESOURCE_*} constants
      * @param amount The amount of resources to be transferred. If omitted, all the available carried amount is used.
      * @returns
      * - OK: The operation has been scheduled successfully.
@@ -4177,14 +4177,14 @@ interface PowerCreep extends RoomObject {
      * - ERR_INVALID_TARGET: The target is not a valid object which can contain the specified resource.
      * - ERR_FULL: The target cannot receive any more resources.
      * - ERR_NOT_IN_RANGE: The target is too far away.
-     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant} constants, or the amount is incorrect.
+     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant RESOURCE_*} constants, or the amount is incorrect.
      */
     transfer(target: AnyCreep | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
     /**
      * Upgrade the creep, adding a new power ability to it or increasing the level of the existing power.
      *
      * You need one free Power Level in your account to perform this action.
-     * @param power	The power ability to upgrade, one of the {@link PowerConstant} constants.
+     * @param power	The power ability to upgrade, one of the {@link PowerConstant PWR_*} constants.
      * @returns
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: You are not the owner of the creep.
@@ -4196,7 +4196,7 @@ interface PowerCreep extends RoomObject {
     /**
      * Apply one of the creep's powers on the specified target.
      *
-     * @param power The power ability to use, one of the {@link PowerConstant} constants.
+     * @param power The power ability to use, one of the {@link PowerConstant PWR_*} constants.
      * @param target A target object in the room.
      * @returns
      * - OK: The operation has been scheduled successfully.
@@ -4220,7 +4220,7 @@ interface PowerCreep extends RoomObject {
      *
      * Your creeps can withdraw resources from hostile structures as well, in case if there is no hostile rampart on top of it.
      * @param target The target object.
-     * @param resourceType The target One of the {@link ResourceConstant} constants..
+     * @param resourceType The target One of the {@link ResourceConstant RESOURCE_*} constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      * @returns
      * - OK: The operation has been scheduled successfully.
@@ -4230,7 +4230,7 @@ interface PowerCreep extends RoomObject {
      * - ERR_INVALID_TARGET: The target is not a valid object which can contain the specified resource.
      * - ERR_FULL: The creep's carry is full.
      * - ERR_NOT_IN_RANGE: The target is too far away.
-     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant} constants, or the amount is incorrect.
+     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant RESOURCE_*} constants, or the amount is incorrect.
      */
     withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
@@ -4244,7 +4244,7 @@ interface PowerCreepConstructor extends _Constructor<PowerCreep>, _ConstructorBy
      * You need one free Power Level in your account to perform this action.
      *
      * @param name The name of the power creep.
-     * @param className The class of the new power creep, one of the {@link PowerClassConstant} constants
+     * @param className The class of the new power creep, one of the {@link PowerClassConstant POWER_CLASS} constants
      */
     create(name: string, className: PowerClassConstant): OK | ERR_NAME_EXISTS | ERR_NOT_ENOUGH_RESOURCES;
 }
@@ -4383,7 +4383,7 @@ interface Resource<T extends ResourceConstant = ResourceConstant> extends RoomOb
      */
     id: Id<this>;
     /**
-     * One of the {@link ResourceConstant} constants.
+     * One of the {@link ResourceConstant RESOURCE_*} constants.
      */
     resourceType: T;
 }
@@ -4435,7 +4435,7 @@ interface NaturalEffect {
     /**
      * Effect ID of the applied effect.
      *
-     * One of the {@link EffectConstant} constants.
+     * One of the {@link EffectConstant EFFECT_*} constants.
      */
     effect: EffectConstant;
     /**
@@ -4455,7 +4455,7 @@ interface PowerEffect {
     /**
      * Effect ID of the applied effect.
      *
-     * One of the {@link PowerConstant} constants.
+     * One of the {@link PowerConstant PWR_*} constants.
      */
     effect: PowerConstant;
     /**
@@ -4463,7 +4463,7 @@ interface PowerEffect {
      *
      * @deprecated Use {@link PowerEffect.effect} instead.
      *
-     * One of the {@link PowerConstant} constants.
+     * One of the {@link PowerConstant PWR_*} constants.
      */
     power: PowerConstant;
     /**
@@ -4495,7 +4495,7 @@ interface RoomPosition {
     y: number;
     /**
      * Create a new {@link ConstructionSite} at the specified location.
-     * @param structureType One of {@link BuildableStructureConstant}.
+     * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
      * @returns
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: You don't have ownership of the targetted room.
@@ -4507,7 +4507,7 @@ interface RoomPosition {
     createConstructionSite(structureType: BuildableStructureConstant): ScreepsReturnCode;
     /**
      * Create a new {@link ConstructionSite} at the specified location.
-     * @param structureType One of {@link BuildableStructureConstant}.
+     * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
      * @param name The name of the structure, for structures that support it (currently only spawns). The name length limit is 100 characters.
      * @returns
      * - OK: The operation has been scheduled successfully.
@@ -4523,8 +4523,8 @@ interface RoomPosition {
      * @param name The name of a new flag.
      * It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key).
      * If not defined, a random name will be generated.
-     * @param color The color of a new flag. Should be one of the {@link ColorConstant} constants
-     * @param secondaryColor The secondary color of a new flag. Should be one of the {@link ColorConstant} constants. The default value is equal to color.
+     * @param color The color of a new flag. Should be one of the {@link ColorConstant COLOR_*} constants
+     * @param secondaryColor The secondary color of a new flag. Should be one of the {@link ColorConstant COLOR_*} constants. The default value is equal to color.
      * @returns The name of the flag if created, or one of the following error codes: ERR_NAME_EXISTS, ERR_INVALID_ARGS
      */
     createFlag(name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
@@ -4532,7 +4532,7 @@ interface RoomPosition {
      * Find the object with the shortest path from the given position.
      *
      * Uses A* search algorithm and Dijkstra's algorithm.
-     * @param type Any of the {@link FindConstant} constants.
+     * @param type Any of the {@link FindConstant FIND_*} constants.
      * @param opts An object containing pathfinding options (see {@link Room.findPath}), or one of the following: filter, algorithm
      * @returns An instance of a RoomObject.
      */
@@ -4561,7 +4561,7 @@ interface RoomPosition {
     ): S | null;
     /**
      * Find the object with the shortest linear distance from the given position.
-     * @param type Any of the {@link FindConstant} constants.
+     * @param type Any of the {@link FindConstant FIND_*} constants.
      * @param opts An object containing pathfinding options (see {@link Room.findPath}), or one of the following: filter, algorithm
      */
     findClosestByRange<K extends FindConstant, S extends FindTypes[K]>(type: K, opts?: FilterOptions<FindTypes[K], S>): S | null;
@@ -4577,7 +4577,7 @@ interface RoomPosition {
     findClosestByRange<T extends _HasRoomPosition | RoomPosition, S extends T = T>(objects: T[], opts?: FilterOptions<T, S>): S | null;
     /**
      * Find all objects in the specified linear range.
-     * @param type Any of the {@link FindConstant} constants.
+     * @param type Any of the {@link FindConstant FIND_*} constants.
      * @param range The range distance.
      * @param opts See Room.find.
      */
@@ -5042,7 +5042,7 @@ interface Room {
      * Create new {@link ConstructionSite} at the specified location.
      * @param x The X position
      * @param y The Y position
-     * @param structureType One of {@link BuildableStructureConstant}.
+     * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
      * @returns
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: The room is claimed or reserved by a hostile player.
@@ -5055,7 +5055,7 @@ interface Room {
     /**
      * Create new {@link ConstructionSite} at the specified location.
      * @param pos Can be a {@link RoomPosition} object or any object containing RoomPosition.
-     * @param structureType One of {@link BuildableStructureConstant}.
+     * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
      * @returns
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: The room is claimed or reserved by a hostile player.
@@ -5069,7 +5069,7 @@ interface Room {
      * Create new {@link ConstructionSite} at the specified location.
      * @param x The X position
      * @param y The Y position
-     * @param structureType One of {@link BuildableStructureConstant}.
+     * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
      * @returns
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: The room is claimed or reserved by a hostile player.
@@ -5082,7 +5082,7 @@ interface Room {
     /**
      * Create new {@link ConstructionSite} at the specified location.
      * @param pos Can be a {@link RoomPosition} object or any object containing RoomPosition.
-     * @param structureType One of {@link BuildableStructureConstant}.
+     * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
      * @returns
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: The room is claimed or reserved by a hostile player.
@@ -5142,7 +5142,7 @@ interface Room {
     ): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
     /**
      * Find all objects of the specified type in the room.
-     * @param type One of the {@link FindConstant} constants.
+     * @param type One of the {@link FindConstant FIND_*} constants.
      * @param opts An object with additional options
      * @returns An array with the objects found.
      */
@@ -5209,17 +5209,23 @@ interface Room {
     /**
      * Get the objects at the given position.
      *
-     * @param type One of the {@link LookConstant} constants.
+     * @param type One of the {@link LookConstant LOOK_*} constants.
      * @param x The X position.
      * @param y The Y position.
-     * @param target A RoomPosition. Its room name will be ignored.
      * @returns An array of objects of the requested type at the given position, or ERR_INVALID_ARGS.
      */
     lookForAt<T extends keyof AllLookAtTypes>(type: T, x: number, y: number): Array<AllLookAtTypes[T]>;
+    /**
+     * Get the objects at the given position.
+     *
+     * @param type One of the {@link LookConstant LOOK_*} constants.
+     * @param target A RoomPosition. Its room name will be ignored.
+     * @returns An array of objects of the requested type at the given position, or ERR_INVALID_ARGS.
+     */
     lookForAt<T extends keyof AllLookAtTypes>(type: T, target: RoomPosition | _HasRoomPosition): Array<AllLookAtTypes[T]>;
     /**
      * Get the given objects in the supplied area.
-     * @param type One of the {@link LookConstant} constants
+     * @param type One of the {@link LookConstant LOOK_*} constants
      * @param top The top (Y) boundary of the area.
      * @param left The left (X) boundary of the area.
      * @param bottom The bottom (Y) boundary of the area.
@@ -5708,7 +5714,7 @@ interface Structure<T extends StructureConstant = StructureConstant> extends Roo
      */
     room: Room;
     /**
-     * One of the {@link StructureConstant} constants.
+     * One of the {@link StructureConstant STRUCTURE_*} constants.
      */
     structureType: T;
     /**
@@ -5839,7 +5845,7 @@ interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
     activateSafeMode(): ScreepsReturnCode;
     /**
      * Make your claimed controller neutral again.
-     * @returnsOne of the following codes:
+     * @returns One of the following codes:
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: You are not the owner of this controller.
      */
@@ -6361,7 +6367,7 @@ interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
     storeCapacity: number;
     /**
      * Sends resource to a Terminal in another room with the specified name.
-     * @param resourceType One of the {@link ResourceConstant} constants.
+     * @param resourceType One of the {@link ResourceConstant RESOURCE_*} constants.
      * @param amount The amount of resources to be sent.
      * @param destination The name of the target room. You don't have to gain visibility in this room.
      * @param description The description of the transaction. It is visible to the recipient. The maximum length is 100 characters.
@@ -6389,7 +6395,7 @@ interface StructureContainer extends Structure<STRUCTURE_CONTAINER> {
     /**
      * An object with the structure contents.
      *
-     * Each object key is one of the {@link ResourceConstant} constants, values are resources
+     * Each object key is one of the {@link ResourceConstant RESOURCE_*} constants, values are resources
      * amounts. Use `_.sum(structure.store)` to get the total amount of contents.
      */
     store: StoreDefinition;
@@ -6516,7 +6522,7 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
      * Produces the specified commodity.
      *
      * All ingredients should be available in the factory store.
-     * @param resource One of the {@link ResourceConstant} constants.
+     * @param resource One of the {@link CommoditiesTypes producible RESOURCE_*} constants.
      * @returns One of the following codes:
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: You are not the owner of this structure.
@@ -6653,7 +6659,7 @@ interface Tombstone extends RoomObject {
     /**
      * An object with the tombstone contents.
      *
-     * Each object key is one of the {@link ResourceConstant} constants, values are resources amounts.
+     * Each object key is one of the {@link ResourceConstant RESOURCE_*} constants, values are resources amounts.
      * {@link RESOURCE_ENERGY} is always defined and equals to 0 when empty, other resources are undefined when empty.
      * You can use `_.sum(tombstone.store)` to get the total amount of contents.
      */

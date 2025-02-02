@@ -32,7 +32,7 @@ interface ConstructionSite<T extends BuildableStructureConstant = BuildableStruc
      */
     progressTotal: number;
     /**
-     * One of the {@link StructureConstant} constants.
+     * One of the {@link StructureConstant STRUCTURE_*} constants.
      */
     structureType: T;
     /**

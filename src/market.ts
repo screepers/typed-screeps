@@ -124,7 +124,7 @@ interface Market {
     getAllOrders(filter?: OrderFilter | ((o: Order) => boolean)): Order[];
     /**
      * Get daily price history of the specified resource on the market for the last 14 days.
-     * @param resource One of the {@link MarketResourceConstant} constants. If undefined, returns history data for all resources. Optional
+     * @param resource One of the {@link MarketResourceConstant RESOURCE_*} constants. If undefined, returns history data for all resources. Optional
      * @returns An array of objects with resource info.
      */
     getHistory(resource?: MarketResourceConstant): PriceHistory[];

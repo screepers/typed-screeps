@@ -26,7 +26,7 @@ interface Structure<T extends StructureConstant = StructureConstant> extends Roo
      */
     room: Room;
     /**
-     * One of the {@link StructureConstant} constants.
+     * One of the {@link StructureConstant STRUCTURE_*} constants.
      */
     structureType: T;
     /**
@@ -157,7 +157,7 @@ interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
     activateSafeMode(): ScreepsReturnCode;
     /**
      * Make your claimed controller neutral again.
-     * @returnsOne of the following codes:
+     * @returns One of the following codes:
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: You are not the owner of this controller.
      */
@@ -679,7 +679,7 @@ interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
     storeCapacity: number;
     /**
      * Sends resource to a Terminal in another room with the specified name.
-     * @param resourceType One of the {@link ResourceConstant} constants.
+     * @param resourceType One of the {@link ResourceConstant RESOURCE_*} constants.
      * @param amount The amount of resources to be sent.
      * @param destination The name of the target room. You don't have to gain visibility in this room.
      * @param description The description of the transaction. It is visible to the recipient. The maximum length is 100 characters.
@@ -707,7 +707,7 @@ interface StructureContainer extends Structure<STRUCTURE_CONTAINER> {
     /**
      * An object with the structure contents.
      *
-     * Each object key is one of the {@link ResourceConstant} constants, values are resources
+     * Each object key is one of the {@link ResourceConstant RESOURCE_*} constants, values are resources
      * amounts. Use `_.sum(structure.store)` to get the total amount of contents.
      */
     store: StoreDefinition;
@@ -834,7 +834,7 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
      * Produces the specified commodity.
      *
      * All ingredients should be available in the factory store.
-     * @param resource One of the {@link ResourceConstant} constants.
+     * @param resource One of the {@link CommoditiesTypes producible RESOURCE_*} constants.
      * @returns One of the following codes:
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: You are not the owner of this structure.

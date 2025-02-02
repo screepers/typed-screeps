@@ -23,7 +23,7 @@ interface PowerCreep extends RoomObject {
      */
     carryCapacity: number;
     /**
-     * The power creep's class, one of the {@link PowerClassConstant} constants.
+     * The power creep's class, one of the {@link PowerClassConstant POWER_CLASS} constants.
      */
     className: PowerClassConstant;
     /**
@@ -125,14 +125,14 @@ interface PowerCreep extends RoomObject {
     delete(cancel?: boolean): OK | ERR_NOT_OWNER | ERR_BUSY;
     /**
      * Drop this resource on the ground.
-     * @param resourceType One of the {@link ResourceConstant} constants.
+     * @param resourceType One of the {@link ResourceConstant RESOURCE_*} constants.
      * @param amount The amount of resource units to be dropped. If omitted, all the available carried amount is used.
      * @returns One of the following codes:
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: You are not the owner of this creep.
      * - ERR_BUSY: The power creep is not spawned in the world.
      * - ERR_NOT_ENOUGH_RESOURCES: The creep does not have the given amount of energy.
-     * - ERR_INVALID_ARGS: The resourceType is not a valid {@link ResourceConstant} constants.
+     * - ERR_INVALID_ARGS: The resourceType is not a valid {@link ResourceConstant RESOURCE_*} constants.
      */
     drop(resourceType: ResourceConstant, amount?: number): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES;
     /**
@@ -151,7 +151,7 @@ interface PowerCreep extends RoomObject {
      * Move the creep one square in the specified direction or towards a creep that is pulling it.
      *
      * Requires the MOVE body part if not being pulled.
-     * @param direction The direction to move in (see {@link DirectionConstant})
+     * @param direction The direction to move in ({@link DirectionConstant `TOP`, `TOP_LEFT`...})
      * @returns One of the following codes:
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: You are not the owner of this creep.
@@ -288,7 +288,7 @@ interface PowerCreep extends RoomObject {
      *
      * The target has to be at adjacent square to the creep.
      * @param target The target object.
-     * @param resourceType One of the {@link ResourceConstant} constants
+     * @param resourceType One of the {@link ResourceConstant RESOURCE_*} constants
      * @param amount The amount of resources to be transferred. If omitted, all the available carried amount is used.
      * @returns
      * - OK: The operation has been scheduled successfully.
@@ -298,14 +298,14 @@ interface PowerCreep extends RoomObject {
      * - ERR_INVALID_TARGET: The target is not a valid object which can contain the specified resource.
      * - ERR_FULL: The target cannot receive any more resources.
      * - ERR_NOT_IN_RANGE: The target is too far away.
-     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant} constants, or the amount is incorrect.
+     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant RESOURCE_*} constants, or the amount is incorrect.
      */
     transfer(target: AnyCreep | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
     /**
      * Upgrade the creep, adding a new power ability to it or increasing the level of the existing power.
      *
      * You need one free Power Level in your account to perform this action.
-     * @param power	The power ability to upgrade, one of the {@link PowerConstant} constants.
+     * @param power	The power ability to upgrade, one of the {@link PowerConstant PWR_*} constants.
      * @returns
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: You are not the owner of the creep.
@@ -317,7 +317,7 @@ interface PowerCreep extends RoomObject {
     /**
      * Apply one of the creep's powers on the specified target.
      *
-     * @param power The power ability to use, one of the {@link PowerConstant} constants.
+     * @param power The power ability to use, one of the {@link PowerConstant PWR_*} constants.
      * @param target A target object in the room.
      * @returns
      * - OK: The operation has been scheduled successfully.
@@ -341,7 +341,7 @@ interface PowerCreep extends RoomObject {
      *
      * Your creeps can withdraw resources from hostile structures as well, in case if there is no hostile rampart on top of it.
      * @param target The target object.
-     * @param resourceType The target One of the {@link ResourceConstant} constants..
+     * @param resourceType The target One of the {@link ResourceConstant RESOURCE_*} constants.
      * @param amount The amount of resources to be transferred. If omitted, all the available amount is used.
      * @returns
      * - OK: The operation has been scheduled successfully.
@@ -351,7 +351,7 @@ interface PowerCreep extends RoomObject {
      * - ERR_INVALID_TARGET: The target is not a valid object which can contain the specified resource.
      * - ERR_FULL: The creep's carry is full.
      * - ERR_NOT_IN_RANGE: The target is too far away.
-     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant} constants, or the amount is incorrect.
+     * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant RESOURCE_*} constants, or the amount is incorrect.
      */
     withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
 }
@@ -365,7 +365,7 @@ interface PowerCreepConstructor extends _Constructor<PowerCreep>, _ConstructorBy
      * You need one free Power Level in your account to perform this action.
      *
      * @param name The name of the power creep.
-     * @param className The class of the new power creep, one of the {@link PowerClassConstant} constants
+     * @param className The class of the new power creep, one of the {@link PowerClassConstant POWER_CLASS} constants
      */
     create(name: string, className: PowerClassConstant): OK | ERR_NAME_EXISTS | ERR_NOT_ENOUGH_RESOURCES;
 }

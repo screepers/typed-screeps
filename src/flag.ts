@@ -7,7 +7,7 @@ interface Flag extends RoomObject {
     readonly prototype: Flag;
 
     /**
-     * Flag color. One of the {@link ColorConstant} constants.
+     * Flag color. One of the {@link ColorConstant COLOR_*} constants.
      */
     color: ColorConstant;
     /**
@@ -25,7 +25,7 @@ interface Flag extends RoomObject {
      */
     name: string;
     /**
-     * Flag secondary color. One of the {@link ColorConstant} constants.
+     * Flag secondary color. One of the {@link ColorConstant COLOR_*} constants.
      */
     secondaryColor: ColorConstant;
     /**
@@ -35,8 +35,8 @@ interface Flag extends RoomObject {
     remove(): OK;
     /**
      * Set new color of the flag.
-     * @param color One of the {@link ColorConstant} constants.
-     * @param secondaryColor Secondary color of the flag. One of the {@link ColorConstant} constants.
+     * @param color One of the {@link ColorConstant COLOR_*} constants.
+     * @param secondaryColor Secondary color of the flag. One of the {@link ColorConstant COLOR_*} constants.
      * @returns One of the following codes:
      * - OK: The operation has been scheduled successfully.
      * - ERR_INVALID_ARGS: color or secondaryColor is not a valid color constant.

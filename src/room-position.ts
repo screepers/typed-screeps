@@ -22,7 +22,7 @@ interface RoomPosition {
     y: number;
     /**
      * Create a new {@link ConstructionSite} at the specified location.
-     * @param structureType One of {@link BuildableStructureConstant}.
+     * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
      * @returns
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: You don't have ownership of the targetted room.
@@ -34,7 +34,7 @@ interface RoomPosition {
     createConstructionSite(structureType: BuildableStructureConstant): ScreepsReturnCode;
     /**
      * Create a new {@link ConstructionSite} at the specified location.
-     * @param structureType One of {@link BuildableStructureConstant}.
+     * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
      * @param name The name of the structure, for structures that support it (currently only spawns). The name length limit is 100 characters.
      * @returns
      * - OK: The operation has been scheduled successfully.
@@ -50,8 +50,8 @@ interface RoomPosition {
      * @param name The name of a new flag.
      * It should be unique, i.e. the Game.flags object should not contain another flag with the same name (hash key).
      * If not defined, a random name will be generated.
-     * @param color The color of a new flag. Should be one of the {@link ColorConstant} constants
-     * @param secondaryColor The secondary color of a new flag. Should be one of the {@link ColorConstant} constants. The default value is equal to color.
+     * @param color The color of a new flag. Should be one of the {@link ColorConstant COLOR_*} constants
+     * @param secondaryColor The secondary color of a new flag. Should be one of the {@link ColorConstant COLOR_*} constants. The default value is equal to color.
      * @returns The name of the flag if created, or one of the following error codes: ERR_NAME_EXISTS, ERR_INVALID_ARGS
      */
     createFlag(name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
@@ -59,7 +59,7 @@ interface RoomPosition {
      * Find the object with the shortest path from the given position.
      *
      * Uses A* search algorithm and Dijkstra's algorithm.
-     * @param type Any of the {@link FindConstant} constants.
+     * @param type Any of the {@link FindConstant FIND_*} constants.
      * @param opts An object containing pathfinding options (see {@link Room.findPath}), or one of the following: filter, algorithm
      * @returns An instance of a RoomObject.
      */
@@ -88,7 +88,7 @@ interface RoomPosition {
     ): S | null;
     /**
      * Find the object with the shortest linear distance from the given position.
-     * @param type Any of the {@link FindConstant} constants.
+     * @param type Any of the {@link FindConstant FIND_*} constants.
      * @param opts An object containing pathfinding options (see {@link Room.findPath}), or one of the following: filter, algorithm
      */
     findClosestByRange<K extends FindConstant, S extends FindTypes[K]>(type: K, opts?: FilterOptions<FindTypes[K], S>): S | null;
@@ -104,7 +104,7 @@ interface RoomPosition {
     findClosestByRange<T extends _HasRoomPosition | RoomPosition, S extends T = T>(objects: T[], opts?: FilterOptions<T, S>): S | null;
     /**
      * Find all objects in the specified linear range.
-     * @param type Any of the {@link FindConstant} constants.
+     * @param type Any of the {@link FindConstant FIND_*} constants.
      * @param range The range distance.
      * @param opts See Room.find.
      */

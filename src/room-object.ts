@@ -42,7 +42,7 @@ interface NaturalEffect {
     /**
      * Effect ID of the applied effect.
      *
-     * One of the {@link EffectConstant} constants.
+     * One of the {@link EffectConstant EFFECT_*} constants.
      */
     effect: EffectConstant;
     /**
@@ -62,7 +62,7 @@ interface PowerEffect {
     /**
      * Effect ID of the applied effect.
      *
-     * One of the {@link PowerConstant} constants.
+     * One of the {@link PowerConstant PWR_*} constants.
      */
     effect: PowerConstant;
     /**
@@ -70,7 +70,7 @@ interface PowerEffect {
      *
      * @deprecated Use {@link PowerEffect.effect} instead.
      *
-     * One of the {@link PowerConstant} constants.
+     * One of the {@link PowerConstant PWR_*} constants.
      */
     power: PowerConstant;
     /**

@@ -23,7 +23,7 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
      */
     readonly prototype: Mineral;
     /**
-     * The density of this mineral deposit, one of the {@link DensityConstant} constants.
+     * The density of this mineral deposit, one of the {@link DensityConstant DENSITY_*} constants.
      */
     density: number;
     /**
@@ -31,7 +31,7 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
      */
     mineralAmount: number;
     /**
-     * The resource type, one of the {@link MineralConstant} constants.
+     * The resource type, one of the {@link MineralConstant RESOURCE_*} constants.
      */
     mineralType: T;
     /**
