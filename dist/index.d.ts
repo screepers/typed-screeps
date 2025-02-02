@@ -3742,7 +3742,6 @@ declare const Resource: ResourceConstructor;
  */
 
 interface RoomObject {
-    readonly prototype: RoomObject;
     /**
      * Applied effects, an array of objects with the following properties:
      */
@@ -3760,6 +3759,10 @@ interface RoomObject {
 }
 
 interface RoomObjectConstructor extends _Constructor<RoomObject> {
+    /**
+     * The prototype is stored in the {@link RoomObject.prototype} global object. You can use it to extend game objects behaviour globally.
+     */
+    readonly prototype: RoomObject;
     new (x: number, y: number, roomName: string): RoomObject;
     (x: number, y: number, roomName: string): RoomObject;
 }
