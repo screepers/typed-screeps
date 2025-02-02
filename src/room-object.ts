@@ -1,12 +1,13 @@
 /**
- * Any object with a position in a room. Almost all game objects prototypes
- * are derived from RoomObject.
+ * Any object with a position in a room.
+ *
+ * Almost all game objects prototypes are derived from RoomObject.
  */
 
 interface RoomObject {
     readonly prototype: RoomObject;
     /**
-     * Applied effects, an array of objects with the following properties:
+     * Effects currently being applied to the object.
      */
     effects?: RoomObjectEffect[];
     /**
@@ -14,8 +15,9 @@ interface RoomObject {
      */
     pos: RoomPosition;
     /**
-     * The link to the Room object. May be undefined in case if an object is a
-     * flag or a construction site and is placed in a room that is not visible
+     * The link to the {@link Room} object.
+     *
+     * May be `undefined` if the object is a {@link Flag} or a {@link ConstructionSite} and is placed in a room that is not visible
      * to you.
      */
     room: Room | undefined;
@@ -38,7 +40,9 @@ type RoomObjectEffect = NaturalEffect | PowerEffect;
  */
 interface NaturalEffect {
     /**
-     * Effect ID of the applied effect. `EFFECT_*` constant.
+     * Effect ID of the applied effect.
+     *
+     * One of the {@link EffectConstant EFFECT_*} constants.
      */
     effect: EffectConstant;
     /**
@@ -48,7 +52,7 @@ interface NaturalEffect {
 }
 
 /**
- * Effect applied to room object as result of a `PowerCreep.usePower`.
+ * Effect applied to room object as result of a {@link PowerCreep.usePower}.
  */
 interface PowerEffect {
     /**
@@ -56,11 +60,17 @@ interface PowerEffect {
      */
     level: number;
     /**
-     * Effect ID of the applied effect. `PWR_*` constant.
+     * Effect ID of the applied effect.
+     *
+     * One of the {@link PowerConstant PWR_*} constants.
      */
     effect: PowerConstant;
     /**
-     * @deprecated Power ID of the applied effect. `PWR_*` constant. No longer documented, will be removed.
+     * Power ID of the applied effect.
+     *
+     * @deprecated Use {@link PowerEffect.effect} instead.
+     *
+     * One of the {@link PowerConstant PWR_*} constants.
      */
     power: PowerConstant;
     /**

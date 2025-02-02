@@ -1,13 +1,14 @@
 /**
- * A destroyed structure. This is a walkable object.
- * <ul>
- *     <li>Decay: 500 ticks except some special cases</li>
- * </ul>
+ * A destroyed structure.
+ *
+ * This is a walkable object.
+ *
+ * Usually decays in 500 ticks except some special cases.
  */
 interface Ruin extends RoomObject {
     /**
-     * A unique object identificator.
-     * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
+     * A unique object identifier.
+     * You can use {@link Game.getObjectById} to retrieve an object instance by its id.
      */
     id: Id<this>;
     /**
