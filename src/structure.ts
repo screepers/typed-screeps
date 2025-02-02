@@ -2,6 +2,11 @@
  * Parent object for structure classes
  */
 interface Structure<T extends StructureConstant = StructureConstant> extends RoomObject {
+    /**
+     * The prototype is stored in the {@link Structure.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
+     */
     readonly prototype: Structure;
 
     /**

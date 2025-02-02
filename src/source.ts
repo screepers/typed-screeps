@@ -3,7 +3,9 @@
  */
 interface Source extends RoomObject {
     /**
-     * The prototype is stored in the Source.prototype global object. You can use it to extend game objects behaviour globally:
+     * The prototype is stored in the {@link Source.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
      */
     readonly prototype: Source;
     /**

@@ -3,6 +3,11 @@
  */
 
 interface Resource<T extends ResourceConstant = ResourceConstant> extends RoomObject {
+    /**
+     * The prototype is stored in the {@link Resource.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
+     */
     readonly prototype: Resource;
 
     /**
