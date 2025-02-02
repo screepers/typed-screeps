@@ -26,8 +26,6 @@
  * | TOUGH           | 10         | No effect, just additional hit points to the creep's body. Can be boosted to resist damage.
  */
 interface Creep extends RoomObject {
-    readonly prototype: Creep;
-
     /**
      * An array describing the creep's body.
      */

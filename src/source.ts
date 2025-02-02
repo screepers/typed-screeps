@@ -12,10 +12,6 @@
  */
 interface Source extends RoomObject {
     /**
-     * The prototype is stored in the Source.prototype global object. You can use it to extend game objects behaviour globally:
-     */
-    readonly prototype: Source;
-    /**
      * The remaining amount of energy.
      */
     energy: number;
