@@ -1649,7 +1649,11 @@ interface Deposit extends RoomObject {
      */
     id: Id<this>;
     /**
-     * The deposit type, one of the {@link DepositConstant}.
+     * The deposit type, one of the {@link DepositConstant}:
+     * - `RESOURCE_MIST`
+     * - `RESOURCE_BIOMASS`
+     * - `RESOURCE_METAL`
+     * - `RESOURCE_SILICON`
      */
     depositType: DepositConstant;
     /**
