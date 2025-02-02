@@ -147,7 +147,7 @@ type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = T exten
            *
            * If the body part is boosted, this property specifies the mineral type which is used for boosting.
            */
-          boost?: keyof (typeof BOOSTS)[T];
+          boost?: keyof typeof BOOSTS[T];
           /**
            * One of the body part types constants.
            */

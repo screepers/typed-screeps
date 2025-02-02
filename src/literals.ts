@@ -698,3 +698,18 @@ type EffectConstant = EFFECT_INVULNERABILITY | EFFECT_COLLAPSE_TIMER;
 
 type EFFECT_INVULNERABILITY = 1001;
 type EFFECT_COLLAPSE_TIMER = 1002;
+
+type BoostModifier =
+    | "harvest"
+    | "build"
+    | "repair"
+    | "dismantle"
+    | "upgradeController"
+    | "attack"
+    | "rangedAttack"
+    | "rangedMassAttack"
+    | "heal"
+    | "rangedHeal"
+    | "capacity"
+    | "fatigue"
+    | "damage";

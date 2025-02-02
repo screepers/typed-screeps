@@ -608,7 +608,6 @@ declare const REACTION_TIME: {
 };
 
 declare const BOOSTS: {
-    [part: string]: { [boost: string]: { [action: string]: number } };
     work: {
         UO: {
             harvest: 3;
@@ -722,7 +721,7 @@ declare const BOOSTS: {
             damage: 0.3;
         };
     };
-};
+} & Record<BodyPartConstant, Record<MineralBoostConstant, Record<BoostModifier, number>>>;
 
 declare const INTERSHARD_RESOURCES: InterShardResourceConstant[];
 
@@ -1729,7 +1728,7 @@ type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = T exten
            *
            * If the body part is boosted, this property specifies the mineral type which is used for boosting.
            */
-          boost?: keyof (typeof BOOSTS)[T];
+          boost?: keyof typeof BOOSTS[T];
           /**
            * One of the body part types constants.
            */
@@ -2733,6 +2732,21 @@ type EffectConstant = EFFECT_INVULNERABILITY | EFFECT_COLLAPSE_TIMER;
 
 type EFFECT_INVULNERABILITY = 1001;
 type EFFECT_COLLAPSE_TIMER = 1002;
+
+type BoostModifier =
+    | "harvest"
+    | "build"
+    | "repair"
+    | "dismantle"
+    | "upgradeController"
+    | "attack"
+    | "rangedAttack"
+    | "rangedMassAttack"
+    | "heal"
+    | "rangedHeal"
+    | "capacity"
+    | "fatigue"
+    | "damage";
 /**
  * The options that can be accepted by `findRoute()` and friends.
  */
