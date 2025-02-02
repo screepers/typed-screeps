@@ -1403,6 +1403,12 @@ declare const Creep: CreepConstructor;
  */
 interface Deposit extends RoomObject {
     /**
+     * The prototype is stored in the {@link Deposit.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
+     */
+    readonly prototype: Deposit;
+    /**
      * A unique object identificator.
      * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
      */
@@ -3406,6 +3412,12 @@ interface CostMatrixConstructor extends _Constructor<CostMatrix> {
  */
 interface CostMatrix {
     /**
+     * The prototype is stored in the {@link CostMatrix.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
+     */
+    readonly prototype: CostMatrix;
+    /**
      * Set the cost of a position in this CostMatrix.
      * @param x X position in the room.
      * @param y Y position in the room.
@@ -4878,6 +4890,8 @@ interface SpawningConstructor extends _Constructor<Spawning> {
     (id: Id<StructureSpawn>): Spawning;
 }
 interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> {
+    readonly prototype: GenericStoreBase;
+
     /**
      * Returns capacity of this store for the specified resource. For a general purpose store, it returns total capacity if `resource` is undefined.
      * @param resource The type of the resource.
@@ -4927,7 +4941,12 @@ type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends 
 
 interface GenericStoreBase {
     /**
-     * Returns capacity of this store for the specified resource. For a general purpose store, it returns total capacity if `resource` is undefined.
+     * The prototype is stored in the {@link GenericStoreBase.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
+     */
+    readonly prototype: GenericStoreBase;
+    /**
      * @param resource The type of the resource.
      * @returns Returns capacity number, or `null` in case of an invalid `resource` for this store type.
      */
@@ -4947,6 +4966,10 @@ interface GenericStoreBase {
 }
 
 type GenericStore = GenericStoreBase & { [P in ResourceConstant]: number };
+
+interface StoreConstructor extends _Constructor<GenericStoreBase> {}
+
+declare const Store: StoreConstructor;
 /**
  * Parent object for structure classes
  */
@@ -5725,6 +5748,12 @@ type ConcreteStructure<T extends StructureConstant> = ConcreteStructureMap[T];
  * </ul>
  */
 interface Tombstone extends RoomObject {
+    /**
+     * The prototype is stored in the {@link Tombstone.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
+     */
+    readonly prototype: Tombstone;
     /**
      * A unique object identificator.
      * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.

@@ -125,6 +125,12 @@ interface CostMatrixConstructor extends _Constructor<CostMatrix> {
  */
 interface CostMatrix {
     /**
+     * The prototype is stored in the {@link CostMatrix.prototype} global object.
+     *
+     * You can use it to extend game objects behaviour globally.
+     */
+    readonly prototype: CostMatrix;
+    /**
      * Set the cost of a position in this CostMatrix.
      * @param x X position in the room.
      * @param y Y position in the room.
