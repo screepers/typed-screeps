@@ -6,8 +6,6 @@
  * Every object in the room contains its linked Room instance in the {@link RoomObject.room} property.
  */
 interface Room {
-    readonly prototype: Room;
-
     /**
      * The Controller structure of this room, if present, otherwise undefined.
      */

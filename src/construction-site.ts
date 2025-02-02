@@ -8,7 +8,6 @@
  * You can remove enemy construction sites by moving a creep on it.
  */
 interface ConstructionSite<T extends BuildableStructureConstant = BuildableStructureConstant> extends RoomObject {
-    readonly prototype: ConstructionSite;
     /**
      * A unique object identifier.
      *
