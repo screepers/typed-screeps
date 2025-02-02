@@ -402,10 +402,10 @@ declare const MINERAL_DENSITY_PROBABILITY: {
 
 declare const MINERAL_DENSITY_CHANGE: number;
 
-declare const DENSITY_LOW: number;
-declare const DENSITY_MODERATE: number;
-declare const DENSITY_HIGH: number;
-declare const DENSITY_ULTRA: number;
+declare const DENSITY_LOW: DENSITY_LOW;
+declare const DENSITY_MODERATE: DENSITY_MODERATE;
+declare const DENSITY_HIGH: DENSITY_HIGH;
+declare const DENSITY_ULTRA: DENSITY_ULTRA;
 
 declare const DEPOSIT_EXHAUST_MULTIPLY: number;
 declare const DEPOSIT_EXHAUST_POW: number;
@@ -2733,6 +2733,13 @@ type EffectConstant = EFFECT_INVULNERABILITY | EFFECT_COLLAPSE_TIMER;
 
 type EFFECT_INVULNERABILITY = 1001;
 type EFFECT_COLLAPSE_TIMER = 1002;
+
+type DENSITY_LOW = 1;
+type DENSITY_MODERATE = 2;
+type DENSITY_HIGH = 3;
+type DENSITY_ULTRA = 4;
+
+type DensityConstant = DENSITY_LOW | DENSITY_MODERATE | DENSITY_HIGH | DENSITY_ULTRA;
 /**
  * The options that can be accepted by `findRoute()` and friends.
  */
@@ -3206,7 +3213,7 @@ interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObjec
     /**
      * The density of this mineral deposit, one of the `DENSITY_*` constants.
      */
-    density: number;
+    density: DensityConstant;
     /**
      * The remaining amount of resources.
      */
