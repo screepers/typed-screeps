@@ -173,7 +173,7 @@ interface PowerCreep extends RoomObject {
      * - ERR_NOT_FOUND: The specified path doesn't match the creep's location.
      * - ERR_INVALID_ARGS: path is not a valid path array.
      */
-    moveByPath(path: PathStep[] | RoomPosition[] | string): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_FOUND | ERR_INVALID_ARGS;
+    moveByPath(path: PathStep[] | RoomPosition[] | string): CreepMoveReturnCode | ERR_NOT_FOUND | ERR_INVALID_ARGS;
     /**
      * Find the optimal path to the target within the same room and move to it.
      *
@@ -222,7 +222,7 @@ interface PowerCreep extends RoomObject {
      * - ERR_FULL: The creep cannot receive any more resource.
      * - ERR_NOT_IN_RANGE: The target is too far away.
      */
-    pickup(target: Resource): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE;
+    pickup(target: Resource): CreepActionReturnCode | ERR_FULL;
     /**
      * Rename the power creep.
      *
