@@ -1,20 +1,24 @@
 /**
  * A rare resource deposit needed for producing commodities.
- * Can be harvested by creeps with a WORK body part.
- * Each harvest operation triggers a cooldown period, which becomes longer and longer over time.
+ *
+ * Can be harvested by creeps with a WORK body part. Each harvest operation triggers a cooldown period, which becomes longer and longer over time.
+ *
+ * Learn more about deposits from [this article](https://docs.screeps.com/resources.html).
+ *
+ * |              |             |
+ * | ------------ | ----------- |
+ * | **Cooldown** | 0.001 * totalHarvested ^ 1.2
+ * | **Decay**    | 50,000 ticks after appearing or last harvest operation
  */
 interface Deposit extends RoomObject {
     /**
-     * A unique object identificator.
-     * You can use {@link Game.getObjectById} method to retrieve an object instance by its id.
+     * A unique object identifier.
+     *
+     * You can use {@link Game.getObjectById} to retrieve an object instance by its id.
      */
     id: Id<this>;
     /**
-     * The deposit type, one of the following constants:
-     * * `RESOURCE_MIST`
-     * * `RESOURCE_BIOMASS`
-     * * `RESOURCE_METAL`
-     * * `RESOURCE_SILICON`
+     * The deposit type, one of the {@link DepositConstant}.
      */
     depositType: DepositConstant;
     /**
