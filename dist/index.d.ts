@@ -1827,7 +1827,21 @@ interface Game {
      */
     getObjectById<T extends Id<_HasId>>(id: T): fromId<T> | null;
     getObjectById<T extends _HasId>(id: Id<T>): T | null;
-
+    /**
+     * Get an object with the specified unique ID.
+     *
+     * It may be a game object of any type. Only objects from the rooms which are visible to you can be accessed.
+     * @param id The unique identifier.
+     * @returns an object instance or null if it cannot be found.
+     * @deprecated Use Id<T>, instead of strings, to increase type safety.
+     *
+     * If you are using JavaScript, just ignore this deprecation warning.
+     *
+     * If you are using TypeScript, and you are using strings as IDs, you should change your code to use Id<T> instead.
+     *
+     * see [this section of README](https://github.com/screepers/typed-screeps?tab=readme-ov-file#Game.getObjectById()) for more information.
+     */
+    getObjectById<T extends _HasId>(id: string): T | null;
     /**
      * Send a custom message at your profile email.
      *

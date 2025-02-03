@@ -1418,9 +1418,9 @@ function atackPower(creep: Creep) {
 
 // Id
 {
-    /// @ts-expect-error
+    /// @ts-expect-error Rooms don't have `id` property
     const roomId = "" as Id<Room>;
     const creep = Game.getObjectById("" as Id<Creep>);
-    /// @ts-expect-error
+    // No error, but deprecated warning
     const foo = Game.getObjectById<StructureTower>("" as Id<Creep>);
 }

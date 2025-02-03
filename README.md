@@ -85,6 +85,9 @@ This repo has more activity and is considerably more up-to-date.
   ```
 
 - Some original functions were incorrectly typed to not include `null` as a possible return. You may need to update your code to reflect this update (ex. `findClosestByPath` or `findClosestByRange`)
+
+#### Game.getObjectById()
+
 - `Game.getObjectById()` now returns typed objects according to the type of the Id (ex. `Id<StructureTower>` returns `StructureTower` type).
 
   Use of `string` typed Id, is deprecated and may be removed in the future. When using string Ids, the type of the returned game object is `unknown` which requires manual type assertion. Previously this function returned `any` typed objects which could accidently be left untyped;
