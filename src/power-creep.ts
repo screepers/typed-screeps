@@ -372,8 +372,12 @@ interface PowerCreepConstructor extends _Constructor<PowerCreep>, _ConstructorBy
 
 declare const PowerCreep: PowerCreepConstructor;
 
+type PowerId = keyof typeof POWER_INFO;
+
 /**
- * Available powers, an object with power ID as a key, and the following properties
+ * Available powers, an object with power ID as a key, and the following properties.
+ *
+ * If a PowerCreep does not have at least level 1 for a given power, undefined is returned.
  */
 interface PowerCreepPowers {
     [powerID: number]: {
@@ -383,9 +387,7 @@ interface PowerCreepPowers {
         level: number;
         /**
          * Cooldown ticks remaining
-         *
-         * Will be undefined if the power creep is not spawned in the world.
          */
-        cooldown: number | undefined;
-    };
+        cooldown: number;
+    } | undefined;
 }
