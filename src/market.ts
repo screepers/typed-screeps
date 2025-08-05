@@ -29,7 +29,7 @@ interface Market {
      * The formula:
      *
      * ```
-     * Math.ceil( amount * (Math.log(0.1*linearDistanceBetweenRooms + 0.9) + 0.1) )
+     * Math.ceil(amount * (1 - Math.exp(-linearDistanceBetweenRooms / 30)))
      * ```
      *
      * @param amount Amount of resources to be sent.
