@@ -862,6 +862,7 @@ declare const POWER_INFO: {
         effect?: number[];
         range?: number;
         ops?: number | number[];
+        energy?: number;
         duration?: number | number[];
     };
     [PWR_GENERATE_OPS]: {
