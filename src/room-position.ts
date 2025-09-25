@@ -6,8 +6,6 @@
  * The position object of a custom location can be obtained using the {@link Room.getPositionAt()} method or using the constructor.
  */
 interface RoomPosition {
-    readonly prototype: RoomPosition;
-
     /**
      * The name of the room.
      */
