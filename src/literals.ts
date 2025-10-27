@@ -608,7 +608,10 @@ interface EventData {
     [EVENT_BUILD]: {
         targetId: string;
         amount: number;
-        energySpent: number;
+        structureType: BuildableStructureConstant;
+        x: number;
+        y: number;
+        incomplete: boolean;
     };
     [EVENT_HARVEST]: {
         targetId: string;

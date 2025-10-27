@@ -1116,7 +1116,7 @@ function resources(o: GenericStore): ResourceConstant[] {
             const attackType: EventAttackType = event.data.attackType;
             break;
         case EVENT_BUILD:
-            const energySpent: number = event.data.energySpent;
+            const incomplete: boolean = event.data.incomplete;
             break;
         case EVENT_POWER:
             const power = event.data.power;
