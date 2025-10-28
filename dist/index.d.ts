@@ -3859,7 +3859,7 @@ interface PathFinderOpts {
      * Weight to apply to the heuristic in the A* formula `F = G + weight * H`.
      *
      * Use this option only if you understand the underlying A* algorithm mechanics!
-     * @default 1
+     * @default 1.2
      */
     heuristicWeight?: number;
 
