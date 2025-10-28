@@ -134,7 +134,7 @@ interface PowerCreep extends RoomObject {
      * - ERR_NOT_ENOUGH_RESOURCES: The creep does not have the given amount of energy.
      * - ERR_INVALID_ARGS: The resourceType is not a valid {@link ResourceConstant RESOURCE_*} constants.
      */
-    drop(resourceType: ResourceConstant, amount?: number): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES;
+    drop(resourceType: ResourceConstant, amount?: number): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_ARGS;
     /**
      * Enable power usage in this room.
      *
@@ -159,7 +159,7 @@ interface PowerCreep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target creep is too far away
      * - ERR_INVALID_ARGS: The provided direction is incorrect.
      */
-    move(direction: DirectionConstant): CreepMoveReturnCode;
+    move(direction: DirectionConstant): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
     move(target: Creep): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
     /**
      * Move the creep using the specified predefined path.
@@ -173,7 +173,7 @@ interface PowerCreep extends RoomObject {
      * - ERR_NOT_FOUND: The specified path doesn't match the creep's location.
      * - ERR_INVALID_ARGS: path is not a valid path array.
      */
-    moveByPath(path: PathStep[] | RoomPosition[] | string): CreepMoveReturnCode | ERR_NOT_FOUND | ERR_INVALID_ARGS;
+    moveByPath(path: PathStep[] | RoomPosition[] | string): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_FOUND | ERR_INVALID_ARGS;
     /**
      * Find the optimal path to the target within the same room and move to it.
      *
@@ -196,7 +196,7 @@ interface PowerCreep extends RoomObject {
     moveTo(
         target: RoomPosition | { pos: RoomPosition },
         opts?: MoveToOpts,
-    ): CreepMoveReturnCode | ERR_NO_PATH | ERR_INVALID_TARGET | ERR_NOT_FOUND;
+    ): OK | ERR_NOT_OWNER | ERR_NO_PATH | ERR_BUSY | ERR_NOT_FOUND | ERR_INVALID_TARGET;
     /**
      * Toggle auto notification when the creep is under attack.
      *
@@ -222,7 +222,7 @@ interface PowerCreep extends RoomObject {
      * - ERR_FULL: The creep cannot receive any more resource.
      * - ERR_NOT_IN_RANGE: The target is too far away.
      */
-    pickup(target: Resource): CreepActionReturnCode | ERR_FULL;
+    pickup(target: Resource): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE;
     /**
      * Rename the power creep.
      *
@@ -300,7 +300,11 @@ interface PowerCreep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant RESOURCE_*} constants, or the amount is incorrect.
      */
-    transfer(target: AnyCreep | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    transfer(
+        target: AnyCreep | Structure,
+        resourceType: ResourceConstant,
+        amount?: number,
+    ): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
     /**
      * Upgrade the creep, adding a new power ability to it or increasing the level of the existing power.
      *
@@ -331,7 +335,20 @@ interface PowerCreep extends RoomObject {
      * - ERR_TIRED: The power ability is still on cooldown.
      * - ERR_NO_BODYPART: The creep doesn't have the specified power ability.
      */
-    usePower(power: PowerConstant, target?: RoomObject): ScreepsReturnCode;
+    usePower(
+        power: PowerConstant,
+        target?: RoomObject,
+    ):
+        | OK
+        | ERR_NOT_OWNER
+        | ERR_BUSY
+        | ERR_NOT_ENOUGH_RESOURCES
+        | ERR_INVALID_TARGET
+        | ERR_FULL
+        | ERR_NOT_IN_RANGE
+        | ERR_INVALID_ARGS
+        | ERR_TIRED
+        | ERR_NO_BODYPART;
     /**
      * Withdraw resources from a structure, tombstone, or ruin.
      *
@@ -353,7 +370,11 @@ interface PowerCreep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant RESOURCE_*} constants, or the amount is incorrect.
      */
-    withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    withdraw(
+        target: Structure | Tombstone | Ruin,
+        resourceType: ResourceConstant,
+        amount?: number,
+    ): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
 }
 
 interface PowerCreepConstructor extends _Constructor<PowerCreep>, _ConstructorById<PowerCreep> {
