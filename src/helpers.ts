@@ -501,6 +501,24 @@ declare namespace Tag {
     }
 }
 
+/**
+ * GenericId is used for types whose id is NOT resolvable via getObjectByID.
+ * This type prevents accidental use of unrelated strings as id parameters.
+ */
+type GenericId<T> = string & Tag.OpaqueTag<T>;
+
+/**
+ * fromGenericId<GenericId<T>> == T
+ */
+type fromGenericId<T> = T extends GenericId<infer R> ? R : never;
+
+/**
+ * Id is used for types whose id is resolvable via getObjectByID.
+ * This type prevents accidental use of unrelated strings as id parameters.
+ */
 type Id<T extends _HasId> = string & Tag.OpaqueTag<T>;
 
+/**
+ * fromId<Id<T>> == T
+ */
 type fromId<T> = T extends Id<infer R> ? R : never;
