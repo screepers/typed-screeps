@@ -475,6 +475,6 @@ declare namespace Tag {
     }
 }
 
-type Id<T extends _HasId> = string & Tag.OpaqueTag<T>;
+type Id<T extends _HasId = _HasId> = string & Tag.OpaqueTag<T>;
 
 type fromId<T> = T extends Id<infer R> ? R : never;

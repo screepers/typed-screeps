@@ -1799,12 +1799,12 @@ interface Game {
     /**
      * A hash containing all your structures with structure id as hash keys.
      */
-    structures: { [structureId: string]: OwnedStructure };
+    structures: { [structureId: Id<OwnedStructure>]: OwnedStructure };
 
     /**
      * A hash containing all your construction sites with their id as hash keys.
      */
-    constructionSites: { [constructionSiteId: string]: ConstructionSite };
+    constructionSites: { [constructionSiteId: Id<ConstructionSite>]: ConstructionSite };
 
     /**
      * An object describing the world shard where your script is currently being executed in.
@@ -2322,7 +2322,7 @@ declare namespace Tag {
     }
 }
 
-type Id<T extends _HasId> = string & Tag.OpaqueTag<T>;
+type Id<T extends _HasId = _HasId> = string & Tag.OpaqueTag<T>;
 
 type fromId<T> = T extends Id<infer R> ? R : never;
 /**
@@ -2896,68 +2896,68 @@ type EventDestroyType = "creep" | StructureConstant;
 type EventItem =
     | {
           event: EVENT_ATTACK;
-          objectId: string;
+          objectId: Id<Creep> | Id<PowerCreep> | Id<Structure>;
           data: EventData[EVENT_ATTACK];
       }
     | {
           event: EVENT_OBJECT_DESTROYED;
-          objectId: string;
+          objectId: Id;
           data: EventData[EVENT_OBJECT_DESTROYED];
       }
     | {
           event: EVENT_ATTACK_CONTROLLER;
-          objectId: string;
+          objectId: Id<Creep> | Id<StructureInvaderCore>;
           data: EventData[EVENT_ATTACK_CONTROLLER];
       }
     | {
           event: EVENT_BUILD;
-          objectId: string;
+          objectId: Id<Creep>;
           data: EventData[EVENT_BUILD];
       }
     | {
           event: EVENT_HARVEST;
-          objectId: string;
+          objectId: Id<Creep>;
           data: EventData[EVENT_HARVEST];
       }
     | {
           event: EVENT_HEAL;
-          objectId: string;
+          objectId: Id<Creep> | Id<StructureTower>;
           data: EventData[EVENT_HEAL];
       }
     | {
           event: EVENT_REPAIR;
-          objectId: string;
+          objectId: Id<Creep> | Id<StructureTower>;
           data: EventData[EVENT_REPAIR];
       }
     | {
           event: EVENT_RESERVE_CONTROLLER;
-          objectId: string;
+          objectId: Id<Creep> | Id<StructureInvaderCore>;
           data: EventData[EVENT_RESERVE_CONTROLLER];
       }
     | {
           event: EVENT_UPGRADE_CONTROLLER;
-          objectId: string;
+          objectId: Id<Creep> | Id<StructureInvaderCore>;
           data: EventData[EVENT_UPGRADE_CONTROLLER];
       }
     | {
           event: EVENT_EXIT;
-          objectId: string;
+          objectId: Id<Creep> | Id<PowerCreep>;
           data: EventData[EVENT_EXIT];
       }
     | {
           event: EVENT_POWER;
-          objectId: string;
+          objectId: Id<PowerCreep>;
           data: EventData[EVENT_POWER];
       }
     | {
           event: EVENT_TRANSFER;
-          objectId: string;
+          objectId: Id<Creep> | Id<PowerCreep> | Id<StructureLink> | Id<StructureInvaderCore>;
           data: EventData[EVENT_TRANSFER];
       };
 
 interface EventData {
     [EVENT_ATTACK]: {
-        targetId: string;
+        targetId: Id;
         damage: number;
         attackType: EventAttackType;
     };
@@ -2966,7 +2966,7 @@ interface EventData {
     };
     [EVENT_ATTACK_CONTROLLER]: null;
     [EVENT_BUILD]: {
-        targetId: string;
+        targetId: Id<ConstructionSite>;
         amount: number;
         structureType: BuildableStructureConstant;
         x: number;
@@ -2974,16 +2974,16 @@ interface EventData {
         incomplete: boolean;
     };
     [EVENT_HARVEST]: {
-        targetId: string;
+        targetId: Id<Source> | Id<Mineral> | Id<Deposit>;
         amount: number;
     };
     [EVENT_HEAL]: {
-        targetId: string;
+        targetId: Id<Creep> | Id<PowerCreep>;
         amount: number;
         healType: EventHealType;
     };
     [EVENT_REPAIR]: {
-        targetId: string;
+        targetId: Id<Structure>;
         amount: number;
         energySpent: number;
     };
@@ -3000,11 +3000,11 @@ interface EventData {
         y: number;
     };
     [EVENT_POWER]: {
-        targetId: string;
+        targetId: Id;
         power: PowerConstant;
     };
     [EVENT_TRANSFER]: {
-        targetId: string;
+        targetId: Id<AnyStoreStructure> | Id<Creep> | Id<PowerCreep>;
         resourceType: ResourceConstant;
         amount: number;
     };
