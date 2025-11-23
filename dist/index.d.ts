@@ -1152,7 +1152,7 @@ interface Creep extends RoomObject {
      * You can choose the name while creating a new creep, and it cannot be changed later.
      * This name is a hash key to access the creep via the {@link Game.creeps} object.
      */
-    name: string;
+    name: Name<this>;
     /**
      * An object with the creep’s owner info.
      */
@@ -1698,7 +1698,7 @@ interface Flag extends RoomObject {
      *
      * This name is a hash key to access the flag via the {@link Game.flags} object. The maximum name length is 60 characters.
      */
-    name: string;
+    name: Name<this>;
     /**
      * Flag secondary color. One of the {@link ColorConstant COLOR_*} constants.
      */
@@ -1737,8 +1737,8 @@ interface Flag extends RoomObject {
 }
 
 interface FlagConstructor extends _Constructor<Flag> {
-    new (name: string, color: ColorConstant, secondaryColor: ColorConstant, roomName: string, x: number, y: number): Flag;
-    (name: string, color: ColorConstant, secondaryColor: ColorConstant, roomName: string, x: number, y: number): Flag;
+    new (name: Name<Flag>, color: ColorConstant, secondaryColor: ColorConstant, roomName: Name<Room>, x: number, y: number): Flag;
+    (name: Name<Flag>, color: ColorConstant, secondaryColor: ColorConstant, roomName: Name<Room>, x: number, y: number): Flag;
 }
 
 declare const Flag: FlagConstructor;
@@ -1753,11 +1753,11 @@ interface Game {
     /**
      * A hash containing all your creeps with creep names as hash keys.
      */
-    creeps: { [creepName: string]: Creep };
+    creeps: { [creepName: Name<Creep>]: Creep };
     /**
      * A hash containing all your flags with flag names as hash keys.
      */
-    flags: { [flagName: string]: Flag };
+    flags: { [flagName: Name<Flag>]: Flag };
     /**
      * Your Global Control Level.
      */
@@ -1779,7 +1779,7 @@ interface Game {
      *
      * Even power creeps not spawned in the world can be accessed here.
      */
-    powerCreeps: { [creepName: string]: PowerCreep };
+    powerCreeps: { [creepName: Name<PowerCreep>]: PowerCreep };
     /**
      * An object with your global resources that are bound to the account, like pixels or cpu unlocks.
      *
@@ -1791,11 +1791,11 @@ interface Game {
      *
      * A room is visible if you have a creep or an owned structure in it.
      */
-    rooms: { [roomName: string]: Room };
+    rooms: { [roomName: Name<Room>]: Room };
     /**
      * A hash containing all your spawns with spawn names as hash keys.
      */
-    spawns: { [spawnName: string]: StructureSpawn };
+    spawns: { [spawnName: Name<StructureSpawn>]: StructureSpawn };
     /**
      * A hash containing all your structures with structure id as hash keys.
      */
@@ -1849,6 +1849,10 @@ interface _HasId {
     id: Id<this>;
 }
 
+interface _HasName {
+    name: Name<this>;
+}
+
 interface _HasRoomPosition {
     pos: RoomPosition;
 }
@@ -1887,7 +1891,7 @@ interface Shard {
     /**
      * The name of the shard.
      */
-    name: string;
+    name: Name<this>;
     /**
      * Currently always equals to normal.
      */
@@ -2047,7 +2051,7 @@ interface SignDefinition {
 }
 
 interface CPUShardLimits {
-    [shard: string]: number;
+    [shard: Name<Shard>]: number;
 }
 
 /** A general purpose Store, which has a limited capacity */
@@ -2065,7 +2069,7 @@ type StoreDefinitionUnlimited = Store<ResourceConstant, true>;
  *   "7": "W9N3"        // LEFT
  * }
  */
-type ExitsInformation = Partial<Record<ExitKey, string>>;
+type ExitsInformation = Partial<Record<ExitKey, Name<Room>>>;
 
 interface AllLookAtTypes {
     [LOOK_CONSTRUCTION_SITES]: ConstructionSite;
@@ -2193,7 +2197,7 @@ interface FindPathOpts {
      * @param costMatrix The current CostMatrix
      * @returns The new CostMatrix to use
      */
-    costCallback?: (roomName: string, costMatrix: CostMatrix) => void | CostMatrix;
+    costCallback?: (roomName: Name<Room>, costMatrix: CostMatrix) => void | CostMatrix;
 
     /**
      * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search.
@@ -2325,6 +2329,10 @@ declare namespace Tag {
 type Id<T extends _HasId> = string & Tag.OpaqueTag<T>;
 
 type fromId<T> = T extends Id<infer R> ? R : never;
+
+type Name<T extends _HasName> = string & Tag.OpaqueTag<T>;
+
+type fromName<T> = T extends Name<infer R> ? R : never;
 /**
  * `InterShardMemory` object provides an interface for communicating between shards.
  *
@@ -2354,7 +2362,7 @@ interface InterShardMemory {
      * @param shard Shard name.
      * @throws if shard name is invalid
      */
-    getRemote(shard: string): string | null;
+    getRemote(shard: Name<Shard>): string | null;
 }
 
 declare const InterShardMemory: InterShardMemory;
@@ -2995,7 +3003,7 @@ interface EventData {
         energySpent: number;
     };
     [EVENT_EXIT]: {
-        room: string;
+        room: Name<Room>;
         x: number;
         y: number;
     };
@@ -3079,7 +3087,7 @@ interface RouteOptions {
      * @param fromRoomName The room we're coming from
      * @returns a floating point to steer the route toward a given room, or Infinity to block it entirely.
      */
-    routeCallback: (roomName: string, fromRoomName: string) => number;
+    routeCallback: (roomName: Name<Room>, fromRoomName: Name<Room>) => number;
 }
 
 interface RoomStatusPermanent {
@@ -3105,7 +3113,7 @@ interface GameMap {
      * @param roomName The room name.
      * @returns The exits information or null if the room not found.
      */
-    describeExits(roomName: string): ExitsInformation | null;
+    describeExits(roomName: Name<Room>): ExitsInformation | null;
     /**
      * Find the exit direction from the given room en route to another room.
      * @param fromRoom Start room name or room object.
@@ -3116,7 +3124,7 @@ interface GameMap {
      * Or one of the following Result codes:
      * ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExit(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS;
+    findExit(fromRoom: Name<Room> | Room, toRoom: Name<Room> | Room, opts?: RouteOptions): ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS;
     /**
      * Find route from the given room to another room.
      * @param fromRoom Start room name or room object.
@@ -3124,7 +3132,11 @@ interface GameMap {
      * @param opts (optional) An object with the pathfinding options.
      * @returns either an array of room exits / room name, or ERR_NO_PATH if the destination room cannot be reached.
      */
-    findRoute(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): { exit: ExitConstant; room: string }[] | ERR_NO_PATH;
+    findRoute(
+        fromRoom: Name<Room> | Room,
+        toRoom: Name<Room> | Room,
+        opts?: RouteOptions,
+    ): { exit: ExitConstant; room: string }[] | ERR_NO_PATH;
     /**
      * Get the linear distance (in rooms) between two rooms.
      *
@@ -3144,7 +3156,7 @@ interface GameMap {
      * @param roomName The room name.
      * @deprecated use {@link Game.map.getRoomTerrain} instead
      */
-    getTerrainAt(x: number, y: number, roomName: string): Terrain;
+    getTerrainAt(x: number, y: number, roomName: Name<Room>): Terrain;
     /**
      * Get terrain type at the specified room position.
      *
@@ -3159,7 +3171,7 @@ interface GameMap {
      * This method works for any room in the world even if you have no access to it.
      * @param roomName String name of the room.
      */
-    getRoomTerrain(roomName: string): RoomTerrain;
+    getRoomTerrain(roomName: Name<Room>): RoomTerrain;
     /**
      * Returns the world size as a number of rooms between world corners.
      *
@@ -3173,14 +3185,14 @@ interface GameMap {
      * @returns A boolean value.
      * @deprecated Use `Game.map.getRoomStatus` instead
      */
-    isRoomAvailable(roomName: string): boolean;
+    isRoomAvailable(roomName: Name<Room>): boolean;
 
     /**
      * Get the room status to determine if it's available, or in a reserved area.
      * @param roomName The room name.
      * @returns A {@link RoomStatus} object.
      */
-    getRoomStatus(roomName: string): RoomStatus;
+    getRoomStatus(roomName: Name<Room>): RoomStatus;
 
     /**
      * Map visuals provide a way to show various visual debug info on the game map.
@@ -3436,7 +3448,7 @@ interface Market {
      * @param roomName2 The name of the second room.
      * @returns The amount of energy required to perform the transaction.
      */
-    calcTransactionCost(amount: number, roomName1: string, roomName2: string): number;
+    calcTransactionCost(amount: number, roomName1: Name<Room>, roomName2: Name<Room>): number;
     /**
      * Cancel a previously created order.
      *
@@ -3502,7 +3514,7 @@ interface Market {
      * - ERR_INVALID_ARGS: The arguments provided are invalid.
      * - ERR_TIRED: The target terminal is still cooling down.
      */
-    deal(orderId: string, amount: number, yourRoomName?: string): ScreepsReturnCode;
+    deal(orderId: string, amount: number, yourRoomName?: Name<Room>): ScreepsReturnCode;
     /**
      * Add more capacity to an existing order.
      *
@@ -3546,8 +3558,8 @@ interface Transaction {
     recipient?: { username: string };
     resourceType: MarketResourceConstant;
     amount: number;
-    from: string;
-    to: string;
+    from: Name<Room>;
+    to: Name<Room>;
     description: string;
     order?: TransactionOrder;
 }
@@ -3572,7 +3584,7 @@ interface Order {
      */
     resourceType: MarketResourceConstant;
     /** The room where this order is placed. */
-    roomName?: string;
+    roomName?: Name<Room>;
     /** Currently available quantity of resource to trade. */
     amount: number;
     /** Remaining quantity of resources to trade. */
@@ -3594,7 +3606,7 @@ interface OrderFilter {
     created?: number;
     type?: string;
     resourceType?: MarketResourceConstant;
-    roomName?: string;
+    roomName?: Name<Room>;
     amount?: number;
     remainingAmount?: number;
     price?: number;
@@ -3637,14 +3649,14 @@ interface CreateOrderParam {
      * You must have your own Terminal structure in this room, otherwise the created order will be temporary inactive.
      * This argument is not used when `resourceType` is one of the {@link InterShardResourceConstant} resources.
      */
-    roomName?: string;
+    roomName?: Name<Room>;
 }
 interface Memory {
-    creeps: { [name: string]: CreepMemory };
-    powerCreeps: { [name: string]: PowerCreepMemory };
-    flags: { [name: string]: FlagMemory };
-    rooms: { [name: string]: RoomMemory };
-    spawns: { [name: string]: SpawnMemory };
+    creeps: { [name: Name<Creep>]: CreepMemory };
+    powerCreeps: { [name: Name<PowerCreep>]: PowerCreepMemory };
+    flags: { [name: Name<Flag>]: FlagMemory };
+    rooms: { [name: Name<Room>]: RoomMemory };
+    spawns: { [name: Name<StructureSpawn>]: SpawnMemory };
 }
 
 interface CreepMemory {}
@@ -3737,7 +3749,7 @@ interface Nuke extends RoomObject {
     /**
      * The name of the room where this nuke has been launched from.
      */
-    launchRoomName: string;
+    launchRoomName: Name<Room>;
     /**
      * The remaining landing time.
      */
@@ -3873,7 +3885,7 @@ interface PathFinderOpts {
      *
      * @param roomName The name of the room the pathfinder needs a cost matrix for.
      */
-    roomCallback?(roomName: string): boolean | CostMatrix;
+    roomCallback?(roomName: Name<Room>): boolean | CostMatrix;
 }
 
 interface CostMatrixConstructor extends _Constructor<CostMatrix> {
@@ -3990,7 +4002,7 @@ interface PowerCreep extends RoomObject {
      * You can choose the name while creating a new power creep, and `rename` it while unspawned.
      * This name is a hash key to access the creep via the {@link Game.powerCreeps} object.
      */
-    name: string;
+    name: Name<this>;
     /**
      * An object with the creep's owner information.
      */
@@ -4010,7 +4022,7 @@ interface PowerCreep extends RoomObject {
     /**
      * The name of the shard where the power creeps is spawned, or undefined.
      */
-    shard: string | undefined;
+    shard: Name<Shard> | undefined;
     /**
      * The timestamp when spawning or deleting this creep will become available.
      *
@@ -4462,8 +4474,8 @@ interface RoomObject {
 }
 
 interface RoomObjectConstructor extends _Constructor<RoomObject> {
-    new (x: number, y: number, roomName: string): RoomObject;
-    (x: number, y: number, roomName: string): RoomObject;
+    new (x: number, y: number, roomName: Name<Room>): RoomObject;
+    (x: number, y: number, roomName: Name<Room>): RoomObject;
 }
 
 declare const RoomObject: RoomObjectConstructor;
@@ -4529,7 +4541,7 @@ interface RoomPosition {
     /**
      * The name of the room.
      */
-    roomName: string;
+    roomName: Name<Room>;
     /**
      * X position in the room.
      */
@@ -4572,7 +4584,7 @@ interface RoomPosition {
      * @param secondaryColor The secondary color of a new flag. Should be one of the {@link ColorConstant COLOR_*} constants. The default value is equal to color.
      * @returns The name of the flag if created, or one of the following error codes: ERR_NAME_EXISTS, ERR_INVALID_ARGS
      */
-    createFlag(name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
+    createFlag(name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ERR_NAME_EXISTS | ERR_INVALID_ARGS | Name<Flag>;
     /**
      * Find the object with the shortest path from the given position.
      *
@@ -4736,8 +4748,8 @@ interface RoomPositionConstructor extends _Constructor<RoomPosition> {
      * @param roomName The room name.
      * @throws if `x` or `y` are out of bounds, or `roomName` isn't a valid room name.
      */
-    new (x: number, y: number, roomName: string): RoomPosition;
-    (x: number, y: number, roomName: string): RoomPosition;
+    new (x: number, y: number, roomName: Name<Room>): RoomPosition;
+    (x: number, y: number, roomName: Name<Room>): RoomPosition;
 }
 
 declare const RoomPosition: RoomPositionConstructor;
@@ -4788,7 +4800,7 @@ interface RoomTerrainConstructor extends _Constructor<RoomTerrain> {
      * This method works for any room in the world even if you have no access to it.
      * @param roomName String name of the room.
      */
-    new (roomName: string): RoomTerrain;
+    new (roomName: Name<Room>): RoomTerrain;
 }
 /**
  * Room visuals provide a way to show various visual debug info in game rooms.
@@ -4808,12 +4820,12 @@ declare class RoomVisual {
      * You can create new RoomVisual object using its constructor.
      * @param roomName The room name. If undefined, visuals will be posted to all rooms simultaneously.
      */
-    constructor(roomName?: string);
+    constructor(roomName?: Name<Room>);
 
     /**
      * The name of the room.
      */
-    roomName: string;
+    roomName: Name<Room>;
 
     /**
      * Draw a line.
@@ -5068,7 +5080,7 @@ interface Room {
     /**
      * The name of the room.
      */
-    readonly name: string;
+    readonly name: Name<this>;
     /**
      * The {@link StructureStorage} of this room, if present, otherwise undefined.
      */
@@ -5202,7 +5214,7 @@ interface Room {
      * @returns The room direction constant, one of the following: FIND_EXIT_TOP, FIND_EXIT_RIGHT, FIND_EXIT_BOTTOM, FIND_EXIT_LEFT
      * Or one of the following error codes: ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExitTo(room: string | Room): ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS;
+    findExitTo(room: Name<Room> | Room): ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS;
     /**
      * Find an optimal path inside the room between fromPos and toPos using A* search algorithm.
      * @param fromPos The start position.
@@ -5297,7 +5309,7 @@ interface Room {
 }
 
 interface RoomConstructor extends _Constructor<Room> {
-    new (id: string): Room;
+    new (id: Name<Room>): Room;
 
     Terrain: RoomTerrainConstructor;
 
@@ -5443,7 +5455,7 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * You choose the name upon creating a new spawn, and it cannot be changed later.
      * This name is a hash key to access the spawn via the {@link Game.spawns} object.
      */
-    name: string;
+    name: Name<this>;
     /**
      * If the spawn is in process of spawning a new creep, this object will contain the new creep’s information, or null otherwise.
      */
@@ -5591,7 +5603,7 @@ interface Spawning {
     /**
      * The name of the creep
      */
-    name: string;
+    name: Name<Creep>;
 
     /**
      * Time needed in total to complete the spawning.
@@ -6042,7 +6054,7 @@ interface StructureObserver extends OwnedStructure<STRUCTURE_OBSERVER> {
      * - ERR_INVALID_ARGS: roomName argument is not a valid room name value.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
-    observeRoom(roomName: string): ScreepsReturnCode;
+    observeRoom(roomName: Name<Room>): ScreepsReturnCode;
 }
 
 interface StructureObserverConstructor extends _Constructor<StructureObserver>, _ConstructorById<StructureObserver> {}
@@ -6446,7 +6458,7 @@ interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
      * - ERR_INVALID_ARGS: The arguments provided are incorrect.
      * - ERR_TIRED: The terminal is still cooling down.
      */
-    send(resourceType: ResourceConstant, amount: number, destination: string, description?: string): ScreepsReturnCode;
+    send(resourceType: ResourceConstant, amount: number, destination: Name<Room>, description?: string): ScreepsReturnCode;
 }
 
 interface StructureTerminalConstructor extends _Constructor<StructureTerminal>, _ConstructorById<StructureTerminal> {}
@@ -6555,7 +6567,7 @@ interface StructurePortal extends Structure<STRUCTURE_PORTAL> {
      * If this is an inter-shard portal, then this property contains an object with shard and room string properties.
      * Exact coordinates are undetermined, the creep will appear at any free spot in the destination room.
      */
-    destination: RoomPosition | { shard: string; room: string };
+    destination: RoomPosition | { shard: Name<Shard>; room: Name<Room> };
     /**
      * The amount of game ticks when the portal disappears, or undefined when the portal is stable.
      */

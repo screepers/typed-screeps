@@ -9,7 +9,7 @@ interface RouteOptions {
      * @param fromRoomName The room we're coming from
      * @returns a floating point to steer the route toward a given room, or Infinity to block it entirely.
      */
-    routeCallback: (roomName: string, fromRoomName: string) => number;
+    routeCallback: (roomName: Name<Room>, fromRoomName: Name<Room>) => number;
 }
 
 interface RoomStatusPermanent {
@@ -35,7 +35,7 @@ interface GameMap {
      * @param roomName The room name.
      * @returns The exits information or null if the room not found.
      */
-    describeExits(roomName: string): ExitsInformation | null;
+    describeExits(roomName: Name<Room>): ExitsInformation | null;
     /**
      * Find the exit direction from the given room en route to another room.
      * @param fromRoom Start room name or room object.
@@ -46,7 +46,7 @@ interface GameMap {
      * Or one of the following Result codes:
      * ERR_NO_PATH, ERR_INVALID_ARGS
      */
-    findExit(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS;
+    findExit(fromRoom: Name<Room> | Room, toRoom: Name<Room> | Room, opts?: RouteOptions): ExitConstant | ERR_NO_PATH | ERR_INVALID_ARGS;
     /**
      * Find route from the given room to another room.
      * @param fromRoom Start room name or room object.
@@ -54,7 +54,11 @@ interface GameMap {
      * @param opts (optional) An object with the pathfinding options.
      * @returns either an array of room exits / room name, or ERR_NO_PATH if the destination room cannot be reached.
      */
-    findRoute(fromRoom: string | Room, toRoom: string | Room, opts?: RouteOptions): { exit: ExitConstant; room: string }[] | ERR_NO_PATH;
+    findRoute(
+        fromRoom: Name<Room> | Room,
+        toRoom: Name<Room> | Room,
+        opts?: RouteOptions,
+    ): { exit: ExitConstant; room: string }[] | ERR_NO_PATH;
     /**
      * Get the linear distance (in rooms) between two rooms.
      *
@@ -74,7 +78,7 @@ interface GameMap {
      * @param roomName The room name.
      * @deprecated use {@link Game.map.getRoomTerrain} instead
      */
-    getTerrainAt(x: number, y: number, roomName: string): Terrain;
+    getTerrainAt(x: number, y: number, roomName: Name<Room>): Terrain;
     /**
      * Get terrain type at the specified room position.
      *
@@ -89,7 +93,7 @@ interface GameMap {
      * This method works for any room in the world even if you have no access to it.
      * @param roomName String name of the room.
      */
-    getRoomTerrain(roomName: string): RoomTerrain;
+    getRoomTerrain(roomName: Name<Room>): RoomTerrain;
     /**
      * Returns the world size as a number of rooms between world corners.
      *
@@ -103,14 +107,14 @@ interface GameMap {
      * @returns A boolean value.
      * @deprecated Use `Game.map.getRoomStatus` instead
      */
-    isRoomAvailable(roomName: string): boolean;
+    isRoomAvailable(roomName: Name<Room>): boolean;
 
     /**
      * Get the room status to determine if it's available, or in a reserved area.
      * @param roomName The room name.
      * @returns A {@link RoomStatus} object.
      */
-    getRoomStatus(roomName: string): RoomStatus;
+    getRoomStatus(roomName: Name<Room>): RoomStatus;
 
     /**
      * Map visuals provide a way to show various visual debug info on the game map.

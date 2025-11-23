@@ -635,7 +635,7 @@ interface EventData {
         energySpent: number;
     };
     [EVENT_EXIT]: {
-        room: string;
+        room: Name<Room>;
         x: number;
         y: number;
     };

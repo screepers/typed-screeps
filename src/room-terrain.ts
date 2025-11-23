@@ -45,5 +45,5 @@ interface RoomTerrainConstructor extends _Constructor<RoomTerrain> {
      * This method works for any room in the world even if you have no access to it.
      * @param roomName String name of the room.
      */
-    new (roomName: string): RoomTerrain;
+    new (roomName: Name<Room>): RoomTerrain;
 }

@@ -30,7 +30,7 @@ interface Nuke extends RoomObject {
     /**
      * The name of the room where this nuke has been launched from.
      */
-    launchRoomName: string;
+    launchRoomName: Name<Room>;
     /**
      * The remaining landing time.
      */

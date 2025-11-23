@@ -12,15 +12,22 @@
 
 // Sample inputs
 
-const creep: Creep = Game.creeps.sampleCreep;
-const room: Room = Game.rooms.W10S10;
-const flag: Flag = Game.flags.Flag1;
-const powerCreep: PowerCreep = Game.powerCreeps.samplePowerCreep;
-const spawn: StructureSpawn = Game.spawns.Spawn1;
+const creepName = "sampleCreep" as Name<Creep>;
+const creep: Creep = Game.creeps[creepName];
+const roomName = "W11S11" as Name<Room>;
+const room: Room = Game.rooms[roomName];
+const flagName = "Flag1" as Name<Flag>;
+const flag: Flag = Game.flags[flagName];
+const powerCreepName = "samplePowerCreep" as Name<PowerCreep>;
+const powerCreep: PowerCreep = Game.powerCreeps[powerCreepName];
+const spawnName = "Spawn1" as Name<StructureSpawn>;
+const spawn: StructureSpawn = Game.spawns[spawnName];
 const body: BodyPartConstant[] = [WORK, WORK, CARRY, MOVE];
+const shardName = "shard0" as Name<Shard>;
 
 // Sample inputs for Game.map.findRoute testing
-const anotherRoomName: Room = Game.rooms.W10S11;
+const anotherRoomName = "E22S22" as Name<Room>;
+const anotherRoom: Room = Game.rooms[anotherRoomName];
 
 // Sample memory extensions
 interface CreepMemory {
@@ -74,7 +81,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 // Game.creeps
 
 {
-    for (const creepName of Object.keys(Game.creeps)) {
+    for (const creepName of Object.keys(Game.creeps) as Array<keyof typeof Game.creeps>) {
         Game.creeps[creepName].moveTo(flag);
     }
 }
@@ -82,7 +89,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 // Game.flags
 
 {
-    creep.moveTo(Game.flags.Flag1);
+    creep.moveTo(Game.flags[flagName]);
 }
 
 // Game.powerCreeps
@@ -90,8 +97,8 @@ function resources(o: GenericStore): ResourceConstant[] {
 {
     PowerCreep.create("steve", POWER_CLASS.OPERATOR) === OK;
 
-    for (const i of Object.keys(Game.powerCreeps)) {
-        const powerCreep = Game.powerCreeps[i];
+    for (const powerCreepName of Object.keys(Game.powerCreeps) as Array<keyof typeof Game.powerCreeps>) {
+        const powerCreep = Game.powerCreeps[powerCreepName];
 
         if (powerCreep.ticksToLive === undefined) {
             // Not spawned in world; spawn creep
@@ -104,7 +111,7 @@ function resources(o: GenericStore): ResourceConstant[] {
                 powerCreep.powers[PWR_GENERATE_OPS].cooldown === 0 &&
                 (powerCreep.carry.ops || 0) < 10
             ) {
-                Game.powerCreeps[i].usePower(PWR_GENERATE_OPS);
+                Game.powerCreeps[powerCreepName].usePower(PWR_GENERATE_OPS);
             } else {
                 // Boost resource
                 const targetSource = Game.getObjectById("targetSourceID" as Id<Source>)!;
@@ -127,7 +134,7 @@ function resources(o: GenericStore): ResourceConstant[] {
         powerCreep.upgrade(PWR_GENERATE_OPS);
     }
 
-    const myPowaCreeps = Game.rooms.sim.find(FIND_MY_POWER_CREEPS);
+    const myPowaCreeps = Game.rooms["sim" as Name<Room>].find(FIND_MY_POWER_CREEPS);
 
     // Constant type checking
     POWER_INFO[PWR_GENERATE_OPS].className === POWER_CLASS.OPERATOR;
@@ -137,7 +144,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 // Game.spawns
 
 {
-    for (const i of Object.keys(Game.spawns)) {
+    for (const i of Object.keys(Game.spawns) as Array<keyof typeof Game.spawns>) {
         Game.spawns[i].createCreep(body);
 
         // Test StructureSpawn.Spawning
@@ -188,7 +195,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 // Game.cpu.setShardLimits()
 
 {
-    Game.cpu.setShardLimits({ shard0: 20, shard1: 10 });
+    Game.cpu.setShardLimits({ [shardName]: 20, ["privateshard" as Name<Shard>]: 10 });
 }
 
 // Game.cpu.halt()
@@ -227,9 +234,9 @@ function resources(o: GenericStore): ResourceConstant[] {
 }
 
 {
-    if (Game.spawns["Spawn1"].energy === 0) {
+    if (Game.spawns[spawnName].energy === 0) {
         Game.notify(
-            "Spawn1 is out of energy",
+            `${spawnName} is out of energy`,
             180, // group these notifications for 3 hours
         );
     }
@@ -238,7 +245,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 // Game.map.describeExits()
 
 {
-    const exits = Game.map.describeExits("W8N3");
+    const exits = Game.map.describeExits(roomName);
     if (exits) {
         keys(exits).map((exitKey) => {
             const nextRoom = exits[exitKey];
@@ -252,8 +259,8 @@ function resources(o: GenericStore): ResourceConstant[] {
 // Game.map.findExit()
 
 {
-    if (creep.room.name !== anotherRoomName.name) {
-        const exitDir = Game.map.findExit(creep.room, anotherRoomName);
+    if (creep.room.name !== anotherRoom.name) {
+        const exitDir = Game.map.findExit(creep.room, anotherRoom);
         if (exitDir !== ERR_NO_PATH && exitDir !== ERR_INVALID_ARGS) {
             const exit = creep.pos.findClosestByRange(exitDir);
             if (exit !== null) {
@@ -266,13 +273,13 @@ function resources(o: GenericStore): ResourceConstant[] {
 }
 
 {
-    creep.moveTo(new RoomPosition(25, 25, anotherRoomName.name));
+    creep.moveTo(new RoomPosition(25, 25, anotherRoom.name));
 }
 
 // Game.map.findRoute()
 
 {
-    const route = Game.map.findRoute(creep.room, anotherRoomName);
+    const route = Game.map.findRoute(creep.room, anotherRoom);
 
     if (route !== ERR_NO_PATH && route.length > 0) {
         const exit = creep.pos.findClosestByRange(route[0].exit);
@@ -283,7 +290,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 }
 
 {
-    const route = Game.map.findRoute(creep.room, anotherRoomName, {
+    const route = Game.map.findRoute(creep.room, anotherRoom, {
         routeCallback(roomName, fromRoomName) {
             if (roomName === "W10S10") {
                 // avoid this room
@@ -295,8 +302,8 @@ function resources(o: GenericStore): ResourceConstant[] {
 }
 
 {
-    const from = new RoomPosition(25, 25, "E1N1");
-    const to = new RoomPosition(25, 25, "E4N1");
+    const from = new RoomPosition(25, 25, roomName);
+    const to = new RoomPosition(25, 25, "W1S1" as Name<Room>);
 
     // Use `findRoute` to calculate a high-level plan for this path,
     // prioritizing highways and owned rooms
@@ -348,11 +355,11 @@ function resources(o: GenericStore): ResourceConstant[] {
 // Game.map.getTerrainAt(pos)
 
 {
-    Game.map.getTerrainAt(25, 20, "W10N10");
+    Game.map.getTerrainAt(25, 20, roomName);
 }
 
 {
-    Game.map.getTerrainAt(new RoomPosition(25, 20, "W10N10"));
+    Game.map.getTerrainAt(new RoomPosition(25, 20, roomName));
 }
 
 // Game.map.getRoomStatus(roomName)
@@ -368,7 +375,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 
 {
     // Game.market.calcTransactionCost(amount, roomName1, roomName2)
-    const cost = Game.market.calcTransactionCost(1000, "W0N0", "W10N5");
+    const cost = Game.market.calcTransactionCost(1000, roomName, anotherRoomName);
 
     // Game.market.cancelOrder(orderId)
     for (const id of Object.keys(Game.market.orders)) {
@@ -379,7 +386,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     Game.market.changeOrderPrice("57bec1bf77f4d17c4c011960", 9.95);
 
     // Game.market.createOrder({type, resourceType, price, totalAmount, [roomName]})
-    Game.market.createOrder({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM, price: 9.95, totalAmount: 10000, roomName: "W1N1" });
+    Game.market.createOrder({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM, price: 9.95, totalAmount: 10000, roomName: roomName });
     Game.market.createOrder({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM, price: 9.95, totalAmount: 10000 });
 
     // Testing the hardcoded string literal value of the `type` field
@@ -398,7 +405,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     // Game.market.deal(orderId, amount, [yourRoomName])
-    Game.market.deal("57cd2b12cda69a004ae223a3", 1000, "W1N1");
+    Game.market.deal("57cd2b12cda69a004ae223a3", 1000, roomName);
 
     const amountToBuy = 2000;
     const maxTransferEnergyCost = 500;
@@ -406,10 +413,10 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     for (const i of orders) {
         if (i.roomName) {
-            const transferEnergyCost = Game.market.calcTransactionCost(amountToBuy, "W1N1", i.roomName);
+            const transferEnergyCost = Game.market.calcTransactionCost(amountToBuy, roomName, i.roomName);
 
             if (transferEnergyCost < maxTransferEnergyCost) {
-                Game.market.deal(i.id, amountToBuy, "W1N1");
+                Game.market.deal(i.id, amountToBuy, roomName);
                 break;
             }
         }
@@ -427,7 +434,7 @@ function resources(o: GenericStore): ResourceConstant[] {
         (currentOrder) =>
             currentOrder.resourceType === RESOURCE_GHODIUM &&
             currentOrder.type === ORDER_SELL &&
-            Game.market.calcTransactionCost(1000, targetRoom, currentOrder.roomName!) < 500,
+            Game.market.calcTransactionCost(1000, anotherRoomName, currentOrder.roomName!) < 500,
     );
 
     // Game.market.getOrderById(id)
@@ -451,7 +458,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 // PathFinder
 
 {
-    const pfCreep = Game.creeps.John;
+    const pfCreep = Game.creeps[creepName];
 
     const goals = pfCreep.room.find(FIND_SOURCES).map((source) => {
         // We can't actually walk on sources-- set `range` to 1
@@ -573,7 +580,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     InterShardMemory.setLocal(localShardData);
     localShardData = InterShardMemory.getLocal();
 
-    const remoteShardData: string = InterShardMemory.getRemote("shard2") || "";
+    const remoteShardData: string = InterShardMemory.getRemote("shard2" as Name<Shard>) || "";
 }
 
 // Find Overloads
@@ -984,7 +991,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     // test discriminated union
     switch (unowned.structureType) {
         case STRUCTURE_TOWER:
-            unowned.heal(Game.creeps.myCreep);
+            unowned.heal(Game.creeps["myCreep" as Name<Creep>]);
             break;
         case STRUCTURE_CONTAINER:
         case STRUCTURE_STORAGE:
@@ -1000,7 +1007,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     // test discriminated union using filter functions on find
 
     // $ExpectType AnyStructure
-    const from = Game.rooms.myRoom.find(FIND_STRUCTURES, {
+    const from = Game.rooms["myRoom" as Name<Room>].find(FIND_STRUCTURES, {
         filter: (s) => (s.structureType === STRUCTURE_CONTAINER || s.structureType === STRUCTURE_STORAGE) && s.store.energy > 0,
     })[0];
     // $ExpectType AnyOwnedStructure | null
@@ -1008,7 +1015,7 @@ function resources(o: GenericStore): ResourceConstant[] {
         filter: (s) => (s.structureType === STRUCTURE_SPAWN || s.structureType === STRUCTURE_EXTENSION) && s.energy < s.energyCapacity,
     });
 
-    Game.rooms.myRoom
+    Game.rooms["myRoom" as Name<Room>]
         .find(FIND_MY_STRUCTURES, {
             filter: (s) => s.structureType === STRUCTURE_RAMPART,
         })
@@ -1017,7 +1024,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 
 {
     // Test that you can use signatures
-    EXTENSION_ENERGY_CAPACITY[Game.rooms.myRoom.controller!.level];
+    EXTENSION_ENERGY_CAPACITY[Game.rooms[roomName].controller!.level];
 
     REACTIONS[Object.keys(creep.carry)[0]];
 
@@ -1036,7 +1043,7 @@ function resources(o: GenericStore): ResourceConstant[] {
 
     tombstone.id;
 
-    const creep = Game.creeps["dave"];
+    const creep = Game.creeps["dave" as Name<Creep>];
     creep.withdraw(tombstone, RESOURCE_ENERGY);
 }
 
@@ -1127,13 +1134,13 @@ function resources(o: GenericStore): ResourceConstant[] {
 // Room.Terrain
 
 {
-    const room = Game.rooms[""];
+    const room = Game.rooms["" as Name<Room>];
 
     const myTerrain = room.getTerrain();
 
-    const otherTerrain = new Room.Terrain("E2S7");
+    const otherTerrain = new Room.Terrain(roomName);
 
-    const anotherTerrain = Game.map.getRoomTerrain("W2N5");
+    const anotherTerrain = Game.map.getRoomTerrain(anotherRoomName);
 
     const ret = myTerrain.get(5, 5);
     if (ret === 0) {
@@ -1267,10 +1274,10 @@ function atackPower(creep: Creep) {
 // Game.map.visual
 {
     const mapVis = Game.map.visual;
-    const point1 = new RoomPosition(1, 1, "E1N1");
-    const point2 = new RoomPosition(1, 1, "E1N8");
-    const point3 = new RoomPosition(1, 1, "E8N8");
-    const point4 = new RoomPosition(1, 1, "E1N8");
+    const point1 = new RoomPosition(1, 1, roomName);
+    const point2 = new RoomPosition(1, 1, anotherRoomName);
+    const point3 = new RoomPosition(1, 1, "E8N8" as Name<Room>);
+    const point4 = new RoomPosition(1, 1, "E1N8" as Name<Room>);
 
     mapVis.line(point1, point2).circle(point3, { fill: "#f2f2f2" }).poly([point1, point2, point3, point4]).rect(point3, 50, 50);
 

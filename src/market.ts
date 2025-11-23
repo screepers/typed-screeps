@@ -37,7 +37,7 @@ interface Market {
      * @param roomName2 The name of the second room.
      * @returns The amount of energy required to perform the transaction.
      */
-    calcTransactionCost(amount: number, roomName1: string, roomName2: string): number;
+    calcTransactionCost(amount: number, roomName1: Name<Room>, roomName2: Name<Room>): number;
     /**
      * Cancel a previously created order.
      *
@@ -103,7 +103,7 @@ interface Market {
      * - ERR_INVALID_ARGS: The arguments provided are invalid.
      * - ERR_TIRED: The target terminal is still cooling down.
      */
-    deal(orderId: string, amount: number, yourRoomName?: string): ScreepsReturnCode;
+    deal(orderId: string, amount: number, yourRoomName?: Name<Room>): ScreepsReturnCode;
     /**
      * Add more capacity to an existing order.
      *
@@ -147,8 +147,8 @@ interface Transaction {
     recipient?: { username: string };
     resourceType: MarketResourceConstant;
     amount: number;
-    from: string;
-    to: string;
+    from: Name<Room>;
+    to: Name<Room>;
     description: string;
     order?: TransactionOrder;
 }
@@ -173,7 +173,7 @@ interface Order {
      */
     resourceType: MarketResourceConstant;
     /** The room where this order is placed. */
-    roomName?: string;
+    roomName?: Name<Room>;
     /** Currently available quantity of resource to trade. */
     amount: number;
     /** Remaining quantity of resources to trade. */
@@ -195,7 +195,7 @@ interface OrderFilter {
     created?: number;
     type?: string;
     resourceType?: MarketResourceConstant;
-    roomName?: string;
+    roomName?: Name<Room>;
     amount?: number;
     remainingAmount?: number;
     price?: number;
@@ -238,5 +238,5 @@ interface CreateOrderParam {
      * You must have your own Terminal structure in this room, otherwise the created order will be temporary inactive.
      * This argument is not used when `resourceType` is one of the {@link InterShardResourceConstant} resources.
      */
-    roomName?: string;
+    roomName?: Name<Room>;
 }

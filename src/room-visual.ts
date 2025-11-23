@@ -16,12 +16,12 @@ declare class RoomVisual {
      * You can create new RoomVisual object using its constructor.
      * @param roomName The room name. If undefined, visuals will be posted to all rooms simultaneously.
      */
-    constructor(roomName?: string);
+    constructor(roomName?: Name<Room>);
 
     /**
      * The name of the room.
      */
-    roomName: string;
+    roomName: Name<Room>;
 
     /**
      * Draw a line.

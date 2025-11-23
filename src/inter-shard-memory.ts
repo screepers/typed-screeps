@@ -27,7 +27,7 @@ interface InterShardMemory {
      * @param shard Shard name.
      * @throws if shard name is invalid
      */
-    getRemote(shard: string): string | null;
+    getRemote(shard: Name<Shard>): string | null;
 }
 
 declare const InterShardMemory: InterShardMemory;

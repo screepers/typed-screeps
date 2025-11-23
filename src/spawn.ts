@@ -45,7 +45,7 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * You choose the name upon creating a new spawn, and it cannot be changed later.
      * This name is a hash key to access the spawn via the {@link Game.spawns} object.
      */
-    name: string;
+    name: Name<this>;
     /**
      * If the spawn is in process of spawning a new creep, this object will contain the new creep’s information, or null otherwise.
      */
@@ -193,7 +193,7 @@ interface Spawning {
     /**
      * The name of the creep
      */
-    name: string;
+    name: Name<Creep>;
 
     /**
      * Time needed in total to complete the spawning.

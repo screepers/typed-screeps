@@ -78,7 +78,7 @@ interface Creep extends RoomObject {
      * You can choose the name while creating a new creep, and it cannot be changed later.
      * This name is a hash key to access the creep via the {@link Game.creeps} object.
      */
-    name: string;
+    name: Name<this>;
     /**
      * An object with the creep’s owner info.
      */
