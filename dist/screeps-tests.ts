@@ -1424,3 +1424,11 @@ function atackPower(creep: Creep) {
     /// @ts-expect-error
     const foo = Game.getObjectById<StructureTower>("" as Id<Creep>);
 }
+
+// CancelOrder
+{
+    const creep = Game.creeps.sampleCreep;
+    creep.cancelOrder("repair");
+    /// @ts-expect-error
+    creep.cancelOrder("fake");
+}

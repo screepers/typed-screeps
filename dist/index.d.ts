@@ -1242,7 +1242,7 @@ interface Creep extends RoomObject {
      * - OK: The operation has been cancelled successfully.
      * - ERR_NOT_FOUND: The order with the specified name is not found.
      */
-    cancelOrder(methodName: string): OK | ERR_NOT_FOUND;
+    cancelOrder(methodName: MethodKey<Creep>): OK | ERR_NOT_FOUND;
     /**
      * Claim a controller.
      *
@@ -2325,6 +2325,10 @@ declare namespace Tag {
 type Id<T extends _HasId> = string & Tag.OpaqueTag<T>;
 
 type fromId<T> = T extends Id<infer R> ? R : never;
+
+type MethodKey<T> = {
+    [K in keyof T]: T[K] extends Function ? K : never;
+}[keyof T];
 /**
  * `InterShardMemory` object provides an interface for communicating between shards.
  *
@@ -4034,7 +4038,7 @@ interface PowerCreep extends RoomObject {
      * - ERR_BUSY: The power creep is not spawned in the world.
      * - ERR_NOT_FOUND: The order with the specified name is not found.
      */
-    cancelOrder(methodName: string): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_FOUND;
+    cancelOrder(methodName: MethodKey<PowerCreep>): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_FOUND;
     /**
      * Delete the power creep permanently from your account.
      *

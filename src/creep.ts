@@ -168,7 +168,7 @@ interface Creep extends RoomObject {
      * - OK: The operation has been cancelled successfully.
      * - ERR_NOT_FOUND: The order with the specified name is not found.
      */
-    cancelOrder(methodName: string): OK | ERR_NOT_FOUND;
+    cancelOrder(methodName: MethodKey<Creep>): OK | ERR_NOT_FOUND;
     /**
      * Claim a controller.
      *

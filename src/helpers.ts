@@ -478,3 +478,7 @@ declare namespace Tag {
 type Id<T extends _HasId> = string & Tag.OpaqueTag<T>;
 
 type fromId<T> = T extends Id<infer R> ? R : never;
+
+type MethodKey<T> = {
+    [K in keyof T]: T[K] extends Function ? K : never;
+}[keyof T];

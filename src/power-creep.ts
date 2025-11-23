@@ -110,7 +110,7 @@ interface PowerCreep extends RoomObject {
      * - ERR_BUSY: The power creep is not spawned in the world.
      * - ERR_NOT_FOUND: The order with the specified name is not found.
      */
-    cancelOrder(methodName: string): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_FOUND;
+    cancelOrder(methodName: MethodKey<PowerCreep>): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_FOUND;
     /**
      * Delete the power creep permanently from your account.
      *
