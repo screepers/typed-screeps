@@ -9,11 +9,11 @@ interface Game {
     /**
      * A hash containing all your creeps with creep names as hash keys.
      */
-    creeps: { [creepName: string]: Creep };
+    creeps: { [creepName: Name<Creep>]: Creep };
     /**
      * A hash containing all your flags with flag names as hash keys.
      */
-    flags: { [flagName: string]: Flag };
+    flags: { [flagName: Name<Flag>]: Flag };
     /**
      * Your Global Control Level.
      */
@@ -35,7 +35,7 @@ interface Game {
      *
      * Even power creeps not spawned in the world can be accessed here.
      */
-    powerCreeps: { [creepName: string]: PowerCreep };
+    powerCreeps: { [creepName: Name<PowerCreep>]: PowerCreep };
     /**
      * An object with your global resources that are bound to the account, like pixels or cpu unlocks.
      *
@@ -47,11 +47,11 @@ interface Game {
      *
      * A room is visible if you have a creep or an owned structure in it.
      */
-    rooms: { [roomName: string]: Room };
+    rooms: { [roomName: Name<Room>]: Room };
     /**
      * A hash containing all your spawns with spawn names as hash keys.
      */
-    spawns: { [spawnName: string]: StructureSpawn };
+    spawns: { [spawnName: Name<StructureSpawn>]: StructureSpawn };
     /**
      * A hash containing all your structures with structure id as hash keys.
      */

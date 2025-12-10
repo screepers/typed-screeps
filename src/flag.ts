@@ -23,7 +23,7 @@ interface Flag extends RoomObject {
      *
      * This name is a hash key to access the flag via the {@link Game.flags} object. The maximum name length is 60 characters.
      */
-    name: string;
+    name: Name<this>;
     /**
      * Flag secondary color. One of the {@link ColorConstant COLOR_*} constants.
      */
@@ -62,8 +62,8 @@ interface Flag extends RoomObject {
 }
 
 interface FlagConstructor extends _Constructor<Flag> {
-    new (name: string, color: ColorConstant, secondaryColor: ColorConstant, roomName: string, x: number, y: number): Flag;
-    (name: string, color: ColorConstant, secondaryColor: ColorConstant, roomName: string, x: number, y: number): Flag;
+    new (name: Name<Flag>, color: ColorConstant, secondaryColor: ColorConstant, roomName: Name<Room>, x: number, y: number): Flag;
+    (name: Name<Flag>, color: ColorConstant, secondaryColor: ColorConstant, roomName: Name<Room>, x: number, y: number): Flag;
 }
 
 declare const Flag: FlagConstructor;

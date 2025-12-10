@@ -124,7 +124,7 @@ interface PathFinderOpts {
      *
      * @param roomName The name of the room the pathfinder needs a cost matrix for.
      */
-    roomCallback?(roomName: string): boolean | CostMatrix;
+    roomCallback?(roomName: Name<Room>): boolean | CostMatrix;
 }
 
 interface CostMatrixConstructor extends _Constructor<CostMatrix> {

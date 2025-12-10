@@ -286,7 +286,7 @@ interface StructureObserver extends OwnedStructure<STRUCTURE_OBSERVER> {
      * - ERR_INVALID_ARGS: roomName argument is not a valid room name value.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
-    observeRoom(roomName: string): ScreepsReturnCode;
+    observeRoom(roomName: Name<Room>): ScreepsReturnCode;
 }
 
 interface StructureObserverConstructor extends _Constructor<StructureObserver>, _ConstructorById<StructureObserver> {}
@@ -690,7 +690,7 @@ interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
      * - ERR_INVALID_ARGS: The arguments provided are incorrect.
      * - ERR_TIRED: The terminal is still cooling down.
      */
-    send(resourceType: ResourceConstant, amount: number, destination: string, description?: string): ScreepsReturnCode;
+    send(resourceType: ResourceConstant, amount: number, destination: Name<Room>, description?: string): ScreepsReturnCode;
 }
 
 interface StructureTerminalConstructor extends _Constructor<StructureTerminal>, _ConstructorById<StructureTerminal> {}
@@ -799,7 +799,7 @@ interface StructurePortal extends Structure<STRUCTURE_PORTAL> {
      * If this is an inter-shard portal, then this property contains an object with shard and room string properties.
      * Exact coordinates are undetermined, the creep will appear at any free spot in the destination room.
      */
-    destination: RoomPosition | { shard: string; room: string };
+    destination: RoomPosition | { shard: Name<Shard>; room: Name<Room> };
     /**
      * The amount of game ticks when the portal disappears, or undefined when the portal is stable.
      */

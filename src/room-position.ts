@@ -11,7 +11,7 @@ interface RoomPosition {
     /**
      * The name of the room.
      */
-    roomName: string;
+    roomName: Name<Room>;
     /**
      * X position in the room.
      */
@@ -54,7 +54,7 @@ interface RoomPosition {
      * @param secondaryColor The secondary color of a new flag. Should be one of the {@link ColorConstant COLOR_*} constants. The default value is equal to color.
      * @returns The name of the flag if created, or one of the following error codes: ERR_NAME_EXISTS, ERR_INVALID_ARGS
      */
-    createFlag(name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
+    createFlag(name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ERR_NAME_EXISTS | ERR_INVALID_ARGS | Name<Flag>;
     /**
      * Find the object with the shortest path from the given position.
      *
@@ -218,8 +218,8 @@ interface RoomPositionConstructor extends _Constructor<RoomPosition> {
      * @param roomName The room name.
      * @throws if `x` or `y` are out of bounds, or `roomName` isn't a valid room name.
      */
-    new (x: number, y: number, roomName: string): RoomPosition;
-    (x: number, y: number, roomName: string): RoomPosition;
+    new (x: number, y: number, roomName: Name<Room>): RoomPosition;
+    (x: number, y: number, roomName: Name<Room>): RoomPosition;
 }
 
 declare const RoomPosition: RoomPositionConstructor;

@@ -2,6 +2,10 @@ interface _HasId {
     id: Id<this>;
 }
 
+interface _HasName {
+    name: Name<this>;
+}
+
 interface _HasRoomPosition {
     pos: RoomPosition;
 }
@@ -40,7 +44,7 @@ interface Shard {
     /**
      * The name of the shard.
      */
-    name: string;
+    name: Name<this>;
     /**
      * Currently always equals to normal.
      */
@@ -200,7 +204,7 @@ interface SignDefinition {
 }
 
 interface CPUShardLimits {
-    [shard: string]: number;
+    [shard: Name<Shard>]: number;
 }
 
 /** A general purpose Store, which has a limited capacity */
@@ -218,7 +222,7 @@ type StoreDefinitionUnlimited = Store<ResourceConstant, true>;
  *   "7": "W9N3"        // LEFT
  * }
  */
-type ExitsInformation = Partial<Record<ExitKey, string>>;
+type ExitsInformation = Partial<Record<ExitKey, Name<Room>>>;
 
 interface AllLookAtTypes {
     [LOOK_CONSTRUCTION_SITES]: ConstructionSite;
@@ -346,7 +350,7 @@ interface FindPathOpts {
      * @param costMatrix The current CostMatrix
      * @returns The new CostMatrix to use
      */
-    costCallback?: (roomName: string, costMatrix: CostMatrix) => void | CostMatrix;
+    costCallback?: (roomName: Name<Room>, costMatrix: CostMatrix) => void | CostMatrix;
 
     /**
      * An array of the room's objects or RoomPosition objects which should be treated as walkable tiles during the search.
@@ -478,3 +482,7 @@ declare namespace Tag {
 type Id<T extends _HasId> = string & Tag.OpaqueTag<T>;
 
 type fromId<T> = T extends Id<infer R> ? R : never;
+
+type Name<T extends _HasName> = string & Tag.OpaqueTag<T>;
+
+type fromName<T> = T extends Name<infer R> ? R : never;

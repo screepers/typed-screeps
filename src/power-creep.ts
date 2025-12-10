@@ -66,7 +66,7 @@ interface PowerCreep extends RoomObject {
      * You can choose the name while creating a new power creep, and `rename` it while unspawned.
      * This name is a hash key to access the creep via the {@link Game.powerCreeps} object.
      */
-    name: string;
+    name: Name<this>;
     /**
      * An object with the creep's owner information.
      */
@@ -86,7 +86,7 @@ interface PowerCreep extends RoomObject {
     /**
      * The name of the shard where the power creeps is spawned, or undefined.
      */
-    shard: string | undefined;
+    shard: Name<Shard> | undefined;
     /**
      * The timestamp when spawning or deleting this creep will become available.
      *
