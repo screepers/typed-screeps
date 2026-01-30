@@ -1424,3 +1424,10 @@ function atackPower(creep: Creep) {
     /// @ts-expect-error
     const foo = Game.getObjectById<StructureTower>("" as Id<Creep>);
 }
+
+// console.logUnsafe
+{
+    // @ts-ignore: we're cheating there as we don't need the DOM types loaded
+    const console: Console = {};
+    console.logUnsafe("test");
+}

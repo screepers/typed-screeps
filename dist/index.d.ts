@@ -2325,6 +2325,18 @@ declare namespace Tag {
 type Id<T extends _HasId> = string & Tag.OpaqueTag<T>;
 
 type fromId<T> = T extends Id<infer R> ? R : never;
+
+interface Console {
+    /**
+     * An alternative to {@link console.log} that doesn't perform safe-HTML escapes.
+     * This can be used to output messages to the client that will be parsed as raw HTML, allowing some sort of
+     * injection attack. As such, it's unsafe to pass it things you have do not have control over, like player creep
+     * names, signs, market transaction messages.
+     * @param message
+     * @param optionalParams
+     */
+    logUnsafe(message?: any, ...optionalParams: any[]): void;
+}
 /**
  * `InterShardMemory` object provides an interface for communicating between shards.
  *
