@@ -49,6 +49,31 @@ interface Shard {
      * Whether this shard belongs to the PTR.
      */
     ptr: boolean;
+    /**
+     * Whether you currently have access to this shard.
+     *
+     * Always true on non-restricted shards. On restricted shards, requires either an active ACCESS_KEY resource or an unlimited access subscription.
+     * Use {@link Game.shard.activateAccess} to activate access.
+     */
+    access?: boolean;
+    /**
+     * The time in milliseconds since UNIX epoch time until access to this restricted shard is active.
+     * This property is not defined when access is unlimited or when access is not currently active.
+     */
+    accessTime?: number;
+    /**
+     * Activate access to the current restricted shard for additional 30 days.
+     *
+     * This method will consume 1 ACCESS_KEY resource bound to your account (See Game.resources).
+     * This method is only available on restricted shards (when {@link Game.shard.access} is defined).
+     *
+     * @returns One of the following codes:
+     * - OK:The operation has been scheduled successfully.
+     * - ERR_NOT_ENOUGH_RESOURCES: Your account does not have enough ACCESS_KEY resources.
+     * - ERR_INVALID_TARGET: This shard is not restricted.
+     * - ERR_FULL: Your access is unlimited.
+     */
+    activateAccess?(): OK | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_ENOUGH_RESOURCES;
 }
 
 interface CPU {

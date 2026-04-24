@@ -187,8 +187,9 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no CLAIM body parts in this creep’s body.
      * - ERR_GCL_NOT_ENOUGH: Your Global Control Level is not enough.
+     * - ERR_ACCESS_DENIED: The shard access is restricted.
      */
-    claimController(target: StructureController): CreepActionReturnCode | ERR_FULL | ERR_GCL_NOT_ENOUGH;
+    claimController(target: StructureController): CreepActionReturnCode | ERR_FULL | ERR_GCL_NOT_ENOUGH | ERR_ACCESS_DENIED;
     /**
      * Dismantles any structure that can be constructed (even hostile) returning 50% of the energy spent on its repair.
      *
@@ -446,8 +447,9 @@ interface Creep extends RoomObject {
      * - ERR_INVALID_TARGET: The target is not a valid neutral controller object.
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no CLAIM body parts in this creep’s body.
+     * - ERR_ACCESS_DENIED: The shard access is restricted.
      */
-    reserveController(target: StructureController): CreepActionReturnCode;
+    reserveController(target: StructureController): CreepActionReturnCode | ERR_ACCESS_DENIED;
     /**
      * Display a visual speech balloon above the creep with the specified message.
      *
@@ -525,8 +527,9 @@ interface Creep extends RoomObject {
      * - ERR_INVALID_TARGET: The target is not a valid controller object, or the controller upgrading is blocked.
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no WORK body parts in this creep’s body.
+     * - ERR_ACCESS_DENIED: The shard access is restricted.
      */
-    upgradeController(target: StructureController): ScreepsReturnCode;
+    upgradeController(target: StructureController): ScreepsReturnCode | ERR_ACCESS_DENIED;
     /**
      * Withdraw resources from a structure, a tombstone or a ruin.
      *

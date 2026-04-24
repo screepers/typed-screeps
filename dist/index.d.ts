@@ -17,6 +17,7 @@ declare const ERR_NO_BODYPART: ERR_NO_BODYPART;
 declare const ERR_NOT_ENOUGH_EXTENSIONS: ERR_NOT_ENOUGH_EXTENSIONS;
 declare const ERR_RCL_NOT_ENOUGH: ERR_RCL_NOT_ENOUGH;
 declare const ERR_GCL_NOT_ENOUGH: ERR_GCL_NOT_ENOUGH;
+declare const ERR_ACCESS_DENIED: ERR_ACCESS_DENIED;
 
 declare const FIND_EXIT_TOP: FIND_EXIT_TOP;
 declare const FIND_EXIT_RIGHT: FIND_EXIT_RIGHT;
@@ -1261,8 +1262,9 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no CLAIM body parts in this creep’s body.
      * - ERR_GCL_NOT_ENOUGH: Your Global Control Level is not enough.
+     * - ERR_ACCESS_DENIED: The shard access is restricted.
      */
-    claimController(target: StructureController): CreepActionReturnCode | ERR_FULL | ERR_GCL_NOT_ENOUGH;
+    claimController(target: StructureController): CreepActionReturnCode | ERR_FULL | ERR_GCL_NOT_ENOUGH | ERR_ACCESS_DENIED;
     /**
      * Dismantles any structure that can be constructed (even hostile) returning 50% of the energy spent on its repair.
      *
@@ -1520,8 +1522,9 @@ interface Creep extends RoomObject {
      * - ERR_INVALID_TARGET: The target is not a valid neutral controller object.
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no CLAIM body parts in this creep’s body.
+     * - ERR_ACCESS_DENIED: The shard access is restricted.
      */
-    reserveController(target: StructureController): CreepActionReturnCode;
+    reserveController(target: StructureController): CreepActionReturnCode | ERR_ACCESS_DENIED;
     /**
      * Display a visual speech balloon above the creep with the specified message.
      *
@@ -1599,8 +1602,9 @@ interface Creep extends RoomObject {
      * - ERR_INVALID_TARGET: The target is not a valid controller object, or the controller upgrading is blocked.
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no WORK body parts in this creep’s body.
+     * - ERR_ACCESS_DENIED: The shard access is restricted.
      */
-    upgradeController(target: StructureController): ScreepsReturnCode;
+    upgradeController(target: StructureController): ScreepsReturnCode | ERR_ACCESS_DENIED;
     /**
      * Withdraw resources from a structure, a tombstone or a ruin.
      *
@@ -1896,6 +1900,31 @@ interface Shard {
      * Whether this shard belongs to the PTR.
      */
     ptr: boolean;
+    /**
+     * Whether you currently have access to this shard.
+     *
+     * Always true on non-restricted shards. On restricted shards, requires either an active ACCESS_KEY resource or an unlimited access subscription.
+     * Use {@link Game.shard.activateAccess} to activate access.
+     */
+    access?: boolean;
+    /**
+     * The time in milliseconds since UNIX epoch time until access to this restricted shard is active.
+     * This property is not defined when access is unlimited or when access is not currently active.
+     */
+    accessTime?: number;
+    /**
+     * Activate access to the current restricted shard for additional 30 days.
+     *
+     * This method will consume 1 ACCESS_KEY resource bound to your account (See Game.resources).
+     * This method is only available on restricted shards (when {@link Game.shard.access} is defined).
+     *
+     * @returns One of the following codes:
+     * - OK:The operation has been scheduled successfully.
+     * - ERR_NOT_ENOUGH_RESOURCES: Your account does not have enough ACCESS_KEY resources.
+     * - ERR_INVALID_TARGET: This shard is not restricted.
+     * - ERR_FULL: Your access is unlimited.
+     */
+    activateAccess?(): OK | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_ENOUGH_RESOURCES;
 }
 
 interface CPU {
@@ -2411,6 +2440,7 @@ type ERR_NO_BODYPART = -12;
 type ERR_NOT_ENOUGH_EXTENSIONS = -6;
 type ERR_RCL_NOT_ENOUGH = -14;
 type ERR_GCL_NOT_ENOUGH = -15;
+type ERR_ACCESS_DENIED = -16;
 
 type CreepActionReturnCode = OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART | ERR_TIRED;
 

@@ -1424,3 +1424,9 @@ function atackPower(creep: Creep) {
     /// @ts-expect-error
     const foo = Game.getObjectById<StructureTower>("" as Id<Creep>);
 }
+
+// Shard access
+{
+    Game.shard.access;
+    Game.shard.activateAccess?.();
+}
