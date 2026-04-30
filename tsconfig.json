@@ -4,6 +4,10 @@
         "target": "es2017",
         "sourceMap": false,
         "declaration": true,
+        "lib": [
+            "ESNext",
+            "ES2017",
+        ],
         "strict": true,
         "noEmit": true,
         "newLine": "LF",
