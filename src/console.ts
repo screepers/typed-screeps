@@ -28,7 +28,7 @@ interface Console {
      *
      * To safely log unescaped messages on any environment, use `(console.logUnsafe ?? console.log)(...)`.
      */
-    logUnsafe(...data: any[]): void;
+    logUnsafe?(...data: any[]): void;
 
     /**
      * Append custom CSS data to a {@link RoomVisual} or {@link MapVisual}.

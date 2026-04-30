@@ -1438,3 +1438,28 @@ function atackPower(creep: Creep) {
     Game.shard.access;
     Game.shard.activateAccess?.();
 }
+
+// Console
+{
+    // should be available in global scope and provide log function
+    {
+        console.log("Hello, world!");
+    }
+    // should not provide standard console functions that are not in the Screeps environment
+    {
+        // @ts-expect-error
+        console.error("This should not be allowed");
+        // @ts-expect-error
+        console.warn("This should not be allowed");
+        // @ts-expect-error
+        console.info("This should not be allowed");
+        // @ts-expect-error
+        console.debug("This should not be allowed");
+    }
+    // may provide logUnsafe function that allows logging of unsafe HTML
+    {
+        (console.logUnsafe || console.log)("<p>This is an unsafe log message</p>");
+        // @ts-expect-error
+        console.logUnsafe("this function is not guaranteed to exist on old servers");
+    }
+}
