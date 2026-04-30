@@ -22,16 +22,13 @@ interface Console {
     /**
      * The **`console.logUnsafe()`** static method outputs a message to the console.
      *
-     * This is identical to the DOM implementation of {@link log}.
+     * `logUnsafe()` is a new addition that may not be present on older servers.
+     * When defined, it is identical to the DOM implementation of {@link log}.
+     * When undefined, {@link log} will not escape HTML characters.
+     *
+     * To safely log unescaped messages on any environment, use `(console.logUnsafe ?? console.log)(...)`.
      */
     logUnsafe(...data: any[]): void;
-
-    /**
-     * Record the evaluated value of a console expression sent via the client or API.
-     *
-     * @param message the result of evaluating the expression
-     */
-    commandResult(message: any): void;
 
     /**
      * Append custom CSS data to a {@link RoomVisual} or {@link MapVisual}.
@@ -40,36 +37,6 @@ interface Console {
      * @param data the CSS to add; non-string data will be stringified via {@link JSON.stringify}
      */
     addVisual(roomName: string, data: any): void;
-
-    /**
-     * Get the size of the CSS data added to a {@link RoomVisual} or {@link MapVisual}
-     *
-     * @param roomName the name of the room (or "map" for {@link MapVisual})
-     * @return the size in bytes of all CSS written to the specified room/map
-     *
-     * @see {@link RoomVisual.map} and {@link MapVisual.map}
-     */
-    getVisualSize(roomName: string): number;
-
-    /**
-     * Delete all data associated with a specific {@link RoomVisual} or {@link MapVisual}.
-     *
-     * @param roomName the name of the room (or "map" for {@link MapVisual})
-     *
-     * @see {@link RoomVisual.clear} and {@link MapVisual.clear}
-     */
-    clearVisual(roomName: string): void;
-
-    /**
-     * Get the CSS data added to a {@link RoomVisual} or {@link MapVisual}.
-     *
-     * @param roomName the name of the room (or "map" for {@link MapVisual})
-     * @return all visual data for the specified room/map as a string of CSS,
-     *  or undefined if data has not been written/cleared for this room/map on this tick.
-     *
-     * @see {@link RoomVisual.export} and {@link MapVisual.export}
-     */
-    getVisual(roomName: string): string | undefined;
 }
 
 declare const console: Console;
