@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "node ./build/concat.js",
-    "format": "prettier --write 'src/**/*.ts' 'build/**/*.js'",
+    "format": "dprint fmt",
     "test": "npm run build && npm run lint && npm run typecheck:dist",
     "typecheck:dist": "tsc -p ./dist/tsconfig.json",
     "lint": "eslint",
@@ -26,17 +26,17 @@
   "author": "Marko Sulamagi <marko.sulamagi@gmail.com>",
   "license": "MIT",
   "devDependencies": {
+    "dprint": "^0.54.0",
     "eslint": "^9.7.0",
     "eslint-plugin-expect-type": "^0.4.0",
     "husky": "^7.0.4",
     "lint-staged": "^12.3.8",
-    "prettier": "^2.6.2",
     "typescript": "^5.5.0",
     "typescript-eslint": "^7.16.1"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-      "prettier --write"
+      "dprint fmt"
     ]
   }
 }
