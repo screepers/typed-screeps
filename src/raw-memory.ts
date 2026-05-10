@@ -32,7 +32,6 @@ interface RawMemory {
      * data. When the segment contents is changed by two shards simultaneously, you may lose some data, since the segment
      * string value is written all at once atomically. You must implement your own system to determine when each shard is
      * allowed to rewrite the inter-shard memory, e.g. based on mutual exclusions.
-     *
      */
     interShardSegment: string;
 

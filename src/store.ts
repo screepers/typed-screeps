@@ -8,14 +8,10 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
      */
     getCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): UNLIMITED_STORE extends true
-        ? null
-        : R extends undefined
-        ? ResourceConstant extends POSSIBLE_RESOURCES
-            ? number
+    ): UNLIMITED_STORE extends true ? null
+        : R extends undefined ? ResourceConstant extends POSSIBLE_RESOURCES ? number
             : null
-        : R extends POSSIBLE_RESOURCES
-        ? number
+        : R extends POSSIBLE_RESOURCES ? number
         : null;
     /**
      * Returns the capacity used by the specified resource, or total used capacity for general purpose stores if `resource` is undefined.
@@ -24,7 +20,9 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
      */
     getUsedCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null) : R extends POSSIBLE_RESOURCES ? number : null;
+    ): R extends undefined ? (ResourceConstant extends POSSIBLE_RESOURCES ? number : null)
+        : R extends POSSIBLE_RESOURCES ? number
+        : null;
     /**
      * Returns free capacity for the store.
      *
@@ -34,21 +32,20 @@ interface StoreBase<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE
      */
     getFreeCapacity<R extends ResourceConstant | undefined = undefined>(
         resource?: R,
-    ): UNLIMITED_STORE extends true
-        ? null
-        : R extends undefined
-        ? ResourceConstant extends POSSIBLE_RESOURCES
-            ? number
+    ): UNLIMITED_STORE extends true ? null
+        : R extends undefined ? ResourceConstant extends POSSIBLE_RESOURCES ? number
             : null
-        : R extends POSSIBLE_RESOURCES
-        ? number
+        : R extends POSSIBLE_RESOURCES ? number
         : null;
 }
 
-type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> = StoreBase<
-    POSSIBLE_RESOURCES,
-    UNLIMITED_STORE
-> & { [P in POSSIBLE_RESOURCES]: number } & { [P in Exclude<ResourceConstant, POSSIBLE_RESOURCES>]: 0 };
+type Store<POSSIBLE_RESOURCES extends ResourceConstant, UNLIMITED_STORE extends boolean> =
+    & StoreBase<
+        POSSIBLE_RESOURCES,
+        UNLIMITED_STORE
+    >
+    & { [P in POSSIBLE_RESOURCES]: number }
+    & { [P in Exclude<ResourceConstant, POSSIBLE_RESOURCES>]: 0 };
 
 /**
  * An object that can contain resources in its cargo.

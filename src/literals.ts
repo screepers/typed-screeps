@@ -53,7 +53,14 @@ type ERR_RCL_NOT_ENOUGH = -14;
 type ERR_GCL_NOT_ENOUGH = -15;
 type ERR_ACCESS_DENIED = -16;
 
-type CreepActionReturnCode = OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART | ERR_TIRED;
+type CreepActionReturnCode =
+    | OK
+    | ERR_NOT_OWNER
+    | ERR_BUSY
+    | ERR_INVALID_TARGET
+    | ERR_NOT_IN_RANGE
+    | ERR_NO_BODYPART
+    | ERR_TIRED;
 
 type CreepMoveReturnCode = OK | ERR_NOT_OWNER | ERR_BUSY | ERR_TIRED | ERR_NO_BODYPART;
 
@@ -298,7 +305,11 @@ type MineralConstant =
     | RESOURCE_CATALYST;
 
 /** The compounds which can't boost */
-type MineralBaseCompoundsConstant = RESOURCE_HYDROXIDE | RESOURCE_ZYNTHIUM_KEANITE | RESOURCE_UTRIUM_LEMERGITE | RESOURCE_GHODIUM;
+type MineralBaseCompoundsConstant =
+    | RESOURCE_HYDROXIDE
+    | RESOURCE_ZYNTHIUM_KEANITE
+    | RESOURCE_UTRIUM_LEMERGITE
+    | RESOURCE_GHODIUM;
 
 /** The boosts (from tier 1 to tier 3) */
 type MineralBoostConstant =
@@ -536,65 +547,65 @@ type EventDestroyType = "creep" | StructureConstant;
 
 type EventItem =
     | {
-          event: EVENT_ATTACK;
-          objectId: string;
-          data: EventData[EVENT_ATTACK];
-      }
+        event: EVENT_ATTACK;
+        objectId: string;
+        data: EventData[EVENT_ATTACK];
+    }
     | {
-          event: EVENT_OBJECT_DESTROYED;
-          objectId: string;
-          data: EventData[EVENT_OBJECT_DESTROYED];
-      }
+        event: EVENT_OBJECT_DESTROYED;
+        objectId: string;
+        data: EventData[EVENT_OBJECT_DESTROYED];
+    }
     | {
-          event: EVENT_ATTACK_CONTROLLER;
-          objectId: string;
-          data: EventData[EVENT_ATTACK_CONTROLLER];
-      }
+        event: EVENT_ATTACK_CONTROLLER;
+        objectId: string;
+        data: EventData[EVENT_ATTACK_CONTROLLER];
+    }
     | {
-          event: EVENT_BUILD;
-          objectId: string;
-          data: EventData[EVENT_BUILD];
-      }
+        event: EVENT_BUILD;
+        objectId: string;
+        data: EventData[EVENT_BUILD];
+    }
     | {
-          event: EVENT_HARVEST;
-          objectId: string;
-          data: EventData[EVENT_HARVEST];
-      }
+        event: EVENT_HARVEST;
+        objectId: string;
+        data: EventData[EVENT_HARVEST];
+    }
     | {
-          event: EVENT_HEAL;
-          objectId: string;
-          data: EventData[EVENT_HEAL];
-      }
+        event: EVENT_HEAL;
+        objectId: string;
+        data: EventData[EVENT_HEAL];
+    }
     | {
-          event: EVENT_REPAIR;
-          objectId: string;
-          data: EventData[EVENT_REPAIR];
-      }
+        event: EVENT_REPAIR;
+        objectId: string;
+        data: EventData[EVENT_REPAIR];
+    }
     | {
-          event: EVENT_RESERVE_CONTROLLER;
-          objectId: string;
-          data: EventData[EVENT_RESERVE_CONTROLLER];
-      }
+        event: EVENT_RESERVE_CONTROLLER;
+        objectId: string;
+        data: EventData[EVENT_RESERVE_CONTROLLER];
+    }
     | {
-          event: EVENT_UPGRADE_CONTROLLER;
-          objectId: string;
-          data: EventData[EVENT_UPGRADE_CONTROLLER];
-      }
+        event: EVENT_UPGRADE_CONTROLLER;
+        objectId: string;
+        data: EventData[EVENT_UPGRADE_CONTROLLER];
+    }
     | {
-          event: EVENT_EXIT;
-          objectId: string;
-          data: EventData[EVENT_EXIT];
-      }
+        event: EVENT_EXIT;
+        objectId: string;
+        data: EventData[EVENT_EXIT];
+    }
     | {
-          event: EVENT_POWER;
-          objectId: string;
-          data: EventData[EVENT_POWER];
-      }
+        event: EVENT_POWER;
+        objectId: string;
+        data: EventData[EVENT_POWER];
+    }
     | {
-          event: EVENT_TRANSFER;
-          objectId: string;
-          data: EventData[EVENT_TRANSFER];
-      };
+        event: EVENT_TRANSFER;
+        objectId: string;
+        data: EventData[EVENT_TRANSFER];
+    };
 
 interface EventData {
     [EVENT_ATTACK]: {

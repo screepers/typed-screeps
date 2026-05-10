@@ -20,7 +20,10 @@ interface PathFinder {
      */
     search(
         origin: RoomPosition,
-        goal: RoomPosition | { pos: RoomPosition; range: number } | Array<RoomPosition | { pos: RoomPosition; range: number }>,
+        goal:
+            | RoomPosition
+            | { pos: RoomPosition; range: number }
+            | Array<RoomPosition | { pos: RoomPosition; range: number }>,
         opts?: PathFinderOpts,
     ): PathFinderPath;
     /**
@@ -128,7 +131,7 @@ interface PathFinderOpts {
 }
 
 interface CostMatrixConstructor extends _Constructor<CostMatrix> {
-    new (): CostMatrix;
+    new(): CostMatrix;
 
     /**
      * Static method which deserializes a new CostMatrix using the return value of serialize.

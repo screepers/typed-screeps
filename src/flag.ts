@@ -62,7 +62,14 @@ interface Flag extends RoomObject {
 }
 
 interface FlagConstructor extends _Constructor<Flag> {
-    new (name: string, color: ColorConstant, secondaryColor: ColorConstant, roomName: string, x: number, y: number): Flag;
+    new(
+        name: string,
+        color: ColorConstant,
+        secondaryColor: ColorConstant,
+        roomName: string,
+        x: number,
+        y: number,
+    ): Flag;
     (name: string, color: ColorConstant, secondaryColor: ColorConstant, roomName: string, x: number, y: number): Flag;
 }
 

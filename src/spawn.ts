@@ -259,6 +259,6 @@ interface SpawnOptions {
 }
 
 interface SpawningConstructor extends _Constructor<Spawning> {
-    new (id: Id<StructureSpawn>): Spawning;
+    new(id: Id<StructureSpawn>): Spawning;
     (id: Id<StructureSpawn>): Spawning;
 }
