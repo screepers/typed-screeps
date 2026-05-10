@@ -33,7 +33,7 @@ interface Console {
     logUnsafe?(...data: any[]): void;
 }
 
-declare const console: Console;
+declare var console: Console;
 // Game Constants
 
 declare const OK: OK;
