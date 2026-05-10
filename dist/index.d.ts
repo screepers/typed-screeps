@@ -2,11 +2,9 @@
 
 /**
  * The Console API defined by
- * [screeps/engine](https://github.com/screeps/engine/blob/1b9b1541923f061311474a2f1bac0fea37911f70/src/game/console.js#L10).
+ * [screeps/engine](https://github.com/screeps/engine/blob/master/src/game/console.js#L10).
  *
  * Notes:
- * - This implementation is not compliant with the DOM [Console API](https://developer.mozilla.org/en-US/docs/Web/API/Console_API)
- *      - Ensure your project does not include "dom" in its tsconfig file's ".compilerOptions.lib" to avoid using the DOM version.
  * - `console` is not defined until the first tick. Any messages you log on init will not be emitted to the client.
  */
 interface Console {
