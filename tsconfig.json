@@ -1,19 +1,23 @@
 {
     "compilerOptions": {
         "module": "esnext",
+        "moduleResolution": "bundler",
         "target": "es2017",
         "sourceMap": false,
         "declaration": true,
         "strict": true,
         "noEmit": true,
         "newLine": "LF",
-        "removeComments": false
+        "removeComments": false,
+        "allowJs": true
     },
     "include": [
-        "./src/**/*.ts"
+        "./src/**/*.ts",
+        "eslint.config.js",
+        "build/concat.js"
     ],
     "exclude": [
         "node_modules",
-        "dist",
-    ],
+        "dist"
+    ]
 }

@@ -4,17 +4,18 @@
   "description": "Strong TypeScript declarations for the game Screeps.",
   "repository": "screepers/typed-screeps",
   "types": "./dist/index.d.ts",
+  "type": "module",
   "files": [
     "dist/index.d.ts"
   ],
   "scripts": {
-    "compile": "node ./build/concat.js",
+    "build": "node ./build/concat.js",
+    "compile": "tsc -p ./dist/tsconfig.json",
     "format": "npm run format:build && npm run format:src",
     "format:build": "prettier --write 'build/**/*.js'",
     "format:src": "prettier --write 'src/**/*.ts'",
-    "test": "npm run compile && npm run lint:test",
-    "lint": "eslint -c eslint.config.mjs",
-    "lint:test": "eslint -c eslint.config.test.mjs dist/screeps-tests.ts",
+    "test": "npm run build && npm run lint && npm run compile",
+    "lint": "eslint",
     "pre-commit": "npm run compile && git add dist/index.d.ts",
     "prepare": "husky install && npm test"
   },

@@ -38,9 +38,9 @@ To test your changes, run the following command.
 npm test
 ```
 
-This command will compile your most recent changes, and then run linting checks. It will also test compiling against the `test/typed-screeps-tests.ts` file. The tests pass if all code is lint-checked and the tests file compiles without any errors.
+This command will build your changes, lint `src/`, verify `$ExpectType` assertions in `dist/screeps-tests.ts`, and compile that test file against the built declarations. The tests pass if all of those steps succeed.
 
-The `test/typed-screeps-tests.ts` file also works as a sandbox for your additions. If you open this file and see no red squiggly lines, then you're good!
+The `dist/screeps-tests.ts` file also works as a sandbox for your additions. Use `// $ExpectType SomeType` comments to assert inferred types; they are checked by `npm run lint`. If you open this file and see no red squiggly lines, then you're good!
 
 ## Committing
 

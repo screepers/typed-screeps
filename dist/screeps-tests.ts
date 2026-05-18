@@ -1,11 +1,14 @@
 // This file exists solely to test whether or not the typings actually work.
-// After working on your changes, make sure to run `npm run compile` to build
-// the declarations before opening this file.
+// After working on your changes, run `npm test` to build declarations, run `tsc`
+// over it, and lint it, which will check the `$ExpectType` assertions.
+//
+// For a quick compile-only check: `npm run build && npm run compile`.
+// To verify `$ExpectType` markers only: `npm run lint`.
 //
 // If you open this file and see no red squiggly lines, then you're good!
 // Feel free to add more test cases in the form of a sample code.
 
-// `$ExpectType` is supported by the linter, you can use it to check the type of an expression or a variable.
+// `$ExpectType` comments are enforced by `npm run lint` (and `npm test` for a full build & check).
 // See https://github.com/JoshuaKGoldberg/eslint-plugin-expect-type for more details.
 
 // TODO: add more test cases.
@@ -1291,7 +1294,7 @@ function atackPower(creep: Creep) {
 
 // Store
 {
-    // Store definitions of structures are well typed with their capable resources
+    // Store definitions of structures are well typed with their acceptable resources
     {
         const energyOnlyStores = [
             new StructureSpawn("" as Id<StructureSpawn>).store,
@@ -1301,12 +1304,12 @@ function atackPower(creep: Creep) {
         ];
 
         for (const store of energyOnlyStores) {
-            // should be number for capabale resources
+            // should be number for acceptable resources
             const shouldBeNumber = store.getCapacity(RESOURCE_ENERGY); // $ExpectType number
             const shouldBeNumber2 = store.getFreeCapacity(RESOURCE_ENERGY); // $ExpectType number
             const shouldBeNumber3 = store.getUsedCapacity(RESOURCE_ENERGY); // $ExpectType number
 
-            // should be null for non-capabale resources
+            // should be null for unacceptable resources
             const shouldBeNull1 = store.getCapacity(RESOURCE_HYDROGEN); // $ExpectType null
             const shouldBeNull2 = store.getFreeCapacity(RESOURCE_HYDROGEN); // $ExpectType null
             const shouldBeNull3 = store.getUsedCapacity(RESOURCE_HYDROGEN); // $ExpectType null
@@ -1316,7 +1319,7 @@ function atackPower(creep: Creep) {
 
         const nukerStore = new StructureNuker("" as Id<StructureNuker>).store;
 
-        // should be number for capabale resources
+        // should be number for acceptable resources
         const shouldBeNumber = nukerStore.getCapacity(RESOURCE_ENERGY); // $ExpectType number
         const shouldBeNumber2 = nukerStore.getFreeCapacity(RESOURCE_ENERGY); // $ExpectType number
         const shouldBeNumber3 = nukerStore.getUsedCapacity(RESOURCE_ENERGY); // $ExpectType number
@@ -1325,13 +1328,13 @@ function atackPower(creep: Creep) {
         const shouldBeNumber5 = nukerStore.getFreeCapacity(RESOURCE_GHODIUM); // $ExpectType number
         const shouldBeNumber6 = nukerStore.getUsedCapacity(RESOURCE_GHODIUM); // $ExpectType number
 
-        // should be null for non-capabale resources
+        // should be null for unacceptable resources
         const shouldBeNull1 = nukerStore.getCapacity(RESOURCE_HYDROGEN); // $ExpectType null
         const shouldBeNull2 = nukerStore.getFreeCapacity(RESOURCE_HYDROGEN); // $ExpectType null
         const shouldBeNull3 = nukerStore.getUsedCapacity(RESOURCE_HYDROGEN); // $ExpectType null
     }
 
-    // Unlimited store have no notion of capacity and free capacity
+    // Unlimited stores have no notion of capacity and free capacity
     {
         const ruinStore = new Ruin("" as Id<Ruin>).store;
 

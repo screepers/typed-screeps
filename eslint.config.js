@@ -2,7 +2,7 @@
 import tseslint, { parser } from 'typescript-eslint';
 import expectType from "eslint-plugin-expect-type/configs/recommended";
 
-export const sharedOpts = tseslint.config(
+export default tseslint.config(
     tseslint.configs.base,
     expectType,
     // global ignore
@@ -11,11 +11,7 @@ export const sharedOpts = tseslint.config(
         rules: {
             "@typescript-eslint/no-invalid-void-type": "error",
         }
-    }
-);
-
-export default tseslint.config(
-    ...sharedOpts,
+    },
     { files: ['src/**/*.ts', 'dist/screeps-tests.ts'], },
     {
         languageOptions: {
