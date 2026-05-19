@@ -10,14 +10,12 @@
   ],
   "scripts": {
     "build": "node ./build/concat.js",
-    "compile": "tsc -p ./dist/tsconfig.json",
-    "format": "npm run format:build && npm run format:src",
-    "format:build": "prettier --write 'build/**/*.js'",
-    "format:src": "prettier --write 'src/**/*.ts'",
-    "test": "npm run build && npm run lint && npm run compile",
+    "format": "prettier --write 'src/**/*.ts' 'build/**/*.js'",
+    "test": "npm run build && npm run lint && npm run typecheck:dist",
+    "typecheck:dist": "tsc -p ./dist/tsconfig.json",
     "lint": "eslint",
-    "pre-commit": "npm run compile && git add dist/index.d.ts",
-    "prepare": "husky install && npm test"
+    "pre-commit": "npm run build && git add dist/index.d.ts",
+    "prepare": "husky install"
   },
   "keywords": [
     "Screeps",

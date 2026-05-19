@@ -24,10 +24,10 @@ To get started, just clone this repository, and install the required dependencie
 npm install
 ```
 
-The code lives in the `src/` directory. Feel free to make your changes, and when you're done, run the following command to compile them:
+The code lives in the `src/` directory. Feel free to make your changes, and when you're done, run the following command to build them:
 
 ```bash
-npm run compile
+npm run build
 ```
 
 ## Running Tests
@@ -38,13 +38,13 @@ To test your changes, run the following command.
 npm test
 ```
 
-This command will build your changes, lint `src/`, verify `$ExpectType` assertions in `dist/screeps-tests.ts`, and compile that test file against the built declarations. The tests pass if all of those steps succeed.
+This command will build your changes, lint `src/`, verify `$ExpectType` assertions in `dist/screeps-tests.ts`, and type-check that test file against the built declarations. The tests pass if all of those steps succeed.
 
 The `dist/screeps-tests.ts` file also works as a sandbox for your additions. Use `// $ExpectType SomeType` comments to assert inferred types; they are checked by `npm run lint`. If you open this file and see no red squiggly lines, then you're good!
 
 ## Committing
 
-This codebase uses [husky](https://github.com/typicode/husky) to auto-compile changes on commit. When you commit the changes, husky will first automatically run `npm run compile` and compile your changes.
+This codebase uses [husky](https://github.com/typicode/husky) to auto-build changes on commit. When you commit the changes, husky will first automatically run `npm run build` and build your changes.
 
 ## Filing Issues
 
