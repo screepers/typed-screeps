@@ -2,7 +2,7 @@
 // After working on your changes, run `npm test` to build declarations, run `tsc`
 // over it, and lint it, which will check the `$ExpectType` assertions.
 //
-// For a quick compile-only check: `npm run build && npm run compile`.
+// For a quick build & type-check: `npm run build && npm run typecheck:dist`.
 // To verify `$ExpectType` markers only: `npm run lint`.
 //
 // If you open this file and see no red squiggly lines, then you're good!
