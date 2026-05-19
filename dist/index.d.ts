@@ -4376,24 +4376,24 @@ interface PowerCreepConstructor extends _Constructor<PowerCreep>, _ConstructorBy
 
 declare const PowerCreep: PowerCreepConstructor;
 
-type PowerId = keyof typeof POWER_INFO;
-
 /**
  * Available powers, an object with power ID as a key, and the following properties.
  *
  * If a PowerCreep does not have at least level 1 for a given power, undefined is returned.
  */
 interface PowerCreepPowers {
-    [powerID: number]: {
-        /**
-         * Current level of the power
-         */
-        level: number;
-        /**
-         * Cooldown ticks remaining
-         */
-        cooldown: number;
-    } | undefined;
+    [powerID: number]:
+        | {
+              /**
+               * Current level of the power
+               */
+              level: number;
+              /**
+               * Cooldown ticks remaining
+               */
+              cooldown: number;
+          }
+        | undefined;
 }
 /**
  * RawMemory object allows to implement your own memory stringifier instead of built-in serializer based on JSON.stringify.
