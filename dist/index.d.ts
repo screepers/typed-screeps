@@ -796,6 +796,8 @@ declare const INVADERS_ENERGY_GOAL: number;
 
 declare const SYSTEM_USERNAME: string;
 
+declare const SIGN_PLANNED_AREA: string;
+
 declare const TOMBSTONE_DECAY_PER_PART: 5;
 declare const TOMBSTONE_DECAY_POWER_CREEP: 500;
 
