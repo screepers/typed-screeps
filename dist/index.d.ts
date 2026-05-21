@@ -3635,12 +3635,14 @@ interface Transaction {
 interface Order {
     /** The unique order ID. */
     id: string;
+    /** The order creation time in game ticks. This property is absent for orders of the inter-shard market. */
+    created?: number;
     /**
-     * The order creation time in milliseconds since UNIX epoch time.
+     * The order creation time {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/getTime#Syntax|in milliseconds since UNIX epoch time}.
      *
      * This property is absent for old orders.
      */
-    created: number;
+    createdTimestamp: number;
     /** Whether the order is active or not.
      *
      * Only exists for your own orders. */
