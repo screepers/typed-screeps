@@ -8,7 +8,7 @@ const config = tseslint.config(
     tseslint.configs.base,
     expectType,
     // global ignore
-    { ignores: ["build/*", "eslint.config.*"] },
+    { ignores: ["build/*", "eslint.config.*", "DefinitelyTyped/**"] },
     {
         rules: {
             "@typescript-eslint/no-invalid-void-type": "error",

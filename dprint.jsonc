@@ -11,6 +11,7 @@
     "indentWidth": 4,
     "lineWidth": 120,
     "excludes": [
+        "**/DefinitelyTyped/**",
         "**/node_modules/**"
     ]
 }

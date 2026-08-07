@@ -15,7 +15,9 @@
     "typecheck:dist": "tsc -p ./dist/tsconfig.json",
     "lint": "eslint",
     "pre-commit": "npm run build && git add dist/index.d.ts",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "dt:pull": "bash ./scripts/dt-pull.sh",
+    "dt:push": "bash ./scripts/dt-push.sh"
   },
   "keywords": [
     "Screeps",
