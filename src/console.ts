@@ -26,7 +26,7 @@ interface Console {
      *
      * To safely log unescaped messages on any environment, use `(console.logUnsafe ?? console.log)(...)`.
      */
-    logUnsafe?(...data: any[]): void;
+    logUnsafe(...data: any[]): void;
 }
 
 declare var console: Console;
