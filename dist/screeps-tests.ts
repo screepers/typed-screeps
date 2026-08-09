@@ -1459,10 +1459,8 @@ function atackPower(creep: Creep) {
         // @ts-expect-error
         console.debug("This should not be allowed");
     }
-    // may provide logUnsafe function that allows logging of unsafe HTML
+    // provide logUnsafe function that allows logging of unescaped HTML tags
     {
-        (console.logUnsafe || console.log)("<p>This is an unsafe log message</p>");
-        // @ts-expect-error
-        console.logUnsafe("this function is not guaranteed to exist on old servers");
+        console.logUnsafe("<p>This is an unsafe log message</p>");
     }
 }
