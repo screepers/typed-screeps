@@ -879,7 +879,29 @@ interface StructureInvaderCoreConstructor extends _Constructor<StructureInvaderC
 declare const StructureInvaderCore: StructureInvaderCoreConstructor;
 
 /**
- * A discriminated union on Structure.type of all owned structure types
+ * A discriminated union of all structures that can be built by a player via a {@link ConstructionSite}.
+ * These structure types can be dismantled by creeps with {@link WORK} parts.
+ */
+type AnyBuildableStructure =
+    | StructureContainer
+    | StructureExtension
+    | StructureExtractor
+    | StructureFactory
+    | StructureLab
+    | StructureLink
+    | StructureNuker
+    | StructureObserver
+    | StructurePowerSpawn
+    | StructureRampart
+    | StructureRoad
+    | StructureSpawn
+    | StructureStorage
+    | StructureTerminal
+    | StructureTower
+    | StructureWall;
+
+/**
+ * A discriminated union on {@link Structure.structureType} of all {@link OwnedStructure} types
  */
 type AnyOwnedStructure =
     | StructureController
@@ -900,6 +922,14 @@ type AnyOwnedStructure =
     | StructureTerminal
     | StructureTower;
 
+/**
+ * A discriminated union of {@link OwnedStructure} types that can only be owned by NPCs (invaders / source keepers / etc)
+ */
+type AnyNpcStructure = StructureInvaderCore | StructureKeeperLair | StructurePowerBank;
+
+/**
+ * A discriminated union of all {@link Structure} types with a `store` property
+ */
 type AnyStoreStructure =
     | StructureExtension
     | StructureFactory
@@ -917,6 +947,12 @@ type AnyStoreStructure =
  * A discriminated union on {@link Structure.structureType} of all structure types
  */
 type AnyStructure = AnyOwnedStructure | StructureContainer | StructurePortal | StructureRoad | StructureWall;
+
+/**
+ * A discriminated union of all structures that have hit points and can be damaged with attacks.
+ * Note that this includes {@link StructureInvaderCore} even though it can be temporarily invulnerable.
+ */
+type AnyVulnerableStructure = AnyBuildableStructure | StructureInvaderCore | StructurePowerBank;
 
 /**
  * Map of structure constant to the concrete structure class

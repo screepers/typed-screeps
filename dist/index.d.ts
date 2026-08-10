@@ -2662,7 +2662,20 @@ type COLOR_WHITE = 10;
 
 // Structure Constants
 
-type BuildableStructureConstant =
+/**
+ * Utility type that extracts underlying {@link StructureConstant}s from a discriminated union of {@link Structure}s
+ */
+type ExtractStructureType<T> = T extends Structure<infer U> ? U : never;
+
+type BuildableStructureConstant = ExtractStructureType<AnyBuildableStructure>;
+
+type NpcStructureConstant = ExtractStructureType<AnyNpcStructure>;
+
+type OwnedStructureConstant = ExtractStructureType<AnyOwnedStructure>;
+
+type StoreStructureConstant = ExtractStructureType<AnyStoreStructure>;
+
+type StructureConstant =
     | STRUCTURE_EXTENSION
     | STRUCTURE_RAMPART
     | STRUCTURE_ROAD
@@ -2678,15 +2691,14 @@ type BuildableStructureConstant =
     | STRUCTURE_TERMINAL
     | STRUCTURE_CONTAINER
     | STRUCTURE_NUKER
-    | STRUCTURE_FACTORY;
-
-type StructureConstant =
-    | BuildableStructureConstant
+    | STRUCTURE_FACTORY
     | STRUCTURE_KEEPER_LAIR
     | STRUCTURE_CONTROLLER
     | STRUCTURE_POWER_BANK
     | STRUCTURE_PORTAL
     | STRUCTURE_INVADER_CORE;
+
+type VulnerableStructureConstant = ExtractStructureType<AnyVulnerableStructure>;
 
 type STRUCTURE_EXTENSION = "extension";
 type STRUCTURE_RAMPART = "rampart";
@@ -6719,7 +6731,29 @@ interface StructureInvaderCoreConstructor extends _Constructor<StructureInvaderC
 declare const StructureInvaderCore: StructureInvaderCoreConstructor;
 
 /**
- * A discriminated union on Structure.type of all owned structure types
+ * A discriminated union of all structures that can be built by a player via a {@link ConstructionSite}.
+ * These structure types can be dismantled by creeps with {@link WORK} parts.
+ */
+type AnyBuildableStructure =
+    | StructureContainer
+    | StructureExtension
+    | StructureExtractor
+    | StructureFactory
+    | StructureLab
+    | StructureLink
+    | StructureNuker
+    | StructureObserver
+    | StructurePowerSpawn
+    | StructureRampart
+    | StructureRoad
+    | StructureSpawn
+    | StructureStorage
+    | StructureTerminal
+    | StructureTower
+    | StructureWall;
+
+/**
+ * A discriminated union on {@link Structure.structureType} of all {@link OwnedStructure} types
  */
 type AnyOwnedStructure =
     | StructureController
@@ -6740,6 +6774,14 @@ type AnyOwnedStructure =
     | StructureTerminal
     | StructureTower;
 
+/**
+ * A discriminated union of {@link OwnedStructure} types that can only be owned by NPCs (invaders / source keepers / etc)
+ */
+type AnyNpcStructure = StructureInvaderCore | StructureKeeperLair | StructurePowerBank;
+
+/**
+ * A discriminated union of all {@link Structure} types with a `store` property
+ */
 type AnyStoreStructure =
     | StructureExtension
     | StructureFactory
@@ -6757,6 +6799,12 @@ type AnyStoreStructure =
  * A discriminated union on {@link Structure.structureType} of all structure types
  */
 type AnyStructure = AnyOwnedStructure | StructureContainer | StructurePortal | StructureRoad | StructureWall;
+
+/**
+ * A discriminated union of all structures that have hit points and can be damaged with attacks.
+ * Note that this includes {@link StructureInvaderCore} even though it can be temporarily invulnerable.
+ */
+type AnyVulnerableStructure = AnyBuildableStructure | StructureInvaderCore | StructurePowerBank;
 
 /**
  * Map of structure constant to the concrete structure class
