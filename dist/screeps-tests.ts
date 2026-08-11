@@ -137,6 +137,28 @@ function resources(o: GenericStore): ResourceConstant[] {
     typeof POWER_INFO[PWR_GENERATE_OPS].level[0] === "number";
 }
 
+// Game.resources
+
+{
+    // Account-bound resources are valid keys
+    if (Game.resources[CPU_UNLOCK]) {
+        Game.cpu.unlock();
+    }
+    const canPixelize = (Game.resources[PIXEL] ?? 0) >= 500;
+
+    // Properties are optional
+    // @ts-expect-error
+    const cantPixelize = Game.resources[PIXEL] < 500;
+
+    // Properties are not defined for local resource constants
+    // @ts-expect-error
+    const totalEnergy = Game.resources[RESOURCE_ENERGY];
+
+    // Properties are not defined for arbitrary keys
+    // @ts-expect-error
+    const amIFamous = Game.resources.fame > 9_000;
+}
+
 // Game.spawns
 
 {

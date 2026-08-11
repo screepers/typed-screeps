@@ -1826,7 +1826,7 @@ interface Game {
      *
      * Each object key is a resource constant, values are resources amounts.
      */
-    resources: { [key: string]: any };
+    resources: { [key in InterShardResourceConstant]?: number };
     /**
      * A hash containing all the rooms available to you with room names as hash keys.
      *
