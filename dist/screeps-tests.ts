@@ -40,7 +40,7 @@ function keys<T extends Record<string, any>>(o: T): Array<keyof T> {
     return Object.keys(o) as Array<keyof T>;
 }
 
-function resources(o: GenericStore): ResourceConstant[] {
+function resources(o: Store): ResourceConstant[] {
     return Object.keys(o) as ResourceConstant[];
 }
 
@@ -1412,6 +1412,27 @@ function atackPower(creep: Creep) {
             const shouldBeNumber3 = factoryStore.getUsedCapacity(); // $ExpectType number
         }
     }
+
+    // Global Store constructor / prototype
+    {
+        const storeProto = Store.prototype; // $ExpectType Store
+        storeProto.getCapacity(RESOURCE_ENERGY); // $ExpectType number | null
+    }
+
+    // Extending the Store prototype (augment Store below)
+    {
+        Store.prototype.totalUsed = function () {
+            return this.getUsedCapacity() ?? 0;
+        };
+
+        creep.store.totalUsed(); // $ExpectType number
+        Store.prototype.totalUsed(); // $ExpectType number
+    }
+}
+
+// Augment Store once — applies to Store.prototype and all StoreOf instances.
+interface Store {
+    totalUsed(): number;
 }
 
 // Room Object

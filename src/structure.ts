@@ -192,7 +192,7 @@ interface StructureExtension extends OwnedStructure<STRUCTURE_EXTENSION> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store<RESOURCE_ENERGY, false>;
+    store: StoreOf<RESOURCE_ENERGY, false>;
 }
 
 interface StructureExtensionConstructor extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension> {}
@@ -222,7 +222,7 @@ interface StructureLink extends OwnedStructure<STRUCTURE_LINK> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store<RESOURCE_ENERGY, false>;
+    store: StoreOf<RESOURCE_ENERGY, false>;
     /**
      * Transfer energy from the link to another link.
      *
@@ -347,7 +347,7 @@ interface StructurePowerSpawn extends OwnedStructure<STRUCTURE_POWER_SPAWN> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store<RESOURCE_ENERGY | RESOURCE_POWER, false>;
+    store: StoreOf<RESOURCE_ENERGY | RESOURCE_POWER, false>;
 
     /**
      * Register power resource units into your account.
@@ -465,7 +465,7 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store<RESOURCE_ENERGY, false>;
+    store: StoreOf<RESOURCE_ENERGY, false>;
 
     /**
      * Remotely attack any creep or structure in the room.
@@ -581,7 +581,7 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store<RESOURCE_ENERGY | MineralConstant | MineralCompoundConstant, false>;
+    store: StoreOf<RESOURCE_ENERGY | MineralConstant | MineralCompoundConstant, false>;
     /**
      * Boosts creep body part using the containing mineral compound.
      *
@@ -763,7 +763,7 @@ interface StructureNuker extends OwnedStructure<STRUCTURE_NUKER> {
     /**
      * A Store object that contains cargo of this structure.
      */
-    store: Store<RESOURCE_ENERGY | RESOURCE_GHODIUM, false>;
+    store: StoreOf<RESOURCE_ENERGY | RESOURCE_GHODIUM, false>;
     /**
      * Launch a nuke to the specified position.
      * @param pos The target room position.
