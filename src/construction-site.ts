@@ -37,9 +37,8 @@ interface ConstructionSite<T extends BuildableStructureConstant = BuildableStruc
     structureType: T;
     /**
      * Remove the construction site.
-     * @returns Result Code: OK, ERR_NOT_OWNER
      */
-    remove(): number;
+    remove(): OK | ERR_NOT_OWNER;
 }
 
 interface ConstructionSiteConstructor extends _Constructor<ConstructionSite>, _ConstructorById<ConstructionSite> {}
