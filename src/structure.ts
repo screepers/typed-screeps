@@ -164,7 +164,9 @@ interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
     unclaim(): ScreepsReturnCode;
 }
 
-interface StructureControllerConstructor extends _Constructor<StructureController>, _ConstructorById<StructureController> {}
+interface StructureControllerConstructor
+    extends _Constructor<StructureController>, _ConstructorById<StructureController>
+{}
 
 declare const StructureController: StructureControllerConstructor;
 
@@ -195,7 +197,9 @@ interface StructureExtension extends OwnedStructure<STRUCTURE_EXTENSION> {
     store: Store<RESOURCE_ENERGY, false>;
 }
 
-interface StructureExtensionConstructor extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension> {}
+interface StructureExtensionConstructor
+    extends _Constructor<StructureExtension>, _ConstructorById<StructureExtension>
+{}
 
 declare const StructureExtension: StructureExtensionConstructor;
 
@@ -264,7 +268,9 @@ interface StructureKeeperLair extends OwnedStructure<STRUCTURE_KEEPER_LAIR> {
     ticksToSpawn?: number;
 }
 
-interface StructureKeeperLairConstructor extends _Constructor<StructureKeeperLair>, _ConstructorById<StructureKeeperLair> {}
+interface StructureKeeperLairConstructor
+    extends _Constructor<StructureKeeperLair>, _ConstructorById<StructureKeeperLair>
+{}
 
 declare const StructureKeeperLair: StructureKeeperLairConstructor;
 
@@ -312,7 +318,9 @@ interface StructurePowerBank extends OwnedStructure<STRUCTURE_POWER_BANK> {
     ticksToDecay: number;
 }
 
-interface StructurePowerBankConstructor extends _Constructor<StructurePowerBank>, _ConstructorById<StructurePowerBank> {}
+interface StructurePowerBankConstructor
+    extends _Constructor<StructurePowerBank>, _ConstructorById<StructurePowerBank>
+{}
 
 declare const StructurePowerBank: StructurePowerBankConstructor;
 
@@ -362,7 +370,9 @@ interface StructurePowerSpawn extends OwnedStructure<STRUCTURE_POWER_SPAWN> {
     processPower(): ScreepsReturnCode;
 }
 
-interface StructurePowerSpawnConstructor extends _Constructor<StructurePowerSpawn>, _ConstructorById<StructurePowerSpawn> {}
+interface StructurePowerSpawnConstructor
+    extends _Constructor<StructurePowerSpawn>, _ConstructorById<StructurePowerSpawn>
+{}
 
 declare const StructurePowerSpawn: StructurePowerSpawnConstructor;
 
@@ -538,7 +548,9 @@ interface StructureExtractor extends OwnedStructure<STRUCTURE_EXTRACTOR> {
     cooldown: number;
 }
 
-interface StructureExtractorConstructor extends _Constructor<StructureExtractor>, _ConstructorById<StructureExtractor> {}
+interface StructureExtractorConstructor
+    extends _Constructor<StructureExtractor>, _ConstructorById<StructureExtractor>
+{}
 
 declare const StructureExtractor: StructureExtractorConstructor;
 
@@ -722,7 +734,9 @@ interface StructureContainer extends Structure<STRUCTURE_CONTAINER> {
     ticksToDecay: number;
 }
 
-interface StructureContainerConstructor extends _Constructor<StructureContainer>, _ConstructorById<StructureContainer> {}
+interface StructureContainerConstructor
+    extends _Constructor<StructureContainer>, _ConstructorById<StructureContainer>
+{}
 
 declare const StructureContainer: StructureContainerConstructor;
 
@@ -874,7 +888,9 @@ interface StructureInvaderCore extends OwnedStructure<STRUCTURE_INVADER_CORE> {
     spawning: Spawning | null;
 }
 
-interface StructureInvaderCoreConstructor extends _Constructor<StructureInvaderCore>, _ConstructorById<StructureInvaderCore> {}
+interface StructureInvaderCoreConstructor
+    extends _Constructor<StructureInvaderCore>, _ConstructorById<StructureInvaderCore>
+{}
 
 declare const StructureInvaderCore: StructureInvaderCoreConstructor;
 

@@ -4,7 +4,6 @@
  * Can be harvested by creeps with a WORK body part using the extractor structure.
  * Learn more about minerals from [this article](http://docs.screeps.com/api/#Mineral).
  *
- *
  * |                            |                              |
  * | ---------------------------| ---------------------------- |
  * | Regeneration amount        | DENSITY_LOW: 15,000
