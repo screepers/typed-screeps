@@ -709,3 +709,18 @@ type DENSITY_HIGH = 3;
 type DENSITY_ULTRA = 4;
 
 type DensityConstant = DENSITY_LOW | DENSITY_MODERATE | DENSITY_HIGH | DENSITY_ULTRA;
+
+type BoostModifier =
+    | "harvest"
+    | "build"
+    | "repair"
+    | "dismantle"
+    | "upgradeController"
+    | "attack"
+    | "rangedAttack"
+    | "rangedMassAttack"
+    | "heal"
+    | "rangedHeal"
+    | "capacity"
+    | "fatigue"
+    | "damage";

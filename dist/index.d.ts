@@ -642,8 +642,7 @@ declare const REACTION_TIME: {
     XGHO2: 150;
 };
 
-declare const BOOSTS: {
-    [part: string]: { [boost: string]: { [action: string]: number } };
+interface BoostsDefinition {
     work: {
         UO: {
             harvest: 3;
@@ -757,6 +756,14 @@ declare const BOOSTS: {
             damage: 0.3;
         };
     };
+}
+
+type IndexableBoostValue<V> = V & Partial<Record<MineralBoostConstant, Partial<Record<BoostModifier, number>>>>;
+
+declare const BOOSTS: {
+    [K in keyof BoostsDefinition]: IndexableBoostValue<BoostsDefinition[K]>;
+} & {
+    claim?: Partial<Record<MineralBoostConstant, Partial<Record<BoostModifier, number>>>>;
 };
 
 declare const INTERSHARD_RESOURCES: InterShardResourceConstant[];
@@ -2089,24 +2096,43 @@ interface HeapStatistics {
 /**
  * Describes one part of a creep’s body.
  */
-type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = T extends any
-    ? {
-          /**
-           * One of the {@link ResourceConstant RESOURCE_*} constants.
-           *
-           * If the body part is boosted, this property specifies the mineral type which is used for boosting.
-           */
-          boost?: keyof (typeof BOOSTS)[T];
-          /**
-           * One of the body part types constants.
-           */
-          type: T;
-          /**
-           * The remaining amount of hit points of this body part.
-           */
-          hits: number;
-      }
-    : never;
+type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = [BodyPartConstant] extends [T]
+    ? T extends any
+        ? {
+              /**
+               * One of the {@link MineralBoostConstant RESOURCE_*} constants.
+               *
+               * If the body part is boosted, this property specifies the mineral type which is used for boosting.
+               */
+              boost?: MineralBoostConstant;
+              /**
+               * One of the body part types constants.
+               */
+              type: T;
+              /**
+               * The remaining amount of hit points of this body part.
+               */
+              hits: number;
+          }
+        : never
+    : T extends any
+      ? {
+            /**
+             * One of the {@link MineralBoostConstant RESOURCE_*} constants.
+             *
+             * If the body part is boosted, this property specifies the mineral type which is used for boosting.
+             */
+            boost?: T extends typeof CLAIM ? never : keyof BoostsDefinition[Extract<T, keyof BoostsDefinition>];
+            /**
+             * One of the body part types constants.
+             */
+            type: T;
+            /**
+             * The remaining amount of hit points of this body part.
+             */
+            hits: number;
+        }
+      : never;
 
 interface Owner {
     /**
@@ -3149,6 +3175,21 @@ type DENSITY_HIGH = 3;
 type DENSITY_ULTRA = 4;
 
 type DensityConstant = DENSITY_LOW | DENSITY_MODERATE | DENSITY_HIGH | DENSITY_ULTRA;
+
+type BoostModifier =
+    | "harvest"
+    | "build"
+    | "repair"
+    | "dismantle"
+    | "upgradeController"
+    | "attack"
+    | "rangedAttack"
+    | "rangedMassAttack"
+    | "heal"
+    | "rangedHeal"
+    | "capacity"
+    | "fatigue"
+    | "damage";
 /**
  * The options that can be accepted by `findRoute()` and friends.
  */

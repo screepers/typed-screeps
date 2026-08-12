@@ -188,24 +188,43 @@ interface HeapStatistics {
 /**
  * Describes one part of a creep’s body.
  */
-type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = T extends any
-    ? {
-          /**
-           * One of the {@link ResourceConstant RESOURCE_*} constants.
-           *
-           * If the body part is boosted, this property specifies the mineral type which is used for boosting.
-           */
-          boost?: keyof (typeof BOOSTS)[T];
-          /**
-           * One of the body part types constants.
-           */
-          type: T;
-          /**
-           * The remaining amount of hit points of this body part.
-           */
-          hits: number;
-      }
-    : never;
+type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = [BodyPartConstant] extends [T]
+    ? T extends any
+        ? {
+              /**
+               * One of the {@link MineralBoostConstant RESOURCE_*} constants.
+               *
+               * If the body part is boosted, this property specifies the mineral type which is used for boosting.
+               */
+              boost?: MineralBoostConstant;
+              /**
+               * One of the body part types constants.
+               */
+              type: T;
+              /**
+               * The remaining amount of hit points of this body part.
+               */
+              hits: number;
+          }
+        : never
+    : T extends any
+      ? {
+            /**
+             * One of the {@link MineralBoostConstant RESOURCE_*} constants.
+             *
+             * If the body part is boosted, this property specifies the mineral type which is used for boosting.
+             */
+            boost?: T extends typeof CLAIM ? never : keyof BoostsDefinition[Extract<T, keyof BoostsDefinition>];
+            /**
+             * One of the body part types constants.
+             */
+            type: T;
+            /**
+             * The remaining amount of hit points of this body part.
+             */
+            hits: number;
+        }
+      : never;
 
 interface Owner {
     /**
