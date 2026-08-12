@@ -5,7 +5,6 @@
  */
 
 interface RoomObject {
-    readonly prototype: RoomObject;
     /**
      * Effects currently being applied to the object.
      */

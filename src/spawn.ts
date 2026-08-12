@@ -20,7 +20,6 @@
  * | **Energy auto-regeneration**  | 1 energy unit per tick while energy available | in the room (in all spawns and extensions) is less than 300
  */
 interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
-    readonly prototype: StructureSpawn;
     /**
      * The amount of energy containing in the spawn.
      * @deprecated An alias for .store[RESOURCE_ENERGY].
@@ -181,8 +180,6 @@ declare const Spawn: StructureSpawnConstructor; // legacy alias
 // declare type Spawn = StructureSpawn;
 
 interface Spawning {
-    readonly prototype: Spawning;
-
     /**
      * An array with the spawn directions
      *

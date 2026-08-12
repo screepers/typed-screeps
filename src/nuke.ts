@@ -19,8 +19,6 @@
  * The room controller is hit by triggering {@link StructureController.upgradeBlocked} period, which means it is unavailable to activate safe mode again within the next 200 ticks.
  */
 interface Nuke extends RoomObject {
-    readonly prototype: Nuke;
-
     /**
      * A unique object identifier.
      *

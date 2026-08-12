@@ -1073,7 +1073,6 @@ declare const POWER_INFO: {
  * You can remove enemy construction sites by moving a creep on it.
  */
 interface ConstructionSite<T extends BuildableStructureConstant = BuildableStructureConstant> extends RoomObject {
-    readonly prototype: ConstructionSite;
     /**
      * A unique object identifier.
      *
@@ -1137,8 +1136,6 @@ declare const ConstructionSite: ConstructionSiteConstructor;
  * | TOUGH           | 10         | No effect, just additional hit points to the creep's body. Can be boosted to resist damage.
  */
 interface Creep extends RoomObject {
-    readonly prototype: Creep;
-
     /**
      * An array describing the creep's body.
      */
@@ -1719,8 +1716,6 @@ declare const Deposit: DepositConstructor;
  * Flags can be used to mark particular spots in a room. Flags are visible to their owners only. You cannot have more than 10,000 flags.
  */
 interface Flag extends RoomObject {
-    readonly prototype: Flag;
-
     /**
      * Flag color. One of the {@link ColorConstant COLOR_*} constants.
      */
@@ -3756,10 +3751,6 @@ declare const Memory: Memory;
  */
 interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObject {
     /**
-     * The prototype is stored in the Mineral.prototype global object. You can use it to extend game objects behaviour globally.
-     */
-    readonly prototype: Mineral;
-    /**
      * The density of this mineral deposit, one of the {@link DensityConstant DENSITY_*} constants.
      */
     density: DensityConstant;
@@ -3807,8 +3798,6 @@ declare const Mineral: MineralConstructor;
  * The room controller is hit by triggering {@link StructureController.upgradeBlocked} period, which means it is unavailable to activate safe mode again within the next 200 ticks.
  */
 interface Nuke extends RoomObject {
-    readonly prototype: Nuke;
-
     /**
      * A unique object identifier.
      *
@@ -4498,8 +4487,6 @@ declare const RawMemory: RawMemory;
  */
 
 interface Resource<T extends ResourceConstant = ResourceConstant> extends RoomObject {
-    readonly prototype: Resource;
-
     /**
      * The amount of resource units containing.
      */
@@ -4526,7 +4513,6 @@ declare const Resource: ResourceConstructor;
  */
 
 interface RoomObject {
-    readonly prototype: RoomObject;
     /**
      * Effects currently being applied to the object.
      */
@@ -4607,8 +4593,6 @@ interface PowerEffect {
  * The position object of a custom location can be obtained using the {@link Room.getPositionAt()} method or using the constructor.
  */
 interface RoomPosition {
-    readonly prototype: RoomPosition;
-
     /**
      * The name of the room.
      */
@@ -5120,8 +5104,6 @@ interface TextStyle {
  * Every object in the room contains its linked Room instance in the {@link RoomObject.room} property.
  */
 interface Room {
-    readonly prototype: Room;
-
     /**
      * The Controller structure of this room, if present, otherwise undefined.
      */
@@ -5447,10 +5429,6 @@ declare const Ruin: RuinConstructor;
  */
 interface Source extends RoomObject {
     /**
-     * The prototype is stored in the Source.prototype global object. You can use it to extend game objects behaviour globally:
-     */
-    readonly prototype: Source;
-    /**
      * The remaining amount of energy.
      */
     energy: number;
@@ -5501,7 +5479,6 @@ declare const Source: SourceConstructor;
  * | **Energy auto-regeneration**  | 1 energy unit per tick while energy available | in the room (in all spawns and extensions) is less than 300
  */
 interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
-    readonly prototype: StructureSpawn;
     /**
      * The amount of energy containing in the spawn.
      * @deprecated An alias for .store[RESOURCE_ENERGY].
@@ -5662,8 +5639,6 @@ declare const Spawn: StructureSpawnConstructor; // legacy alias
 // declare type Spawn = StructureSpawn;
 
 interface Spawning {
-    readonly prototype: Spawning;
-
     /**
      * An array with the spawn directions
      *
@@ -5841,8 +5816,6 @@ type GenericStore = GenericStoreBase & { [P in ResourceConstant]: number };
  * The base prototype object of all structures.
  */
 interface Structure<T extends StructureConstant = StructureConstant> extends RoomObject {
-    readonly prototype: Structure;
-
     /**
      * The current amount of hit points of the structure.
      */
@@ -5901,8 +5874,6 @@ declare const Structure: StructureConstructor;
  * Such structures can be found using {@link Room.find} and the {@link FIND_MY_STRUCTURES} & {@link FIND_HOSTILE_STRUCTURES} constants.
  */
 interface OwnedStructure<T extends StructureConstant = StructureConstant> extends Structure<T> {
-    readonly prototype: OwnedStructure;
-
     /**
      * Whether this is your own structure.
      *
@@ -5932,8 +5903,6 @@ declare const OwnedStructure: OwnedStructureConstructor;
  * It can be addressed by {@link Room.controller} property.
  */
 interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
-    readonly prototype: StructureController;
-
     /**
      * Whether using power is enabled in this room.
      *
@@ -6013,8 +5982,6 @@ declare const StructureController: StructureControllerConstructor;
  * Extensions can be placed anywhere in the room, any spawns will be able to use them regardless of distance.
  */
 interface StructureExtension extends OwnedStructure<STRUCTURE_EXTENSION> {
-    readonly prototype: StructureExtension;
-
     /**
      * The amount of energy containing in the extension.
      *
@@ -6042,8 +6009,6 @@ declare const StructureExtension: StructureExtensionConstructor;
  * Remotely transfers energy to another Link in the same room.
  */
 interface StructureLink extends OwnedStructure<STRUCTURE_LINK> {
-    readonly prototype: StructureLink;
-
     /**
      * The amount of game ticks the link has to wait until the next transfer is possible.
      */
@@ -6095,8 +6060,6 @@ declare const StructureLink: StructureLinkConstructor;
  * This structure cannot be destroyed.
  */
 interface StructureKeeperLair extends OwnedStructure<STRUCTURE_KEEPER_LAIR> {
-    readonly prototype: StructureKeeperLair;
-
     /**
      * Time to spawning of the next Source Keeper.
      */
@@ -6111,8 +6074,6 @@ declare const StructureKeeperLair: StructureKeeperLairConstructor;
  * Provides visibility into a distant room from your script.
  */
 interface StructureObserver extends OwnedStructure<STRUCTURE_OBSERVER> {
-    readonly prototype: StructureObserver;
-
     /**
      * Provide visibility into a distant room from your script.
      *
@@ -6139,8 +6100,6 @@ declare const StructureObserver: StructureObserverConstructor;
  * Hits the attacker creep back on each attack.
  */
 interface StructurePowerBank extends OwnedStructure<STRUCTURE_POWER_BANK> {
-    readonly prototype: StructurePowerBank;
-
     /**
      * The amount of power containing.
      */
@@ -6162,7 +6121,6 @@ declare const StructurePowerBank: StructurePowerBankConstructor;
  * Hits the attacker creep back on each attack.
  */
 interface StructurePowerSpawn extends OwnedStructure<STRUCTURE_POWER_SPAWN> {
-    readonly prototype: StructurePowerSpawn;
     /**
      * The amount of energy containing in this structure.
      * @deprecated An alias for .store[RESOURCE_ENERGY].
@@ -6212,8 +6170,6 @@ declare const StructurePowerSpawn: StructurePowerSpawnConstructor;
  * the same tile. Can be used as a controllable gate.
  */
 interface StructureRampart extends OwnedStructure<STRUCTURE_RAMPART> {
-    readonly prototype: StructureRampart;
-
     /**
      * The amount of game ticks when this rampart will lose some hit points.
      */
@@ -6247,8 +6203,6 @@ declare const StructureRampart: StructureRampartConstructor;
  * Using roads allows creating creeps with less `MOVE` body parts.
  */
 interface StructureRoad extends Structure<STRUCTURE_ROAD> {
-    readonly prototype: StructureRoad;
-
     /**
      * The amount of game ticks when this road will lose some hit points.
      */
@@ -6265,8 +6219,6 @@ declare const StructureRoad: StructureRoadConstructor;
  * Only one structure per room is allowed that can be addressed by {@link Room.storage} property.
  */
 interface StructureStorage extends OwnedStructure<STRUCTURE_STORAGE> {
-    readonly prototype: StructureStorage;
-
     /**
      * An object with the storage contents.
      */
@@ -6289,8 +6241,6 @@ declare const StructureStorage: StructureStorageConstructor;
  * distance. Each action consumes energy.
  */
 interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
-    readonly prototype: StructureTower;
-
     /**
      * The amount of energy containing in this structure.
      * @deprecated An alias for .store[RESOURCE_ENERGY].
@@ -6355,7 +6305,6 @@ declare const StructureTower: StructureTowerConstructor;
  * Blocks movement of all creeps.
  */
 interface StructureWall extends Structure<STRUCTURE_WALL> {
-    readonly prototype: StructureWall;
     /**
      * The amount of game ticks when the wall will disappear (only for automatically placed border walls at the start of the game).
      */
@@ -6370,7 +6319,6 @@ declare const StructureWall: StructureWallConstructor;
  * Allows to harvest mineral deposits.
  */
 interface StructureExtractor extends OwnedStructure<STRUCTURE_EXTRACTOR> {
-    readonly prototype: StructureExtractor;
     /**
      * The amount of game ticks until the next harvest action is possible.
      */
@@ -6385,7 +6333,6 @@ declare const StructureExtractor: StructureExtractorConstructor;
  * Produces mineral compounds from base minerals and boosts creeps.
  */
 interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
-    readonly prototype: StructureLab;
     /**
      * The amount of game ticks the lab has to wait until the next reaction is possible.
      */
@@ -6502,7 +6449,6 @@ declare const StructureLab: StructureLabConstructor;
  * Sends any resources to a Terminal in another room.
  */
 interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
-    readonly prototype: StructureTerminal;
     /**
      * The remaining amount of ticks while this terminal cannot be used to make {@link StructureTerminal.send} or {@link Game.market.deal} calls.
      */
@@ -6542,7 +6488,6 @@ declare const StructureTerminal: StructureTerminalConstructor;
  * Contains up to 2,000 resource units. Can be constructed in neutral rooms. Decays for 5,000 hits per 100 ticks.
  */
 interface StructureContainer extends Structure<STRUCTURE_CONTAINER> {
-    readonly prototype: StructureContainer;
     /**
      * An object with the structure contents.
      *
@@ -6574,7 +6519,6 @@ declare const StructureContainer: StructureContainerConstructor;
  * be launched from or to novice rooms.
  */
 interface StructureNuker extends OwnedStructure<STRUCTURE_NUKER> {
-    readonly prototype: StructureNuker;
     /**
      * The amount of energy contained in this structure.
      * @deprecated An alias for .store[RESOURCE_ENERGY].
@@ -6630,7 +6574,6 @@ declare const StructureNuker: StructureNukerConstructor;
  * Portals appear randomly in the central room of each sector.
  */
 interface StructurePortal extends Structure<STRUCTURE_PORTAL> {
-    readonly prototype: StructurePortal;
     /**
      * The portal's destination.
      *
@@ -6653,7 +6596,6 @@ declare const StructurePortal: StructurePortalConstructor;
  * A structure which produces trade commodities from base minerals and other commodities.
  */
 interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
-    readonly prototype: StructureFactory;
     /**
      * The amount of game ticks the factory has to wait until the next produce is possible.
      */
@@ -6696,7 +6638,6 @@ declare const StructureFactory: StructureFactoryConstructor;
  * A structure which is a control center of NPC Strongholds, and also rules all invaders in the sector.
  */
 interface StructureInvaderCore extends OwnedStructure<STRUCTURE_INVADER_CORE> {
-    readonly prototype: StructureInvaderCore;
     /**
      * The level of the stronghold.
      *
