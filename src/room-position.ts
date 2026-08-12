@@ -21,6 +21,10 @@ interface RoomPosition {
      */
     y: number;
     /**
+     * Raw packed position value, representing roomX << 24 & roomY << 16 & x << 8 & y
+     */
+    __packedPos: number;
+    /**
      * Create a new {@link ConstructionSite} at the specified location.
      * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
      * @returns
