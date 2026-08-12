@@ -155,7 +155,7 @@ interface CostMatrix {
      * @param y Y position in the room.
      * @param cost Cost of this position. Must be a whole number. A cost of 0 will use the terrain cost for that tile. A cost greater than or equal to 255 will be treated as unwalkable.
      */
-    set(x: number, y: number, cost: number): undefined;
+    set(x: number, y: number, cost: number): void;
     /**
      * Get the cost of a position in this CostMatrix.
      * @param x X position in the room.

@@ -31,7 +31,9 @@ interface RoomPosition {
      * - ERR_INVALID_ARGS: The location is incorrect.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
-    createConstructionSite(structureType: BuildableStructureConstant): ScreepsReturnCode;
+    createConstructionSite(
+        structureType: BuildableStructureConstant,
+    ): OK | ERR_NOT_OWNER | ERR_INVALID_TARGET | ERR_FULL | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
     /**
      * Create a new {@link ConstructionSite} at the specified location.
      * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
@@ -44,7 +46,10 @@ interface RoomPosition {
      * - ERR_INVALID_ARGS: The location is incorrect.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
-    createConstructionSite(structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
+    createConstructionSite(
+        structureType: STRUCTURE_SPAWN,
+        name?: string,
+    ): OK | ERR_NOT_OWNER | ERR_INVALID_TARGET | ERR_FULL | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
     /**
      * Create a new {@link Flag} at the specified location.
      * @param name The name of a new flag.

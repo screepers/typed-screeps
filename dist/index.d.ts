@@ -1236,7 +1236,7 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no ATTACK body parts in this creep’s body.
      */
-    attack(target: AnyCreep | Structure): CreepActionReturnCode;
+    attack(target: AnyCreep | Structure): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
     /**
      * Attack a controller.
      *
@@ -1254,7 +1254,7 @@ interface Creep extends RoomObject {
      * - ERR_TIRED: You have to wait until the next attack is possible.
      * - ERR_NO_BODYPART: There are not enough CLAIM body parts in this creep’s body.
      */
-    attackController(target: StructureController): CreepActionReturnCode;
+    attackController(target: StructureController): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_TIRED | ERR_NO_BODYPART;
     /**
      * Build a structure at the target construction site using carried energy.
      *
@@ -1271,7 +1271,7 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no WORK body parts in this creep’s body.
      */
-    build(target: ConstructionSite): CreepActionReturnCode | ERR_NOT_ENOUGH_RESOURCES | ERR_RCL_NOT_ENOUGH;
+    build(target: ConstructionSite): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
     /**
      * Cancel the order given during the current game tick.
      * @param methodName The name of a creep's method to be cancelled.
@@ -1300,7 +1300,7 @@ interface Creep extends RoomObject {
      * - ERR_GCL_NOT_ENOUGH: Your Global Control Level is not enough.
      * - ERR_ACCESS_DENIED: The shard access is restricted.
      */
-    claimController(target: StructureController): CreepActionReturnCode | ERR_FULL | ERR_GCL_NOT_ENOUGH | ERR_ACCESS_DENIED;
+    claimController(target: StructureController): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE | ERR_NO_BODYPART | ERR_GCL_NOT_ENOUGH | ERR_ACCESS_DENIED;
     /**
      * Dismantles any structure that can be constructed (even hostile) returning 50% of the energy spent on its repair.
      *
@@ -1316,7 +1316,7 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no WORK body parts in this creep’s body.
      */
-    dismantle(target: Structure): CreepActionReturnCode;
+    dismantle(target: Structure): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
     /**
      * Drop this resource on the ground.
      *
@@ -1329,7 +1329,7 @@ interface Creep extends RoomObject {
      * - ERR_NOT_ENOUGH_RESOURCES: The creep does not have the given amount of resources.
      * - ERR_INVALID_ARGS: The resourceType is not a valid RESOURCE_* constants.
      */
-    drop(resourceType: ResourceConstant, amount?: number): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES;
+    drop(resourceType: ResourceConstant, amount?: number): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_ARGS;
     /**
      * Add one more available safe mode activation to a room controller.
      *
@@ -1343,7 +1343,7 @@ interface Creep extends RoomObject {
      * - ERR_INVALID_TARGET: The target is not a valid controller object.
      * - ERR_NOT_IN_RANGE: The target is too far away.
      */
-    generateSafeMode(target: StructureController): CreepActionReturnCode;
+    generateSafeMode(target: StructureController): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE;
     /**
      * Get the quantity of live body parts of the given type.
      *
@@ -1371,7 +1371,7 @@ interface Creep extends RoomObject {
      * - ERR_TIRED: The extractor or the deposit is still cooling down.
      * - ERR_NO_BODYPART: There are no WORK body parts in this creep’s body.
      */
-    harvest(target: Source | Mineral | Deposit): CreepActionReturnCode | ERR_NOT_FOUND | ERR_NOT_ENOUGH_RESOURCES;
+    harvest(target: Source | Mineral | Deposit): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_FOUND | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_TIRED | ERR_NO_BODYPART;
     /**
      * Heal self or another creep.
      *
@@ -1389,7 +1389,7 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no HEAL body parts in this creep’s body.
      */
-    heal(target: AnyCreep): CreepActionReturnCode;
+    heal(target: AnyCreep): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
     /**
      * Move the creep one square in the specified direction or towards a creep that is pulling it.
      *
@@ -1405,7 +1405,7 @@ interface Creep extends RoomObject {
      * - ERR_TIRED: The fatigue indicator of the creep is non-zero.
      * - ERR_NO_BODYPART: There are no MOVE body parts in this creep’s body.
      */
-    move(direction: DirectionConstant): CreepMoveReturnCode;
+    move(direction: DirectionConstant): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_ARGS | ERR_TIRED | ERR_NO_BODYPART;
     move(target: Creep): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
     /**
      * Move the creep using the specified predefined path.
@@ -1465,7 +1465,7 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no CARRY body parts in this creep’s body.
      */
-    pickup(target: Resource): CreepActionReturnCode | ERR_FULL;
+    pickup(target: Resource): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
     /**
      * Allow another creep to follow this creep.
      *
@@ -1499,7 +1499,7 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no RANGED_ATTACK body parts in this creep’s body.
      */
-    rangedAttack(target: AnyCreep | Structure): CreepActionReturnCode;
+    rangedAttack(target: AnyCreep | Structure): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
     /**
      * Heal another creep at a distance.
      *
@@ -1515,7 +1515,7 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no HEAL body parts in this creep’s body.
      */
-    rangedHeal(target: AnyCreep): CreepActionReturnCode;
+    rangedHeal(target: AnyCreep): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
     /**
      * A ranged attack against all hostile creeps or structures within 3 squares range.
      *
@@ -1541,7 +1541,9 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_NO_BODYPART: There are no WORK body parts in this creep’s body.
      */
-    repair(target: Structure): CreepActionReturnCode | ERR_NOT_ENOUGH_RESOURCES;
+    repair(
+        target: Structure,
+    ): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART;
     /**
      * Temporarily block a neutral controller from claiming by other players.
      *
@@ -1560,7 +1562,7 @@ interface Creep extends RoomObject {
      * - ERR_NO_BODYPART: There are no CLAIM body parts in this creep’s body.
      * - ERR_ACCESS_DENIED: The shard access is restricted.
      */
-    reserveController(target: StructureController): CreepActionReturnCode | ERR_ACCESS_DENIED;
+    reserveController(target: StructureController): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART | ERR_ACCESS_DENIED;
     /**
      * Display a visual speech balloon above the creep with the specified message.
      *
@@ -1617,7 +1619,11 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant RESOURCE_*} constants, or the amount is incorrect.
      */
-    transfer(target: AnyCreep | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    transfer(
+        target: AnyCreep | Structure,
+        resourceType: ResourceConstant,
+        amount?: number,
+    ): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
     /**
      * Upgrade your controller to the next level using carried energy.
      *
@@ -1640,7 +1646,9 @@ interface Creep extends RoomObject {
      * - ERR_NO_BODYPART: There are no WORK body parts in this creep’s body.
      * - ERR_ACCESS_DENIED: The shard access is restricted.
      */
-    upgradeController(target: StructureController): ScreepsReturnCode | ERR_ACCESS_DENIED;
+    upgradeController(
+        target: StructureController,
+    ): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_NO_BODYPART | ERR_ACCESS_DENIED;
     /**
      * Withdraw resources from a structure, a tombstone or a ruin.
      *
@@ -1663,7 +1671,11 @@ interface Creep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant RESOURCE_*} constants, or the amount is incorrect.
      */
-    withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    withdraw(
+        target: Structure | Tombstone | Ruin,
+        resourceType: ResourceConstant,
+        amount?: number,
+    ): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
 }
 
 interface CreepConstructor extends _Constructor<Creep>, _ConstructorById<Creep> {}
@@ -3527,7 +3539,7 @@ interface Market {
      * - OK: The operation has been scheduled successfully.
      * - ERR_INVALID_ARGS: The order ID is not valid.
      */
-    cancelOrder(orderId: string): ScreepsReturnCode;
+    cancelOrder(orderId: string): OK | ERR_INVALID_ARGS;
     /**
      * Change the price of an existing order.
      *
@@ -3540,7 +3552,7 @@ interface Market {
      * - ERR_NOT_ENOUGH_RESOURCES: You don't have enough credits to pay a fee.
      * - ERR_INVALID_ARGS: The arguments provided are invalid.
      */
-    changeOrderPrice(orderId: string, newPrice: number): ScreepsReturnCode;
+    changeOrderPrice(orderId: string, newPrice: number): OK | ERR_NOT_OWNER | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_ARGS;
     /**
      * Create a market order in your terminal.
      *
@@ -3583,7 +3595,11 @@ interface Market {
      * - ERR_INVALID_ARGS: The arguments provided are invalid.
      * - ERR_TIRED: The target terminal is still cooling down.
      */
-    deal(orderId: string, amount: number, yourRoomName?: string): ScreepsReturnCode;
+    deal(
+        orderId: string,
+        amount: number,
+        yourRoomName?: string,
+    ): OK | ERR_NOT_OWNER | ERR_NOT_ENOUGH_RESOURCES | ERR_FULL | ERR_INVALID_ARGS | ERR_TIRED;
     /**
      * Add more capacity to an existing order.
      *
@@ -3597,7 +3613,7 @@ interface Market {
      * - ERR_NOT_ENOUGH_RESOURCES: You don't have enough credits to pay a fee.
      * - ERR_INVALID_ARGS:  The arguments provided are invalid.
      */
-    extendOrder(orderId: string, addAmount: number): ScreepsReturnCode;
+    extendOrder(orderId: string, addAmount: number): OK | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_ARGS;
     /**
      * Get other players' orders currently active on the market.
      * @param filter (optional) An object or function that will filter the resulting list using the lodash.filter method.
@@ -3985,7 +4001,7 @@ interface CostMatrix {
      * @param y Y position in the room.
      * @param cost Cost of this position. Must be a whole number. A cost of 0 will use the terrain cost for that tile. A cost greater than or equal to 255 will be treated as unwalkable.
      */
-    set(x: number, y: number, cost: number): undefined;
+    set(x: number, y: number, cost: number): void;
     /**
      * Get the cost of a position in this CostMatrix.
      * @param x X position in the room.
@@ -4139,7 +4155,7 @@ interface PowerCreep extends RoomObject {
      * - ERR_NOT_ENOUGH_RESOURCES: The creep does not have the given amount of energy.
      * - ERR_INVALID_ARGS: The resourceType is not a valid {@link ResourceConstant RESOURCE_*} constants.
      */
-    drop(resourceType: ResourceConstant, amount?: number): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES;
+    drop(resourceType: ResourceConstant, amount?: number): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_ARGS;
     /**
      * Enable power usage in this room.
      *
@@ -4164,7 +4180,7 @@ interface PowerCreep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target creep is too far away
      * - ERR_INVALID_ARGS: The provided direction is incorrect.
      */
-    move(direction: DirectionConstant): CreepMoveReturnCode;
+    move(direction: DirectionConstant): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
     move(target: Creep): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
     /**
      * Move the creep using the specified predefined path.
@@ -4178,7 +4194,7 @@ interface PowerCreep extends RoomObject {
      * - ERR_NOT_FOUND: The specified path doesn't match the creep's location.
      * - ERR_INVALID_ARGS: path is not a valid path array.
      */
-    moveByPath(path: PathStep[] | RoomPosition[] | string): CreepMoveReturnCode | ERR_NOT_FOUND | ERR_INVALID_ARGS;
+    moveByPath(path: PathStep[] | RoomPosition[] | string): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_FOUND | ERR_INVALID_ARGS;
     /**
      * Find the optimal path to the target within the same room and move to it.
      *
@@ -4201,7 +4217,7 @@ interface PowerCreep extends RoomObject {
     moveTo(
         target: RoomPosition | { pos: RoomPosition },
         opts?: MoveToOpts,
-    ): CreepMoveReturnCode | ERR_NO_PATH | ERR_INVALID_TARGET | ERR_NOT_FOUND;
+    ): OK | ERR_NOT_OWNER | ERR_NO_PATH | ERR_BUSY | ERR_NOT_FOUND | ERR_INVALID_TARGET;
     /**
      * Toggle auto notification when the creep is under attack.
      *
@@ -4227,7 +4243,7 @@ interface PowerCreep extends RoomObject {
      * - ERR_FULL: The creep cannot receive any more resource.
      * - ERR_NOT_IN_RANGE: The target is too far away.
      */
-    pickup(target: Resource): CreepActionReturnCode | ERR_FULL;
+    pickup(target: Resource): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE;
     /**
      * Rename the power creep.
      *
@@ -4305,7 +4321,11 @@ interface PowerCreep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant RESOURCE_*} constants, or the amount is incorrect.
      */
-    transfer(target: AnyCreep | Structure, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    transfer(
+        target: AnyCreep | Structure,
+        resourceType: ResourceConstant,
+        amount?: number,
+    ): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
     /**
      * Upgrade the creep, adding a new power ability to it or increasing the level of the existing power.
      *
@@ -4336,7 +4356,20 @@ interface PowerCreep extends RoomObject {
      * - ERR_TIRED: The power ability is still on cooldown.
      * - ERR_NO_BODYPART: The creep doesn't have the specified power ability.
      */
-    usePower(power: PowerConstant, target?: RoomObject): ScreepsReturnCode;
+    usePower(
+        power: PowerConstant,
+        target?: RoomObject,
+    ):
+        | OK
+        | ERR_NOT_OWNER
+        | ERR_BUSY
+        | ERR_NOT_ENOUGH_RESOURCES
+        | ERR_INVALID_TARGET
+        | ERR_FULL
+        | ERR_NOT_IN_RANGE
+        | ERR_INVALID_ARGS
+        | ERR_TIRED
+        | ERR_NO_BODYPART;
     /**
      * Withdraw resources from a structure, tombstone, or ruin.
      *
@@ -4358,7 +4391,11 @@ interface PowerCreep extends RoomObject {
      * - ERR_NOT_IN_RANGE: The target is too far away.
      * - ERR_INVALID_ARGS: The resourceType is not one of the {@link ResourceConstant RESOURCE_*} constants, or the amount is incorrect.
      */
-    withdraw(target: Structure | Tombstone | Ruin, resourceType: ResourceConstant, amount?: number): ScreepsReturnCode;
+    withdraw(
+        target: Structure | Tombstone | Ruin,
+        resourceType: ResourceConstant,
+        amount?: number,
+    ): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS;
 }
 
 interface PowerCreepConstructor extends _Constructor<PowerCreep>, _ConstructorById<PowerCreep> {
@@ -4454,7 +4491,7 @@ interface RawMemory {
      * @param ids An array of segment IDs.
      * @throws if `ids` isn't an array, more than 10 segments are active, or the ids aren't all integers.
      */
-    setActiveSegments(ids: number[]): undefined;
+    setActiveSegments(ids: number[]): void;
     /**
      * Request a memory segment of another user.
      *
@@ -4632,7 +4669,9 @@ interface RoomPosition {
      * - ERR_INVALID_ARGS: The location is incorrect.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
-    createConstructionSite(structureType: BuildableStructureConstant): ScreepsReturnCode;
+    createConstructionSite(
+        structureType: BuildableStructureConstant,
+    ): OK | ERR_NOT_OWNER | ERR_INVALID_TARGET | ERR_FULL | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
     /**
      * Create a new {@link ConstructionSite} at the specified location.
      * @param structureType One of {@link BuildableStructureConstant Buildable STRUCTURE_*}.
@@ -4645,7 +4684,10 @@ interface RoomPosition {
      * - ERR_INVALID_ARGS: The location is incorrect.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
-    createConstructionSite(structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
+    createConstructionSite(
+        structureType: STRUCTURE_SPAWN,
+        name?: string,
+    ): OK | ERR_NOT_OWNER | ERR_INVALID_TARGET | ERR_FULL | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
     /**
      * Create a new {@link Flag} at the specified location.
      * @param name The name of a new flag.
@@ -5179,7 +5221,11 @@ interface Room {
      * - ERR_INVALID_ARGS: The location is incorrect.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
-    createConstructionSite(x: number, y: number, structureType: BuildableStructureConstant): ScreepsReturnCode;
+    createConstructionSite(
+        x: number,
+        y: number,
+        structureType: BuildableStructureConstant,
+    ): OK | ERR_NOT_OWNER | ERR_INVALID_TARGET | ERR_FULL | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
     /**
      * Create new {@link ConstructionSite} at the specified location.
      * @param pos Can be a {@link RoomPosition} object or any object containing RoomPosition.
@@ -5192,7 +5238,10 @@ interface Room {
      * - ERR_INVALID_ARGS: The location is incorrect.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
-    createConstructionSite(pos: RoomPosition | _HasRoomPosition, structureType: StructureConstant): ScreepsReturnCode;
+    createConstructionSite(
+        pos: RoomPosition | _HasRoomPosition,
+        structureType: StructureConstant,
+    ): OK | ERR_NOT_OWNER | ERR_INVALID_TARGET | ERR_FULL | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
     /**
      * Create new {@link ConstructionSite} at the specified location.
      * @param x The X position
@@ -5206,7 +5255,12 @@ interface Room {
      * - ERR_INVALID_ARGS: The location is incorrect.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
-    createConstructionSite(x: number, y: number, structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
+    createConstructionSite(
+        x: number,
+        y: number,
+        structureType: STRUCTURE_SPAWN,
+        name?: string,
+    ): OK | ERR_NOT_OWNER | ERR_INVALID_TARGET | ERR_FULL | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
     /**
      * Create new {@link ConstructionSite} at the specified location.
      * @param pos Can be a {@link RoomPosition} object or any object containing RoomPosition.
@@ -5219,7 +5273,11 @@ interface Room {
      * - ERR_INVALID_ARGS: The location is incorrect.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
-    createConstructionSite(pos: RoomPosition | _HasRoomPosition, structureType: STRUCTURE_SPAWN, name?: string): ScreepsReturnCode;
+    createConstructionSite(
+        pos: RoomPosition | _HasRoomPosition,
+        structureType: STRUCTURE_SPAWN,
+        name?: string,
+    ): OK | ERR_NOT_OWNER | ERR_INVALID_TARGET | ERR_FULL | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
     /**
      * Create new {@link Flag} at the specified location.
      * @param x The X position.
@@ -5244,7 +5302,7 @@ interface Room {
         name?: string,
         color?: ColorConstant,
         secondaryColor?: ColorConstant,
-    ): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
+    ): ERR_NAME_EXISTS | ERR_FULL | ERR_INVALID_ARGS | string;
     /**
      * Create new {@link Flag} at the specified location.
      * @param pos Can be a {@link RoomPosition} object or any object containing RoomPosition.
@@ -5267,7 +5325,7 @@ interface Room {
         name?: string,
         color?: ColorConstant,
         secondaryColor?: ColorConstant,
-    ): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
+    ): ERR_NAME_EXISTS | ERR_FULL | ERR_INVALID_ARGS | string;
     /**
      * Find all objects of the specified type in the room.
      * @param type One of the {@link FindConstant FIND_*} constants.
@@ -5342,13 +5400,13 @@ interface Room {
      * @param y The Y position.
      * @returns An array of objects of the requested type at the given position, or ERR_INVALID_ARGS.
      */
-    lookForAt<T extends keyof AllLookAtTypes>(type: T, x: number, y: number): Array<AllLookAtTypes[T]>;
+    lookForAt<T extends keyof AllLookAtTypes>(type: T, x: number, y: number): Array<AllLookAtTypes[T]> | ERR_INVALID_ARGS;
     /**
      * Get the objects at the given position.
      *
      * @param type One of the {@link LookConstant LOOK_*} constants.
      * @param target A RoomPosition. Its room name will be ignored.
-     * @returns An array of objects of the requested type at the given position, or ERR_INVALID_ARGS.
+     * @returns An array of objects of the requested type at the given position.
      */
     lookForAt<T extends keyof AllLookAtTypes>(type: T, target: RoomPosition | _HasRoomPosition): Array<AllLookAtTypes[T]>;
     /**
@@ -5562,7 +5620,10 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * - ERR_INVALID_ARGS: Body is not properly described.
      * - ERR_RCL_NOT_ENOUGH: Your Room Controller level is insufficient to use this spawn.
      */
-    canCreateCreep(body: BodyPartConstant[], name?: string): ScreepsReturnCode;
+    canCreateCreep(
+        body: BodyPartConstant[],
+        name?: string,
+    ): OK | ERR_NOT_OWNER | ERR_NAME_EXISTS | ERR_BUSY | ERR_NOT_ENOUGH_ENERGY | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
     /**
      * Start the creep spawning process.
      *
@@ -5590,7 +5651,12 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * - ERR_INVALID_ARGS: Body is not properly described.
      * - ERR_RCL_NOT_ENOUGH: Your Room Controller level is not enough to use this spawn.
      */
-    createCreep(body: BodyPartConstant[], name?: string, memory?: CreepMemory): ScreepsReturnCode | string;
+    createCreep(
+        body: BodyPartConstant[],
+        name?: string,
+        memory?: CreepMemory,
+    ): string | ERR_NOT_OWNER | ERR_NAME_EXISTS | ERR_BUSY | ERR_NOT_ENOUGH_ENERGY | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
+
     /**
      * Start the creep spawning process. The required energy amount can be withdrawn from all spawns and extensions in the room.
      *
@@ -5636,7 +5702,9 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * - ERR_NOT_IN_RANGE: The target creep is too far away.
      * - ERR_RCL_NOT_ENOUGH: Your Room Controller level is insufficient to use this spawn.
      */
-    renewCreep(target: Creep): ScreepsReturnCode;
+    renewCreep(
+        target: Creep,
+    ): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_ENERGY | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE | ERR_RCL_NOT_ENOUGH;
     /**
      * Kill the creep and drop up to 100% of resources spent on its spawning and boosting depending on remaining life time.
      *
@@ -5650,7 +5718,7 @@ interface StructureSpawn extends OwnedStructure<STRUCTURE_SPAWN> {
      * - ERR_NOT_IN_RANGE: The target creep is too far away.
      * - ERR_RCL_NOT_ENOUGH: Your Room Controller level is insufficient to use this spawn.
      */
-    recycleCreep(target: Creep): ScreepsReturnCode;
+    recycleCreep(target: Creep): OK | ERR_NOT_OWNER | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_RCL_NOT_ENOUGH;
 }
 
 interface StructureSpawnConstructor extends _Constructor<StructureSpawn>, _ConstructorById<StructureSpawn> {
@@ -5699,7 +5767,7 @@ interface Spawning {
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: You are not the owner of this spawn.
      */
-    cancel(): ScreepsReturnCode & (OK | ERR_NOT_OWNER);
+    cancel(): OK | ERR_NOT_OWNER;
 
     /**
      * Set allowed directions the creep can move when spawned.
@@ -5710,7 +5778,7 @@ interface Spawning {
      * - ERR_NOT_OWNER: You are not the owner of this spawn.
      * - ERR_INVALID_ARGS: The directions is array is invalid.
      */
-    setDirections(directions: DirectionConstant[]): ScreepsReturnCode & (OK | ERR_NOT_OWNER | ERR_INVALID_ARGS);
+    setDirections(directions: DirectionConstant[]): OK | ERR_NOT_OWNER | ERR_INVALID_ARGS;
 }
 
 /**
@@ -5875,7 +5943,7 @@ interface Structure<T extends StructureConstant = StructureConstant> extends Roo
      * - ERR_NOT_OWNER: You are not the owner of this structure.
      * - ERR_BUSY: Hostile creeps are in the room.
      */
-    destroy(): ScreepsReturnCode;
+    destroy(): OK | ERR_NOT_OWNER | ERR_BUSY;
     /**
      * Check whether this structure can be used. If the room controller level is not enough, then this method will return false, and the structure will be highlighted with red in the game.
      */
@@ -5888,7 +5956,7 @@ interface Structure<T extends StructureConstant = StructureConstant> extends Roo
      * - ERR_NOT_OWNER: You are not the owner of this structure.
      * - ERR_INVALID_ARGS: enable argument is not a boolean value.
      */
-    notifyWhenAttacked(enabled: boolean): ScreepsReturnCode;
+    notifyWhenAttacked(enabled: boolean): OK | ERR_NOT_OWNER | ERR_INVALID_ARGS;
 }
 
 interface StructureConstructor extends _Constructor<Structure>, _ConstructorById<Structure> {}
@@ -5993,14 +6061,14 @@ interface StructureController extends OwnedStructure<STRUCTURE_CONTROLLER> {
      * - ERR_NOT_ENOUGH_RESOURCES: There is no safe mode activations available.
      * - ERR_TIRED: The previous safe mode is still cooling down, or the controller is upgradeBlocked, or the controller is downgraded for 50% plus 5000 ticks or more.
      */
-    activateSafeMode(): ScreepsReturnCode;
+    activateSafeMode(): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_TIRED;
     /**
      * Make your claimed controller neutral again.
      * @returns One of the following codes:
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: You are not the owner of this controller.
      */
-    unclaim(): ScreepsReturnCode;
+    unclaim(): OK | ERR_NOT_OWNER;
 }
 
 interface StructureControllerConstructor extends _Constructor<StructureController>, _ConstructorById<StructureController> {}
@@ -6081,7 +6149,7 @@ interface StructureLink extends OwnedStructure<STRUCTURE_LINK> {
      * - ERR_TIRED: The link is still cooling down.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this link.
      */
-    transferEnergy(target: StructureLink, amount?: number): ScreepsReturnCode;
+    transferEnergy(target: StructureLink, amount?: number): OK | ERR_NOT_OWNER | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS | ERR_TIRED | ERR_RCL_NOT_ENOUGH;
 }
 
 interface StructureLinkConstructor extends _Constructor<StructureLink>, _ConstructorById<StructureLink> {}
@@ -6125,7 +6193,7 @@ interface StructureObserver extends OwnedStructure<STRUCTURE_OBSERVER> {
      * - ERR_INVALID_ARGS: roomName argument is not a valid room name value.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
-    observeRoom(roomName: string): ScreepsReturnCode;
+    observeRoom(roomName: string): OK | ERR_NOT_OWNER | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS | ERR_RCL_NOT_ENOUGH;
 }
 
 interface StructureObserverConstructor extends _Constructor<StructureObserver>, _ConstructorById<StructureObserver> {}
@@ -6198,7 +6266,7 @@ interface StructurePowerSpawn extends OwnedStructure<STRUCTURE_POWER_SPAWN> {
      * - ERR_NOT_ENOUGH_RESOURCES: The structure does not have enough energy or power resource units.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
-    processPower(): ScreepsReturnCode;
+    processPower(): OK | ERR_NOT_OWNER | ERR_NOT_ENOUGH_RESOURCES | ERR_RCL_NOT_ENOUGH;
 }
 
 interface StructurePowerSpawnConstructor extends _Constructor<StructurePowerSpawn>, _ConstructorById<StructurePowerSpawn> {}
@@ -6234,7 +6302,7 @@ interface StructureRampart extends OwnedStructure<STRUCTURE_RAMPART> {
      * - OK: The operation has been scheduled successfully.
      * - ERR_NOT_OWNER: You are not the owner of this structure.
      */
-    setPublic(isPublic: boolean): undefined;
+    setPublic(isPublic: boolean): OK | ERR_NOT_OWNER;
 }
 
 interface StructureRampartConstructor extends _Constructor<StructureRampart>, _ConstructorById<StructureRampart> {}
@@ -6318,7 +6386,7 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
      * - ERR_INVALID_TARGET: The target is not a valid attackable object.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
-    attack(target: AnyCreep | Structure): ScreepsReturnCode;
+    attack(target: AnyCreep | Structure): OK | ERR_NOT_OWNER | ERR_NOT_ENOUGH_ENERGY | ERR_INVALID_TARGET | ERR_RCL_NOT_ENOUGH;
     /**
      * Remotely heal any creep in the room.
      *
@@ -6331,7 +6399,7 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
      * - ERR_INVALID_TARGET: The target is not a valid attackable object.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
-    heal(target: AnyCreep): ScreepsReturnCode;
+    heal(target: AnyCreep): OK | ERR_NOT_OWNER | ERR_NOT_ENOUGH_ENERGY | ERR_INVALID_TARGET | ERR_RCL_NOT_ENOUGH;
     /**
      * Remotely repair any structure in the room.
      *
@@ -6344,7 +6412,7 @@ interface StructureTower extends OwnedStructure<STRUCTURE_TOWER> {
      * - ERR_INVALID_TARGET: The target is not a valid attackable object.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
-    repair(target: Structure): ScreepsReturnCode;
+    repair(target: Structure): OK | ERR_NOT_OWNER | ERR_NOT_ENOUGH_ENERGY | ERR_INVALID_TARGET | ERR_RCL_NOT_ENOUGH;
 }
 
 interface StructureTowerConstructor extends _Constructor<StructureTower>, _ConstructorById<StructureTower> {}
@@ -6438,7 +6506,7 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
      * - ERR_NOT_IN_RANGE: The targets are too far away.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
-    boostCreep(creep: Creep, bodyPartsCount?: number): ScreepsReturnCode;
+    boostCreep(creep: Creep, bodyPartsCount?: number): OK | ERR_NOT_OWNER | ERR_NOT_FOUND | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_RCL_NOT_ENOUGH;
     /**
      * Unboost a creep.
      *
@@ -6455,7 +6523,7 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
      * - ERR_TIRED: The lab is still cooling down.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
-    unboostCreep(creep: Creep): ScreepsReturnCode;
+    unboostCreep(creep: Creep): OK | ERR_NOT_OWNER | ERR_NOT_FOUND | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_TIRED | ERR_RCL_NOT_ENOUGH;
     /**
      * Breaks mineral compounds back into reagents.
      *
@@ -6473,7 +6541,7 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
      * - ERR_TIRED: The lab is still cooling down.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
-    reverseReaction(lab1: StructureLab, lab2: StructureLab): ScreepsReturnCode;
+    reverseReaction(lab1: StructureLab, lab2: StructureLab): OK | ERR_NOT_OWNER | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS | ERR_TIRED | ERR_RCL_NOT_ENOUGH;
     /**
      * Produce mineral compounds using reagents from two another labs.
      *
@@ -6491,7 +6559,7 @@ interface StructureLab extends OwnedStructure<STRUCTURE_LAB> {
      * - ERR_TIRED: The lab is still cooling down.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
-    runReaction(lab1: StructureLab, lab2: StructureLab): ScreepsReturnCode;
+    runReaction(lab1: StructureLab, lab2: StructureLab): OK | ERR_NOT_OWNER | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_FULL | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS | ERR_TIRED | ERR_RCL_NOT_ENOUGH;
 }
 
 interface StructureLabConstructor extends _Constructor<StructureLab>, _ConstructorById<StructureLab> {}
@@ -6529,7 +6597,7 @@ interface StructureTerminal extends OwnedStructure<STRUCTURE_TERMINAL> {
      * - ERR_INVALID_ARGS: The arguments provided are incorrect.
      * - ERR_TIRED: The terminal is still cooling down.
      */
-    send(resourceType: ResourceConstant, amount: number, destination: string, description?: string): ScreepsReturnCode;
+    send(resourceType: ResourceConstant, amount: number, destination: string, description?: string): OK | ERR_NOT_OWNER | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_ARGS | ERR_TIRED;
 }
 
 interface StructureTerminalConstructor extends _Constructor<StructureTerminal>, _ConstructorById<StructureTerminal> {}
@@ -6616,12 +6684,17 @@ interface StructureNuker extends OwnedStructure<STRUCTURE_NUKER> {
      * - ERR_TIRED: This structure is still cooling down.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use this structure.
      */
-    launchNuke(pos: RoomPosition): ScreepsReturnCode;
+    launchNuke(pos: RoomPosition): OK | ERR_NOT_OWNER | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE | ERR_INVALID_ARGS | ERR_TIRED | ERR_RCL_NOT_ENOUGH;
 }
 
 interface StructureNukerConstructor extends _Constructor<StructureNuker>, _ConstructorById<StructureNuker> {}
 
 declare const StructureNuker: StructureNukerConstructor;
+
+interface PortalDestination {
+    shard: string;
+    room: string
+}
 
 /**
  * A non-player structure.
@@ -6638,7 +6711,7 @@ interface StructurePortal extends Structure<STRUCTURE_PORTAL> {
      * If this is an inter-shard portal, then this property contains an object with shard and room string properties.
      * Exact coordinates are undetermined, the creep will appear at any free spot in the destination room.
      */
-    destination: RoomPosition | { shard: string; room: string };
+    destination: RoomPosition | PortalDestination;
     /**
      * The amount of game ticks when the portal disappears, or undefined when the portal is stable.
      */
@@ -6685,7 +6758,7 @@ interface StructureFactory extends OwnedStructure<STRUCTURE_FACTORY> {
      * - ERR_TIRED: The factory is still cooling down.
      * - ERR_RCL_NOT_ENOUGH: Your Room Controller level is insufficient to use the factory.
      */
-    produce(resource: CommoditiesTypes): ScreepsReturnCode;
+    produce(resource: CommoditiesTypes): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_NOT_ENOUGH_RESOURCES | ERR_INVALID_TARGET | ERR_FULL | ERR_INVALID_ARGS | ERR_TIRED | ERR_RCL_NOT_ENOUGH;
 }
 
 interface StructureFactoryConstructor extends _Constructor<StructureFactory>, _ConstructorById<StructureFactory> {}
