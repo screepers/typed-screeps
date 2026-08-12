@@ -78,7 +78,7 @@ interface Room {
      * - ERR_INVALID_ARGS: The location is incorrect.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient.
      */
-    createConstructionSite(pos: RoomPosition | _HasRoomPosition, structureType: StructureConstant): ScreepsReturnCode;
+    createConstructionSite(pos: RoomPosition | _HasRoomPosition, structureType: BuildableStructureConstant): ScreepsReturnCode;
     /**
      * Create new {@link ConstructionSite} at the specified location.
      * @param x The X position
