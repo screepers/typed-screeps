@@ -374,12 +374,12 @@ function resources(o: GenericStore): ResourceConstant[] {
     const cost = Game.market.calcTransactionCost(1000, "W0N0", "W10N5");
 
     // Game.market.cancelOrder(orderId)
-    for (const id of Object.keys(Game.market.orders)) {
+    for (const id of Object.keys(Game.market.orders) as Array<keyof typeof Game.market.orders>) {
         Game.market.cancelOrder(id);
     }
 
     // Game.market.changeOrderPrice(orderId, newPrice)
-    Game.market.changeOrderPrice("57bec1bf77f4d17c4c011960", 9.95);
+    Game.market.changeOrderPrice("57bec1bf77f4d17c4c011960" as Id<Order>, 9.95);
 
     // Game.market.createOrder({type, resourceType, price, totalAmount, [roomName]})
     Game.market.createOrder({ type: ORDER_SELL, resourceType: RESOURCE_GHODIUM, price: 9.95, totalAmount: 10000, roomName: "W1N1" });
@@ -401,7 +401,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     // Game.market.deal(orderId, amount, [yourRoomName])
-    Game.market.deal("57cd2b12cda69a004ae223a3", 1000, "W1N1");
+    Game.market.deal("57cd2b12cda69a004ae223a3" as Id<Order>, 1000, "W1N1");
 
     const amountToBuy = 2000;
     const maxTransferEnergyCost = 500;
@@ -419,7 +419,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     }
 
     // Game.market.extendOrder(orderId, addAmount)
-    Game.market.extendOrder("57bec1bf77f4d17c4c011960", 10000);
+    Game.market.extendOrder("57bec1bf77f4d17c4c011960" as Id<Order>, 10000);
 
     // Game.market.getAllOrders([filter])
     Game.market.getAllOrders();
@@ -434,7 +434,7 @@ function resources(o: GenericStore): ResourceConstant[] {
     );
 
     // Game.market.getOrderById(id)
-    const order = Game.market.getOrderById("55c34a6b5be41a0a6e80c123");
+    const order = Game.market.getOrderById("55c34a6b5be41a0a6e80c123" as Id<Order>);
 
     // Subscription tokens
     Game.market.getAllOrders({ type: ORDER_SELL, resourceType: SUBSCRIPTION_TOKEN });
