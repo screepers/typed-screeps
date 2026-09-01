@@ -1024,6 +1024,25 @@ function resources(o: GenericStore): ResourceConstant[] {
             filter: (s) => s.structureType === STRUCTURE_RAMPART,
         })
         .forEach((r) => r.notifyWhenAttacked(false));
+
+    const NPC_STRUCTURE_CONSTANTS_SET = new Set<StructureConstant>([STRUCTURE_INVADER_CORE, STRUCTURE_KEEPER_LAIR, STRUCTURE_POWER_BANK]);
+
+    const structureTargets: AnyVulnerableStructure[] = Game.rooms.myRoom.find(FIND_STRUCTURES, {
+        filter: (s) => (!("my" in s) || !s.my) && s.hits > 0,
+    });
+
+    const dismantleTargets = structureTargets.filter((s: AnyVulnerableStructure): s is AnyBuildableStructure => {
+        return !NPC_STRUCTURE_CONSTANTS_SET.has(s.structureType);
+    });
+
+    const hostilePlayerStructures: Exclude<AnyOwnedStructure, AnyNpcStructure>[] = Game.rooms.myRoom.find(FIND_HOSTILE_STRUCTURES, {
+        filter: (s) => !NPC_STRUCTURE_CONSTANTS_SET.has(s.structureType),
+    });
+
+    function findMyOwnedStructuresByType<T extends OwnedStructureConstant>(room: Room, structureType: T): ConcreteStructure<T>[] {
+        return room.find(FIND_MY_STRUCTURES, { filter: (s) => s.structureType === structureType });
+    }
+    const myTowers = findMyOwnedStructuresByType(Game.rooms.myRoom, STRUCTURE_TOWER);
 }
 
 {
