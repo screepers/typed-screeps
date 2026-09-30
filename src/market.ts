@@ -18,7 +18,7 @@ interface Market {
     /**
      * An object with your active and inactive buy/sell orders on the market.
      */
-    orders: { [key: string]: Order };
+    orders: { [key: OrderId]: Order };
     /**
      * An array of the last 100 outgoing transactions from your terminals
      */
@@ -47,7 +47,7 @@ interface Market {
      * - OK: The operation has been scheduled successfully.
      * - ERR_INVALID_ARGS: The order ID is not valid.
      */
-    cancelOrder(orderId: string): ScreepsReturnCode;
+    cancelOrder(orderId: OrderId): ScreepsReturnCode;
     /**
      * Change the price of an existing order.
      *
@@ -60,7 +60,7 @@ interface Market {
      * - ERR_NOT_ENOUGH_RESOURCES: You don't have enough credits to pay a fee.
      * - ERR_INVALID_ARGS: The arguments provided are invalid.
      */
-    changeOrderPrice(orderId: string, newPrice: number): ScreepsReturnCode;
+    changeOrderPrice(orderId: OrderId, newPrice: number): ScreepsReturnCode;
     /**
      * Create a market order in your terminal.
      *
@@ -103,7 +103,7 @@ interface Market {
      * - ERR_INVALID_ARGS: The arguments provided are invalid.
      * - ERR_TIRED: The target terminal is still cooling down.
      */
-    deal(orderId: string, amount: number, yourRoomName?: string): ScreepsReturnCode;
+    deal(orderId: OrderId, amount: number, yourRoomName?: string): ScreepsReturnCode;
     /**
      * Add more capacity to an existing order.
      *
@@ -117,7 +117,7 @@ interface Market {
      * - ERR_NOT_ENOUGH_RESOURCES: You don't have enough credits to pay a fee.
      * - ERR_INVALID_ARGS:  The arguments provided are invalid.
      */
-    extendOrder(orderId: string, addAmount: number): ScreepsReturnCode;
+    extendOrder(orderId: OrderId, addAmount: number): ScreepsReturnCode;
     /**
      * Get other players' orders currently active on the market.
      * @param filter (optional) An object or function that will filter the resulting list using the lodash.filter method.
@@ -135,7 +135,7 @@ interface Market {
      * @param orderId The order ID.
      * @returns An object with the order info. See {@link Order}.
      */
-    getOrderById(id: string): Order | null;
+    getOrderById(id: OrderId): Order | null;
 }
 
 // No static is available
@@ -153,9 +153,11 @@ interface Transaction {
     order?: TransactionOrder;
 }
 
+type OrderId = GenericId<Order>;
+
 interface Order {
     /** The unique order ID. */
-    id: string;
+    id: OrderId;
     /**
      * The order creation time in milliseconds since UNIX epoch time.
      *
@@ -184,16 +186,18 @@ interface Order {
     price: number;
 }
 
+type TransactionOrderId = GenericId<TransactionOrder>;
+
 interface TransactionOrder {
-    id: string;
-    type: string;
+    id: TransactionOrderId;
+    type: ORDER_BUY | ORDER_SELL;
     price: number;
 }
 
 interface OrderFilter {
-    id?: string;
+    id?: OrderId;
     created?: number;
-    type?: string;
+    type?: ORDER_BUY | ORDER_SELL;
     resourceType?: MarketResourceConstant;
     roomName?: string;
     amount?: number;
