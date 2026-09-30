@@ -1125,9 +1125,11 @@ function resources(o: GenericStore): ResourceConstant[] {
     switch (event.event) {
         case EVENT_ATTACK:
             const attackType: EventAttackType = event.data.attackType;
+            const attacker: Creep | PowerCreep | Structure | null = Game.getObjectById(event.objectId);
             break;
         case EVENT_BUILD:
             const incomplete: boolean = event.data.incomplete;
+            const target: ConstructionSite = Game.getObjectById(event.data.targetId)!;
             break;
         case EVENT_POWER:
             const power = event.data.power;

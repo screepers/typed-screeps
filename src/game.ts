@@ -55,12 +55,12 @@ interface Game {
     /**
      * A hash containing all your structures with structure id as hash keys.
      */
-    structures: { [structureId: string]: OwnedStructure };
+    structures: { [structureId: Id<OwnedStructure>]: OwnedStructure };
 
     /**
      * A hash containing all your construction sites with their id as hash keys.
      */
-    constructionSites: { [constructionSiteId: string]: ConstructionSite };
+    constructionSites: { [constructionSiteId: Id<ConstructionSite>]: ConstructionSite };
 
     /**
      * An object describing the world shard where your script is currently being executed in.
