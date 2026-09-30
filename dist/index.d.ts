@@ -4000,6 +4000,11 @@ interface CostMatrix {
      * Returns a compact representation of this CostMatrix which can be stored via JSON.stringify.
      */
     serialize(): number[];
+    /**
+     * Internal storage of 2500 8-bit values.
+     * WARNING: This is not part of the officially documented API.
+     */
+    _bits: Uint8Array & { length: 2500 };
 }
 
 declare const PathFinder: PathFinder;
