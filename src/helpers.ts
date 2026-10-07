@@ -229,10 +229,10 @@ interface CPUShardLimits {
 }
 
 /** A general purpose Store, which has a limited capacity */
-type StoreDefinition = Store<ResourceConstant, false>;
+type StoreDefinition = StoreOf<ResourceConstant, false>;
 
 /** A general purpose Store, which has an unlimited capacity */
-type StoreDefinitionUnlimited = Store<ResourceConstant, true>;
+type StoreDefinitionUnlimited = StoreOf<ResourceConstant, true>;
 
 /**
  * @example
