@@ -451,6 +451,24 @@ function resources(o: GenericStore): ResourceConstant[] {
     const pixelHistory = Game.market.getHistory(PIXEL);
 }
 
+function priceToMove(order: Order): boolean {
+    if (!order.remainingAmount) {
+        return false;
+    }
+
+    // @ts-expect-error: created is undefined for intershard orders
+    Game.time - order.created < 10_000;
+
+    const isOpenTooLong =
+        order.created !== undefined ? Game.time - order.created > 10_000 : Date.now() - order.createdTimestamp > 7_200_000;
+    if (!isOpenTooLong) {
+        return false;
+    }
+
+    Game.market.changeOrderPrice(order.id, order.price * (order.type === ORDER_BUY ? 1.05 : 0.95));
+    return true;
+}
+
 // PathFinder
 
 {
