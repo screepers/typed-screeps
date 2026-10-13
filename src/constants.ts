@@ -608,8 +608,7 @@ declare const REACTION_TIME: {
     XGHO2: 150;
 };
 
-declare const BOOSTS: {
-    [part: string]: { [boost: string]: { [action: string]: number } };
+interface BoostsDefinition {
     work: {
         UO: {
             harvest: 3;
@@ -723,6 +722,14 @@ declare const BOOSTS: {
             damage: 0.3;
         };
     };
+}
+
+type IndexableBoostValue<V> = V & Partial<Record<MineralBoostConstant, Partial<Record<BoostModifier, number>>>>;
+
+declare const BOOSTS: {
+    [K in keyof BoostsDefinition]: IndexableBoostValue<BoostsDefinition[K]>;
+} & {
+    claim?: Partial<Record<MineralBoostConstant, Partial<Record<BoostModifier, number>>>>;
 };
 
 declare const INTERSHARD_RESOURCES: InterShardResourceConstant[];
