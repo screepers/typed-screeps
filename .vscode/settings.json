@@ -1,7 +1,9 @@
 {
     "editor.insertSpaces": true,
     "editor.tabSize": 4,
-    "editor.rulers": [140],
+    "editor.rulers": [
+        120
+    ],
     "files.encoding": "utf8",
     "files.insertFinalNewline": true,
     "files.trimTrailingWhitespace": true,

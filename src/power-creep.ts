@@ -192,7 +192,11 @@ interface PowerCreep extends RoomObject {
      * - ERR_NOT_FOUND: The creep has no memorized path to reuse.
      * - ERR_INVALID_TARGET: The target provided is invalid.
      */
-    moveTo(x: number, y: number, opts?: MoveToOpts): OK | ERR_NOT_OWNER | ERR_NO_PATH | ERR_BUSY | ERR_NOT_FOUND | ERR_INVALID_TARGET;
+    moveTo(
+        x: number,
+        y: number,
+        opts?: MoveToOpts,
+    ): OK | ERR_NOT_OWNER | ERR_NO_PATH | ERR_BUSY | ERR_NOT_FOUND | ERR_INVALID_TARGET;
     moveTo(
         target: RoomPosition | { pos: RoomPosition },
         opts?: MoveToOpts,
@@ -246,7 +250,9 @@ interface PowerCreep extends RoomObject {
      * - ERR_INVALID_TARGET: The target is not a valid power bank or power spawn.
      * - ERR_NOT_IN_RANGE: The target is too far away.
      */
-    renew(target: StructurePowerBank | StructurePowerSpawn): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE;
+    renew(
+        target: StructurePowerBank | StructurePowerSpawn,
+    ): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_NOT_IN_RANGE;
     /**
      * Display a visual speech balloon above the creep with the specified message.
      *
@@ -272,7 +278,9 @@ interface PowerCreep extends RoomObject {
      * - ERR_TIRED: The power creep cannot be spawned because of the cooldown.
      * - ERR_RCL_NOT_ENOUGH: Room Controller Level insufficient to use the spawn.
      */
-    spawn(powerSpawn: StructurePowerSpawn): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_TIRED | ERR_RCL_NOT_ENOUGH;
+    spawn(
+        powerSpawn: StructurePowerSpawn,
+    ): OK | ERR_NOT_OWNER | ERR_BUSY | ERR_INVALID_TARGET | ERR_TIRED | ERR_RCL_NOT_ENOUGH;
     /**
      * Kill the power creep immediately.
      *
@@ -380,14 +388,14 @@ declare const PowerCreep: PowerCreepConstructor;
 interface PowerCreepPowers {
     [powerID: number]:
         | {
-              /**
-               * Current level of the power
-               */
-              level: number;
-              /**
-               * Cooldown ticks remaining
-               */
-              cooldown: number;
-          }
+            /**
+             * Current level of the power
+             */
+            level: number;
+            /**
+             * Cooldown ticks remaining
+             */
+            cooldown: number;
+        }
         | undefined;
 }

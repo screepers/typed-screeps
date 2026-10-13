@@ -54,7 +54,11 @@ interface RoomPosition {
      * @param secondaryColor The secondary color of a new flag. Should be one of the {@link ColorConstant COLOR_*} constants. The default value is equal to color.
      * @returns The name of the flag if created, or one of the following error codes: ERR_NAME_EXISTS, ERR_INVALID_ARGS
      */
-    createFlag(name?: string, color?: ColorConstant, secondaryColor?: ColorConstant): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
+    createFlag(
+        name?: string,
+        color?: ColorConstant,
+        secondaryColor?: ColorConstant,
+    ): ERR_NAME_EXISTS | ERR_INVALID_ARGS | string;
     /**
      * Find the object with the shortest path from the given position.
      *
@@ -81,8 +85,10 @@ interface RoomPosition {
      */
     findClosestByPath<T extends _HasRoomPosition | RoomPosition, S extends T = T>(
         objects: T[],
-        opts?: FindPathOpts &
-            FilterOptions<T, S> & {
+        opts?:
+            & FindPathOpts
+            & FilterOptions<T, S>
+            & {
                 algorithm?: FindClosestByPathAlgorithm;
             },
     ): S | null;
@@ -91,7 +97,10 @@ interface RoomPosition {
      * @param type Any of the {@link FindConstant FIND_*} constants.
      * @param opts An object containing pathfinding options (see {@link Room.findPath}), or one of the following: filter, algorithm
      */
-    findClosestByRange<K extends FindConstant, S extends FindTypes[K]>(type: K, opts?: FilterOptions<FindTypes[K], S>): S | null;
+    findClosestByRange<K extends FindConstant, S extends FindTypes[K]>(
+        type: K,
+        opts?: FilterOptions<FindTypes[K], S>,
+    ): S | null;
     findClosestByRange<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
         opts?: FilterOptions<FindTypes[FIND_STRUCTURES], S>,
@@ -101,14 +110,21 @@ interface RoomPosition {
      * @param objects An array of RoomPositions or objects with a RoomPosition.
      * @param opts An object containing pathfinding options (see {@link Room.findPath}), or one of the following: filter, algorithm
      */
-    findClosestByRange<T extends _HasRoomPosition | RoomPosition, S extends T = T>(objects: T[], opts?: FilterOptions<T, S>): S | null;
+    findClosestByRange<T extends _HasRoomPosition | RoomPosition, S extends T = T>(
+        objects: T[],
+        opts?: FilterOptions<T, S>,
+    ): S | null;
     /**
      * Find all objects in the specified linear range.
      * @param type Any of the {@link FindConstant FIND_*} constants.
      * @param range The range distance.
      * @param opts See Room.find.
      */
-    findInRange<K extends FindConstant, S extends FindTypes[K]>(type: K, range: number, opts?: FilterOptions<FindTypes[K], S>): S[];
+    findInRange<K extends FindConstant, S extends FindTypes[K]>(
+        type: K,
+        range: number,
+        opts?: FilterOptions<FindTypes[K], S>,
+    ): S[];
     findInRange<S extends AnyStructure>(
         type: FIND_STRUCTURES | FIND_MY_STRUCTURES | FIND_HOSTILE_STRUCTURES,
         range: number,
@@ -120,7 +136,11 @@ interface RoomPosition {
      * @param range The range distance.
      * @param opts See {@link Room.find}.
      */
-    findInRange<T extends _HasRoomPosition | RoomPosition, S extends T = T>(objects: T[], range: number, opts?: FilterOptions<T, S>): S[];
+    findInRange<T extends _HasRoomPosition | RoomPosition, S extends T = T>(
+        objects: T[],
+        range: number,
+        opts?: FilterOptions<T, S>,
+    ): S[];
     /**
      * Find an optimal path to the specified position using A* search algorithm.
      *
@@ -218,7 +238,7 @@ interface RoomPositionConstructor extends _Constructor<RoomPosition> {
      * @param roomName The room name.
      * @throws if `x` or `y` are out of bounds, or `roomName` isn't a valid room name.
      */
-    new (x: number, y: number, roomName: string): RoomPosition;
+    new(x: number, y: number, roomName: string): RoomPosition;
     (x: number, y: number, roomName: string): RoomPosition;
 }
 

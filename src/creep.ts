@@ -189,7 +189,9 @@ interface Creep extends RoomObject {
      * - ERR_GCL_NOT_ENOUGH: Your Global Control Level is not enough.
      * - ERR_ACCESS_DENIED: The shard access is restricted.
      */
-    claimController(target: StructureController): CreepActionReturnCode | ERR_FULL | ERR_GCL_NOT_ENOUGH | ERR_ACCESS_DENIED;
+    claimController(
+        target: StructureController,
+    ): CreepActionReturnCode | ERR_FULL | ERR_GCL_NOT_ENOUGH | ERR_ACCESS_DENIED;
     /**
      * Dismantles any structure that can be constructed (even hostile) returning 50% of the energy spent on its repair.
      *

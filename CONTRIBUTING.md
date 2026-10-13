@@ -67,4 +67,39 @@ If you are just submitting a PR, this isn't needed, but for new maintainers, whe
 3. Update version numbers if required
 4. (If releasing) Package a release / Update the relevant draft release
 5. Close / Update relevant issues
-6. (If publishing) Submit a PR to Definitely-Typed
+6. (If publishing) Sync to DefinitelyTyped (see below)
+
+## Publishing to DefinitelyTyped
+
+Consumers install `@types/screeps` from [DefinitelyTyped](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/screeps). This repo keeps a DT-shaped package under `dist/` and provides two maintainer scripts that use a **local sparse clone** of DefinitelyTyped at `./DefinitelyTyped` (gitignored) so you do not need a full DT checkout.
+
+### Pull DT → `dist/` (do not revert upstream edits)
+
+```bash
+npm run dt:pull
+```
+
+First run only bootstraps the merge base (`refs/dt/base`) and leaves `dist/` unchanged. Later runs 3-way-merge the current `types/screeps` tree into `dist/` against that base, so DT-side tooling/config changes are preserved.
+
+The script **never commits**. It leaves `dist/` dirty for you to review, port any declaration fixes into `src/`, and commit yourself. Re-run `dt:pull` after that commit to advance the merge base.
+
+```bash
+bash ./scripts/dt-pull.sh --reset-base   # set merge base to current DT; do not touch dist/
+```
+
+Note: husky regenerates `dist/index.d.ts` from `src/` on commit, so DT-only edits to that file will be lost unless ported into `src/` first.
+
+### Push `dist/` → ready-to-PR DT branch
+
+```bash
+npm run dt:push
+```
+
+This updates the sparse DT clone from `master`, creates `screeps-v<version>`, and copies `dist/` into `types/screeps/`. Push that branch to your DefinitelyTyped fork and open the upstream PR yourself (DT may supply its own PR template).
+
+Typical release sequence:
+
+1. `npm run dt:pull` (merge any DT-side drift into `dist/`)
+2. Finish the version/changelog/release checklist above
+3. `npm run dt:push`, then push the branch from `./DefinitelyTyped` and open the DT PR
+4. After DT CI is green, get an owner review and comment `Ready to merge` for typescript-bot

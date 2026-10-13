@@ -188,23 +188,22 @@ interface HeapStatistics {
 /**
  * Describes one part of a creep’s body.
  */
-type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = T extends any
-    ? {
-          /**
-           * One of the {@link ResourceConstant RESOURCE_*} constants.
-           *
-           * If the body part is boosted, this property specifies the mineral type which is used for boosting.
-           */
-          boost?: keyof (typeof BOOSTS)[T];
-          /**
-           * One of the body part types constants.
-           */
-          type: T;
-          /**
-           * The remaining amount of hit points of this body part.
-           */
-          hits: number;
-      }
+type BodyPartDefinition<T extends BodyPartConstant = BodyPartConstant> = T extends any ? {
+        /**
+         * One of the {@link ResourceConstant RESOURCE_*} constants.
+         *
+         * If the body part is boosted, this property specifies the mineral type which is used for boosting.
+         */
+        boost?: keyof (typeof BOOSTS)[T];
+        /**
+         * One of the body part types constants.
+         */
+        type: T;
+        /**
+         * The remaining amount of hit points of this body part.
+         */
+        hits: number;
+    }
     : never;
 
 interface Owner {
@@ -285,9 +284,14 @@ interface LookForAtAreaResultMatrix<T> {
 
 type LookForAtAreaResult<T, K extends keyof LookAtTypes = keyof LookAtTypes> = { type: K } & { [P in K]: T };
 
-type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTypes> = LookForAtAreaResult<T, K> & { x: number; y: number };
+type LookForAtAreaResultWithPos<T, K extends keyof LookAtTypes = keyof LookAtTypes> = LookForAtAreaResult<T, K> & {
+    x: number;
+    y: number;
+};
 
-type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<LookForAtAreaResultWithPos<T, K>>;
+type LookForAtAreaResultArray<T, K extends keyof LookAtTypes = keyof LookAtTypes> = Array<
+    LookForAtAreaResultWithPos<T, K>
+>;
 
 interface FindTypes {
     [key: number]:
@@ -489,7 +493,7 @@ interface _Constructor<T> {
 }
 
 interface _ConstructorById<T extends _HasId> extends _Constructor<T> {
-    new (id: Id<T>): T;
+    new(id: Id<T>): T;
     (id: Id<T>): T;
 }
 
