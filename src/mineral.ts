@@ -19,10 +19,6 @@
  */
 interface Mineral<T extends MineralConstant = MineralConstant> extends RoomObject {
     /**
-     * The prototype is stored in the Mineral.prototype global object. You can use it to extend game objects behaviour globally.
-     */
-    readonly prototype: Mineral;
-    /**
      * The density of this mineral deposit, one of the {@link DensityConstant DENSITY_*} constants.
      */
     density: DensityConstant;
