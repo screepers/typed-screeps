@@ -221,7 +221,20 @@ type COLOR_WHITE = 10;
 
 // Structure Constants
 
-type BuildableStructureConstant =
+/**
+ * Utility type that extracts underlying {@link StructureConstant}s from a discriminated union of {@link Structure}s
+ */
+type ExtractStructureType<T> = T extends Structure<infer U> ? U : never;
+
+type BuildableStructureConstant = ExtractStructureType<AnyBuildableStructure>;
+
+type NpcStructureConstant = ExtractStructureType<AnyNpcStructure>;
+
+type OwnedStructureConstant = ExtractStructureType<AnyOwnedStructure>;
+
+type StoreStructureConstant = ExtractStructureType<AnyStoreStructure>;
+
+type StructureConstant =
     | STRUCTURE_EXTENSION
     | STRUCTURE_RAMPART
     | STRUCTURE_ROAD
@@ -237,15 +250,14 @@ type BuildableStructureConstant =
     | STRUCTURE_TERMINAL
     | STRUCTURE_CONTAINER
     | STRUCTURE_NUKER
-    | STRUCTURE_FACTORY;
-
-type StructureConstant =
-    | BuildableStructureConstant
+    | STRUCTURE_FACTORY
     | STRUCTURE_KEEPER_LAIR
     | STRUCTURE_CONTROLLER
     | STRUCTURE_POWER_BANK
     | STRUCTURE_PORTAL
     | STRUCTURE_INVADER_CORE;
+
+type VulnerableStructureConstant = ExtractStructureType<AnyVulnerableStructure>;
 
 type STRUCTURE_EXTENSION = "extension";
 type STRUCTURE_RAMPART = "rampart";
