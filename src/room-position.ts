@@ -142,13 +142,15 @@ interface RoomPosition {
      * Get linear direction to the specified position.
      * @param x X position in the room.
      * @param y Y position in the room.
+     * @returns The direction, or `undefined` if the target is the same tile.
      */
-    getDirectionTo(x: number, y: number): DirectionConstant;
+    getDirectionTo(x: number, y: number): DirectionConstant | undefined;
     /**
      * Get linear direction to the specified position.
      * @param target Can be a RoomPosition object or any object containing RoomPosition.
+     * @returns The direction, or `undefined` if the target is the same tile.
      */
-    getDirectionTo(target: RoomPosition | _HasRoomPosition): DirectionConstant;
+    getDirectionTo(target: RoomPosition | _HasRoomPosition): DirectionConstant | undefined;
     /**
      * Get linear range to the specified position.
      * @param x X position in the room.
