@@ -509,7 +509,10 @@ function resources(o: GenericStore): ResourceConstant[] {
     });
 
     const pos = ret.path[0];
-    pfCreep.move(pfCreep.pos.getDirectionTo(pos));
+    const dir = pfCreep.pos.getDirectionTo(pos);
+    if (dir !== undefined) {
+        pfCreep.move(dir);
+    }
 
     // CostMatrix Creation
     const costs = new PathFinder.CostMatrix();
@@ -660,6 +663,13 @@ function resources(o: GenericStore): ResourceConstant[] {
 // RoomPosition Finds
 
 {
+    // $ExpectType DirectionConstant | undefined
+    creep.pos.getDirectionTo(25, 25);
+    // $ExpectType DirectionConstant | undefined
+    creep.pos.getDirectionTo(new RoomPosition(25, 25, creep.room.name));
+    // $ExpectType DirectionConstant | undefined
+    creep.pos.getDirectionTo(creep);
+
     // Should have type Creep
     const hostileCreep = creep.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
     if (hostileCreep !== null) {
